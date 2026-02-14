@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moto Partes El Jefe | Catálogo Digital</title>
-   <link rel="icon" href="logo.ico">
+    <link rel="icon" href="logo.ico">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -61,6 +61,16 @@
         .compat-table-body::-webkit-scrollbar { width: 6px; }
         .compat-table-body::-webkit-scrollbar-track { background: #f1f1f1; }
         .compat-table-body::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+
+        /* NUEVO: Estilos de Paginación */
+        .pagination-container { display: flex; justify-content: center; gap: 10px; margin-top: 30px; padding-bottom: 20px; }
+        .page-btn {
+            background-color: white; border: 2px solid var(--azul-brand); color: var(--azul-brand);
+            width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+            font-weight: bold; cursor: pointer; border-radius: 5px; transition: all 0.3s;
+        }
+        .page-btn:hover { background-color: #f0f0f0; }
+        .page-btn.active { background-color: var(--azul-brand); color: white; }
     </style>
 </head>
 <body class="mb-0">
@@ -79,19 +89,21 @@
 
     <nav class="category-nav">
         <div class="max-w-7xl mx-auto px-4 flex justify-start md:justify-center overflow-x-auto no-scrollbar py-1">
-            <button onclick="switchTab('afinacion')" id="btn-afinacion" class="nav-btn active whitespace-nowrap flex-shrink-0"><i class="fas fa-oil-can mr-2"></i> Kits de Afinación</button>
-            <button onclick="switchTab('sprocket')" id="btn-sprocket" class="nav-btn whitespace-nowrap flex-shrink-0"><i class="fas fa-cogs mr-2"></i> Kits de Sprocket</button>
+            <button onclick="switchTab('afinacion')" id="btn-afinacion" class="nav-btn active whitespace-nowrap flex-shrink-0"><i class="fas fa-oil-can mr-2"></i> Kits Afinación</button>
+            <button onclick="switchTab('sprocket')" id="btn-sprocket" class="nav-btn whitespace-nowrap flex-shrink-0"><i class="fas fa-cogs mr-2"></i> Kits Sprocket</button>
             <button onclick="switchTab('llantas')" id="btn-llantas" class="nav-btn whitespace-nowrap flex-shrink-0"><i class="fas fa-bullseye mr-2"></i> Llantas</button>
             <button onclick="switchTab('refacciones')" id="btn-refacciones" class="nav-btn whitespace-nowrap flex-shrink-0"><i class="fas fa-wrench mr-2"></i> Refacciones</button>
             <button onclick="switchTab('accesorios')" id="btn-accesorios" class="nav-btn whitespace-nowrap flex-shrink-0"><i class="fas fa-helmet-safety mr-2"></i> Accesorios</button>
         </div>
     </nav>
-<div class="bg-[#F3F0E9] py-3 px-4 sticky top-[60px] z-30 shadow-md border-b border-gray-200">
+
+    <div class="bg-[#F3F0E9] py-3 px-4 sticky top-[60px] z-30 shadow-md border-b border-gray-200">
         <div class="max-w-2xl mx-auto relative">
             <input type="text" id="globalSearch" onkeyup="searchProducts()" placeholder="🔍 Escribe aquí (Ej. 250Z, Balata, Batería...)" class="w-full p-3 pl-12 rounded-full border border-gray-300 focus:outline-none focus:border-[#1D3E68] focus:ring-2 focus:ring-[#1D3E68]/50 shadow-inner text-lg">
             <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl"></i>
         </div>
     </div>
+
     <div class="hero-banner text-white py-12 px-4 text-center shadow-lg">
         <h2 class="oswald text-3xl md:text-5xl font-bold uppercase mb-4 drop-shadow-lg tracking-wide">¡Los Mejores Precios!</h2>
         <a href="https://wa.me/523332406334" target="_blank" class="inline-block bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 md:px-12 rounded-full transition shadow-xl transform hover:scale-105 uppercase tracking-wider text-sm md:text-lg"><i class="fab fa-whatsapp mr-2"></i> Cotizar Ahora</a>
@@ -112,7 +124,7 @@
 
     <main class="max-w-7xl mx-auto px-4 min-h-[600px] py-10 md:py-16">
 
-        <section id="afinacion" class="product-section">
+<section id="afinacion" class="product-section">
             <div class="flex items-center mb-8 border-b pb-3 border-gray-300">
                 <div class="h-6 md:h-8 w-1 bg-red-600 mr-3"></div>
                 <h2 class="text-2xl md:text-3xl font-bold text-[#1D3E68] oswald uppercase">Kits de Afinación</h2>
@@ -194,32 +206,16 @@
                 <div class="h-6 md:h-8 w-1 bg-black mr-3"></div>
                 <h2 class="text-2xl md:text-3xl font-bold text-[#1D3E68] oswald uppercase">Llantas y Cámaras</h2>
             </div>
-            
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
-                
                 <div class="product-card" onclick="openModal('Llanta 2.75-18', '450', null, '<ul><li>Diseño para ciudad</li><li>6 Capas de Resistencia</li><li>Agarre en seco y mojado</li></ul>', '<tr><td>FT125</td><td>Delantera</td></tr><tr><td>FT150</td><td>Delantera</td></tr>')">
                     <div class="relative mb-3"><div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400"><i class="fas fa-bullseye text-3xl md:text-5xl"></i></div></div>
                     <div class="card-content-grow"><div><h3 class="font-bold text-[#1D3E68] line-clamp-1">Llanta 2.75-18</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Reforzada 6 Capas</p></div><div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$450</span></div></div>
                     <button class="w-full bg-[#1D3E68] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
                 </div>
-
-                <div class="product-card" onclick="openModal('Llanta 90/90-18', '580', null, '<ul><li>Doble propósito</li><li>Mayor estabilidad</li><li>Durabilidad extendida</li></ul>', '<tr><td>150Z</td><td>Trasera</td></tr><tr><td>125Z</td><td>Trasera</td></tr>')">
-                    <div class="relative mb-3"><div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400"><i class="fas fa-bullseye text-3xl md:text-5xl"></i></div></div>
-                    <div class="card-content-grow"><div><h3 class="font-bold text-[#1D3E68] line-clamp-1">Llanta 90/90-18</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Para Trabajo Rudo</p></div><div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$580</span></div></div>
-                    <button class="w-full bg-[#1D3E68] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
-                </div>
-
-                <div class="product-card" onclick="openModal('Cámara 18', '120', null, '<ul><li>Hule natural</li><li>Válvula reforzada</li><li>Alta elasticidad</li></ul>', '<tr><td>Rin 18</td><td>Universal</td></tr>')">
-                    <div class="relative mb-3"><div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400"><i class="fas fa-circle-notch text-3xl md:text-5xl"></i></div></div>
-                    <div class="card-content-grow"><div><h3 class="font-bold text-[#1D3E68] line-clamp-1">Cámara Rin 18</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Reforzada</p></div><div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$120</span></div></div>
-                    <button class="w-full bg-[#1D3E68] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
-                </div>
-
             </div>
         </section>
 
         <section id="refacciones" class="product-section hidden-section">
-            
             <div class="border-b border-gray-300 pb-4 mb-6">
                 <div class="flex items-center mb-4">
                     <div class="h-6 md:h-8 w-1 bg-blue-500 mr-3"></div>
@@ -285,23 +281,11 @@
                     <div class="card-content-grow"><div><h3 class="font-bold text-[#1D3E68] line-clamp-1">Casco Abatible</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Certificado DOT</p></div><div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$1,200</span></div></div>
                     <button class="w-full bg-[#1D3E68] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
                 </div>
-                <div class="product-card" onclick="openModal('Exploradoras LED', '350', null, '<ul><li>Luz Dual (Blanca/Ámbar)</li><li>Cuerpo de Aluminio</li><li>Contra Agua IP67</li></ul>', '<tr><td>Universal</td><td>12V</td></tr>')">
-                    <div class="relative mb-3"><div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400"><i class="fas fa-lightbulb text-3xl md:text-5xl"></i></div></div>
-                    <div class="card-content-grow"><div><h3 class="font-bold text-[#1D3E68] line-clamp-1">Exploradoras LED</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Par Dual Color</p></div><div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$350</span></div></div>
-                    <button class="w-full bg-[#1D3E68] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
-                </div>
-                <div class="product-card" onclick="openModal('Soporte Celular', '180', null, '<ul><li>Aluminio CNC</li><li>Rotación 360 Grados</li><li>Gomas Antivibración</li></ul>', '<tr><td>Universal</td><td>Manubrio Estandar</td></tr>')">
-                    <div class="relative mb-3"><div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400"><i class="fas fa-mobile-screen text-3xl md:text-5xl"></i></div></div>
-                    <div class="card-content-grow"><div><h3 class="font-bold text-[#1D3E68] line-clamp-1">Soporte Celular</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Aluminio</p></div><div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$180</span></div></div>
-                    <button class="w-full bg-[#1D3E68] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
-                </div>
-                <div class="product-card" onclick="openModal('Guantes Moto', '250', null, '<ul><li>Protección en Nudillos</li><li>Huella Táctil</li><li>Tela Transpirable</li></ul>', '<tr><td>Universal</td><td>S, M, L, XL</td></tr>')">
-                    <div class="relative mb-3"><div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400"><i class="fas fa-hands text-3xl md:text-5xl"></i></div></div>
-                    <div class="card-content-grow"><div><h3 class="font-bold text-[#1D3E68] line-clamp-1">Guantes</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Con Protecciones</p></div><div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$250</span></div></div>
-                    <button class="w-full bg-[#1D3E68] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
-                </div>
             </div>
         </section>
+
+        <div id="pagination-controls" class="pagination-container">
+            </div>
 
     </main>
 
@@ -342,26 +326,110 @@
     </div>
 
     <script>
-        // Pestañas Principales
+        // CONFIGURACIÓN DE PAGINACIÓN Y LÓGICA PRINCIPAL
+        const ITEMS_PER_PAGE = 16; 
+        let currentPage = 1;
+
+        // 1. FUNCIÓN DE PAGINACIÓN (Render Pagination)
+        function renderPagination() {
+            const controls = document.getElementById('pagination-controls');
+            if(!controls) return;
+            controls.innerHTML = ''; 
+
+            // Identificar qué sección está visible
+            let activeContainer = null;
+            const sections = document.querySelectorAll('.product-section');
+            
+            sections.forEach(sec => {
+                if (window.getComputedStyle(sec).display !== 'none' && !sec.classList.contains('hidden-section')) {
+                    if (sec.id === 'refacciones') {
+                        // En refacciones, la grid está dentro de sub-contenedores
+                        const subGrids = sec.querySelectorAll('.sub-category-grid');
+                        subGrids.forEach(grid => {
+                            if (!grid.classList.contains('hidden')) activeContainer = grid;
+                        });
+                        // Si está visible el menú de iconos, no paginamos
+                        if (!document.getElementById('refacciones-home').classList.contains('hidden')) {
+                            activeContainer = null;
+                        }
+                    } else {
+                        // Secciones normales
+                        activeContainer = sec.querySelector('.grid') || sec;
+                    }
+                }
+            });
+
+            if (!activeContainer) return;
+
+            // Obtener tarjetas
+            const cards = Array.from(activeContainer.getElementsByClassName('product-card'));
+            const totalPages = Math.ceil(cards.length / ITEMS_PER_PAGE);
+
+            // Si hay 16 o menos, mostrar todos y salir
+            if (totalPages <= 1) {
+                cards.forEach(card => card.style.display = 'flex');
+                return;
+            }
+
+            // Ocultar/Mostrar según página actual
+            const start = (currentPage - 1) * ITEMS_PER_PAGE;
+            const end = start + ITEMS_PER_PAGE;
+
+            cards.forEach((card, index) => {
+                if (index >= start && index < end) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Crear botones
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement('button');
+                btn.innerText = i;
+                btn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
+                btn.onclick = () => {
+                    currentPage = i;
+                    renderPagination();
+                    window.scrollTo({ top: 450, behavior: 'smooth' });
+                };
+                controls.appendChild(btn);
+            }
+        }
+
+        // 2. CAMBIO DE PESTAÑAS
         function switchTab(tabId) {
-            document.querySelectorAll('.product-section').forEach(s => s.style.display = 'none');
+            document.querySelectorAll('.product-section').forEach(s => {
+                s.style.display = 'none';
+                s.classList.add('hidden-section');
+            });
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(tabId).style.display = 'block';
+            
+            const activeSec = document.getElementById(tabId);
+            activeSec.style.display = 'block';
+            activeSec.classList.remove('hidden-section');
+            
             document.getElementById('btn-' + tabId).classList.add('active');
+            
+            // Reiniciar paginación al cambiar pestaña
+            currentPage = 1;
+            renderPagination();
+            
             window.scrollTo({ top: document.querySelector('.hero-banner').offsetHeight - 50, behavior: 'smooth' });
         }
 
-        // LOGICA DE REFACCIONES CON MENÚ VISUAL
+        // 3. LOGICA REFACCIONES
         function showRefaccionesHome() {
             document.getElementById('refacciones-home').classList.remove('hidden');
             document.querySelectorAll('.sub-category-grid').forEach(el => el.classList.add('hidden'));
             document.getElementById('btn-back-ref').classList.add('hidden');
             
-            // Resetear botones
             document.querySelectorAll('.sub-nav-btn').forEach(btn => {
                 btn.classList.remove('bg-[#1D3E68]', 'text-white');
                 btn.classList.add('bg-gray-200', 'text-gray-600');
             });
+            // Limpiar paginación en el menú visual
+            document.getElementById('pagination-controls').innerHTML = '';
         }
 
         function filterRefacciones(subId) {
@@ -376,14 +444,19 @@
             });
             document.getElementById('btn-' + subId).classList.remove('bg-gray-200', 'text-gray-600');
             document.getElementById('btn-' + subId).classList.add('bg-[#1D3E68]', 'text-white');
+
+            // Reiniciar paginación para la subcategoría
+            currentPage = 1;
+            renderPagination();
         }
 
-        // ABRIR MODAL
+        // 4. MODAL
         function openModal(title, price, images, descHtml, compatRowsHtml) {
             document.getElementById('modal-title').innerText = title;
             document.getElementById('modal-price').innerText = "$" + price;
             const imgContainer = document.getElementById('modal-images');
-            imgContainer.innerHTML = (images && images.length > 0) ? `<img src="${images[0]}" class="w-full h-full object-contain">` : `<i class="fas fa-camera text-7xl md:text-8xl text-gray-300"></i>`;
+            // Aquí usamos logo.png como imagen por defecto si no hay fotos
+            imgContainer.innerHTML = (images && images.length > 0) ? `<img src="${images[0]}" class="w-full h-full object-contain">` : `<img src="logo.png" class="opacity-20 h-32 w-auto">`;
             document.getElementById('modal-desc').innerHTML = descHtml;
             const compatContainer = document.getElementById('modal-compat-container');
             const compatBody = document.getElementById('modal-compat-table-body');
@@ -404,44 +477,52 @@
                 document.body.style.overflow = 'auto';
             }
         }
-        // FUNCIÓN DE BÚSQUEDA INTELIGENTE GLOBAL
+
+        // 5. BÚSQUEDA INTELIGENTE (Integra Paginación)
         function searchProducts() {
             let input = document.getElementById('globalSearch').value.toUpperCase();
             let cards = document.querySelectorAll('.product-card');
-            let sections = document.querySelectorAll('.product-section');
+            let controls = document.getElementById('pagination-controls');
             
-            // 1. Si el buscador está vacío, restaurar la vista normal
-            if (input === "") {
-                // Simula un clic en el botón que ya estaba activo para resetear todo
+            // Si hay búsqueda activa:
+            if (input !== "") {
+                if(controls) controls.style.display = 'none'; // Ocultar botones de página
+                
+                // Mostrar todas las secciones
+                document.querySelectorAll('.product-section').forEach(sec => {
+                    sec.style.display = 'block';
+                    sec.classList.remove('hidden-section');
+                });
+                document.getElementById('refacciones-home').classList.add('hidden');
+                document.querySelectorAll('.sub-category-grid').forEach(grid => grid.classList.remove('hidden'));
+
+                // Filtrar
+                cards.forEach(card => {
+                    let text = card.innerText;
+                    if (text.toUpperCase().indexOf(input) > -1) {
+                        card.style.display = "flex"; 
+                    } else {
+                        card.style.display = "none"; 
+                    }
+                });
+            } else {
+                // Si borran la búsqueda:
+                if(controls) controls.style.display = 'flex'; // Volver a mostrar botones
+                
+                // Reiniciar vista a la pestaña activa
                 let activeBtn = document.querySelector('.nav-btn.active');
-                if (activeBtn) activeBtn.click(); 
-                // Asegurarse de que todas las tarjetas sean visibles de nuevo
-                cards.forEach(card => card.style.display = "");
-                return;
-            }
-
-            // 2. Si hay texto, mostrar TODAS las secciones para buscar en todo el catálogo
-            sections.forEach(sec => {
-                sec.style.display = 'block';
-                sec.classList.remove('hidden-section'); // Quitar animaciones para que sea rápido
-            });
-            
-            // 3. Abrir las sub-categorías ocultas de Refacciones
-            document.getElementById('refacciones-home').classList.add('hidden'); // Ocultar menú de iconos
-            document.querySelectorAll('.sub-category-grid').forEach(grid => grid.classList.remove('hidden')); // Mostrar productos
-
-            // 4. Filtrar tarjeta por tarjeta
-            cards.forEach(card => {
-                let text = card.innerText; // Obtiene el texto de la tarjeta
-                if (text.toUpperCase().indexOf(input) > -1) {
-                    card.style.display = ""; // Mostrar si coincide
-                } else {
-                    card.style.display = "none"; // Ocultar si no coincide
+                if (activeBtn) {
+                    let tabId = activeBtn.id.replace('btn-', '');
+                    switchTab(tabId);
                 }
-            });
+            }
         }
+
+        // Iniciar paginación al cargar
+        document.addEventListener('DOMContentLoaded', () => {
+            renderPagination();
+        });
     </script>
 
 </body>
-
 </html>
