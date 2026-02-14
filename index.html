@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moto Partes El Jefe | Catálogo Digital</title>
+   <link rel="icon" type="image/jpeg" href="logo.JPG.png">
+
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root { --bg-crema: #F3F0E9; --azul-brand: #1D3E68; --rojo-accent: #dc2626; }
+        body { font-family: 'Roboto', sans-serif; background-color: var(--bg-crema); color: #333; }
+        .oswald { font-family: 'Oswald', sans-serif; }
+        
+        /* Navegación */
+        .top-nav { background-color: var(--azul-brand); }
+        .category-nav { background-color: white; border-bottom: 4px solid var(--azul-brand); position: sticky; top: 0; z-index: 40; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        .nav-btn { position: relative; color: #555; font-weight: bold; text-transform: uppercase; padding: 15px 20px; transition: all 0.3s; cursor: pointer; font-family: 'Oswald', sans-serif; letter-spacing: 1px; }
+        .nav-btn:hover { color: var(--azul-brand); background-color: #f8f8f8; }
+        .nav-btn.active { color: var(--azul-brand); }
+        .nav-btn.active::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; background-color: var(--rojo-accent); }
+
+        /* Banner */
+        .hero-banner { background: linear-gradient(rgba(29, 62, 104, 0.8), rgba(29, 62, 104, 0.6)), url('https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); background-size: cover; background-position: center; min-height: 450px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+
+        /* Tarjetas */
+        .product-card { background: white; border: 1px solid #e5e7eb; border-radius: 8px; transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; height: 100%; padding: 1rem; cursor: pointer; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); border-color: var(--azul-brand); }
+        .card-content-grow { flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; margin-bottom: 1rem; }
+        
+        /* Fix de alineación de texto */
+        .line-clamp-1 { overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; }
+        .line-clamp-2 { overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+
+        /* Utilidades */
+        .hidden-section { display: none; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .float-wa { position: fixed; bottom: 25px; right: 25px; width: 60px; height: 60px; background-color: #25d366; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 2px 2px 10px rgba(0,0,0,0.3); z-index: 100; transition: transform 0.3s; }
+        .float-wa:hover { transform: scale(1.1); }
+
+        /* MODAL ESTILO FICHA TÉCNICA */
+        #modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 999; justify-content: center; align-items: center; backdrop-filter: blur(5px); padding: 20px; }
+        .modal-active { display: flex !important; }
+        
+        .modal-list ul { list-style-type: none; padding-left: 0; }
+        .modal-list li { margin-bottom: 6px; display: flex; align-items: center; color: #555; font-size: 0.95rem; }
+        .modal-list li::before { content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: var(--green-500); margin-right: 8px; font-size: 0.8rem; }
+
+        /* Tabla de Compatibilidad */
+        .compat-table-container { border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; margin-top: 15px; }
+        .compat-table-header { background-color: var(--azul-brand); color: white; padding: 10px 15px; font-weight: bold; font-family: 'Oswald', sans-serif; letter-spacing: 0.5px; display: flex; align-items: center; }
+        .compat-table-body { max-height: 200px; overflow-y: auto; background-color: #f9fafb; }
+        .table-auto { width: 100%; text-align: left; border-collapse: collapse; font-size: 0.9rem; }
+        .table-auto th { background-color: #e2e8f0; color: var(--azul-brand); padding: 8px 12px; font-weight: 600; position: sticky; top: 0; }
+        .table-auto td { padding: 8px 12px; border-bottom: 1px solid #eee; color: #4b5563; }
+        .table-auto tr:last-child td { border-bottom: none; }
+        .table-auto tr:nth-child(even) { background-color: #f3f4f6; }
+        .compat-table-body::-webkit-scrollbar { width: 6px; }
+        .compat-table-body::-webkit-scrollbar-track { background: #f1f1f1; }
+        .compat-table-body::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+    </style>
+</head>
+<body class="mb-0">
+
+    <header class="top-nav text-white py-4 md:py-6 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 flex justify-center items-center">
+            <div class="flex items-center gap-3 md:gap-5">
+                <img src="logo.jpg.PNG" alt="Logo El Jefe" class="h-16 md:h-20 w-auto bg-white rounded-full p-1 border-2 border-gray-300 shadow-md">
+                <div class="text-left">
+                    <h1 class="oswald text-2xl md:text-4xl font-bold uppercase tracking-widest leading-none">El Jefe</h1>
+                    <p class="text-xs md:text-sm text-gray-300 tracking-[0.2em] uppercase mt-1">Moto Partes | Tonalá</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="category-nav">
+        <div class="max-w-7xl mx-auto px-4 flex justify-start md:justify-center overflow-x-auto no-scrollbar py-1">
+            <button onclick="switchTab('afinacion')" id="btn-afinacion" class="nav-btn active whitespace-nowrap flex-shrink-0"><i class="fas fa-oil-can mr-2"></i> Kits Afinación</button>
+            <button onclick="switchTab('sprocket')" id="btn-sprocket" class="nav-btn whitespace-nowrap flex-shrink-0"><i class="fas fa-cogs mr-2"></i> Kits Sprocket</button>
+            <button onclick="switchTab('llantas')" id="btn-llantas" class="nav-btn whitespace-nowrap flex-shrink-0"><i class="fas fa-bullseye mr-2"></i> Llantas</button>
+            <button onclick="switchTab('refacciones')" id="btn-refacciones" class="nav-btn whitespace-nowrap flex-shrink-0"><i class="fas fa-wrench mr-2"></i> Refacciones</button>
+            <button onclick="switchTab('accesorios')" id="btn-accesorios" class="nav-btn whitespace-nowrap flex-shrink-0"><i class="fas fa-helmet-safety mr-2"></i> Accesorios</button>
+        </div>
+    </nav>
+<div class="bg-[#F3F0E9] py-3 px-4 sticky top-[60px] z-30 shadow-md border-b border-gray-200">
+        <div class="max-w-2xl mx-auto relative">
+            <input type="text" id="globalSearch" onkeyup="searchProducts()" placeholder="🔍 Escribe aquí (Ej. 250Z, Balata, Batería...)" class="w-full p-3 pl-12 rounded-full border border-gray-300 focus:outline-none focus:border-[#1D3E68] focus:ring-2 focus:ring-[#1D3E68]/50 shadow-inner text-lg">
+            <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl"></i>
+        </div>
+    </div>
+    <div class="hero-banner text-white py-12 px-4 text-center shadow-lg">
+        <h2 class="oswald text-3xl md:text-5xl font-bold uppercase mb-4 drop-shadow-lg tracking-wide">¡Precios de Mayoreo!</h2>
+        <a href="https://wa.me/523332406334" target="_blank" class="inline-block bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 md:px-12 rounded-full transition shadow-xl transform hover:scale-105 uppercase tracking-wider text-sm md:text-lg"><i class="fab fa-whatsapp mr-2"></i> Cotizar Ahora</a>
+    </div>
+
+    <section class="py-8 bg-white border-b border-gray-200 hidden md:block">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h3 class="oswald text-xl text-gray-400 uppercase mb-6 tracking-widest">Manejamos las mejores marcas:</h3>
+            <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+                <div class="text-2xl font-bold text-gray-500">ITALIKA</div>
+                <div class="text-2xl font-bold text-gray-500">MOTUL</div>
+                <div class="text-2xl font-bold text-gray-500">NGK</div>
+                <div class="text-2xl font-bold text-gray-500">VENTO</div>
+                <div class="text-2xl font-bold text-gray-500">BAJAJ</div>
+            </div>
+        </div>
+    </section>
+
+    <main class="max-w-7xl mx-auto px-4 min-h-[600px] py-10 md:py-16">
+
+        <section id="afinacion" class="product-section">
+            <div class="flex items-center mb-8 border-b pb-3 border-gray-300">
+                <div class="h-6 md:h-8 w-1 bg-red-600 mr-3"></div>
+                <h2 class="text-2xl md:text-3xl font-bold text-[#1D3E68] oswald uppercase">Kits de Afinación</h2>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
+                
+                <div class="product-card" onclick="openModal('250Z', '710', null, '<ul><li>2 Aceites Motul 5100 20W-50</li><li>1 Filtro Gasolina Universal</li><li>1 Filtro Aire Original</li><li>1 Bujía NGK DR8EA</li></ul>', '<tr><td>250 Z</td><td>2019 - 2026</td></tr><tr><td>250 Z 2.0</td><td>2023 - 2026</td></tr>')">
+                    <div class="relative mb-3 group cursor-pointer">
+                        <span class="absolute top-0 right-0 bg-red-600 text-white text-[10px] md:text-xs font-bold px-2 py-1 rounded shadow">-10%</span>
+                        <div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400 overflow-hidden group-hover:bg-gray-200 transition">
+                            <i class="fas fa-camera text-3xl md:text-5xl"></i>
+                        </div>
+                    </div>
+                    <div class="card-content-grow">
+                        <div><h3 class="font-bold text-[#1D3E68] line-clamp-1">250Z</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Con Motul 5100 Semisintético</p></div>
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$710</span><span class="text-xs md:text-sm line-through text-gray-400 font-medium">$790</span></div>
+                    </div>
+                    <button class="w-full bg-[#1D3E68] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
+                </div>
+
+                <div class="product-card" onclick="openModal('150Z / 200Z', '625', null, '<ul><li>2 Aceites Motul 5000 20W-50</li><li>1 Filtro Gasolina Universal</li><li>1 Filtro Aire Original</li><li>1 Bujía NGK DR8EA</li></ul>', '<tr><td>150 Z</td><td>2014 - 2026</td></tr><tr><td>200 Z</td><td>2019 - 2026</td></tr><tr><td>150 SZ</td><td>2016 - 2018</td></tr><tr><td>170 Z</td><td>2016 - 2018</td></tr>')">
+                    <div class="relative mb-3"><div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400"><i class="fas fa-camera text-3xl md:text-5xl"></i></div></div>
+                    <div class="card-content-grow">
+                        <div><h3 class="font-bold text-[#1D3E68] line-clamp-1">150Z / 200Z</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Con Motul 5000 Semisintético</p></div>
+                        <div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$625</span></div>
+                    </div>
+                    <button class="w-full bg-[#1D3E68] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
+                </div>
+
+                <div class="product-card border-yellow-400 border-2 relative bg-yellow-50/50" onclick="openModal('Pulsar NS 200', '1,100', null, '<ul><li>2 Aceites Motul 7100 20W-50</li><li>1 Filtro de Aceite</li><li>1 Filtro de Aire</li><li>1 Bujía LKAR8A-9</li><li>2 Bujías RG6HCC</li></ul>', '<tr><td>Pulsar NS 200</td><td>Todos</td></tr><tr><td>Pulsar AS 200</td><td>Todos</td></tr>')">
+                    <div class="relative mb-3"><span class="absolute top-0 left-0 bg-yellow-500 text-white text-[10px] md:text-xs font-bold px-2 py-1 rounded shadow">PREMIUM</span><div class="h-32 md:h-48 bg-white rounded flex items-center justify-center text-gray-400 border border-gray-200"><i class="fas fa-camera text-3xl md:text-5xl"></i></div></div>
+                    <div class="card-content-grow">
+                        <div><h3 class="font-bold text-[#1D3E68] line-clamp-1">Pulsar NS 200</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Motul 7100 Sintético</p></div>
+                        <div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$1,100</span></div>
+                    </div>
+                    <button class="w-full bg-white border border-gray-300 text-gray-700 py-2 rounded font-bold hover:bg-gray-100 uppercase text-xs">Ver Detalles</button>
+                </div>
+
+                <div class="product-card" onclick="openModal('Motos de Trabajo', '300', null, '<ul><li>1 Aceite Mobil Premium</li><li>1 Filtro Gasolina Universal</li><li>1 Filtro Aire Original</li><li>1 Bujía NGK DR8EA</li></ul>', '<tr><td>DT150 Delivery</td><td>2017-2026</td></tr><tr><td>FT125 Roja</td><td>2013-2020</td></tr><tr><td>FT150 Grafito</td><td>2018-2024</td></tr><tr><td>DT125 Delivery</td><td>2017-2023</td></tr><tr><td>FT125</td><td>2022-2026</td></tr><tr><td>FT150 TS</td><td>2016-2026</td></tr><tr><td>DT150 Clásica</td><td>2017-2024</td></tr><tr><td>125 Z</td><td>2016-2026</td></tr><tr><td>FT 150</td><td>2024-2026</td></tr><tr><td>DT125 Sport</td><td>2017-2022</td></tr>')">
+                    <div class="relative mb-3"><div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400"><i class="fas fa-camera text-3xl md:text-5xl"></i></div></div>
+                    <div class="card-content-grow">
+                        <div><h3 class="font-bold text-[#1D3E68] line-clamp-1">Motos de Trabajo</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Mobil Mineral Premium</p></div>
+                        <div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$300</span></div>
+                    </div>
+                    <button class="w-full bg-[#1D3E68] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
+                </div>
+
+                <div class="product-card" onclick="openModal('Linea DM', '640', null, '<ul><li>2 Aceites Motul 5000 20W-50</li><li>1 Filtro Gasolina Universal</li><li>1 Filtro Aire Original</li><li>1 Bujía NGK DR8EA</li></ul>', '<tr><td>DM 150</td><td>2022-2026</td></tr><tr><td>DM 200</td><td>2014-2026</td></tr><tr><td>DM 250</td><td>2016-2026</td></tr><tr><td>DM 150 Roja</td><td>2018-2021</td></tr><tr><td>DM 250 X</td><td>2022-2025</td></tr>')">
+                    <div class="relative mb-3"><div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400"><i class="fas fa-camera text-3xl md:text-5xl"></i></div></div>
+                    <div class="card-content-grow">
+                        <div><h3 class="font-bold text-[#1D3E68] line-clamp-1">DM 150 / DM 200 / DM 250</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Motul 5000 Semisintético</p></div>
+                        <div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$640</span></div>
+                    </div>
+                    <button class="w-full bg-[#1D3E68] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="sprocket" class="product-section hidden-section">
+             <div class="flex items-center mb-8 border-b pb-3 border-gray-300"><div class="h-6 md:h-8 w-1 bg-yellow-500 mr-3"></div><h2 class="text-2xl md:text-3xl font-bold text-[#1D3E68] oswald uppercase">Kits de Arrastre</h2></div>
+             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
+                 <div class="product-card" onclick="openModal('Kit Arrastre DM200', '550', null, '<ul><li>Cadena Reforzada 428H</li><li>Piñón de Acero</li><li>Corona de Acero</li></ul>', '<tr><td>DM 200</td><td>2014 - 2026</td></tr>')">
+                    <div class="relative mb-3"><div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400"><i class="fas fa-cog text-3xl md:text-5xl"></i></div></div>
+                    <div class="card-content-grow"><div><h3 class="font-bold text-[#1D3E68] line-clamp-1">Kit Arrastre DM200</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Cadena Reforzada</p></div><div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$550</span></div></div>
+                    <button class="w-full bg-[#1D3E68] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
+                 </div>
+                 <div class="product-card" onclick="openModal('Kit Arrastre FT150', '380', null, '<ul><li>Acero 1045</li><li>Durabilidad Superior</li></ul>', '<tr><td>FT 150</td><td>Todos</td></tr><tr><td>DT 150</td><td>Todos</td></tr>')">
+                    <div class="relative mb-3"><div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400"><i class="fas fa-cog text-3xl md:text-5xl"></i></div></div>
+                    <div class="card-content-grow"><div><h3 class="font-bold text-[#1D3E68] line-clamp-1">Kit Arrastre FT150</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Acero 1045</p></div><div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$380</span></div></div>
+                    <button class="w-full bg-[#1D3E68] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
+                 </div>
+             </div>
+        </section>
+
+        <section id="llantas" class="product-section hidden-section">
+            <div class="flex items-center mb-8 border-b pb-3 border-gray-300">
+                <div class="h-6 md:h-8 w-1 bg-black mr-3"></div>
+                <h2 class="text-2xl md:text-3xl font-bold text-[#1D3E68] oswald uppercase">Llantas y Cámaras</h2>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
+                
+                <div class="product-card" onclick="openModal('Llanta 2.75-18', '450', null, '<ul><li>Diseño para ciudad</li><li>6 Capas de Resistencia</li><li>Agarre en seco y mojado</li></ul>', '<tr><td>FT125</td><td>Delantera</td></tr><tr><td>FT150</td><td>Delantera</td></tr>')">
+                    <div class="relative mb-3"><div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400"><i class="fas fa-bullseye text-3xl md:text-5xl"></i></div></div>
+                    <div class="card-content-grow"><div><h3 class="font-bold text-[#1D3E68] line-clamp-1">Llanta 2.75-18</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Reforzada 6 Capas</p></div><div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$450</span></div></div>
+                    <button class="w-full bg-[#1D3E68] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
+                </div>
+
+                <div class="product-card" onclick="openModal('Llanta 90/90-18', '580', null, '<ul><li>Doble propósito</li><li>Mayor estabilidad</li><li>Durabilidad extendida</li></ul>', '<tr><td>150Z</td><td>Trasera</td></tr><tr><td>125Z</td><td>Trasera</td></tr>')">
+                    <div class="relative mb-3"><div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400"><i class="fas fa-bullseye text-3xl md:text-5xl"></i></div></div>
+                    <div class="card-content-grow"><div><h3 class="font-bold text-[#1D3E68] line-clamp-1">Llanta 90/90-18</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Para Trabajo Rudo</p></div><div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$580</span></div></div>
+                    <button class="w-full bg-[#1D3E68] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
+                </div>
+
+                <div class="product-card" onclick="openModal('Cámara 18', '120', null, '<ul><li>Hule natural</li><li>Válvula reforzada</li><li>Alta elasticidad</li></ul>', '<tr><td>Rin 18</td><td>Universal</td></tr>')">
+                    <div class="relative mb-3"><div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400"><i class="fas fa-circle-notch text-3xl md:text-5xl"></i></div></div>
+                    <div class="card-content-grow"><div><h3 class="font-bold text-[#1D3E68] line-clamp-1">Cámara Rin 18</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Reforzada</p></div><div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$120</span></div></div>
+                    <button class="w-full bg-[#1D3E68] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="refacciones" class="product-section hidden-section">
+            
+            <div class="border-b border-gray-300 pb-4 mb-6">
+                <div class="flex items-center mb-4">
+                    <div class="h-6 md:h-8 w-1 bg-blue-500 mr-3"></div>
+                    <h2 class="text-2xl md:text-3xl font-bold text-[#1D3E68] oswald uppercase">Refacciones Generales</h2>
+                </div>
+                
+                <button onclick="showRefaccionesHome()" id="btn-back-ref" class="hidden text-sm font-bold text-gray-500 hover:text-[#1D3E68] mb-4">
+                    <i class="fas fa-arrow-left mr-2"></i> Ver todas las categorías
+                </button>
+
+                <div class="flex gap-2 overflow-x-auto pb-2">
+                    <button onclick="filterRefacciones('sub-freno')" id="btn-sub-freno" class="sub-nav-btn px-4 py-2 bg-gray-200 text-gray-600 rounded-full font-bold text-sm uppercase transition hover:bg-gray-300"><i class="fas fa-hand-paper mr-2"></i> Frenos</button>
+                    <button onclick="filterRefacciones('sub-electrico')" id="btn-sub-electrico" class="sub-nav-btn px-4 py-2 bg-gray-200 text-gray-600 rounded-full font-bold text-sm uppercase transition hover:bg-gray-300"><i class="fas fa-bolt mr-2"></i> Eléctrico</button>
+                    <button onclick="filterRefacciones('sub-chicote')" id="btn-sub-chicote" class="sub-nav-btn px-4 py-2 bg-gray-200 text-gray-600 rounded-full font-bold text-sm uppercase transition hover:bg-gray-300"><i class="fas fa-route mr-2"></i> Chicotes</button>
+                </div>
+            </div>
+
+            <div id="refacciones-home" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div onclick="filterRefacciones('sub-freno')" class="cursor-pointer bg-white border border-gray-200 rounded-lg p-6 hover:shadow-xl hover:border-blue-800 transition flex items-center gap-4 group">
+                    <div class="bg-red-100 p-4 rounded-full text-red-600 group-hover:bg-red-600 group-hover:text-white transition"><i class="fas fa-hand-paper text-3xl"></i></div>
+                    <div><h3 class="font-bold text-xl text-[#1D3E68]">Sistema de Frenos</h3><p class="text-sm text-gray-500">Balatas, Discos</p></div><i class="fas fa-chevron-right ml-auto text-gray-300"></i>
+                </div>
+                <div onclick="filterRefacciones('sub-electrico')" class="cursor-pointer bg-white border border-gray-200 rounded-lg p-6 hover:shadow-xl hover:border-blue-800 transition flex items-center gap-4 group">
+                    <div class="bg-yellow-100 p-4 rounded-full text-yellow-600 group-hover:bg-yellow-500 group-hover:text-white transition"><i class="fas fa-bolt text-3xl"></i></div>
+                    <div><h3 class="font-bold text-xl text-[#1D3E68]">Sistema Eléctrico</h3><p class="text-sm text-gray-500">Baterías, Estatores</p></div><i class="fas fa-chevron-right ml-auto text-gray-300"></i>
+                </div>
+                <div onclick="filterRefacciones('sub-chicote')" class="cursor-pointer bg-white border border-gray-200 rounded-lg p-6 hover:shadow-xl hover:border-blue-800 transition flex items-center gap-4 group">
+                    <div class="bg-gray-100 p-4 rounded-full text-gray-600 group-hover:bg-gray-700 group-hover:text-white transition"><i class="fas fa-route text-3xl"></i></div>
+                    <div><h3 class="font-bold text-xl text-[#1D3E68]">Chicotes y Cables</h3><p class="text-sm text-gray-500">Clutch, Acelerador</p></div><i class="fas fa-chevron-right ml-auto text-gray-300"></i>
+                </div>
+            </div>
+
+            <div id="sub-freno" class="sub-category-grid hidden grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
+                <div class="product-card" onclick="openModal('Balatas Delanteras', '120', null, '<ul><li>Cerámica (Par)</li><li>Frenado silencioso</li></ul>', '<tr><td>Italika 150Z</td><td>Todos</td></tr>')">
+                    <div class="relative mb-3"><div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400"><i class="fas fa-circle-notch text-3xl"></i></div></div>
+                    <div class="card-content-grow"><div><h3 class="font-bold text-[#1D3E68]">Balatas Delanteras</h3><p class="text-xl font-bold text-red-600">$120</p></div></div>
+                    <button class="w-full bg-[#1D3E68] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
+                </div>
+            </div>
+
+            <div id="sub-electrico" class="sub-category-grid hidden grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
+                <div class="product-card" onclick="openModal('Batería Gel 12V', '450', null, '<ul><li>Tecnología Gel</li><li>Libre Mantenimiento</li></ul>', '<tr><td>150Z / 250Z</td><td>Todos</td></tr>')">
+                    <div class="relative mb-3"><div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400"><i class="fas fa-car-battery text-3xl"></i></div></div>
+                    <div class="card-content-grow"><div><h3 class="font-bold text-[#1D3E68]">Batería Gel 12V</h3><p class="text-xl font-bold text-red-600">$450</p></div></div>
+                    <button class="w-full bg-[#1D3E68] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
+                </div>
+            </div>
+
+            <div id="sub-chicote" class="sub-category-grid hidden grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
+                <div class="product-card" onclick="openModal('Chicote Clutch', '85', null, '<ul><li>Funda reforzada</li><li>Acero trenzado</li></ul>', '<tr><td>FT150 / 150Z</td><td>Todos</td></tr>')">
+                    <div class="relative mb-3"><div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400"><i class="fas fa-route text-3xl"></i></div></div>
+                    <div class="card-content-grow"><div><h3 class="font-bold text-[#1D3E68]">Chicote Clutch</h3><p class="text-xl font-bold text-red-600">$85</p></div></div>
+                    <button class="w-full bg-[#1D3E68] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="accesorios" class="product-section hidden-section">
+            <div class="flex items-center mb-8 border-b pb-3 border-gray-300"><div class="h-6 md:h-8 w-1 bg-gray-700 mr-3"></div><h2 class="text-2xl md:text-3xl font-bold text-[#1D3E68] oswald uppercase">Accesorios</h2></div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
+                <div class="product-card" onclick="openModal('Casco Abatible DOT', '1,200', null, '<ul><li>Certificación DOT</li><li>Mica Oscura Integrada</li><li>Interior Lavable</li></ul>', '<tr><td>Universal</td><td>Todas las Tallas</td></tr>')">
+                    <div class="relative mb-3"><div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400"><i class="fas fa-helmet-safety text-3xl md:text-5xl"></i></div></div>
+                    <div class="card-content-grow"><div><h3 class="font-bold text-[#1D3E68] line-clamp-1">Casco Abatible</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Certificado DOT</p></div><div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$1,200</span></div></div>
+                    <button class="w-full bg-[#1D3E68] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
+                </div>
+                <div class="product-card" onclick="openModal('Exploradoras LED', '350', null, '<ul><li>Luz Dual (Blanca/Ámbar)</li><li>Cuerpo de Aluminio</li><li>Contra Agua IP67</li></ul>', '<tr><td>Universal</td><td>12V</td></tr>')">
+                    <div class="relative mb-3"><div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400"><i class="fas fa-lightbulb text-3xl md:text-5xl"></i></div></div>
+                    <div class="card-content-grow"><div><h3 class="font-bold text-[#1D3E68] line-clamp-1">Exploradoras LED</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Par Dual Color</p></div><div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$350</span></div></div>
+                    <button class="w-full bg-[#1D3E68] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
+                </div>
+                <div class="product-card" onclick="openModal('Soporte Celular', '180', null, '<ul><li>Aluminio CNC</li><li>Rotación 360 Grados</li><li>Gomas Antivibración</li></ul>', '<tr><td>Universal</td><td>Manubrio Estandar</td></tr>')">
+                    <div class="relative mb-3"><div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400"><i class="fas fa-mobile-screen text-3xl md:text-5xl"></i></div></div>
+                    <div class="card-content-grow"><div><h3 class="font-bold text-[#1D3E68] line-clamp-1">Soporte Celular</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Aluminio</p></div><div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$180</span></div></div>
+                    <button class="w-full bg-[#1D3E68] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
+                </div>
+                <div class="product-card" onclick="openModal('Guantes Moto', '250', null, '<ul><li>Protección en Nudillos</li><li>Huella Táctil</li><li>Tela Transpirable</li></ul>', '<tr><td>Universal</td><td>S, M, L, XL</td></tr>')">
+                    <div class="relative mb-3"><div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400"><i class="fas fa-hands text-3xl md:text-5xl"></i></div></div>
+                    <div class="card-content-grow"><div><h3 class="font-bold text-[#1D3E68] line-clamp-1">Guantes</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Con Protecciones</p></div><div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$250</span></div></div>
+                    <button class="w-full bg-[#1D3E68] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-[#1D3E68] text-white pt-16 pb-8 border-t-4 border-yellow-500">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left">
+            <div>
+                <h4 class="oswald text-xl md:text-2xl uppercase mb-6 tracking-wider text-yellow-500">Moto Refacciones El Jefe</h4>
+                <p class="text-gray-300 text-xs md:text-sm leading-loose">Somos especialistas en refacciones para motocicletas en Tonalá.</p>
+            </div>
+            <div>
+                <h4 class="oswald text-lg md:text-xl uppercase mb-6 tracking-wider text-yellow-500">Contacto</h4>
+                <a href="https://maps.google.com/?q=Marcos+Lara+60,+Tonalá,+Jalisco" target="_blank" class="block text-gray-300 mb-4 hover:text-white transition cursor-pointer group text-sm"><i class="fas fa-map-marker-alt mr-3 text-red-500"></i> Marcos Lara 60, Tonalá, Jal.</a>
+                <a href="https://wa.me/523332406334" target="_blank" class="block text-gray-300 mb-4 hover:text-white transition cursor-pointer group text-sm"><i class="fas fa-phone mr-3 text-green-500"></i> 33 3240 6334</a>
+            </div>
+            <div>
+                <h4 class="oswald text-lg md:text-xl uppercase mb-6 tracking-wider text-yellow-500">Horario</h4>
+                <p class="text-gray-300 mb-2 text-sm">Lunes a Viernes: 11:00 AM - 7:00 PM</p>
+                <p class="text-gray-300 text-sm">Sábados: 11:00 AM - 4:00 PM</p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/523332406334" class="float-wa hover:rotate-12" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+    <div id="modal-overlay" onclick="closeModal(event)">
+        <div class="bg-white rounded-lg max-w-5xl w-full relative shadow-2xl overflow-hidden mx-auto flex flex-col md:flex-row max-h-[90vh] border-t-4 border-[#1D3E68]">
+            <button onclick="closeModal(event)" class="absolute top-3 right-3 bg-gray-100 rounded-full w-10 h-10 flex items-center justify-center text-gray-500 hover:text-red-600 hover:bg-gray-200 transition z-20"><i class="fas fa-times text-xl"></i></button>
+            <div class="w-full md:w-1/2 bg-gray-50 flex items-center justify-center p-6 md:p-10 border-b md:border-b-0 md:border-r border-gray-200 relative">
+                 <div id="modal-images" class="w-full h-64 md:h-full flex items-center justify-center text-gray-300"><i class="fas fa-camera text-7xl md:text-8xl"></i></div>
+            </div>
+            <div class="w-full md:w-1/2 p-6 md:p-8 overflow-y-auto relative flex flex-col">
+                <div class="mb-6"><h2 id="modal-title" class="oswald text-3xl md:text-4xl font-bold text-[#1D3E68] uppercase leading-tight mb-2">Titulo Producto</h2><p id="modal-price" class="text-3xl md:text-4xl font-bold text-red-600">$0.00</p></div>
+                <div class="mb-6"><h3 class="font-bold text-sm text-gray-700 uppercase mb-3 flex items-center tracking-wider"><i class="fas fa-box-open mr-2 text-[#1D3E68]"></i> Lo que incluye el kit:</h3><div id="modal-desc" class="modal-list ml-1"></div></div>
+                <div id="modal-compat-container" class="compat-table-container hidden mb-6"><div class="compat-table-header"><i class="fas fa-motorcycle mr-2"></i> TABLA DE COMPATIBILIDAD</div><div class="compat-table-body"><table class="table-auto"><thead><tr><th>MODELO</th><th>AÑO(S)</th></tr></thead><tbody id="modal-compat-table-body"></tbody></table></div></div>
+                <div class="mt-auto pt-4"><a id="modal-btn-wa" href="#" target="_blank" class="flex items-center justify-center w-full bg-green-600 text-white font-bold py-4 rounded-lg shadow-md hover:bg-green-700 transition uppercase tracking-widest text-lg"><i class="fab fa-whatsapp mr-3 text-2xl"></i> Pedir Ahora</a></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Pestañas Principales
+        function switchTab(tabId) {
+            document.querySelectorAll('.product-section').forEach(s => s.style.display = 'none');
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).style.display = 'block';
+            document.getElementById('btn-' + tabId).classList.add('active');
+            window.scrollTo({ top: document.querySelector('.hero-banner').offsetHeight - 50, behavior: 'smooth' });
+        }
+
+        // LOGICA DE REFACCIONES CON MENÚ VISUAL
+        function showRefaccionesHome() {
+            document.getElementById('refacciones-home').classList.remove('hidden');
+            document.querySelectorAll('.sub-category-grid').forEach(el => el.classList.add('hidden'));
+            document.getElementById('btn-back-ref').classList.add('hidden');
+            
+            // Resetear botones
+            document.querySelectorAll('.sub-nav-btn').forEach(btn => {
+                btn.classList.remove('bg-[#1D3E68]', 'text-white');
+                btn.classList.add('bg-gray-200', 'text-gray-600');
+            });
+        }
+
+        function filterRefacciones(subId) {
+            document.getElementById('refacciones-home').classList.add('hidden');
+            document.getElementById('btn-back-ref').classList.remove('hidden');
+            document.querySelectorAll('.sub-category-grid').forEach(el => el.classList.add('hidden'));
+            document.getElementById(subId).classList.remove('hidden');
+            
+            document.querySelectorAll('.sub-nav-btn').forEach(btn => {
+                btn.classList.remove('bg-[#1D3E68]', 'text-white');
+                btn.classList.add('bg-gray-200', 'text-gray-600');
+            });
+            document.getElementById('btn-' + subId).classList.remove('bg-gray-200', 'text-gray-600');
+            document.getElementById('btn-' + subId).classList.add('bg-[#1D3E68]', 'text-white');
+        }
+
+        // ABRIR MODAL
+        function openModal(title, price, images, descHtml, compatRowsHtml) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-price').innerText = "$" + price;
+            const imgContainer = document.getElementById('modal-images');
+            imgContainer.innerHTML = (images && images.length > 0) ? `<img src="${images[0]}" class="w-full h-full object-contain">` : `<i class="fas fa-camera text-7xl md:text-8xl text-gray-300"></i>`;
+            document.getElementById('modal-desc').innerHTML = descHtml;
+            const compatContainer = document.getElementById('modal-compat-container');
+            const compatBody = document.getElementById('modal-compat-table-body');
+            if (compatRowsHtml) {
+                compatBody.innerHTML = compatRowsHtml;
+                compatContainer.classList.remove('hidden');
+            } else {
+                compatContainer.classList.add('hidden');
+            }
+            document.getElementById('modal-btn-wa').href = `https://wa.me/523332406334?text=Hola,%20me%20interesa%20el%20${title}%20de%20$${price}`;
+            document.getElementById('modal-overlay').classList.add('modal-active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(e) {
+            if (e.target.id === 'modal-overlay' || e.target.closest('button')) {
+                document.getElementById('modal-overlay').classList.remove('modal-active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+        // FUNCIÓN DE BÚSQUEDA INTELIGENTE GLOBAL
+        function searchProducts() {
+            let input = document.getElementById('globalSearch').value.toUpperCase();
+            let cards = document.querySelectorAll('.product-card');
+            let sections = document.querySelectorAll('.product-section');
+            
+            // 1. Si el buscador está vacío, restaurar la vista normal
+            if (input === "") {
+                // Simula un clic en el botón que ya estaba activo para resetear todo
+                let activeBtn = document.querySelector('.nav-btn.active');
+                if (activeBtn) activeBtn.click(); 
+                // Asegurarse de que todas las tarjetas sean visibles de nuevo
+                cards.forEach(card => card.style.display = "");
+                return;
+            }
+
+            // 2. Si hay texto, mostrar TODAS las secciones para buscar en todo el catálogo
+            sections.forEach(sec => {
+                sec.style.display = 'block';
+                sec.classList.remove('hidden-section'); // Quitar animaciones para que sea rápido
+            });
+            
+            // 3. Abrir las sub-categorías ocultas de Refacciones
+            document.getElementById('refacciones-home').classList.add('hidden'); // Ocultar menú de iconos
+            document.querySelectorAll('.sub-category-grid').forEach(grid => grid.classList.remove('hidden')); // Mostrar productos
+
+            // 4. Filtrar tarjeta por tarjeta
+            cards.forEach(card => {
+                let text = card.innerText; // Obtiene el texto de la tarjeta
+                if (text.toUpperCase().indexOf(input) > -1) {
+                    card.style.display = ""; // Mostrar si coincide
+                } else {
+                    card.style.display = "none"; // Ocultar si no coincide
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
