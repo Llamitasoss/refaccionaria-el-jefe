@@ -358,11 +358,11 @@
                 </div>
                 <div onclick="filterRefacciones('sub-electrico')" class="cursor-pointer bg-white border border-gray-200 rounded-lg p-6 hover:shadow-xl hover:border-blue-800 transition flex items-center gap-4 group">
                     <div class="bg-yellow-100 p-4 rounded-full text-yellow-600 group-hover:bg-yellow-500 group-hover:text-white transition"><i class="fas fa-bolt text-3xl"></i></div>
-                    <div><h3 class="font-bold text-xl text-[#0866bd]">Sistema Eléctrico</h3><p class="text-sm text-gray-500">Baterías, Estatores</p></div><i class="fas fa-chevron-right ml-auto text-gray-300"></i>
+                    <div><h3 class="font-bold text-xl text-[#0866bd]">Sistema Eléctrico</h3><p class="text-sm text-gray-500">Baterías, Relevadores, Cdi</p></div><i class="fas fa-chevron-right ml-auto text-gray-300"></i>
                 </div>
                 <div onclick="filterRefacciones('sub-chicote')" class="cursor-pointer bg-white border border-gray-200 rounded-lg p-6 hover:shadow-xl hover:border-blue-800 transition flex items-center gap-4 group">
                     <div class="bg-gray-100 p-4 rounded-full text-gray-600 group-hover:bg-gray-700 group-hover:text-white transition"><i class="fas fa-route text-3xl"></i></div>
-                    <div><h3 class="font-bold text-xl text-[#0866bd]">Chicotes y Cables</h3><p class="text-sm text-gray-500">Clutch, Acelerador</p></div><i class="fas fa-chevron-right ml-auto text-gray-300"></i>
+                    <div><h3 class="font-bold text-xl text-[#0866bd]">Chicotes y Cables</h3><p class="text-sm text-gray-500">Clutch, Acelerador, Freno</p></div><i class="fas fa-chevron-right ml-auto text-gray-300"></i>
                 </div>
             </div>
                 <div id="sub-freno" class="sub-category-grid hidden grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
@@ -651,23 +651,45 @@
     </main>
 
     <footer class="bg-[#0866bd] text-white pt-16 pb-8 border-t-4 border-yellow-500">
-        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left">
-            <div>
-                <h4 class="oswald text-xl md:text-2xl uppercase mb-6 tracking-wider text-yellow-500">Moto Refacciones El Jefe</h4>
-                <p class="text-gray-300 text-xs md:text-sm leading-loose">En Moto Refacciones El Jefe, entendemos que tu motocicleta es más que un medio de transporte; es tu herramienta de trabajo, tu libertad y parte de tu día a día. Somos una gran familia apasionada por el mundo de las dos ruedas, y desde nuestra llegada a Tonalá, nuestra misión ha sido ofrecerte mucho más que una simple pieza.</p>
-            </div>
-            <div>
-                <h4 class="oswald text-lg md:text-xl uppercase mb-6 tracking-wider text-yellow-500">Contacto</h4>
-                <a href="https://maps.google.com/?q=Marcos+Lara+60,+Tonalá,+Jalisco" target="_blank" class="block text-gray-300 mb-4 hover:text-white transition cursor-pointer group text-sm"><i class="fas fa-map-marker-alt mr-3 text-red-500"></i> Marcos Lara 60, Tonalá, Jal.</a>
-                <a href="https://wa.me/523332406334" target="_blank" class="block text-gray-300 mb-4 hover:text-white transition cursor-pointer group text-sm"><i class="fas fa-phone mr-3 text-green-500"></i> 33 3240 6334</a>
-            </div>
-            <div>
-                <h4 class="oswald text-lg md:text-xl uppercase mb-6 tracking-wider text-yellow-500">Horario</h4>
-                <p class="text-gray-300 mb-2 text-sm">Lunes a Viernes: 11:00 AM - 7:00 PM</p>
-                <p class="text-gray-300 text-sm">Sábados: 11:00 AM - 4:00 PM</p>
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left">
+        
+        <div>
+            <h4 class="oswald text-xl md:text-2xl uppercase mb-6 tracking-wider text-yellow-500">Moto Refacciones El Jefe</h4>
+            <p class="text-gray-300 text-xs md:text-sm leading-relaxed text-justify">
+                En <b>Moto Partes El Jefe</b>,  Nos esforzamos por brindarte la calidad y confianza que mereces.
+                Somos una empresa familiar que ayuda a mantener tu pasión en movimiento.
+            </p>
+        </div>
+
+        <div>
+            <h4 class="oswald text-lg md:text-xl uppercase mb-6 tracking-wider text-yellow-500">Ubicación</h4>
+            
+            <a href="https://maps.google.com/?q=Marcos+Lara+60,+Tonalá" target="_blank" class="block text-gray-300 mb-2 hover:text-white transition cursor-pointer group text-sm">
+                <i class="fas fa-map-marker-alt mr-3 text-red-500"></i> Marcos Lara 60, Tonalá, Jal.
+            </a>
+            <a href="https://wa.me/523332406334" target="_blank" class="block text-gray-300 mb-4 hover:text-white transition cursor-pointer group text-sm">
+                <i class="fas fa-phone mr-3 text-green-500"></i> 33 3240 6334
+            </a>
+
+            <div class="w-full h-40 rounded-lg overflow-hidden border-2 border-gray-400/50 shadow-lg mt-2">
+                <iframe 
+                    width="100%" 
+                    height="100%" 
+                    frameborder="0" 
+                    style="border:0"
+                    src="https://maps.google.com/maps?q=Marcos%20Lara%2060%2C%20Tonal%C3%A1%2C%20Jalisco&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                    allowfullscreen>
+                </iframe>
             </div>
         </div>
-    </footer>
+
+        <div>
+            <h4 class="oswald text-lg md:text-xl uppercase mb-6 tracking-wider text-yellow-500">Horario</h4>
+            <p class="text-gray-300 mb-2 text-sm"><i class="far fa-clock mr-2 text-yellow-500"></i> Lunes a Viernes: 11:00 AM - 7:00 PM</p>
+            <p class="text-gray-300 text-sm"><i class="far fa-clock mr-2 text-yellow-500"></i> Sábados: 11:00 AM - 4:00 PM</p>
+        </div>
+    </div>
+</footer>
 
     <a href="https://wa.me/523332406334" class="float-wa hover:rotate-12" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
