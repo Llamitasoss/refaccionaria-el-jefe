@@ -86,7 +86,7 @@
             </div>  
         </div>
     </header>
-
+    
     <nav class="category-nav">
         <div class="max-w-7xl mx-auto px-4 flex justify-start md:justify-center overflow-x-auto no-scrollbar py-1">
             <button onclick="switchTab('afinacion')" id="btn-afinacion" class="nav-btn active whitespace-nowrap flex-shrink-0"><i class="fas fa-oil-can mr-2"></i> Kits de Afinación</button>
@@ -104,11 +104,80 @@
         </div>
     </div>
 
-    <div class="hero-banner text-white py-12 px-4 text-center shadow-lg">
-        <h2 class="oswald text-3xl md:text-5xl font-bold uppercase mb-4 drop-shadow-lg tracking-wide">¡Los Mejores Precios!</h2>
-        <a href="https://wa.me/523332406334" target="_blank" class="inline-block bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 md:px-12 rounded-full transition shadow-xl transform hover:scale-105 uppercase tracking-wider text-sm md:text-lg"><i class="fab fa-whatsapp mr-2"></i> Cotizar Ahora</a>
+<div id="hero-carousel" class="relative min-h-[450px] flex items-center justify-center text-center overflow-hidden shadow-lg group">
+    
+    <div id="carousel-bg" class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-1000 transform scale-105" 
+         style="background-image: url('https://image2url.com/r2/default/images/1771180121587-a9f05c2f-aec1-406e-ada3-903967edc3af.webp');">
     </div>
+    
+    <div class="absolute inset-0 bg-gradient-to-t from-[#0866bd]/90 via-[#1d3e68]/50 to-transparent"></div>
 
+    <div class="relative z-10 px-4 max-w-4xl">
+        <h2 id="carousel-title" class="oswald text-4xl md:text-6xl font-bold text-white uppercase mb-4 drop-shadow-lg tracking-wide transition-opacity duration-500">
+            ESPECIALISTAS EN MOTOS
+        </h2>
+        <p id="carousel-text" class="text-gray-200 text-lg md:text-xl mb-8 font-light tracking-wider transition-opacity duration-500 delay-100">
+            Refacciones para Italika, Bajaj, Vento y más
+        </p>
+        
+        <a href="https://wa.me/523332406334" target="_blank" class="inline-block bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 md:px-12 rounded-full transition shadow-xl transform hover:scale-105 uppercase tracking-wider text-sm md:text-lg border-2 border-transparent hover:border-white">
+            <i class="fab fa-whatsapp mr-2"></i> Cotizar Ahora
+        </a>
+    </div>
+</div>
+
+<script>
+   // LÓGICA DEL CARRUSEL (Actualizada con el Casco Nuevo)
+    const slides = [
+        {
+            // Slide 1: Moto Deportiva (Inicio)
+            img: 'https://image2url.com/r2/default/images/1771180121587-a9f05c2f-aec1-406e-ada3-903967edc3af.webp', 
+            title: 'ESPECIALISTAS EN MOTOS',
+            text: 'Refacciones para Italika, Bajaj, Vento y más'
+        },
+        {
+            img: 'https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80', // Foto Accesorios/Casco
+            title: 'SEGURIDAD Y ESTILO',
+            text: 'Cascos certificados y accesorios para ti'
+        },
+        {
+            // Slide 3: Moto en carretera (Camino)
+            img: 'https://image2url.com/r2/default/images/1771180198846-a452a5b8-c3bc-424c-ab7d-0801aca926c8.jpg', 
+            title: 'TU PASIÓN EN MOVIMIENTO',
+            text: 'Refacciones de calidad para el camino'
+        }
+    ];
+
+    let currentSlide = 0;
+    const bgElement = document.getElementById('carousel-bg');
+    const titleElement = document.getElementById('carousel-title');
+    const textElement = document.getElementById('carousel-text');
+
+    function updateSlide() {
+        // Efecto de desvanecimiento
+        bgElement.classList.add('opacity-50');
+        titleElement.classList.add('opacity-0');
+        textElement.classList.add('opacity-0');
+        
+        setTimeout(() => {
+            // Avanzar slide
+            currentSlide = (currentSlide + 1) % slides.length;
+
+            // Cambiar contenido
+            bgElement.style.backgroundImage = `url('${slides[currentSlide].img}')`;
+            titleElement.innerText = slides[currentSlide].title;
+            textElement.innerText = slides[currentSlide].text;
+            
+            // Reaparecer
+            bgElement.classList.remove('opacity-50');
+            titleElement.classList.remove('opacity-0');
+            textElement.classList.remove('opacity-0');
+        }, 500); 
+    }
+
+    // Iniciar el carrusel (cada 5 segundos)
+    setInterval(updateSlide, 5000);
+</script>
     <section class="py-8 bg-white border-b border-gray-200 hidden md:block">
         <div class="max-w-7xl mx-auto px-4 text-center">
             <h3 class="oswald text-xl text-gray-400 uppercase mb-6 tracking-widest">Manejamos las mejores marcas:</h3>
@@ -120,7 +189,7 @@
             </div>
         </div>
     </section>
-
+    
     <main class="max-w-7xl mx-auto px-4 min-h-[600px] py-10 md:py-16">
 
 <section id="afinacion" class="product-section">
@@ -662,17 +731,36 @@
     <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left">
         
         <div>
-            <h4 class="oswald text-xl md:text-2xl uppercase mb-6 tracking-wider text-yellow-500">Moto Refacciones El Jefe</h4>
-            <p class="text-gray-300 text-xs md:text-sm leading-relaxed text-justify">
-                En <b>Moto Partes El Jefe</b>,  Nos esforzamos por brindarte la calidad y confianza que mereces.
+            <h4 class="oswald text-xl md:text-2xl uppercase mb-4 tracking-wider text-yellow-500">Moto Refacciones El Jefe</h4>
+            <p class="text-gray-300 text-xs md:text-sm leading-relaxed text-justify mb-6">
+                En <b>Moto Partes El Jefe</b>, Nos esforzamos por brindarte la calidad y confianza que mereces.
                 Somos una empresa familiar que ayuda a mantener tu pasión en movimiento.
             </p>
+
+            <div>
+                <h5 class="font-bold text-white uppercase mb-3 text-sm tracking-widest">Síguenos:</h5>
+                <div class="flex gap-4 justify-center md:justify-start">
+                    
+                    <a href="https://www.facebook.com/profile.php?id=61582551320267" target="_blank" class="w-10 h-10 rounded-full bg-[#1877F2] flex items-center justify-center text-white hover:scale-110 transition shadow-lg border-2 border-white/20" title="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    
+                    <a href="https://www.tiktok.com/@moto.partes.el.je" target="_blank" class="w-10 h-10 rounded-full bg-black flex items-center justify-center text-white hover:scale-110 transition shadow-lg border-2 border-white/20" title="TikTok">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+
+                    <a href="https://www.instagram.com/el_jefe1949/" target="_blank" class="w-10 h-10 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 flex items-center justify-center text-white hover:scale-110 transition shadow-lg border-2 border-white/20" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+
+                </div>
+            </div>
         </div>
 
         <div>
             <h4 class="oswald text-lg md:text-xl uppercase mb-6 tracking-wider text-yellow-500">Ubicación</h4>
             
-            <a href="https://maps.google.com/?q=Marcos+Lara+60,+Tonalá" target="_blank" class="block text-gray-300 mb-2 hover:text-white transition cursor-pointer group text-sm">
+            <a href="https://goo.gl/maps/tu-enlace-aqui" target="_blank" class="block text-gray-300 mb-2 hover:text-white transition cursor-pointer group text-sm">
                 <i class="fas fa-map-marker-alt mr-3 text-red-500"></i> Marcos Lara 60, Tonalá, Jal.
             </a>
             <a href="https://wa.me/523332406334" target="_blank" class="block text-gray-300 mb-4 hover:text-white transition cursor-pointer group text-sm">
@@ -685,7 +773,7 @@
                     height="100%" 
                     frameborder="0" 
                     style="border:0"
-                    src="https://maps.google.com/maps?q=Marcos%20Lara%2060%2C%20Tonal%C3%A1%2C%20Jalisco&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3733.433434604533!2d-103.2473215!3d20.621453!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8428b4618e472667%3A0x679f3cf160037a34!2sC.%20Marcos%20Lara%2060%2C%20Loma%20Dorada%2C%2045402%20Tonal%C3%A1%2C%20Jal.!5e0!3m2!1ses-419!2smx!4v1707950000000!5m2!1ses-419!2smx"
                     allowfullscreen>
                 </iframe>
             </div>
