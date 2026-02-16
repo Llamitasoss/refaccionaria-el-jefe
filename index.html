@@ -200,10 +200,11 @@
             
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
                 
-                <div class="product-card" onclick="openModal('250Z', '710', null, '<ul><li>2 Aceites Motul 5100 20W-50</li><li>1 Filtro Gasolina Universal</li><li>1 Filtro Aire Original</li><li>1 Bujía NGK DR8EA</li></ul>', '<tr><td>250 Z</td><td>2019 - 2026</td></tr><tr><td>250 Z 2.0</td><td>2023 - 2026</td></tr>')">
+                <div class="product-card" onclick="openModal('250Z', '710', ['250z.png'], '<ul><li>2 Aceites Motul 5100 20W-50</li><li>1 Filtro Gasolina Universal</li><li>1 Filtro Aire Original</li><li>1 Bujía NGK DR8EA</li></ul>', '<tr><td>250 Z</td><td>2019 - 2026</td></tr><tr><td>250 Z 2.0</td><td>2023 - 2026</td></tr>')">
                     <div class="relative mb-3 group cursor-pointer">
                         <span class="absolute top-0 right-0 bg-red-600 text-white text-[10px] md:text-xs font-bold px-2 py-1 rounded shadow">-10%</span>
                         <div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400 overflow-hidden group-hover:bg-gray-200 transition">
+                            <img src="250z.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'" class="w-full h-full object-contain absolute top-0 left-0">
                             <i class="fas fa-camera text-3xl md:text-5xl"></i>
                         </div>
                     </div>
@@ -214,51 +215,82 @@
                     <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
                 </div>
 
-                <div class="product-card" onclick="openModal('150Z / 200Z', '625', null, '<ul><li>2 Aceites Motul 5000 20W-50</li><li>1 Filtro Gasolina Universal</li><li>1 Filtro Aire Original</li><li>1 Bujía NGK DR8EA</li></ul>', '<tr><td>150 Z</td><td>2014 - 2026</td></tr><tr><td>200 Z</td><td>2019 - 2026</td></tr><tr><td>150 SZ</td><td>2016 - 2018</td></tr><tr><td>170 Z</td><td>2016 - 2018</td></tr>')">
-                    <div class="relative mb-3"><div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400"><i class="fas fa-camera text-3xl md:text-5xl"></i></div></div>
-                    <div class="card-content-grow">
-                        <div><h3 class="font-bold text-[#0866bd] line-clamp-1">150Z / 200Z</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Con Motul 5000 Semisintético</p></div>
-                        <div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$625</span></div>
-                    </div>
-                    <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
-                </div>
-
-                <div class="product-card border-yellow-400 border-2 relative bg-yellow-50/50" onclick="openModal('Pulsar NS 200', '1,100', null, '<ul><li>2 Aceites Motul 7100 20W-50</li><li>1 Filtro de Aceite</li><li>1 Filtro de Aire</li><li>1 Bujía LKAR8A-9</li><li>2 Bujías RG6HCC</li></ul>', '<tr><td>Pulsar NS 200</td><td>Todos</td></tr><tr><td>Pulsar AS 200</td><td>Todos</td></tr>')">
-                    <div class="relative mb-3"><span class="absolute top-0 right-0 bg-yellow-500 text-white text-[10px] md:text-xs font-bold px-2 py-1 rounded-bl-lg shadow">PREMIUM</span><div class="h-32 md:h-48 bg-white rounded flex items-center justify-center text-gray-400 border border-gray-200"><i class="fas fa-camera text-3xl md:text-5xl"></i></div></div>
-                    <div class="card-content-grow">
-                        <div><h3 class="font-bold text-[#0866bd] line-clamp-1">Pulsar NS 200</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Motul 7100 Sintético</p></div>
-                        <div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$1,100</span></div>
-                    </div>
-                    <button class="w-full bg-white border border-gray-300 text-gray-700 py-2 rounded font-bold hover:bg-gray-100 uppercase text-xs">Ver Detalles</button>
-                </div>
-
-                <div class="product-card" onclick="openModal('Motos de Trabajo', '300', null, '<ul><li>1 Aceite Mobil Premium</li><li>1 Filtro Gasolina Universal</li><li>1 Filtro Aire Original</li><li>1 Bujía NGK DR8EA</li></ul>', '<tr><td>DT150 Delivery</td><td>2017-2026</td></tr><tr><td>FT125 Roja</td><td>2013-2020</td></tr><tr><td>FT150 Grafito</td><td>2018-2024</td></tr><tr><td>DT125 Delivery</td><td>2017-2023</td></tr><tr><td>FT125</td><td>2022-2026</td></tr><tr><td>FT150 TS</td><td>2016-2026</td></tr><tr><td>DT150 Clásica</td><td>2017-2024</td></tr><tr><td>125 Z</td><td>2016-2026</td></tr><tr><td>FT 150</td><td>2024-2026</td></tr><tr><td>DT125 Sport</td><td>2017-2022</td></tr>')">
-                    <div class="relative mb-3"><div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400"><i class="fas fa-camera text-3xl md:text-5xl"></i></div></div>
-                    <div class="card-content-grow">
-                        <div><h3 class="font-bold text-[#0866bd] line-clamp-1">Motos de Trabajo</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Mobil Mineral Premium</p></div>
-                        <div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$300</span></div>
-                    </div>
-                    <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
-                </div>
-
-          <div class="product-card" onclick="openModal('Linea DM', '640', ['dm.png.png'], '<ul><li>2 Aceites Motul 5000 20W-50</li><li>1 Filtro Gasolina Universal</li><li>1 Filtro Aire Original</li><li>1 Bujía NGK DR8EA</li></ul>', '<tr><td>DM 150</td><td>2022-2026</td></tr><tr><td>DM 200</td><td>2014-2026</td></tr><tr><td>DM 250</td><td>2016-2026</td></tr>')">
-    <div class="relative mb-3">
-        <div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center overflow-hidden transition">
-            <img src="dm.png.png" alt="Kit DM" class="w-full h-full object-contain">
+                <div class="product-card" onclick="openModal('150Z / 200Z', '625', ['dm.png.png'], '<ul><li>2 Aceites Motul 5000 20W-50</li><li>1 Filtro Gasolina Universal</li><li>1 Filtro Aire Original</li><li>1 Bujía NGK DR8EA</li></ul>', '<tr><td>150 Z</td><td>2014 - 2026</td></tr><tr><td>200 Z</td><td>2019 - 2026</td></tr><tr><td>150 SZ</td><td>2016 - 2018</td></tr><tr><td>170 Z</td><td>2016 - 2018</td></tr>')">
+    <div class="relative mb-3 group cursor-pointer">
+        <div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400 overflow-hidden group-hover:bg-gray-200 transition">
+            <img src="150z.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'" class="w-full h-full object-contain absolute top-0 left-0">
+            <i class="fas fa-camera text-3xl md:text-5xl"></i>
         </div>
-        
+    </div>
+    <div class="card-content-grow">
+        <div>
+            <h3 class="font-bold text-[#0866bd] line-clamp-1">150Z / 200Z</h3>
+            <p class="text-xs md:text-sm text-gray-500 line-clamp-2">Con Motul 5000 Semisintético</p>
+        </div>
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mt-auto">
+            <span class="text-xl md:text-2xl font-bold text-red-600">$625</span>
+        </div>
+    </div>
+    <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
+</div>
+
+<div class="product-card border-yellow-400 border-2 relative bg-yellow-50/50" onclick="openModal('Pulsar NS 200', '1,100', ['dm.png.png'], '<ul><li>2 Aceites Motul 7100 20W-50</li><li>1 Filtro de Aceite</li><li>1 Filtro de Aire</li><li>1 Bujía LKAR8A-9</li><li>2 Bujías RG6HCC</li></ul>', '<tr><td>Pulsar NS 200</td><td>Todos</td></tr><tr><td>Pulsar AS 200</td><td>Todos</td></tr>')">
+    <div class="relative mb-3 group cursor-pointer">
+        <span class="absolute top-0 right-0 bg-yellow-500 text-white text-[10px] md:text-xs font-bold px-2 py-1 rounded-bl-lg shadow z-10">PREMIUM</span>
+        <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center text-gray-400 overflow-hidden group-hover:bg-gray-100 transition border border-gray-200">
+            <img src="pulsar200.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'" class="w-full h-full object-contain absolute top-0 left-0">
+            <i class="fas fa-camera text-3xl md:text-5xl"></i>
+        </div>
+    </div>
+    <div class="card-content-grow">
+        <div>
+            <h3 class="font-bold text-[#0866bd] line-clamp-1">Pulsar NS 200</h3>
+            <p class="text-xs md:text-sm text-gray-500 line-clamp-2">Motul 7100 Sintético</p>
+        </div>
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mt-auto">
+            <span class="text-xl md:text-2xl font-bold text-red-600">$1,100</span>
+        </div>
+    </div>
+    <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
+</div>
+
+<div class="product-card" onclick="openModal('Motos de Trabajo', '300', ['dm.png.png'], '<ul><li>1 Aceite Mobil Premium</li><li>1 Filtro Gasolina Universal</li><li>1 Filtro Aire Original</li><li>1 Bujía NGK DR8EA</li></ul>', '<tr><td>DT150 Delivery</td><td>2017-2026</td></tr><tr><td>FT125 Roja</td><td>2013-2020</td></tr><tr><td>FT150 Grafito</td><td>2018-2024</td></tr><tr><td>DT125 Delivery</td><td>2017-2023</td></tr><tr><td>FT125</td><td>2022-2026</td></tr><tr><td>FT150 TS</td><td>2016-2026</td></tr><tr><td>DT150 Clásica</td><td>2017-2024</td></tr><tr><td>125 Z</td><td>2016-2026</td></tr><tr><td>FT 150</td><td>2024-2026</td></tr><tr><td>DT125 Sport</td><td>2017-2022</td></tr>')">
+    <div class="relative mb-3 group cursor-pointer">
+        <div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400 overflow-hidden group-hover:bg-gray-200 transition">
+            <img src="mototrabajo.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'" class="w-full h-full object-contain absolute top-0 left-0">
+            <i class="fas fa-camera text-3xl md:text-5xl"></i>
+        </div>
+    </div>
+    <div class="card-content-grow">
+        <div>
+            <h3 class="font-bold text-[#0866bd] line-clamp-1">Motos de Trabajo</h3>
+            <p class="text-xs md:text-sm text-gray-500 line-clamp-2">Mobil Mineral Premium</p>
+        </div>
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mt-auto">
+            <span class="text-xl md:text-2xl font-bold text-red-600">$300</span>
+        </div>
+    </div>
+    <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
+</div>
+
+<div class="product-card" onclick="openModal('Linea DM', '640', ['dm.png'], '<ul><li>2 Aceites Motul 5000 20W-50</li><li>1 Filtro Gasolina Universal</li><li>1 Filtro Aire Original</li><li>1 Bujía NGK DR8EA</li></ul>', '<tr><td>DM 150</td><td>2022-2026</td></tr><tr><td>DM 200</td><td>2014-2026</td></tr><tr><td>DM 250</td><td>2016-2026</td></tr>')">
+    <div class="relative mb-3 group cursor-pointer">
+        <div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400 overflow-hidden group-hover:bg-gray-200 transition">
+            <img src="dm.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'" class="w-full h-full object-contain absolute top-0 left-0">
+            <i class="fas fa-camera text-3xl md:text-5xl"></i>
+        </div>
+    </div>
     <div class="card-content-grow">
         <div>
             <h3 class="font-bold text-[#0866bd] line-clamp-1">DM 150 / DM 200 / DM 250</h3>
             <p class="text-xs md:text-sm text-gray-500 line-clamp-2">Motul 5000 Semisintético</p>
         </div>
-        <div class="flex justify-between items-center mt-auto">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mt-auto">
             <span class="text-xl md:text-2xl font-bold text-red-600">$640</span>
         </div>
     </div>
     <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
 </div>
-            </div>
         </section>
 
         <section id="sprocket" class="product-section hidden-section">
