@@ -293,21 +293,52 @@
 </div>
         </section>
 
-        <section id="sprocket" class="product-section hidden-section">
-             <div class="flex items-center mb-8 border-b pb-3 border-gray-300"><div class="h-6 md:h-8 w-1 bg-yellow-500 mr-3"></div><h2 class="text-2xl md:text-3xl font-bold text-[#0866bd] oswald uppercase">Kits de Arrastre</h2></div>
-             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
-                 <div class="product-card" onclick="openModal('Kit Arrastre DM200', '550', null, '<ul><li>Cadena Reforzada 428H</li><li>Piñón de Acero</li><li>Corona de Acero</li></ul>', '<tr><td>DM 200</td><td>2014 - 2026</td></tr>')">
-                    <div class="relative mb-3"><div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400"><i class="fas fa-cog text-3xl md:text-5xl"></i></div></div>
-                    <div class="card-content-grow"><div><h3 class="font-bold text-[#0866bd] line-clamp-1">Kit Arrastre DM200</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Cadena Reforzada</p></div><div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$550</span></div></div>
-                    <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
-                 </div>
-                 <div class="product-card" onclick="openModal('Kit Arrastre FT150', '380', null, '<ul><li>Acero 1045</li><li>Durabilidad Superior</li></ul>', '<tr><td>FT 150</td><td>Todos</td></tr><tr><td>DT 150</td><td>Todos</td></tr>')">
-                    <div class="relative mb-3"><div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400"><i class="fas fa-cog text-3xl md:text-5xl"></i></div></div>
-                    <div class="card-content-grow"><div><h3 class="font-bold text-[#0866bd] line-clamp-1">Kit Arrastre FT150</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Acero 1045</p></div><div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$380</span></div></div>
-                    <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
-                 </div>
-             </div>
-        </section>
+       <section id="sprocket" class="product-section hidden-section">
+    <div class="flex items-center mb-8 border-b pb-3 border-gray-300">
+        <div class="h-6 md:h-8 w-1 bg-yellow-500 mr-3"></div>
+        <h2 class="text-2xl md:text-3xl font-bold text-[#0866bd] oswald uppercase">Kits de Sprocket</h2>
+    </div>
+    
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
+        
+        <div class="product-card group" onclick="openModal('Kit de Sprocket Línea Z', '450', ['kit_sprocket_linea_z.png'], '<ul><li>1 Engrane de tracción final</li><li>1 Rueda dentada</li><li>1 Cadena 428-126 Reforzada</li><li>1 Lubricante de cadena</li></ul>', '<tr><td>150Z</td><td>2014 - 2026</td></tr><tr><td>200Z</td><td>2019 - 2025</td></tr>')">
+            <div class="relative mb-3">
+                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
+                    <img src="kit_sprocket_linea_z.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
+                </div>
+            </div>
+            <div class="card-content-grow">
+                <div>
+                    <h3 class="font-bold text-[#0866bd] line-clamp-1">Kit Sprocket Línea Z</h3>
+                    <p class="text-xs md:text-sm text-gray-500 line-clamp-2">150Z / 200Z + Lubricante</p>
+                </div>
+                <div class="flex justify-between items-center mt-auto">
+                    <span class="text-xl md:text-2xl font-bold text-red-600">$450</span>
+                </div>
+            </div>
+            <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
+        </div>
+
+        <div class="product-card group" onclick="openModal('Kit de Sprocket DM 200/250', '460', ['kit_sprocket_dm.png'], '<ul><li>1 Engrane tracción final</li><li>1 Rueda dentada</li><li>1 Cadena 428-136 Reforzada</li><li>1 Lubricante de cadena</li></ul>', '<tr><td>DM 200</td><td>2014 - 2026</td></tr><tr><td>DM 250</td><td>2020 - 2026</td></tr>')">
+            <div class="relative mb-3">
+                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
+                    <img src="kit_sprocket_dm.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
+                </div>
+            </div>
+            <div class="card-content-grow">
+                <div>
+                    <h3 class="font-bold text-[#0866bd] line-clamp-1">Kit Sprocket Serie DM</h3>
+                    <p class="text-xs md:text-sm text-gray-500 line-clamp-2">DM 200 / 250 + Lubricante</p>
+                </div>
+                <div class="flex justify-between items-center mt-auto">
+                    <span class="text-xl md:text-2xl font-bold text-red-600">$460</span>
+                </div>
+            </div>
+            <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
+        </div>
+
+    </div>
+</section>
 
        <section id="llantas" class="product-section hidden-section">
     <div class="flex items-center mb-8 border-b pb-3 border-gray-300">
@@ -1354,16 +1385,124 @@
 </div>
         </section>
 
-        <section id="accesorios" class="product-section hidden-section">
-            <div class="flex items-center mb-8 border-b pb-3 border-gray-300"><div class="h-6 md:h-8 w-1 bg-gray-700 mr-3"></div><h2 class="text-2xl md:text-3xl font-bold text-[#0866bd] oswald uppercase">Accesorios</h2></div>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
-                <div class="product-card" onclick="openModal('Casco Abatible DOT', '1,200', null, '<ul><li>Certificación DOT</li><li>Mica Oscura Integrada</li><li>Interior Lavable</li></ul>', '<tr><td>Universal</td><td>Todas las Tallas</td></tr>')">
-                    <div class="relative mb-3"><div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400"><i class="fas fa-helmet-safety text-3xl md:text-5xl"></i></div></div>
-                    <div class="card-content-grow"><div><h3 class="font-bold text-[#0866bd] line-clamp-1">Casco Abatible</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Certificado DOT</p></div><div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$1,200</span></div></div>
-                    <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
+       <section id="accesorios" class="product-section hidden-section">
+    <div class="flex items-center mb-8 border-b pb-3 border-gray-300">
+        <div class="h-6 md:h-8 w-1 bg-gray-700 mr-3"></div>
+        <h2 class="text-2xl md:text-3xl font-bold text-[#0866bd] oswald uppercase">Accesorios</h2>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
+
+        <div class="product-card group" onclick="openModal('Casco M para Mujer', '2,300', ['CTRN18495.png'], '<ul><li>Modelo: CTRN18495</li><li>Diseño para Mujer</li><li>Talla: M</li></ul>', '<tr><td>Talla</td><td>M</td></tr>')">
+            <div class="relative mb-3">
+                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
+                    <img src="CTRN18495.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
                 </div>
             </div>
-        </section>
+            <div class="card-content-grow">
+                <div>
+                    <h3 class="font-bold text-[#0866bd] line-clamp-1">Casco M para Mujer</h3>
+                    <p class="text-xs text-gray-500 font-mono">CTRN18495</p>
+                </div>
+                <div class="flex justify-between items-center mt-auto">
+                    <span class="text-xl font-bold text-red-600">$2,300</span>
+                </div>
+            </div>
+            <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
+        </div>
+
+        <div class="product-card group" onclick="openModal('Casco XL Negro', '1,900', ['FZBB12270.png'], '<ul><li>Modelo: FZBB12270</li><li>Color: Negro</li><li>Talla: XL</li></ul>', '<tr><td>Talla</td><td>XL</td></tr>')">
+            <div class="relative mb-3">
+                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
+                    <img src="FZBB12270.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
+                </div>
+            </div>
+            <div class="card-content-grow">
+                <div>
+                    <h3 class="font-bold text-[#0866bd] line-clamp-1">Casco XL Negro</h3>
+                    <p class="text-xs text-gray-500 font-mono">FZBB12270</p>
+                </div>
+                <div class="flex justify-between items-center mt-auto">
+                    <span class="text-xl font-bold text-red-600">$1,900</span>
+                </div>
+            </div>
+            <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
+        </div>
+
+        <div class="product-card group" onclick="openModal('Casco Half Flux', '2,100', ['CRO8705.png'], '<ul><li>Modelo: CRO8705</li><li>Estilo: Half Flux</li><li>Certificado</li></ul>', '<tr><td>Talla</td><td>Universal</td></tr>')">
+            <div class="relative mb-3">
+                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
+                    <img src="CRO8705.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
+                </div>
+            </div>
+            <div class="card-content-grow">
+                <div>
+                    <h3 class="font-bold text-[#0866bd] line-clamp-1">Casco Half Flux</h3>
+                    <p class="text-xs text-gray-500 font-mono">CRO8705</p>
+                </div>
+                <div class="flex justify-between items-center mt-auto">
+                    <span class="text-xl font-bold text-red-600">$2,100</span>
+                </div>
+            </div>
+            <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
+        </div>
+
+        <div class="product-card group" onclick="openModal('Casco Cross Rojo XX', '1,500', ['ENCAS2482.png'], '<ul><li>Modelo: ENCAS2482</li><li>Estilo: Cross / Enduro</li><li>Color: Rojo</li></ul>', '<tr><td>Talla</td><td>XX</td></tr>')">
+            <div class="relative mb-3">
+                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
+                    <img src="ENCAS2482.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
+                </div>
+            </div>
+            <div class="card-content-grow">
+                <div>
+                    <h3 class="font-bold text-[#0866bd] line-clamp-1">Casco Cross Rojo XX</h3>
+                    <p class="text-xs text-gray-500 font-mono">ENCAS2482</p>
+                </div>
+                <div class="flex justify-between items-center mt-auto">
+                    <span class="text-xl font-bold text-red-600">$1,500</span>
+                </div>
+            </div>
+            <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
+        </div>
+
+        <div class="product-card group" onclick="openModal('Casco Iron Racing', '1,500', ['CAS6917D.png'], '<ul><li>Modelo: CAS6917D</li><li>Marca: Iron Racing</li><li>Alta Resistencia</li></ul>', '<tr><td>Talla</td><td>Universal</td></tr>')">
+            <div class="relative mb-3">
+                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
+                    <img src="CAS6917D.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
+                </div>
+            </div>
+            <div class="card-content-grow">
+                <div>
+                    <h3 class="font-bold text-[#0866bd] line-clamp-1">Casco Iron Racing</h3>
+                    <p class="text-xs text-gray-500 font-mono">CAS6917D</p>
+                </div>
+                <div class="flex justify-between items-center mt-auto">
+                    <span class="text-xl font-bold text-red-600">$1,500</span>
+                </div>
+            </div>
+            <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
+        </div>
+
+        <div class="product-card group" onclick="openModal('Casco Iron Racing Económico', '900', ['CAS6368D.png'], '<ul><li>Modelo: CAS6368D</li><li>Marca: Iron Racing</li><li>Uso Urbano</li></ul>', '<tr><td>Talla</td><td>Universal</td></tr>')">
+            <div class="relative mb-3">
+                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
+                    <img src="CAS6368D.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
+                </div>
+            </div>
+            <div class="card-content-grow">
+                <div>
+                    <h3 class="font-bold text-[#0866bd] line-clamp-1">Casco Iron Racing</h3>
+                    <p class="text-xs text-gray-500 font-mono">CAS6368D</p>
+                </div>
+                <div class="flex justify-between items-center mt-auto">
+                    <span class="text-xl font-bold text-red-600">$900</span>
+                </div>
+            </div>
+            <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
+        </div>
+
+    </div>
+</section>
 
         <div id="pagination-controls" class="pagination-container">
             </div>
@@ -1517,6 +1656,13 @@
         "Chicote Freno Delantero": 8,
         "Chicote Velocimetro": 5,
         "Chicote Velocimetro FT150": 8,
+        "Casco M para Mujer": 1,
+        "Casco XL Negro": 1,
+        "Casco Half Flux": 1,
+        "Casco Cross Rojo XX": 1,
+        "Casco Iron Racing": 1,
+        "Casco Iron Racing Económico": 1,
+        
         // Si un producto no está aquí, asumirá que hay stock (Verde)
     }
     // FUNCIÓN PARA GENERAR LA ETIQUETA DE STOCK
