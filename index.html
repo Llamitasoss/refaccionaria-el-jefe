@@ -75,17 +75,29 @@
 </head>
 <body class="mb-0">
 
-    <header class="top-nav text-white py-4 md:py-6 shadow-md">
-        <div class="max-w-7xl mx-auto px-4 flex justify-center items-center">
-            <div class="flex items-center gap-3 md:gap-5">
-                <img src="logo.png" alt="Logo El Jefe" class="h-16 md:h-20 w-auto bg-white rounded-full p-1 border-2 border-gray-300 shadow-md">
-                <div class="text-left">
-                    <h1 class="oswald text-2xl md:text-4xl font-bold uppercase tracking-widest leading-none">El Jefe</h1>
-                    <p class="text-xs md:text-sm text-gray-300 tracking-[0.2em] uppercase mt-1">Moto Partes | Tonalá</p>
-                </div>
-            </div>  
+   <header class="top-nav text-white py-4 md:py-6 shadow-md relative z-50">
+    <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+        
+        <div class="hidden md:block w-20"></div>
+
+        <div class="flex items-center gap-3 md:gap-5">
+            <img src="logo.png" alt="Logo El Jefe" class="h-16 md:h-20 w-auto bg-white rounded-full p-1 border-2 border-gray-300 shadow-md">
+            <div class="text-left">
+                <h1 class="oswald text-2xl md:text-4xl font-bold uppercase tracking-widest leading-none">El Jefe</h1>
+                <p class="text-xs md:text-sm text-gray-300 tracking-[0.2em] uppercase mt-1">Moto Partes | Tonalá</p>
+            </div>
         </div>
-    </header>
+
+        <div class="flex items-center justify-end">
+            <button onclick="toggleCart()" class="relative bg-yellow-500 text-[#0866bd] p-3 md:p-4 rounded-full shadow-lg hover:bg-yellow-400 hover:scale-105 transition-all duration-300 border-2 border-white flex items-center justify-center group cursor-pointer">
+                <i class="fas fa-shopping-cart text-xl md:text-2xl group-hover:scale-110 transition-transform"></i>
+                <span class="hidden md:inline-block ml-2 font-bold uppercase text-sm oswald">Mi Pedido</span>
+                <span id="cart-count" class="absolute -top-2 -right-2 bg-red-600 text-white text-xs md:text-sm font-bold w-6 h-6 md:w-7 md:h-7 rounded-full flex items-center justify-center border-2 border-white shadow-sm">0</span>
+            </button>
+        </div>
+
+    </div>
+</header>
     
     <nav class="category-nav">
         <div class="max-w-7xl mx-auto px-4 flex justify-start md:justify-center overflow-x-auto no-scrollbar py-1">
@@ -597,7 +609,6 @@
 
     </div>
 </section>
-        </section>
 
         <section id="refacciones" class="product-section hidden-section">
             <div class="border-b border-gray-300 pb-4 mb-6">
@@ -1568,102 +1579,88 @@
     </div>
 </footer>
 
-    <a href="https://wa.me/523332406334" class="float-wa hover:rotate-12" target="_blank"><i class="fab fa-whatsapp"></i></a>
+<a href="https://wa.me/523332406334" class="float-wa hover:rotate-12" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
-    <div id="modal-overlay" onclick="closeModal(event)">
-        <div class="bg-white rounded-lg max-w-5xl w-full relative shadow-2xl overflow-hidden mx-auto flex flex-col md:flex-row max-h-[90vh] border-t-4 border-[#0866bd]">
-            <button onclick="closeModal(event)" class="absolute top-3 right-3 bg-gray-100 rounded-full w-10 h-10 flex items-center justify-center text-gray-500 hover:text-red-600 hover:bg-gray-200 transition z-20"><i class="fas fa-times text-xl"></i></button>
-            <div class="w-full md:w-1/2 bg-gray-50 flex items-center justify-center p-6 md:p-10 border-b md:border-b-0 md:border-r border-gray-200 relative">
-                 <div id="modal-images" class="w-full h-64 md:h-full flex items-center justify-center text-gray-300"><i class="fas fa-camera text-7xl md:text-8xl"></i></div>
+<div id="modal-overlay" onclick="closeModal(event)">
+    <div class="bg-white rounded-lg max-w-5xl w-full relative shadow-2xl overflow-hidden mx-auto flex flex-col md:flex-row max-h-[90vh] border-t-4 border-[#0866bd]">
+        <button onclick="closeModal(event)" class="absolute top-3 right-3 bg-gray-100 rounded-full w-10 h-10 flex items-center justify-center text-gray-500 hover:text-red-600 hover:bg-gray-200 transition z-20"><i class="fas fa-times text-xl"></i></button>
+        <div class="w-full md:w-1/2 bg-gray-50 flex items-center justify-center p-6 md:p-10 border-b md:border-b-0 md:border-r border-gray-200 relative">
+            <div id="modal-images" class="w-full h-64 md:h-full flex items-center justify-center text-gray-300"><i class="fas fa-camera text-7xl md:text-8xl"></i></div>
+        </div>
+        <div class="w-full md:w-1/2 p-6 md:p-8 overflow-y-auto relative flex flex-col">
+            <div class="mb-6">
+                <h2 id="modal-title" class="oswald text-3xl md:text-4xl font-bold text-[#0866bd] uppercase leading-tight mb-2">Titulo Producto</h2>
+                <p id="modal-price" class="text-3xl md:text-4xl font-bold text-red-600">$0.00</p>
             </div>
-            <div class="w-full md:w-1/2 p-6 md:p-8 overflow-y-auto relative flex flex-col">
-                <div class="mb-6"><h2 id="modal-title" class="oswald text-3xl md:text-4xl font-bold text-[#0866bd] uppercase leading-tight mb-2">Titulo Producto</h2><p id="modal-price" class="text-3xl md:text-4xl font-bold text-red-600">$0.00</p></div>
-                <div class="mb-6"><h3 class="font-bold text-sm text-gray-700 uppercase mb-3 flex items-center tracking-wider"><i class="fas fa-box-open mr-2 text-[#0866bd]"></i> ESPECIFICACIONES DEL PRODUCTO:</h3><div id="modal-desc" class="modal-list ml-1"></div></div>
-                <div id="modal-compat-container" class="compat-table-container hidden mb-6"><div class="compat-table-header"><i class="fas fa-motorcycle mr-2"></i> TABLA DE COMPATIBILIDAD</div><div class="compat-table-body"><table class="table-auto"><thead><tr><th>MODELO</th><th>AÑO(S)</th></tr></thead><tbody id="modal-compat-table-body"></tbody></table></div></div>
-                <div class="mt-auto pt-4"><a id="modal-btn-wa" href="#" target="_blank" class="flex items-center justify-center w-full bg-green-600 text-white font-bold py-4 rounded-lg shadow-md hover:bg-green-700 transition uppercase tracking-widest text-lg"><i class="fab fa-whatsapp mr-3 text-2xl"></i> Pedir Ahora</a></div>
+            <div class="mb-6">
+                <h3 class="font-bold text-sm text-gray-700 uppercase mb-3 flex items-center tracking-wider"><i class="fas fa-box-open mr-2 text-[#0866bd]"></i> ESPECIFICACIONES DEL PRODUCTO:</h3>
+                <div id="modal-desc" class="modal-list ml-1"></div>
+            </div>
+            <div id="modal-compat-container" class="compat-table-container hidden mb-6">
+                <div class="compat-table-header"><i class="fas fa-motorcycle mr-2"></i> TABLA DE COMPATIBILIDAD</div>
+                <div class="compat-table-body">
+                    <table class="table-auto">
+                        <thead><tr><th>MODELO</th><th>AÑO(S)</th></tr></thead>
+                        <tbody id="modal-compat-table-body"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="mt-auto pt-4">
+                <button id="modal-btn-add" class="flex items-center justify-center w-full bg-yellow-500 text-[#0866bd] font-bold py-4 rounded-lg shadow-md hover:bg-yellow-400 transition uppercase tracking-widest text-lg border-2 border-transparent hover:border-[#0866bd]">
+                    <i class="fas fa-cart-plus mr-3 text-2xl"></i> Agregar al Carrito
+                </button>
             </div>
         </div>
     </div>
+</div>
 
-    <script>
+<div id="cart-overlay" onclick="toggleCart()" class="fixed inset-0 bg-black bg-opacity-50 z-[110] hidden transition-opacity duration-300"></div>
+
+<div id="cart-sidebar" class="fixed top-0 right-0 w-80 md:w-96 h-full bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-[120] flex flex-col border-l-4 border-[#0866bd]">
+    <div class="p-4 bg-[#0866bd] text-white flex justify-between items-center shadow-md">
+        <h2 class="font-bold text-xl oswald tracking-wide"><i class="fas fa-shopping-cart mr-2"></i> Mi Pedido</h2>
+        <button onclick="toggleCart()" class="text-white hover:text-red-300 transition transform hover:rotate-90">
+            <i class="fas fa-times text-2xl"></i>
+        </button>
+    </div>
+    <div id="cart-items" class="flex-1 overflow-y-auto p-4 space-y-3 bg-[#F3F0E9]">
+        <p class="text-gray-500 text-center mt-10"><i class="fas fa-box-open text-3xl mb-3 opacity-50"></i><br>Tu carrito está vacío.</p>
+    </div>
+    <div class="p-4 bg-white border-t-2 border-gray-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
+        <div class="flex justify-between font-bold text-2xl mb-4 text-[#0866bd]">
+            <span>Total:</span>
+            <span id="cart-total">$0.00</span>
+        </div>
+        <button onclick="checkoutWhatsApp()" class="w-full bg-green-600 text-white font-bold py-3 rounded-lg hover:bg-green-700 transition flex justify-center items-center uppercase tracking-widest">
+            <i class="fab fa-whatsapp mr-2 text-xl"></i> Enviar Pedido
+        </button>
+    </div>
+</div>
+
+<script>
         // CONFIGURACIÓN DE PAGINACIÓN Y LÓGICA PRINCIPAL
         const ITEMS_PER_PAGE = 16; 
         // --- GESTIÓN DE INVENTARIO (Edita aquí las cantidades) ---
-    const inventario = {
-        "250Z": 8,            // Verde (>5)
-        "150Z / 200Z": 2,     // Amarillo (<3)
-        "Pulsar NS 200": 5,   // Rojo (0)
-        "Motos Trabajo": 15,
-        "DM 200": 1,
-        "Batería ICB6L-B": 5,        // Verde
-        "Batería YTX7-LBS": 3,      // Verde
-        "Batería 12V7A 3A": 3,       // Verde
-        "Batería IYTX9-BS": 1, // Amarillo (¡Última!)
-        "Batería 12N7-B3": 5,  // Stock normal (Verde)
-       "Llanta 130/70-17": 2,
-        "Llanta 130/90-10": 2,
-        "Llanta 90/90-17": 1,
-        "Chao 2.50-17 Gajos": 1,
-        "Chao 2.50-17 TT": 1,
-        "Chaoga 3.00-17 Gajos": 2,
-        "Chaoga 3.00-18 Gajos": 2,
-        "City Road 130/60-13": 4,
-        "City Road 2.50-17": 2,
-        "City Road 2.50-18": 2,
-        "City Road 2.75-17": 4,
-        "City Road 2.75-18": 4,
-        "City Road 3.00-17": 4,
-        "City Road 3.00-18 TT": 2,
-        "City Road 3.50-10": 2,
-        "Italika 3.00-18": 1,      // Ahora sí coincide con la tarjeta
-        "Italika 80/100-21": 2,
-        "Matsuma 4.00-8": 4,
-        "Matsuma 4.5-12": 1,
-        "Zapatas Traseras FT150": 7,
-        "Zapatas Traseras AT110 (Tambor)": 5, 
-        "Balatas Delanteras Forza": 5,
-        "Balatas Traseras ATV": 2,
-        "Balatas Traseras Línea Z": 5,
-        "Balatas Delanteras DM250": 3,
-        "Balatas Delanteras AT110 RT": 3,
-        "Balatas Delanteras FT250": 2,
-        "Balatas Delanteras RT200": 5,
-        "Balatas Delanteras TC250": 5,
-        "Balatas Delanteras 125Z": 2,
-        "Balatas Traseras ATV250": 1,
-        "Zapatas Traseras DM125": 5,
-        "Zapatas Traseras AT110 (Tambor Chico)": 13,
-        "Zapatas Traseras 125Z": 6,
-        "Zapatas Traseras FT180": 2,
-        "Gomas de Freno DT110": 12,
-        "Gomas de Freno 250Z": 7,
-        "Gomas de Freno 125/150/200 Z": 16,
-        "Gomas de Freno AT110": 12,
-        "Chicote Acelerador 125/150/250 CC": 5,
-        "Chicote Acelerador F04030225": 10,
-        "Chicote Acelerador 150Z": 0,             // Agotado (Rojo)
-        "Chicote Acelerador Motoneta": 3,
-        "Chicote Acelerador Serie DM": 13,
-        "Chicote Acelerador WS150": 2,            // Amarillo
-        "Chicote Clutch 125/150 CC": 14,
-        "Chicote Clutch 150 Z": 3,
-        "Chicote Clutch 250 Z": 1,                // Amarillo
-        "Chicote Clutch Serie DM200": 3,
-        "Chicote de Embrague DT/FT150 Delivery": 5,
-        "Chicote de Freno Del": 5,
-        "Chicote de Freno Tras Motoneta": 3,
-        "Chicote Freno Delantero": 8,
-        "Chicote Velocimetro": 5,
-        "Chicote Velocimetro FT150": 8,
-        "Casco M para Mujer": 1,
-        "Casco XL Negro": 1,
-        "Casco Half Flux": 1,
-        "Casco Cross Rojo XX": 1,
-        "Casco Iron Racing": 1,
-        "Casco Iron Racing Económico": 1,
+  // --- NUEVA GESTIÓN DE INVENTARIO DESDE GOOGLE SHEETS ---
+let inventario = {}; 
+
+// Aquí va la URL que copiaste de Google Apps Script:
+const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbxHDWal9rtaDio--CM9GGcyidH0XkrzgzHg9VdsIDtdtD9Vm9HP3t4XR2yhGUfdrpbV/exec";
+
+// Función que va a leer tu Excel automáticamente
+async function cargarInventarioDesdeExcel() {
+    try {
+        const respuesta = await fetch(GOOGLE_SHEETS_URL);
+        const datosExcel = await respuesta.json();
         
-        // Si un producto no está aquí, asumirá que hay stock (Verde)
+        inventario = datosExcel; // Guardamos los datos de Excel en la página
+        
+        renderizarStock(); // Pintamos las etiquetas verde/amarillo/rojo
+        console.log("¡Inventario sincronizado con éxito!", inventario);
+    } catch (error) {
+        console.error("Error al conectar con Excel:", error);
     }
+}
     // FUNCIÓN PARA GENERAR LA ETIQUETA DE STOCK
     function obtenerBadgeStock(nombreProducto) {
         // Si no definimos cantidad, ponemos 10 por defecto
@@ -1733,9 +1730,9 @@
 
     // AGREGAR ESTO AL INICIO (DOMContentLoaded)
     document.addEventListener('DOMContentLoaded', () => {
-        renderPagination();
-        renderizarStock(); // <--- NUEVA LÍNEA IMPORTANTE
-    });
+    renderPagination();
+    cargarInventarioDesdeExcel(); // Llamamos al Excel al cargar la página
+});
         let currentPage = 1;
 
         // 1. FUNCIÓN DE PAGINACIÓN (Render Pagination)
@@ -1891,7 +1888,7 @@
                 compatContainer.classList.add('hidden');
             }
             
-            document.getElementById('modal-btn-wa').href = `https://wa.me/523332406334?text=Hola,%20me%20interesa%20el%20${title}%20de%20$${price}`;
+           document.getElementById('modal-btn-add').onclick = () => addToCart(title, price);
             document.getElementById('modal-overlay').classList.add('modal-active');
             document.body.style.overflow = 'hidden';
         }
@@ -1941,12 +1938,152 @@
                 }
             }
         }
+        // --- LÓGICA DEL CARRITO DE COMPRAS ---
+let carrito = [];
 
-        // Iniciar paginación al cargar
-        document.addEventListener('DOMContentLoaded', () => {
-            renderPagination();
-        });
+// Abrir/Cerrar menú lateral
+// Abrir/Cerrar menú lateral
+function toggleCart() {
+    const sidebar = document.getElementById('cart-sidebar');
+    const overlay = document.getElementById('cart-overlay');
+    
+    if (sidebar && overlay) {
+        sidebar.classList.toggle('translate-x-full');
+        overlay.classList.toggle('hidden');
+    } else {
+        console.error("No se encontró la estructura del carrito en el HTML.");
+    }
+}
+
+// Agregar producto al carrito
+// Agregar producto al carrito
+// Agregar producto al carrito
+function addToCart(title, price) {
+    // Definimos cuál es el stock máximo (si no está en tu lista, asume que hay 10)
+    let maxStock = inventario[title] !== undefined ? inventario[title] : 10;
+
+    // Validar si hay stock desde el inicio
+    if (maxStock === 0) {
+        alert("¡Lo sentimos! Este producto está agotado por el momento.");
+        return;
+    }
+
+    let precioLimpio = parseFloat(price.toString().replace(/,/g, ''));
+    let itemExistente = carrito.find(item => item.title === title);
+
+    if (itemExistente) {
+        // AQUÍ ESTÁ EL FRENO: Revisar si al sumar 1 excedemos el inventario
+        if (itemExistente.qty + 1 > maxStock) {
+            alert(`¡Ups! Solo tenemos ${maxStock} unidades disponibles de este producto.`);
+            return; // Detenemos la acción
+        }
+        itemExistente.qty += 1;
+    } else {
+        carrito.push({ title: title, price: precioLimpio, qty: 1 });
+    }
+    
+    updateCartUI();
+    closeModal({target: {id: 'modal-overlay'}}); 
+    
+    const cartBtn = document.querySelector('button[onclick="toggleCart()"]');
+    if(cartBtn) {
+        cartBtn.classList.add('scale-125');
+        setTimeout(() => cartBtn.classList.remove('scale-125'), 200);
+    }
+}
+
+// Quitar producto del carrito
+function removeFromCart(index) {
+    carrito.splice(index, 1);
+    updateCartUI();
+}
+
+// Sumar/Restar cantidad desde el carrito
+// Sumar/Restar cantidad desde el carrito
+function changeQty(index, delta) {
+    let item = carrito[index];
+    let maxStock = inventario[item.title] !== undefined ? inventario[item.title] : 10;
+    
+    let nuevaCantidad = item.qty + delta;
+
+    if (nuevaCantidad > 0) {
+        // AQUÍ ESTÁ EL FRENO: Revisar que la nueva cantidad no pase del inventario
+        if (nuevaCantidad > maxStock) {
+            alert(`Solo tenemos ${maxStock} unidades disponibles de este producto.`);
+            return; // Detenemos la acción
+        }
+        
+        item.qty = nuevaCantidad;
+        updateCartUI();
+    }
+}
+
+// Actualizar la vista del carrito (HTML, total y contador)
+function updateCartUI() {
+    const contenedorItems = document.getElementById('cart-items');
+    const totalEl = document.getElementById('cart-total');
+    const countEl = document.getElementById('cart-count');
+
+    contenedorItems.innerHTML = '';
+    let total = 0;
+    let cantidadProductos = 0;
+
+    if (carrito.length === 0) {
+        contenedorItems.innerHTML = '<p class="text-gray-500 text-center mt-10"><i class="fas fa-box-open text-3xl mb-3 opacity-50"></i><br>Tu carrito está vacío.</p>';
+    }
+
+    carrito.forEach((item, index) => {
+        let subtotal = item.price * item.qty;
+        total += subtotal;
+        cantidadProductos += item.qty;
+
+        contenedorItems.innerHTML += `
+            <div class="bg-white p-3 rounded-lg shadow-sm border border-gray-200 flex flex-col gap-2">
+                <div class="flex justify-between items-start">
+                    <h4 class="font-bold text-sm text-[#0866bd] leading-tight w-3/4">${item.title}</h4>
+                    <button onclick="removeFromCart(${index})" class="text-gray-400 hover:text-red-500 transition"><i class="fas fa-trash-alt"></i></button>
+                </div>
+                <div class="flex justify-between items-center mt-1">
+                    <div class="flex items-center border border-gray-300 rounded">
+                        <button onclick="changeQty(${index}, -1)" class="px-2 py-1 bg-gray-100 hover:bg-gray-200 text-gray-600">-</button>
+                        <span class="px-3 py-1 font-bold text-sm">${item.qty}</span>
+                        <button onclick="changeQty(${index}, 1)" class="px-2 py-1 bg-gray-100 hover:bg-gray-200 text-gray-600">+</button>
+                    </div>
+                    <span class="font-bold text-gray-800">$${subtotal.toFixed(2)}</span>
+                </div>
+            </div>
+        `;
+    });
+
+    totalEl.innerText = total.toLocaleString('es-MX', { style: 'currency', currency: 'MXN' });
+    countEl.innerText = cantidadProductos;
+}
+
+// Generar el mensaje y enviar a WhatsApp
+function checkoutWhatsApp() {
+    if (carrito.length === 0) {
+        alert("Agrega productos a tu pedido primero.");
+        return;
+    }
+
+    let mensaje = "🏍️ *NUEVO PEDIDO - EL JEFE* 🏍️\n\nHola, me gustaría confirmar el siguiente pedido:\n\n";
+    let total = 0;
+
+    carrito.forEach(item => {
+        let subtotal = item.price * item.qty;
+        total += subtotal;
+        mensaje += `🔸 ${item.qty}x ${item.title} \n    Subtotal: $${subtotal}\n`;
+    });
+
+    mensaje += `\n🛒 *TOTAL DEL PEDIDO: $${total}*\n\n¿Tienen las piezas disponibles para pasar por ellas?`;
+
+    // Reemplaza el número por el tuyo si es necesario
+    let numeroWhatsApp = "523332406334"; 
+    let url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
+    
+    window.open(url, '_blank');
+}
     </script>
-
+    
 </body>
 </html>
