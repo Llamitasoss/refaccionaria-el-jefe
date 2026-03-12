@@ -2072,6 +2072,7 @@ function checkoutWhatsApp() {
 
 // --- LÓGICA DEL CHATBOT Y BUSCADOR IA ---
 // FUNCIÓN PARA ABRIR PRODUCTO DESDE EL CHAT
+function abrirProductoDesdeChat(nombreExacto) {
     const tarjetas = document.querySelectorAll('.product-card');
     for (let card of tarjetas) {
         let titulo = card.querySelector('h3').innerText.trim();
@@ -2090,7 +2091,7 @@ function checkoutWhatsApp() {
         }
     }
     console.log("No se encontró la tarjeta para:", nombreExacto);
-
+}
 async function triggerSmartSearch() {
     const query = document.getElementById('globalSearch').value.trim();
     if (!query) { searchProducts(); return; }
