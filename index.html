@@ -1608,7 +1608,7 @@
 
     <div id="chat-window">
         <div class="chat-header">
-            <span><i class="fas fa-robot mr-2"></i> El Jefe Asistente</span>
+            <span><i class="fas fa-robot mr-2"></i> El Jefecito</span>
             <button onclick="toggleChat()" class="text-white hover:text-red-300 transition transform hover:rotate-90"><i class="fas fa-times text-xl"></i></button>
         </div>
         <div id="chat-messages" class="chat-messages">
@@ -2072,7 +2072,6 @@ function checkoutWhatsApp() {
 
 // --- LÓGICA DEL CHATBOT Y BUSCADOR IA ---
 // FUNCIÓN PARA ABRIR PRODUCTO DESDE EL CHAT
-function abrirProductoDesdeChat(nombreExacto) {
     const tarjetas = document.querySelectorAll('.product-card');
     for (let card of tarjetas) {
         let titulo = card.querySelector('h3').innerText.trim();
@@ -2091,7 +2090,7 @@ function abrirProductoDesdeChat(nombreExacto) {
         }
     }
     console.log("No se encontró la tarjeta para:", nombreExacto);
-}
+
 async function triggerSmartSearch() {
     const query = document.getElementById('globalSearch').value.trim();
     if (!query) { searchProducts(); return; }
@@ -2102,36 +2101,38 @@ async function triggerSmartSearch() {
     if (btnIA) btnIA.classList.add('ia-searching'); 
     if (statusText) statusText.classList.remove('hidden');
 
-   // --- NUEVO CÓDIGO PARA EXTRAER TABLAS DE COMPATIBILIDAD ---
-    const catalogoCompleto = Array.from(document.querySelectorAll('.product-card')).map(card => {
+    // --- NUEVA EXTRACCIÓN DETALLADA PARA EL BUSCADOR ---
+    const catalogoBusqueda = Array.from(document.querySelectorAll('.product-card')).map(card => {
         const nombre = card.querySelector('h3').innerText.trim();
         const btn = card.querySelector('button');
-        // Sacamos todo el texto del botón, donde tienes guardada la tabla de compatibilidad y la descripción
-        const datosExtra = btn ? btn.getAttribute('onclick') : ""; 
-        return { nombre: nombre, compatibilidad: datosExtra };
+        // Extraemos la tabla de compatibilidad que está oculta en el atributo onclick
+        const compatibilidad = btn ? btn.getAttribute('onclick') : ""; 
+        return { nombre: nombre, detalles: compatibilidad };
     });
 
-    const systemPrompt = "Eres un buscador de refacciones. Mapea la búsqueda del usuario a este catálogo detallado (que incluye modelos compatibles): " + JSON.stringify(catalogoCompleto) + ". Devuelve ÚNICAMENTE un JSON array con los 'nombre' exactos de los productos que coincidan con la moto o pieza. Si ninguno sirve, devuelve [].";
-    // -----------------------------------------------------------
+    const systemPrompt = "Eres un buscador experto. Mapea la consulta del usuario a los productos basándote en su nombre y tablas de compatibilidad: " + JSON.stringify(catalogoBusqueda) + ". Devuelve ÚNICAMENTE un JSON array con los nombres exactos que coincidan. Si no hay nada, devuelve [].";
     
     try {
-        const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + aiApiKey;
+        // Conexión a tu servidor en Render
+        const url = "https://backend-el-jefe.onrender.com/api/chat";
         const response = await fetch(url, {
             method: 'POST', 
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
                 contents: [{ parts: [{ text: query }] }], 
-                systemInstruction: { parts: [{ text: systemPrompt }] }, 
-                generationConfig: { responseMimeType: "application/json" } 
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+                generationConfig: { responseMimeType: "application/json" }
             })
         });
         
         if (!response.ok) throw new Error("API Error");
         const data = await response.json();
+        
+        // Filtrar las tarjetas visualmente con la respuesta de la IA
         filterCardsByExactNames(JSON.parse(data.candidates[0].content.parts[0].text));
     } catch (error) { 
         console.error("Error en búsqueda IA:", error);
-        searchProducts(); // Fallback a búsqueda normal
+        searchProducts(); // Fallback a búsqueda normal si falla la IA
     } finally { 
         if (btnIA) btnIA.classList.remove('ia-searching'); 
         if (statusText) statusText.classList.add('hidden'); 
@@ -2189,16 +2190,20 @@ async function sendChatMessage() {
     messagesContainer.insertAdjacentHTML('beforeend', `<div id="${loadingId}" class="chat-bubble chat-bot text-gray-400"><i class="fas fa-spinner fa-spin"></i> Pensando...</div>`);
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
     
-    // --- NUEVO CÓDIGO PARA QUE EL CHAT LEA LAS TABLAS ---
+// --- ESCANEO DETALLADO DEL CATÁLOGO ---
     const catalogoCompleto = Array.from(document.querySelectorAll('.product-card')).map(card => {
         const nombre = card.querySelector('h3').innerText.trim();
-        const btn = card.querySelector('button');
-        const datosExtra = btn ? btn.getAttribute('onclick') : ""; 
-        return { nombre: nombre, compatibilidad: datosExtra };
+        const botonDetalles = card.querySelector('button');
+        // Aquí extraemos TODO el texto que pusiste en el modal (incluyendo la tabla)
+        const infoCompatibilidad = botonDetalles ? botonDetalles.getAttribute('onclick') : ""; 
+        
+        return { 
+            producto: nombre, 
+            detalles_tecnicos: infoCompatibilidad 
+        };
     });
-    
-// 1. INSTRUCCIÓN CON LA REGLA DEL BOTÓN (Desde la línea 2183)
-   const systemPrompt = "Eres 'El Jefe', experto mecánico y vendedor proactivo. Catálogo: " + JSON.stringify(catalogoCompleto) + ". REGLA 1: Si recomiendas un producto, usa [PRODUCTO: Nombre exacto]. REGLA 2: Si el usuario pregunta por un aceite, bujía o filtro, sugiérele amablemente el kit completo de afinación para su modelo de moto. Responde en máximo 3 líneas y usa emojis 🏍️.";
+
+    const systemPrompt = "Eres 'El Jefe', experto mecánico en Jalisco. Aquí tienes tu catálogo con tablas de compatibilidad: " + JSON.stringify(catalogoCompleto) + ". REGLA DE ORO: Si el usuario pregunta por un modelo de moto (como FT150 TS), busca en 'detalles_tecnicos'. Si encuentras coincidencia, confirma que le queda y usa SIEMPRE este formato al final: [PRODUCTO: Nombre exacto del producto]. Responde amigable y corto 🏍️.";
 
     try {
         const url = "https://backend-el-jefe.onrender.com/api/chat";
