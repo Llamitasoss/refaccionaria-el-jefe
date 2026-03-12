@@ -1600,24 +1600,26 @@
     </div>
 </footer>
 
-<a href="https://wa.me/523332406334" class="float-wa hover:rotate-12" target="_blank"><i class="fab fa-whatsapp"></i></a>
-<!-- --- NUEVO: INTERFAZ DEL CHATBOT --- -->
-<button onclick="toggleChat()" class="float-chat hover:rotate-12"><i class="fas fa-robot"></i></button>
+  <!-- BOTONES FLOTANTES (WHATSAPP Y CHATBOT) -->
+    <a href="https://wa.me/523332406334" class="float-wa hover:rotate-12" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    
+    <!-- CHATBOT INTERFAZ -->
+    <button onclick="toggleChat()" class="float-chat hover:rotate-12"><i class="fas fa-robot"></i></button>
 
-<div id="chat-window">
-    <div class="chat-header">
-        <span><i class="fas fa-robot mr-2"></i> El Jefe Asistente</span>
-        <button onclick="toggleChat()" class="text-white hover:text-red-300 transition transform hover:rotate-90"><i class="fas fa-times"></i></button>
+    <div id="chat-window">
+        <div class="chat-header">
+            <span><i class="fas fa-robot mr-2"></i> El Jefe Asistente</span>
+            <button onclick="toggleChat()" class="text-white hover:text-red-300 transition transform hover:rotate-90"><i class="fas fa-times text-xl"></i></button>
+        </div>
+        <div id="chat-messages" class="chat-messages">
+            <div class="chat-bubble chat-bot">¡Qué tal! Soy el asistente virtual de El Jefe. 🏍️ ¿Qué pieza estás buscando o qué duda tienes con tu moto?</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Escribe aquí..." class="flex-grow p-2 border border-gray-300 rounded focus:outline-none focus:border-[#0866bd]" onkeyup="if(event.key === 'Enter') sendChatMessage()">
+            <button onclick="sendChatMessage()" class="bg-[#0866bd] text-white px-4 py-2 rounded hover:bg-blue-800 transition"><i class="fas fa-paper-plane"></i></button>
+        </div>
     </div>
-    <div id="chat-messages" class="chat-messages">
-        <div class="chat-bubble chat-bot">¡Qué tal! Soy el asistente virtual de El Jefe. 🏍️ ¿Qué pieza estás buscando o qué duda tienes con tu moto?</div>
-    </div>
-    <div class="chat-input-area">
-        <input type="text" id="chat-input" placeholder="Escribe aquí..." class="flex-grow p-2 border border-gray-300 rounded focus:outline-none focus:border-[#0866bd]" onkeyup="if(event.key === 'Enter') sendChatMessage()">
-        <button onclick="sendChatMessage()" class="bg-[#0866bd] text-white px-4 py-2 rounded hover:bg-blue-800 transition"><i class="fas fa-paper-plane"></i></button>
-    </div>
-</div>
-<!-- --- FIN NUEVO --- -->
+    <!-- FIN CHATBOT INTERFAZ -->
 
 <div id="modal-overlay" onclick="closeModal(event)">
     <div class="bg-white rounded-lg max-w-5xl w-full relative shadow-2xl overflow-hidden mx-auto flex flex-col md:flex-row max-h-[90vh] border-t-4 border-[#0866bd]">
@@ -1676,315 +1678,275 @@
 </div>
 
 <script>
-        // CONFIGURACIÓN DE PAGINACIÓN Y LÓGICA PRINCIPAL
-        const ITEMS_PER_PAGE = 16; 
-        // --- GESTIÓN DE INVENTARIO (Edita aquí las cantidades) ---
-  // --- NUEVA GESTIÓN DE INVENTARIO DESDE GOOGLE SHEETS ---
-let inventario = {}; 
+      // CONFIGURACIÓN DE PAGINACIÓN Y LÓGICA PRINCIPAL
+const ITEMS_PER_PAGE = 16;
 
-// Aquí va la URL que copiaste de Google Apps Script:
+// --- NUEVA GESTIÓN DE INVENTARIO DESDE GOOGLE SHEETS ---
+let inventario = {};
 const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbxHDWal9rtaDio--CM9GGcyidH0XkrzgzHg9VdsIDtdtD9Vm9HP3t4XR2yhGUfdrpbV/exec";
 
-// Función que va a leer tu Excel automáticamente
 async function cargarInventarioDesdeExcel() {
     try {
         const respuesta = await fetch(GOOGLE_SHEETS_URL);
         const datosExcel = await respuesta.json();
-        
-        inventario = datosExcel; // Guardamos los datos de Excel en la página
-        
-        renderizarStock(); // Pintamos las etiquetas verde/amarillo/rojo
+        inventario = datosExcel;
+        renderizarStock();
         console.log("¡Inventario sincronizado con éxito!", inventario);
     } catch (error) {
         console.error("Error al conectar con Excel:", error);
     }
 }
-    // FUNCIÓN PARA GENERAR LA ETIQUETA DE STOCK
-    function obtenerBadgeStock(nombreProducto) {
-        // Si no definimos cantidad, ponemos 10 por defecto
-        let cantidad = inventario[nombreProducto] !== undefined ? inventario[nombreProducto] : 10;
-        
-        let colorClass = "";
-        let texto = "";
-        let icono = "";
 
-        if (cantidad === 0) {
-            // ROJO: Agotado
-            colorClass = "bg-red-600";
-            texto = "AGOTADO";
-            icono = "fa-times-circle";
-        } else if (cantidad < 3) {
-            // AMARILLO: Menos de 3 (1 o 2)
-            colorClass = "bg-yellow-500";
-            texto = `¡ÚLTIMAS ${cantidad}!`;
-            icono = "fa-exclamation-triangle";
-        } else if (cantidad > 5) {
-            // VERDE: Más de 5
-            colorClass = "bg-green-600";
-            texto = "DISPONIBLE";
-            icono = "fa-check-circle";
+// FUNCIÓN PARA GENERAR LA ETIQUETA DE STOCK
+function obtenerBadgeStock(nombreProducto) {
+    let cantidad = inventario[nombreProducto] !== undefined ? inventario[nombreProducto] : 10;
+    let colorClass = "";
+    let texto = "";
+    let icono = "";
+
+    if (cantidad === 0) {
+        colorClass = "bg-red-600";
+        texto = "AGOTADO";
+        icono = "fa-times-circle";
+    } else if (cantidad < 3) {
+        colorClass = "bg-yellow-500";
+        texto = `¡ÚLTIMAS ${cantidad}!`;
+        icono = "fa-exclamation-triangle";
+    } else {
+        colorClass = "bg-green-600";
+        texto = "DISPONIBLE";
+        icono = "fa-check-circle";
+    }
+
+    return `<div class="absolute top-2 left-2 ${colorClass} text-white text-[10px] md:text-xs font-bold px-2 py-1 rounded shadow-md z-10 flex items-center gap-1">
+                <i class="fas ${icono}"></i> ${texto}
+            </div>`;
+}
+
+// FUNCIÓN PARA PINTAR EL STOCK EN LAS TARJETAS AL CARGAR
+function renderizarStock() {
+    const tarjetas = document.querySelectorAll('.product-card');
+
+    tarjetas.forEach(card => {
+        const nombre = card.querySelector('h3').innerText.trim();
+        const badgeHTML = obtenerBadgeStock(nombre);
+        const imgContainer = card.querySelector('.relative');
+
+        if (!imgContainer.innerHTML.includes('fa-check-circle') &&
+            !imgContainer.innerHTML.includes('fa-exclamation-triangle') &&
+            !imgContainer.innerHTML.includes('fa-times-circle')) {
+            imgContainer.insertAdjacentHTML('beforeend', badgeHTML);
+        }
+
+        if (inventario[nombre] === 0) {
+            card.classList.add('opacity-75', 'grayscale');
+            const btn = card.querySelector('button');
+            if(btn) {
+                btn.innerText = "Agotado";
+                btn.classList.replace('bg-[#0866bd]', 'bg-gray-500');
+            }
+        }
+    });
+}
+
+// 1. FUNCIÓN DE PAGINACIÓN
+let currentPage = 1;
+
+function renderPagination() {
+    const controls = document.getElementById('pagination-controls');
+    if (!controls) return;
+    controls.innerHTML = '';
+    
+    let activeContainer = null;
+    const sections = document.querySelectorAll('.product-section');
+
+    sections.forEach(sec => {
+        if (window.getComputedStyle(sec).display !== 'none' && !sec.classList.contains('hidden-section')) {
+            if (sec.id === 'refacciones') {
+                const subGrids = sec.querySelectorAll('.sub-category-grid');
+                subGrids.forEach(grid => {
+                    if (!grid.classList.contains('hidden')) activeContainer = grid;
+                });
+                if (!document.getElementById('refacciones-home').classList.contains('hidden')) {
+                    activeContainer = null;
+                }
+            } else {
+                activeContainer = sec.querySelector('.grid') || sec;
+            }
+        }
+    });
+
+    if (!activeContainer) return;
+
+    const cards = Array.from(activeContainer.getElementsByClassName('product-card'));
+    const totalPages = Math.ceil(cards.length / ITEMS_PER_PAGE);
+
+    if (totalPages <= 1) {
+        cards.forEach(card => card.style.display = 'flex');
+        return;
+    }
+
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    const end = start + ITEMS_PER_PAGE;
+
+    cards.forEach((card, index) => {
+        if (index >= start && index < end) {
+            card.style.display = 'flex';
         } else {
-            // Rango medio (3, 4, 5) - Lo dejamos como disponible normal
-            colorClass = "bg-green-600";
-            texto = "DISPONIBLE";
-            icono = "fa-check-circle";
+            card.style.display = 'none';
         }
+    });
 
-        return `<div class="absolute top-2 left-2 ${colorClass} text-white text-[10px] md:text-xs font-bold px-2 py-1 rounded shadow-md z-10 flex items-center gap-1">
-                    <i class="fas ${icono}"></i> ${texto}
-                </div>`;
+    for (let i = 1; i <= totalPages; i++) {
+        const btn = document.createElement('button');
+        btn.innerText = i;
+        btn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
+        btn.onclick = () => {
+            currentPage = i;
+            renderPagination();
+            window.scrollTo({ top: 450, behavior: 'smooth' });
+        };
+        controls.appendChild(btn);
+    }
+}
+
+// 2. CAMBIO DE PESTAÑAS
+function switchTab(tabId) {
+    document.querySelectorAll('.product-section').forEach(s => {
+        s.style.display = 'none';
+        s.classList.add('hidden-section');
+    });
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+
+    const activeSec = document.getElementById(tabId);
+    if(activeSec) {
+        activeSec.style.display = 'block';
+        activeSec.classList.remove('hidden-section');
     }
 
-    // FUNCIÓN PARA PINTAR EL STOCK EN LAS TARJETAS AL CARGAR
-    function renderizarStock() {
-        const tarjetas = document.querySelectorAll('.product-card');
-        
-        tarjetas.forEach(card => {
-            // Buscamos el nombre del producto dentro de la tarjeta (en el h3)
-            const nombre = card.querySelector('h3').innerText.trim();
-            
-            // Generamos la etiqueta
-            const badgeHTML = obtenerBadgeStock(nombre);
-            
-            // Insertamos la etiqueta dentro del contenedor de la imagen
-            const imgContainer = card.querySelector('.relative');
-            // Evitamos duplicados si ya existe
-            if (!imgContainer.innerHTML.includes('fa-check-circle') && 
-                !imgContainer.innerHTML.includes('fa-exclamation-triangle') && 
-                !imgContainer.innerHTML.includes('fa-times-circle')) {
-                imgContainer.insertAdjacentHTML('beforeend', badgeHTML);
-            }
-            
-            // Lógica extra: Si está agotado (Rojo), opacamos la tarjeta y quitamos el click
-            if (inventario[nombre] === 0) {
-                card.classList.add('opacity-75', 'grayscale');
-                card.querySelector('button').innerText = "Agotado";
-                card.querySelector('button').classList.replace('bg-[#0866bd]', 'bg-gray-500');
-                // Opcional: Desactivar click
-                // card.onclick = null; 
-            }
-        });
-    }
+    const btnTab = document.getElementById('btn-' + tabId);
+    if(btnTab) btnTab.classList.add('active');
 
-    // AGREGAR ESTO AL INICIO (DOMContentLoaded)
-    document.addEventListener('DOMContentLoaded', () => {
+    currentPage = 1;
     renderPagination();
-    cargarInventarioDesdeExcel(); // Llamamos al Excel al cargar la página
-});
-        let currentPage = 1;
 
-        // 1. FUNCIÓN DE PAGINACIÓN (Render Pagination)
-        function renderPagination() {
-            const controls = document.getElementById('pagination-controls');
-            if(!controls) return;
-            controls.innerHTML = ''; 
+    const heroBanner = document.querySelector('.hero-banner');
+    if(heroBanner) {
+        window.scrollTo({ top: heroBanner.offsetHeight - 50, behavior: 'smooth' });
+    }
+}
 
-            // Identificar qué sección está visible
-            let activeContainer = null;
-            const sections = document.querySelectorAll('.product-section');
-            
-            sections.forEach(sec => {
-                if (window.getComputedStyle(sec).display !== 'none' && !sec.classList.contains('hidden-section')) {
-                    if (sec.id === 'refacciones') {
-                        // En refacciones, la grid está dentro de sub-contenedores
-                        const subGrids = sec.querySelectorAll('.sub-category-grid');
-                        subGrids.forEach(grid => {
-                            if (!grid.classList.contains('hidden')) activeContainer = grid;
-                        });
-                        // Si está visible el menú de iconos, no paginamos
-                        if (!document.getElementById('refacciones-home').classList.contains('hidden')) {
-                            activeContainer = null;
-                        }
-                    } else {
-                        // Secciones normales
-                        activeContainer = sec.querySelector('.grid') || sec;
-                    }
-                }
-            });
+// 3. LOGICA REFACCIONES
+function showRefaccionesHome() {
+    document.getElementById('refacciones-home').classList.remove('hidden');
+    document.querySelectorAll('.sub-category-grid').forEach(el => el.classList.add('hidden'));
+    document.getElementById('btn-back-ref').classList.add('hidden');
 
-            if (!activeContainer) return;
+    document.querySelectorAll('.sub-nav-btn').forEach(btn => {
+        btn.classList.remove('bg-[#0866bd]', 'text-white');
+        btn.classList.add('bg-gray-200', 'text-gray-600');
+    });
+    document.getElementById('pagination-controls').innerHTML = '';
+}
 
-            // Obtener tarjetas
-            const cards = Array.from(activeContainer.getElementsByClassName('product-card'));
-            const totalPages = Math.ceil(cards.length / ITEMS_PER_PAGE);
+function filterRefacciones(subId) {
+    document.getElementById('refacciones-home').classList.add('hidden');
+    document.getElementById('btn-back-ref').classList.remove('hidden');
+    document.querySelectorAll('.sub-category-grid').forEach(el => el.classList.add('hidden'));
+    document.getElementById(subId).classList.remove('hidden');
 
-            // Si hay 16 o menos, mostrar todos y salir
-            if (totalPages <= 1) {
-                cards.forEach(card => card.style.display = 'flex');
-                return;
-            }
+    document.querySelectorAll('.sub-nav-btn').forEach(btn => {
+        btn.classList.remove('bg-[#0866bd]', 'text-white');
+        btn.classList.add('bg-gray-200', 'text-gray-600');
+    });
+    
+    const subBtn = document.getElementById('btn-' + subId);
+    if(subBtn) {
+        subBtn.classList.remove('bg-gray-200', 'text-gray-600');
+        subBtn.classList.add('bg-[#0866bd]', 'text-white');
+    }
 
-            // Ocultar/Mostrar según página actual
-            const start = (currentPage - 1) * ITEMS_PER_PAGE;
-            const end = start + ITEMS_PER_PAGE;
+    currentPage = 1;
+    renderPagination();
+}
 
-            cards.forEach((card, index) => {
-                if (index >= start && index < end) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
+// 4. MODAL
+function openModal(title, price, images, descHtml, compatRowsHtml) {
+    document.getElementById('modal-title').innerText = title;
 
-            // Crear botones
-            for (let i = 1; i <= totalPages; i++) {
-                const btn = document.createElement('button');
-                btn.innerText = i;
-                btn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
-                btn.onclick = () => {
-                    currentPage = i;
-                    renderPagination();
-                    window.scrollTo({ top: 450, behavior: 'smooth' });
-                };
-                controls.appendChild(btn);
-            }
+    let stockQty = inventario[title] !== undefined ? inventario[title] : 10;
+    let stockMsg = "";
+    if(stockQty === 0) {
+        stockMsg = '<span class="text-red-600 font-bold text-sm ml-4"><i class="fas fa-times-circle"></i> Agotado</span>';
+    } else if(stockQty < 3) {
+        stockMsg = `<span class="text-yellow-600 font-bold text-sm ml-4"><i class="fas fa-exclamation-triangle"></i> ¡Solo quedan ${stockQty}!</span>`;
+    } else {
+        stockMsg = '<span class="text-green-600 font-bold text-sm ml-4"><i class="fas fa-check-circle"></i> En Stock</span>';
+    }
+    
+    document.getElementById('modal-price').innerHTML = "$" + price + stockMsg;
+
+    const imgContainer = document.getElementById('modal-images');
+    imgContainer.innerHTML = (images && images.length > 0) ? `<img src="${images[0]}" class="w-full h-full object-contain">` : `<img src="logo.png" class="opacity-20 h-32 w-auto">`;
+    document.getElementById('modal-desc').innerHTML = descHtml;
+
+    const compatContainer = document.getElementById('modal-compat-container');
+    const compatBody = document.getElementById('modal-compat-table-body');
+    if (compatRowsHtml) {
+        compatBody.innerHTML = compatRowsHtml;
+        compatContainer.classList.remove('hidden');
+    } else {
+        compatContainer.classList.add('hidden');
+    }
+
+    document.getElementById('modal-btn-add').onclick = () => addToCart(title, price);
+    document.getElementById('modal-overlay').classList.add('modal-active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+    if (e.target.id === 'modal-overlay' || e.target.closest('button')) {
+        document.getElementById('modal-overlay').classList.remove('modal-active');
+        document.body.style.overflow = 'auto';
+    }
+}
+
+// 5. BÚSQUEDA NORMAL
+function searchProducts() {
+    let input = document.getElementById('globalSearch').value.toUpperCase();
+    let cards = document.querySelectorAll('.product-card');
+    let controls = document.getElementById('pagination-controls');
+
+    if (input !== "") {
+        if (controls) controls.style.display = 'none';
+        document.querySelectorAll('.product-section').forEach(sec => {
+            sec.style.display = 'block';
+            sec.classList.remove('hidden-section');
+        });
+        document.getElementById('refacciones-home').classList.add('hidden');
+        document.querySelectorAll('.sub-category-grid').forEach(grid => grid.classList.remove('hidden'));
+        
+        cards.forEach(card => {
+            let text = card.innerText.toUpperCase();
+            card.style.display = text.indexOf(input) > -1 ? "flex" : "none";
+        });
+    } else {
+        if (controls) controls.style.display = 'flex';
+        let activeBtn = document.querySelector('.nav-btn.active');
+        if (activeBtn) {
+            let tabId = activeBtn.id.replace('btn-', '');
+            switchTab(tabId);
         }
+    }
+}
 
-        // 2. CAMBIO DE PESTAÑAS
-        function switchTab(tabId) {
-            document.querySelectorAll('.product-section').forEach(s => {
-                s.style.display = 'none';
-                s.classList.add('hidden-section');
-            });
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            
-            const activeSec = document.getElementById(tabId);
-            activeSec.style.display = 'block';
-            activeSec.classList.remove('hidden-section');
-            
-            document.getElementById('btn-' + tabId).classList.add('active');
-            
-            // Reiniciar paginación al cambiar pestaña
-            currentPage = 1;
-            renderPagination();
-            
-            window.scrollTo({ top: document.querySelector('.hero-banner').offsetHeight - 50, behavior: 'smooth' });
-        }
-
-        // 3. LOGICA REFACCIONES
-        function showRefaccionesHome() {
-            document.getElementById('refacciones-home').classList.remove('hidden');
-            document.querySelectorAll('.sub-category-grid').forEach(el => el.classList.add('hidden'));
-            document.getElementById('btn-back-ref').classList.add('hidden');
-            
-            document.querySelectorAll('.sub-nav-btn').forEach(btn => {
-                btn.classList.remove('bg-[#0866bd]', 'text-white');
-                btn.classList.add('bg-gray-200', 'text-gray-600');
-            });
-            // Limpiar paginación en el menú visual
-            document.getElementById('pagination-controls').innerHTML = '';
-        }
-
-        function filterRefacciones(subId) {
-            document.getElementById('refacciones-home').classList.add('hidden');
-            document.getElementById('btn-back-ref').classList.remove('hidden');
-            document.querySelectorAll('.sub-category-grid').forEach(el => el.classList.add('hidden'));
-            document.getElementById(subId).classList.remove('hidden');
-            
-            document.querySelectorAll('.sub-nav-btn').forEach(btn => {
-                btn.classList.remove('bg-[#0866bd]', 'text-white');
-                btn.classList.add('bg-gray-200', 'text-gray-600');
-            });
-            document.getElementById('btn-' + subId).classList.remove('bg-gray-200', 'text-gray-600');
-            document.getElementById('btn-' + subId).classList.add('bg-[#0866bd]', 'text-white');
-
-            // Reiniciar paginación para la subcategoría
-            currentPage = 1;
-            renderPagination();
-        }
-
-        // 4. MODAL
-        // ABRIR MODAL (Actualizado con Stock)
-        function openModal(title, price, images, descHtml, compatRowsHtml) {
-            document.getElementById('modal-title').innerText = title;
-            
-            // --- Lógica de Stock para el Modal ---
-            let stockQty = inventario[title] !== undefined ? inventario[title] : 10;
-            let stockMsg = "";
-            if(stockQty === 0) {
-                stockMsg = '<span class="text-red-600 font-bold text-sm ml-4"><i class="fas fa-times-circle"></i> Agotado</span>';
-            } else if(stockQty < 3) {
-                stockMsg = `<span class="text-yellow-600 font-bold text-sm ml-4"><i class="fas fa-exclamation-triangle"></i> ¡Solo quedan ${stockQty}!</span>`;
-            } else {
-                stockMsg = '<span class="text-green-600 font-bold text-sm ml-4"><i class="fas fa-check-circle"></i> En Stock</span>';
-            }
-
-            // Mostramos Precio + Mensaje de Stock
-            document.getElementById('modal-price').innerHTML = "$" + price + stockMsg;
-            
-            // Resto de la función (Imágenes y descripción)
-            const imgContainer = document.getElementById('modal-images');
-            imgContainer.innerHTML = (images && images.length > 0) ? `<img src="${images[0]}" class="w-full h-full object-contain">` : `<img src="logo.png" class="opacity-20 h-32 w-auto">`;
-            document.getElementById('modal-desc').innerHTML = descHtml;
-            
-            const compatContainer = document.getElementById('modal-compat-container');
-            const compatBody = document.getElementById('modal-compat-table-body');
-            if (compatRowsHtml) {
-                compatBody.innerHTML = compatRowsHtml;
-                compatContainer.classList.remove('hidden');
-            } else {
-                compatContainer.classList.add('hidden');
-            }
-            
-           document.getElementById('modal-btn-add').onclick = () => addToCart(title, price);
-            document.getElementById('modal-overlay').classList.add('modal-active');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeModal(e) {
-            if (e.target.id === 'modal-overlay' || e.target.closest('button')) {
-                document.getElementById('modal-overlay').classList.remove('modal-active');
-                document.body.style.overflow = 'auto';
-            }
-        }
-
-        // 5. BÚSQUEDA INTELIGENTE (Integra Paginación)
-        function searchProducts() {
-            let input = document.getElementById('globalSearch').value.toUpperCase();
-            let cards = document.querySelectorAll('.product-card');
-            let controls = document.getElementById('pagination-controls');
-            
-            // Si hay búsqueda activa:
-            if (input !== "") {
-                if(controls) controls.style.display = 'none'; // Ocultar botones de página
-                
-                // Mostrar todas las secciones
-                document.querySelectorAll('.product-section').forEach(sec => {
-                    sec.style.display = 'block';
-                    sec.classList.remove('hidden-section');
-                });
-                document.getElementById('refacciones-home').classList.add('hidden');
-                document.querySelectorAll('.sub-category-grid').forEach(grid => grid.classList.remove('hidden'));
-
-                // Filtrar
-                cards.forEach(card => {
-                    let text = card.innerText;
-                    if (text.toUpperCase().indexOf(input) > -1) {
-                        card.style.display = "flex"; 
-                    } else {
-                        card.style.display = "none"; 
-                    }
-                });
-            } else {
-                // Si borran la búsqueda:
-                if(controls) controls.style.display = 'flex'; // Volver a mostrar botones
-                
-                // Reiniciar vista a la pestaña activa
-                let activeBtn = document.querySelector('.nav-btn.active');
-                if (activeBtn) {
-                    let tabId = activeBtn.id.replace('btn-', '');
-                    switchTab(tabId);
-                }
-            }
-        }
-        // --- LÓGICA DEL CARRITO DE COMPRAS ---
+// --- LÓGICA DEL CARRITO DE COMPRAS ---
 let carrito = [];
 
-// Abrir/Cerrar menú lateral
-// Abrir/Cerrar menú lateral
 function toggleCart() {
     const sidebar = document.getElementById('cart-sidebar');
     const overlay = document.getElementById('cart-overlay');
-    
+
     if (sidebar && overlay) {
         sidebar.classList.toggle('translate-x-full');
         overlay.classList.toggle('hidden');
@@ -1993,36 +1955,30 @@ function toggleCart() {
     }
 }
 
-// Agregar producto al carrito
-// Agregar producto al carrito
-// Agregar producto al carrito
 function addToCart(title, price) {
-    // Definimos cuál es el stock máximo (si no está en tu lista, asume que hay 10)
     let maxStock = inventario[title] !== undefined ? inventario[title] : 10;
-
-    // Validar si hay stock desde el inicio
+    
     if (maxStock === 0) {
         alert("¡Lo sentimos! Este producto está agotado por el momento.");
         return;
     }
-
+    
     let precioLimpio = parseFloat(price.toString().replace(/,/g, ''));
     let itemExistente = carrito.find(item => item.title === title);
-
+    
     if (itemExistente) {
-        // AQUÍ ESTÁ EL FRENO: Revisar si al sumar 1 excedemos el inventario
         if (itemExistente.qty + 1 > maxStock) {
             alert(`¡Ups! Solo tenemos ${maxStock} unidades disponibles de este producto.`);
-            return; // Detenemos la acción
+            return; 
         }
         itemExistente.qty += 1;
     } else {
         carrito.push({ title: title, price: precioLimpio, qty: 1 });
     }
-    
+
     updateCartUI();
-    closeModal({target: {id: 'modal-overlay'}}); 
-    
+    closeModal({target: {id: 'modal-overlay'}});
+
     const cartBtn = document.querySelector('button[onclick="toggleCart()"]');
     if(cartBtn) {
         cartBtn.classList.add('scale-125');
@@ -2030,51 +1986,43 @@ function addToCart(title, price) {
     }
 }
 
-// Quitar producto del carrito
 function removeFromCart(index) {
     carrito.splice(index, 1);
     updateCartUI();
 }
 
-// Sumar/Restar cantidad desde el carrito
-// Sumar/Restar cantidad desde el carrito
 function changeQty(index, delta) {
     let item = carrito[index];
     let maxStock = inventario[item.title] !== undefined ? inventario[item.title] : 10;
-    
     let nuevaCantidad = item.qty + delta;
-
+    
     if (nuevaCantidad > 0) {
-        // AQUÍ ESTÁ EL FRENO: Revisar que la nueva cantidad no pase del inventario
         if (nuevaCantidad > maxStock) {
             alert(`Solo tenemos ${maxStock} unidades disponibles de este producto.`);
-            return; // Detenemos la acción
+            return; 
         }
-        
         item.qty = nuevaCantidad;
         updateCartUI();
     }
 }
 
-// Actualizar la vista del carrito (HTML, total y contador)
 function updateCartUI() {
     const contenedorItems = document.getElementById('cart-items');
     const totalEl = document.getElementById('cart-total');
     const countEl = document.getElementById('cart-count');
-
+    
     contenedorItems.innerHTML = '';
     let total = 0;
     let cantidadProductos = 0;
-
+    
     if (carrito.length === 0) {
         contenedorItems.innerHTML = '<p class="text-gray-500 text-center mt-10"><i class="fas fa-box-open text-3xl mb-3 opacity-50"></i><br>Tu carrito está vacío.</p>';
     }
-
+    
     carrito.forEach((item, index) => {
         let subtotal = item.price * item.qty;
         total += subtotal;
         cantidadProductos += item.qty;
-
         contenedorItems.innerHTML += `
             <div class="bg-white p-3 rounded-lg shadow-sm border border-gray-200 flex flex-col gap-2">
                 <div class="flex justify-between items-start">
@@ -2092,176 +2040,146 @@ function updateCartUI() {
             </div>
         `;
     });
-
+    
     totalEl.innerText = total.toLocaleString('es-MX', { style: 'currency', currency: 'MXN' });
     countEl.innerText = cantidadProductos;
 }
 
-// Generar el mensaje y enviar a WhatsApp
 function checkoutWhatsApp() {
     if (carrito.length === 0) {
         alert("Agrega productos a tu pedido primero.");
         return;
     }
-
+    
     let mensaje = "🏍️ *NUEVO PEDIDO - EL JEFE* 🏍️\n\nHola, me gustaría confirmar el siguiente pedido:\n\n";
     let total = 0;
-
+    
     carrito.forEach(item => {
         let subtotal = item.price * item.qty;
         total += subtotal;
-        mensaje += `🔸 ${item.qty}x ${item.title} \n    Subtotal: $${subtotal}\n`;
+        mensaje += `🔸 ${item.qty}x ${item.title}\n   Subtotal: $${subtotal}\n`;
     });
-
-    mensaje += `\n🛒 *TOTAL DEL PEDIDO: $${total}*\n\n¿Tienen las piezas disponibles para pasar por ellas?`;
-
-    // Reemplaza el número por el tuyo si es necesario
-    let numeroWhatsApp = "3332406334"; 
-    let url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
     
+    mensaje += `\n🛒 *TOTAL DEL PEDIDO: $${total}*\n\n¿Tienen las piezas disponibles para pasar por ellas?`;
+    let numeroWhatsApp = "3332406334";
+    let url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
     window.open(url, '_blank');
-    // --- NUEVO: LÓGICA DE INTELIGENCIA ARTIFICIAL (API) ---
-const apiKey = "AIzaSyBvuEN0cAmj2fJkytc3FlBswujqet0omEo"; // Reemplaza con tu clave
+}
 
-// Lógica 1: Buscador Inteligente
+// --- LÓGICA DEL CHATBOT Y BUSCADOR IA ---
+const aiApiKey = "AIzaSyBoA6ACEMyn11nsFVDesjbce7P8wES-nkI";
+
 async function triggerSmartSearch() {
     const query = document.getElementById('globalSearch').value.trim();
-    if (!query) {
-        searchProducts(); 
-        return;
-    }
-
-    const btnIA = document.getElementById('btn-ia-search');
+    if (!query) { searchProducts(); return; }
+    
+    const btnIA = document.getElementById('btn-ia-search'); 
     const statusText = document.getElementById('ia-search-status');
     
-    if (btnIA) btnIA.classList.add('ia-searching');
+    if (btnIA) btnIA.classList.add('ia-searching'); 
     if (statusText) statusText.classList.remove('hidden');
 
-    const productElements = document.querySelectorAll('.product-card h3');
-    const productNames = Array.from(productElements).map(el => el.innerText.trim());
-
-    const systemPrompt = `Eres el buscador de refacciones. El usuario busca algo y debes mapearlo a los productos disponibles. 
-    Catálogo: ${JSON.stringify(productNames)}. 
-    Devuelve ÚNICAMENTE un JSON array con los nombres exactos de los productos que le sirven al usuario (ej. ["Batería YTX7L-BS"]). Si ninguno sirve, devuelve []. No añadas texto explicativo.`;
-
+    const productNames = Array.from(document.querySelectorAll('.product-card h3')).map(el => el.innerText.trim());
+    const systemPrompt = "Eres un buscador de refacciones. Mapea la búsqueda a estos productos: " + JSON.stringify(productNames) + ". Devuelve ÚNICAMENTE un JSON array con los nombres exactos. Si ninguno sirve, devuelve [].";
+    
     try {
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+        const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + aiApiKey;
         const response = await fetch(url, {
-            method: 'POST',
+            method: 'POST', 
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                contents: [{ parts: [{ text: query }] }],
-                systemInstruction: { parts: [{ text: systemPrompt }] },
-                generationConfig: { responseMimeType: "application/json" }
+            body: JSON.stringify({ 
+                contents: [{ parts: [{ text: query }] }], 
+                systemInstruction: { parts: [{ text: systemPrompt }] }, 
+                generationConfig: { responseMimeType: "application/json" } 
             })
         });
-
-        if (!response.ok) throw new Error("Error en API de búsqueda");
+        
+        if (!response.ok) throw new Error("API Error");
         const data = await response.json();
-        const matchedProducts = JSON.parse(data.candidates[0].content.parts[0].text);
-
-        filterCardsByExactNames(matchedProducts);
-
-    } catch (error) {
-        console.error("Error en búsqueda inteligente:", error);
-        searchProducts(); // Respaldo a búsqueda normal
-    } finally {
-        if (btnIA) btnIA.classList.remove('ia-searching');
-        if (statusText) statusText.classList.add('hidden');
+        filterCardsByExactNames(JSON.parse(data.candidates[0].content.parts[0].text));
+    } catch (error) { 
+        console.error("Error en búsqueda IA:", error);
+        searchProducts(); // Fallback a búsqueda normal
+    } finally { 
+        if (btnIA) btnIA.classList.remove('ia-searching'); 
+        if (statusText) statusText.classList.add('hidden'); 
     }
 }
 
 function filterCardsByExactNames(namesArray) {
-    let controls = document.getElementById('pagination-controls');
+    let controls = document.getElementById('pagination-controls'); 
     if(controls) controls.style.display = 'none';
     
-    document.querySelectorAll('.product-section').forEach(sec => {
-        sec.style.display = 'block';
-        sec.classList.remove('hidden-section');
+    document.querySelectorAll('.product-section').forEach(sec => { 
+        sec.style.display = 'block'; 
+        sec.classList.remove('hidden-section'); 
     });
-    
-    let homeRef = document.getElementById('refacciones-home');
-    if(homeRef) homeRef.classList.add('hidden');
-    
+    document.getElementById('refacciones-home').classList.add('hidden');
     document.querySelectorAll('.sub-category-grid').forEach(grid => grid.classList.remove('hidden'));
-
-    let cards = document.querySelectorAll('.product-card');
-    cards.forEach(card => {
-        let title = card.querySelector('h3').innerText.trim();
-        if (namesArray.includes(title)) {
-            card.style.display = "flex";
-        } else {
-            card.style.display = "none";
-        }
+    
+    document.querySelectorAll('.product-card').forEach(card => {
+        card.style.display = namesArray.includes(card.querySelector('h3').innerText.trim()) ? "flex" : "none";
     });
 }
 
-// Lógica 2: Chatbot Asistente Mecánico
+// --- Chatbot Asistente ---
 function toggleChat() {
     const chat = document.getElementById('chat-window');
-    if(chat) chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
+    if(chat) { chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex'; }
 }
 
 let chatHistory = [];
 
 async function sendChatMessage() {
-    const inputEl = document.getElementById('chat-input');
-    const text = inputEl.value.trim();
+    const inputEl = document.getElementById('chat-input'); 
+    const text = inputEl.value.trim(); 
     if (!text) return;
-
-    addChatBubble(text, 'user');
-    inputEl.value = '';
+    
+    addChatBubble(text, 'user'); 
+    inputEl.value = ''; 
     chatHistory.push({ role: "user", parts: [{ text: text }] });
 
-    const messagesContainer = document.getElementById('chat-messages');
+    const messagesContainer = document.getElementById('chat-messages'); 
     const loadingId = 'loading-' + Date.now();
-    messagesContainer.insertAdjacentHTML('beforeend', `<div id="${loadingId}" class="chat-bubble chat-bot text-gray-400"><i class="fas fa-spinner fa-spin"></i> Revisando manuales...</div>`);
+    messagesContainer.insertAdjacentHTML('beforeend', `<div id="${loadingId}" class="chat-bubble chat-bot text-gray-400"><i class="fas fa-spinner fa-spin"></i> Pensando...</div>`);
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
-
-    const productElements = document.querySelectorAll('.product-card h3');
-    const productNames = Array.from(productElements).map(el => el.innerText.trim());
-
-    // Se envía el inventario a la IA para que lo tome en cuenta al recomendar
-    const systemPrompt = `Eres 'El Jefe', el mecánico experto de una refaccionaria en Tonalá, Jalisco. Ayudas a confirmar compatibilidades y resolver dudas mecánicas.
-    Catálogo actual: ${JSON.stringify(productNames)}. 
-    Inventario actual conectado a Sheets: ${JSON.stringify(inventario)}.
-    Si recomiendas algo, usa su nombre exacto de la lista e indica si hay unidades disponibles según el inventario. Responde corto y amigable (máximo 3 líneas). Usa emojis 🏍️🔧.`;
-
+    
+    const productNames = Array.from(document.querySelectorAll('.product-card h3')).map(el => el.innerText.trim());
+    const systemPrompt = "Eres 'El Jefe', experto mecánico de una refaccionaria. Catálogo: " + JSON.stringify(productNames) + ". Responde amigable, máximo 3 líneas. Usa emojis.";
+    
     try {
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+        const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + aiApiKey;
         const response = await fetch(url, {
-            method: 'POST',
+            method: 'POST', 
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                contents: chatHistory,
-                systemInstruction: { parts: [{ text: systemPrompt }] }
-            })
+            body: JSON.stringify({ contents: chatHistory, systemInstruction: { parts: [{ text: systemPrompt }] } })
         });
-
-        if (!response.ok) throw new Error("Error en API Chat");
-        const data = await response.json();
+        
+        if (!response.ok) throw new Error("API Error");
+        const data = await response.json(); 
         const botResponse = data.candidates[0].content.parts[0].text;
-
-        document.getElementById(loadingId).remove();
-        addChatBubble(botResponse, 'model');
+        
+        document.getElementById(loadingId).remove(); 
+        addChatBubble(botResponse, 'model'); 
         chatHistory.push({ role: "model", parts: [{ text: botResponse }] });
-
-    } catch (error) {
-        console.error("Error en chat:", error);
-        document.getElementById(loadingId).remove();
-        addChatBubble("Tuve un problema de conexión. Mándanos WhatsApp mejor para atenderte rápido.", 'model');
+    } catch (error) { 
+        document.getElementById(loadingId).remove(); 
+        addChatBubble("Error de conexión. Contáctanos por WhatsApp.", 'model'); 
     }
 }
 
 function addChatBubble(text, sender) {
-    const messagesContainer = document.getElementById('chat-messages');
-    const bubbleClass = sender === 'user' ? 'chat-user' : 'chat-bot';
-    messagesContainer.insertAdjacentHTML('beforeend', `<div class="chat-bubble ${bubbleClass}">${text}</div>`);
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    const container = document.getElementById('chat-messages');
+    container.insertAdjacentHTML('beforeend', `<div class="chat-bubble ${sender === 'user' ? 'chat-user' : 'chat-bot'}">${text}</div>`);
+    container.scrollTop = container.scrollHeight;
 }
-// --- FIN NUEVO ---
-}
-    </script>
-    
+
+// INICIALIZACIÓN (Unificada)
+document.addEventListener('DOMContentLoaded', () => { 
+    renderPagination(); 
+    cargarInventarioDesdeExcel(); 
+});
+</script>
+
 </body>
 </html>
