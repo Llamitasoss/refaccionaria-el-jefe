@@ -71,6 +71,23 @@
         }
         .page-btn:hover { background-color: #f0f0f0; }
         .page-btn.active { background-color: var(--azul-brand); color: white; }
+        /* --- NUEVO: Estilos IA y Chatbot --- */
+/* Botones Flotantes (Chatbot) */
+.float-chat { position: fixed; bottom: 95px; right: 25px; width: 60px; height: 60px; background-color: var(--azul-brand); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; box-shadow: 2px 2px 10px rgba(0,0,0,0.3); z-index: 100; transition: transform 0.3s; cursor: pointer; border: 2px solid white; }
+.float-chat:hover { transform: scale(1.1); }
+
+/* IA Buscador Animación */
+.ia-searching { animation: pulseIA 1.5s infinite; }
+@keyframes pulseIA { 0% { box-shadow: 0 0 0 0 rgba(8, 102, 189, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(8, 102, 189, 0); } 100% { box-shadow: 0 0 0 0 rgba(8, 102, 189, 0); } }
+
+/* Interfaz del Chatbot */
+#chat-window { display: none; flex-direction: column; position: fixed; bottom: 165px; right: 25px; width: 350px; max-width: 90vw; height: 500px; max-height: 70vh; background: white; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); z-index: 101; overflow: hidden; border: 1px solid #e5e7eb; }
+.chat-header { background: var(--azul-brand); color: white; padding: 15px; font-family: 'Oswald', sans-serif; display: flex; justify-content: space-between; align-items: center; }
+.chat-messages { flex-grow: 1; padding: 15px; overflow-y: auto; background-color: #f9fafb; display: flex; flex-direction: column; gap: 10px; }
+.chat-bubble { padding: 10px 14px; border-radius: 15px; font-size: 0.9rem; max-width: 85%; line-height: 1.4; }
+.chat-bot { background: #e2e8f0; color: #333; align-self: flex-start; border-bottom-left-radius: 2px; }
+.chat-user { background: var(--azul-brand); color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
+.chat-input-area { padding: 10px; background: white; border-top: 1px solid #e5e7eb; display: flex; gap: 8px; }
     </style>
 </head>
 <body class="mb-0">
@@ -109,12 +126,16 @@
         </div>
     </nav>
 
-    <div class="bg-[#F3F0E9] py-3 px-4 sticky top-[60px] z-30 shadow-md border-b border-gray-200">
-        <div class="max-w-2xl mx-auto relative">
-            <input type="text" id="globalSearch" onkeyup="searchProducts()" placeholder="🔍 Escribe aquí (Ej. 250Z, Balata, Batería...)" class="w-full p-3 pl-12 rounded-full border border-gray-300 focus:outline-none focus:border-[#0866bd] focus:ring-2 focus:ring-[#0866bd]/50 shadow-inner text-lg">
-            <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl"></i>
-        </div>
+   <div class="bg-[#F3F0E9] py-3 px-4 sticky top-[60px] z-30 shadow-md border-b border-gray-200">
+    <div class="max-w-2xl mx-auto relative flex items-center bg-white rounded-full shadow-inner border border-gray-300 focus-within:border-[#0866bd] focus-within:ring-2 focus-within:ring-[#0866bd]/50 transition-all p-1">
+        <i class="fas fa-search text-gray-400 text-xl ml-4"></i>
+        <input type="text" id="globalSearch" onkeyup="if(event.key === 'Enter') triggerSmartSearch(); else searchProducts();" placeholder=" Ej. 250Z, Balata, Batería..." class="w-full p-2 pl-3 bg-transparent border-none focus:outline-none text-lg">
+        <button id="btn-ia-search" onclick="triggerSmartSearch()" class="bg-[#0866bd] text-white px-4 py-2 rounded-full font-bold uppercase text-xs tracking-wider flex items-center hover:bg-blue-800 transition shadow">
+            <i class="fas fa-magic mr-1"></i> IA
+        </button>
     </div>
+    <p id="ia-search-status" class="text-center text-sm text-gray-500 mt-2 hidden"><i class="fas fa-spinner fa-spin mr-1"></i> La IA está buscando la mejor pieza...</p>
+</div>
 
 <div id="hero-carousel" class="relative min-h-[450px] flex items-center justify-center text-center overflow-hidden shadow-lg group">
     
@@ -1580,6 +1601,23 @@
 </footer>
 
 <a href="https://wa.me/523332406334" class="float-wa hover:rotate-12" target="_blank"><i class="fab fa-whatsapp"></i></a>
+<!-- --- NUEVO: INTERFAZ DEL CHATBOT --- -->
+<button onclick="toggleChat()" class="float-chat hover:rotate-12"><i class="fas fa-robot"></i></button>
+
+<div id="chat-window">
+    <div class="chat-header">
+        <span><i class="fas fa-robot mr-2"></i> El Jefe Asistente</span>
+        <button onclick="toggleChat()" class="text-white hover:text-red-300 transition transform hover:rotate-90"><i class="fas fa-times"></i></button>
+    </div>
+    <div id="chat-messages" class="chat-messages">
+        <div class="chat-bubble chat-bot">¡Qué tal! Soy el asistente virtual de El Jefe. 🏍️ ¿Qué pieza estás buscando o qué duda tienes con tu moto?</div>
+    </div>
+    <div class="chat-input-area">
+        <input type="text" id="chat-input" placeholder="Escribe aquí..." class="flex-grow p-2 border border-gray-300 rounded focus:outline-none focus:border-[#0866bd]" onkeyup="if(event.key === 'Enter') sendChatMessage()">
+        <button onclick="sendChatMessage()" class="bg-[#0866bd] text-white px-4 py-2 rounded hover:bg-blue-800 transition"><i class="fas fa-paper-plane"></i></button>
+    </div>
+</div>
+<!-- --- FIN NUEVO --- -->
 
 <div id="modal-overlay" onclick="closeModal(event)">
     <div class="bg-white rounded-lg max-w-5xl w-full relative shadow-2xl overflow-hidden mx-auto flex flex-col md:flex-row max-h-[90vh] border-t-4 border-[#0866bd]">
@@ -2078,10 +2116,150 @@ function checkoutWhatsApp() {
     mensaje += `\n🛒 *TOTAL DEL PEDIDO: $${total}*\n\n¿Tienen las piezas disponibles para pasar por ellas?`;
 
     // Reemplaza el número por el tuyo si es necesario
-    let numeroWhatsApp = "523332406334"; 
+    let numeroWhatsApp = "3332406334"; 
     let url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
     
     window.open(url, '_blank');
+    // --- NUEVO: LÓGICA DE INTELIGENCIA ARTIFICIAL (API) ---
+const apiKey = "AIzaSyBvuEN0cAmj2fJkytc3FlBswujqet0omEo"; // Reemplaza con tu clave
+
+// Lógica 1: Buscador Inteligente
+async function triggerSmartSearch() {
+    const query = document.getElementById('globalSearch').value.trim();
+    if (!query) {
+        searchProducts(); 
+        return;
+    }
+
+    const btnIA = document.getElementById('btn-ia-search');
+    const statusText = document.getElementById('ia-search-status');
+    
+    if (btnIA) btnIA.classList.add('ia-searching');
+    if (statusText) statusText.classList.remove('hidden');
+
+    const productElements = document.querySelectorAll('.product-card h3');
+    const productNames = Array.from(productElements).map(el => el.innerText.trim());
+
+    const systemPrompt = `Eres el buscador de refacciones. El usuario busca algo y debes mapearlo a los productos disponibles. 
+    Catálogo: ${JSON.stringify(productNames)}. 
+    Devuelve ÚNICAMENTE un JSON array con los nombres exactos de los productos que le sirven al usuario (ej. ["Batería YTX7L-BS"]). Si ninguno sirve, devuelve []. No añadas texto explicativo.`;
+
+    try {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                contents: [{ parts: [{ text: query }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+                generationConfig: { responseMimeType: "application/json" }
+            })
+        });
+
+        if (!response.ok) throw new Error("Error en API de búsqueda");
+        const data = await response.json();
+        const matchedProducts = JSON.parse(data.candidates[0].content.parts[0].text);
+
+        filterCardsByExactNames(matchedProducts);
+
+    } catch (error) {
+        console.error("Error en búsqueda inteligente:", error);
+        searchProducts(); // Respaldo a búsqueda normal
+    } finally {
+        if (btnIA) btnIA.classList.remove('ia-searching');
+        if (statusText) statusText.classList.add('hidden');
+    }
+}
+
+function filterCardsByExactNames(namesArray) {
+    let controls = document.getElementById('pagination-controls');
+    if(controls) controls.style.display = 'none';
+    
+    document.querySelectorAll('.product-section').forEach(sec => {
+        sec.style.display = 'block';
+        sec.classList.remove('hidden-section');
+    });
+    
+    let homeRef = document.getElementById('refacciones-home');
+    if(homeRef) homeRef.classList.add('hidden');
+    
+    document.querySelectorAll('.sub-category-grid').forEach(grid => grid.classList.remove('hidden'));
+
+    let cards = document.querySelectorAll('.product-card');
+    cards.forEach(card => {
+        let title = card.querySelector('h3').innerText.trim();
+        if (namesArray.includes(title)) {
+            card.style.display = "flex";
+        } else {
+            card.style.display = "none";
+        }
+    });
+}
+
+// Lógica 2: Chatbot Asistente Mecánico
+function toggleChat() {
+    const chat = document.getElementById('chat-window');
+    if(chat) chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
+}
+
+let chatHistory = [];
+
+async function sendChatMessage() {
+    const inputEl = document.getElementById('chat-input');
+    const text = inputEl.value.trim();
+    if (!text) return;
+
+    addChatBubble(text, 'user');
+    inputEl.value = '';
+    chatHistory.push({ role: "user", parts: [{ text: text }] });
+
+    const messagesContainer = document.getElementById('chat-messages');
+    const loadingId = 'loading-' + Date.now();
+    messagesContainer.insertAdjacentHTML('beforeend', `<div id="${loadingId}" class="chat-bubble chat-bot text-gray-400"><i class="fas fa-spinner fa-spin"></i> Revisando manuales...</div>`);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+    const productElements = document.querySelectorAll('.product-card h3');
+    const productNames = Array.from(productElements).map(el => el.innerText.trim());
+
+    // Se envía el inventario a la IA para que lo tome en cuenta al recomendar
+    const systemPrompt = `Eres 'El Jefe', el mecánico experto de una refaccionaria en Tonalá, Jalisco. Ayudas a confirmar compatibilidades y resolver dudas mecánicas.
+    Catálogo actual: ${JSON.stringify(productNames)}. 
+    Inventario actual conectado a Sheets: ${JSON.stringify(inventario)}.
+    Si recomiendas algo, usa su nombre exacto de la lista e indica si hay unidades disponibles según el inventario. Responde corto y amigable (máximo 3 líneas). Usa emojis 🏍️🔧.`;
+
+    try {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                contents: chatHistory,
+                systemInstruction: { parts: [{ text: systemPrompt }] }
+            })
+        });
+
+        if (!response.ok) throw new Error("Error en API Chat");
+        const data = await response.json();
+        const botResponse = data.candidates[0].content.parts[0].text;
+
+        document.getElementById(loadingId).remove();
+        addChatBubble(botResponse, 'model');
+        chatHistory.push({ role: "model", parts: [{ text: botResponse }] });
+
+    } catch (error) {
+        console.error("Error en chat:", error);
+        document.getElementById(loadingId).remove();
+        addChatBubble("Tuve un problema de conexión. Mándanos WhatsApp mejor para atenderte rápido.", 'model');
+    }
+}
+
+function addChatBubble(text, sender) {
+    const messagesContainer = document.getElementById('chat-messages');
+    const bubbleClass = sender === 'user' ? 'chat-user' : 'chat-bot';
+    messagesContainer.insertAdjacentHTML('beforeend', `<div class="chat-bubble ${bubbleClass}">${text}</div>`);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+// --- FIN NUEVO ---
 }
     </script>
     
