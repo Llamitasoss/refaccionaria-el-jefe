@@ -2067,8 +2067,6 @@ function checkoutWhatsApp() {
 }
 
 // --- LÓGICA DEL CHATBOT Y BUSCADOR IA ---
-const aiApiKey = "AIzaSyBoA6ACEMyn11nsFVDesjbce7P8wES-nkI";
-
 async function triggerSmartSearch() {
     const query = document.getElementById('globalSearch').value.trim();
     if (!query) { searchProducts(); return; }
@@ -2148,7 +2146,9 @@ async function sendChatMessage() {
     const systemPrompt = "Eres 'El Jefe', experto mecánico de una refaccionaria. Catálogo: " + JSON.stringify(productNames) + ". Responde amigable, máximo 3 líneas. Usa emojis.";
     
     try {
-        const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + aiApiKey;
+        // AQUÍ ESTÁ LA MAGIA: Ahora apuntamos a tu servidor local en lugar de a Google
+        const url = "https://backend-el-jefe.onrender.com/api/chat";
+        
         const response = await fetch(url, {
             method: 'POST', 
             headers: { 'Content-Type': 'application/json' },
@@ -2156,15 +2156,18 @@ async function sendChatMessage() {
         });
         
         if (!response.ok) throw new Error("API Error");
+        
         const data = await response.json(); 
         const botResponse = data.candidates[0].content.parts[0].text;
         
         document.getElementById(loadingId).remove(); 
         addChatBubble(botResponse, 'model'); 
         chatHistory.push({ role: "model", parts: [{ text: botResponse }] });
+        
     } catch (error) { 
+        console.error("Error:", error);
         document.getElementById(loadingId).remove(); 
-        addChatBubble("Error de conexión. Contáctanos por WhatsApp.", 'model'); 
+        addChatBubble("Error de conexión. Asegúrate de que el servidor Node.js esté encendido.", 'model'); 
     }
 }
 
