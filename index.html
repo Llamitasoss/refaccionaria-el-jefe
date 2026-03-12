@@ -1617,8 +1617,12 @@
         <div class="chat-input-area">
             <input type="text" id="chat-input" placeholder="Escribe aquí..." class="flex-grow p-2 border border-gray-300 rounded focus:outline-none focus:border-[#0866bd]" onkeyup="if(event.key === 'Enter') sendChatMessage()">
             <button onclick="sendChatMessage()" class="bg-[#0866bd] text-white px-4 py-2 rounded hover:bg-blue-800 transition"><i class="fas fa-paper-plane"></i></button>
+            <button id="voice-btn" class="text-gray-500 hover:text-[#0866bd] px-2">
+    <i class="fas fa-microphone" id="mic-icon"></i>
+</button>
         </div>
     </div>
+    
     <!-- FIN CHATBOT INTERFAZ -->
 
 <div id="modal-overlay" onclick="closeModal(event)">
@@ -2067,6 +2071,27 @@ function checkoutWhatsApp() {
 }
 
 // --- LÓGICA DEL CHATBOT Y BUSCADOR IA ---
+// FUNCIÓN PARA ABRIR PRODUCTO DESDE EL CHAT
+function abrirProductoDesdeChat(nombreExacto) {
+    const tarjetas = document.querySelectorAll('.product-card');
+    for (let card of tarjetas) {
+        let titulo = card.querySelector('h3').innerText.trim();
+        if (titulo === nombreExacto) {
+            // Encuentra el botón de esa tarjeta y simula un clic
+            let botonModal = card.querySelector('button');
+            if (botonModal) {
+                botonModal.click(); 
+                
+                // Opcional: Cierra el chat en móviles para que puedan ver bien el producto
+                if (window.innerWidth < 768) {
+                    toggleChat();
+                }
+                return;
+            }
+        }
+    }
+    console.log("No se encontró la tarjeta para:", nombreExacto);
+}
 async function triggerSmartSearch() {
     const query = document.getElementById('globalSearch').value.trim();
     if (!query) { searchProducts(); return; }
@@ -2077,8 +2102,17 @@ async function triggerSmartSearch() {
     if (btnIA) btnIA.classList.add('ia-searching'); 
     if (statusText) statusText.classList.remove('hidden');
 
-    const productNames = Array.from(document.querySelectorAll('.product-card h3')).map(el => el.innerText.trim());
-    const systemPrompt = "Eres un buscador de refacciones. Mapea la búsqueda a estos productos: " + JSON.stringify(productNames) + ". Devuelve ÚNICAMENTE un JSON array con los nombres exactos. Si ninguno sirve, devuelve [].";
+   // --- NUEVO CÓDIGO PARA EXTRAER TABLAS DE COMPATIBILIDAD ---
+    const catalogoCompleto = Array.from(document.querySelectorAll('.product-card')).map(card => {
+        const nombre = card.querySelector('h3').innerText.trim();
+        const btn = card.querySelector('button');
+        // Sacamos todo el texto del botón, donde tienes guardada la tabla de compatibilidad y la descripción
+        const datosExtra = btn ? btn.getAttribute('onclick') : ""; 
+        return { nombre: nombre, compatibilidad: datosExtra };
+    });
+
+    const systemPrompt = "Eres un buscador de refacciones. Mapea la búsqueda del usuario a este catálogo detallado (que incluye modelos compatibles): " + JSON.stringify(catalogoCompleto) + ". Devuelve ÚNICAMENTE un JSON array con los 'nombre' exactos de los productos que coincidan con la moto o pieza. Si ninguno sirve, devuelve [].";
+    // -----------------------------------------------------------
     
     try {
         const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + aiApiKey;
@@ -2128,6 +2162,19 @@ function toggleChat() {
 
 let chatHistory = [];
 
+function abrirProductoDesdeChat(nombreExacto) {
+    const tarjetas = document.querySelectorAll('.product-card');
+    for (let card of tarjetas) {
+        let titulo = card.querySelector('h3').innerText.trim();
+        if (titulo === nombreExacto) {
+            let botonModal = card.querySelector('button');
+            if (botonModal) {
+                botonModal.click(); // Esto abre el modal automáticamente
+                return;
+            }
+        }
+    }
+}
 async function sendChatMessage() {
     const inputEl = document.getElementById('chat-input'); 
     const text = inputEl.value.trim(); 
@@ -2142,13 +2189,19 @@ async function sendChatMessage() {
     messagesContainer.insertAdjacentHTML('beforeend', `<div id="${loadingId}" class="chat-bubble chat-bot text-gray-400"><i class="fas fa-spinner fa-spin"></i> Pensando...</div>`);
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
     
-    const productNames = Array.from(document.querySelectorAll('.product-card h3')).map(el => el.innerText.trim());
-    const systemPrompt = "Eres 'El Jefe', experto mecánico de una refaccionaria. Catálogo: " + JSON.stringify(productNames) + ". Responde amigable, máximo 3 líneas. Usa emojis.";
+    // --- NUEVO CÓDIGO PARA QUE EL CHAT LEA LAS TABLAS ---
+    const catalogoCompleto = Array.from(document.querySelectorAll('.product-card')).map(card => {
+        const nombre = card.querySelector('h3').innerText.trim();
+        const btn = card.querySelector('button');
+        const datosExtra = btn ? btn.getAttribute('onclick') : ""; 
+        return { nombre: nombre, compatibilidad: datosExtra };
+    });
     
+// 1. INSTRUCCIÓN CON LA REGLA DEL BOTÓN (Desde la línea 2183)
+   const systemPrompt = "Eres 'El Jefe', experto mecánico y vendedor proactivo. Catálogo: " + JSON.stringify(catalogoCompleto) + ". REGLA 1: Si recomiendas un producto, usa [PRODUCTO: Nombre exacto]. REGLA 2: Si el usuario pregunta por un aceite, bujía o filtro, sugiérele amablemente el kit completo de afinación para su modelo de moto. Responde en máximo 3 líneas y usa emojis 🏍️.";
+
     try {
-        // AQUÍ ESTÁ LA MAGIA: Ahora apuntamos a tu servidor local en lugar de a Google
         const url = "https://backend-el-jefe.onrender.com/api/chat";
-        
         const response = await fetch(url, {
             method: 'POST', 
             headers: { 'Content-Type': 'application/json' },
@@ -2158,16 +2211,31 @@ async function sendChatMessage() {
         if (!response.ok) throw new Error("API Error");
         
         const data = await response.json(); 
-        const botResponse = data.candidates[0].content.parts[0].text;
+        
+        // 2. DETECTAR EL PRODUCTO PARA CREAR EL BOTÓN INTERACTIVO
+        let botResponse = data.candidates[0].content.parts[0].text;
+        const regexProducto = /\[PRODUCTO:\s*(.*?)\]/i;
+        const coincidencia = botResponse.match(regexProducto);
+        let botonHtml = "";
+
+        if (coincidencia) {
+            const nombreExacto = coincidencia[1].trim();
+            // Limpiamos el texto de la IA para que no se vea el código [PRODUCTO:...]
+            botResponse = botResponse.replace(coincidencia[0], '').trim();
+            // Generamos el botón que abre el modal
+            botonHtml = `<div class="mt-3"><button onclick="abrirProductoDesdeChat('${nombreExacto}')" class="bg-[#0866bd] text-white px-3 py-2 rounded shadow-md text-xs font-bold hover:bg-blue-700 transition w-full text-center"><i class="fas fa-hand-pointer animate-pulse"></i> Ver ${nombreExacto}</button></div>`;
+        }
         
         document.getElementById(loadingId).remove(); 
-        addChatBubble(botResponse, 'model'); 
-        chatHistory.push({ role: "model", parts: [{ text: botResponse }] });
+        
+        // 3. MOSTRAR RESPUESTA FINAL
+        addChatBubble(botResponse + botonHtml, 'model'); 
+        chatHistory.push({ role: "model", parts: [{ text: botResponse }] }); 
         
     } catch (error) { 
         console.error("Error:", error);
-        document.getElementById(loadingId).remove(); 
-        addChatBubble("Error de conexión. Asegúrate de que el servidor Node.js esté encendido.", 'model'); 
+        if(document.getElementById(loadingId)) document.getElementById(loadingId).remove(); 
+        addChatBubble("Error de conexión. Intenta de nuevo.", 'model'); 
     }
 }
 
@@ -2176,7 +2244,42 @@ function addChatBubble(text, sender) {
     container.insertAdjacentHTML('beforeend', `<div class="chat-bubble ${sender === 'user' ? 'chat-user' : 'chat-bot'}">${text}</div>`);
     container.scrollTop = container.scrollHeight;
 }
+const voiceBtn = document.getElementById('voice-btn');
+const chatInput = document.getElementById('chat-input');
+const micIcon = document.getElementById('mic-icon');
 
+// Verificamos si el navegador soporta voz
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+if (SpeechRecognition) {
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'es-MX'; // Español de México para Tonalá
+    recognition.continuous = false;
+
+    voiceBtn.onclick = () => {
+        recognition.start();
+        micIcon.classList.replace('fa-microphone', 'fa-circle-notch');
+        micIcon.classList.add('fa-spin', 'text-red-500');
+    };
+
+    recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        chatInput.value = transcript;
+        micIcon.classList.replace('fa-circle-notch', 'fa-microphone');
+        micIcon.classList.remove('fa-spin', 'text-red-500');
+        
+        // Opcional: Enviar automáticamente al dejar de hablar
+        sendChatMessage();
+    };
+
+    recognition.onerror = () => {
+        micIcon.classList.replace('fa-circle-notch', 'fa-microphone');
+        micIcon.classList.remove('fa-spin', 'text-red-500');
+        alert("No pude escucharte bien, ¿puedes intentar de nuevo?");
+    };
+} else {
+    voiceBtn.style.display = 'none'; // Si el navegador es muy viejo, ocultamos el botón
+}
 // INICIALIZACIÓN (Unificada)
 document.addEventListener('DOMContentLoaded', () => { 
     renderPagination(); 
