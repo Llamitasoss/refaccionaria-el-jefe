@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moto Partes El Jefe | Catálogo Digital</title>
     <link rel="icon" href="logo.ico">
-
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -22,34 +21,25 @@
         .nav-btn:hover { color: var(--azul-brand); background-color: #f8f8f8; }
         .nav-btn.active { color: var(--azul-brand); }
         .nav-btn.active::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; background-color: var(--rojo-accent); }
-
         /* Banner */
         .hero-banner { background: linear-gradient(rgba(29, 62, 104, 0.8), rgba(29, 62, 104, 0.6)), url('https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); background-size: cover; background-position: center; min-height: 450px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-
         /* Tarjetas */
         .product-card { background: white; border: 1px solid #e5e7eb; border-radius: 8px; transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; height: 100%; padding: 1rem; cursor: pointer; }
         .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); border-color: var(--azul-brand); }
         .card-content-grow { flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; margin-bottom: 1rem; }
-        
-        /* Fix de alineación de texto */
         .line-clamp-1 { overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; }
         .line-clamp-2 { overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
-
-        /* Utilidades */
         .hidden-section { display: none; animation: fadeIn 0.5s; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .float-wa { position: fixed; bottom: 25px; right: 25px; width: 60px; height: 60px; background-color: #25d366; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 2px 2px 10px rgba(0,0,0,0.3); z-index: 100; transition: transform 0.3s; }
         .float-wa:hover { transform: scale(1.1); }
-
-        /* MODAL ESTILO FICHA TÉCNICA */
+        
+        /* Modal y Tablas */
         #modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 999; justify-content: center; align-items: center; backdrop-filter: blur(5px); padding: 20px; }
         .modal-active { display: flex !important; }
-        
         .modal-list ul { list-style-type: none; padding-left: 0; }
         .modal-list li { margin-bottom: 6px; display: flex; align-items: center; color: #555; font-size: 0.95rem; }
         .modal-list li::before { content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: var(--green-500); margin-right: 8px; font-size: 0.8rem; }
-
-        /* Tabla de Compatibilidad */
         .compat-table-container { border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; margin-top: 15px; }
         .compat-table-header { background-color: var(--azul-brand); color: white; padding: 10px 15px; font-weight: bold; font-family: 'Oswald', sans-serif; letter-spacing: 0.5px; display: flex; align-items: center; }
         .compat-table-body { max-height: 200px; overflow-y: auto; background-color: #f9fafb; }
@@ -61,50 +51,40 @@
         .compat-table-body::-webkit-scrollbar { width: 6px; }
         .compat-table-body::-webkit-scrollbar-track { background: #f1f1f1; }
         .compat-table-body::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
-
-        /* NUEVO: Estilos de Paginación */
+        
+        /* Paginación */
         .pagination-container { display: flex; justify-content: center; gap: 10px; margin-top: 30px; padding-bottom: 20px; }
-        .page-btn {
-            background-color: white; border: 2px solid var(--azul-brand); color: var(--azul-brand);
-            width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
-            font-weight: bold; cursor: pointer; border-radius: 5px; transition: all 0.3s;
-        }
+        .page-btn { background-color: white; border: 2px solid var(--azul-brand); color: var(--azul-brand); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; border-radius: 5px; transition: all 0.3s; }
         .page-btn:hover { background-color: #f0f0f0; }
         .page-btn.active { background-color: var(--azul-brand); color: white; }
-        /* --- NUEVO: Estilos IA y Chatbot --- */
-/* Botones Flotantes (Chatbot) */
-.float-chat { position: fixed; bottom: 95px; right: 25px; width: 60px; height: 60px; background-color: var(--azul-brand); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; box-shadow: 2px 2px 10px rgba(0,0,0,0.3); z-index: 100; transition: transform 0.3s; cursor: pointer; border: 2px solid white; }
-.float-chat:hover { transform: scale(1.1); }
-
-/* IA Buscador Animación */
-.ia-searching { animation: pulseIA 1.5s infinite; }
-@keyframes pulseIA { 0% { box-shadow: 0 0 0 0 rgba(8, 102, 189, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(8, 102, 189, 0); } 100% { box-shadow: 0 0 0 0 rgba(8, 102, 189, 0); } }
-
-/* Interfaz del Chatbot */
-#chat-window { display: none; flex-direction: column; position: fixed; bottom: 165px; right: 25px; width: 350px; max-width: 90vw; height: 500px; max-height: 70vh; background: white; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); z-index: 101; overflow: hidden; border: 1px solid #e5e7eb; }
-.chat-header { background: var(--azul-brand); color: white; padding: 15px; font-family: 'Oswald', sans-serif; display: flex; justify-content: space-between; align-items: center; }
-.chat-messages { flex-grow: 1; padding: 15px; overflow-y: auto; background-color: #f9fafb; display: flex; flex-direction: column; gap: 10px; }
-.chat-bubble { padding: 10px 14px; border-radius: 15px; font-size: 0.9rem; max-width: 85%; line-height: 1.4; }
-.chat-bot { background: #e2e8f0; color: #333; align-self: flex-start; border-bottom-left-radius: 2px; }
-.chat-user { background: var(--azul-brand); color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
-.chat-input-area { padding: 10px; background: white; border-top: 1px solid #e5e7eb; display: flex; gap: 8px; }
+        
+        /* Chatbot y Buscador IA */
+        .float-chat { position: fixed; bottom: 95px; right: 25px; width: 60px; height: 60px; background-color: var(--azul-brand); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; box-shadow: 2px 2px 10px rgba(0,0,0,0.3); z-index: 100; transition: transform 0.3s; cursor: pointer; border: 2px solid white; }
+        .float-chat:hover { transform: scale(1.1); }
+        .ia-searching { animation: pulseIA 1.5s infinite; }
+        @keyframes pulseIA { 0% { box-shadow: 0 0 0 0 rgba(8, 102, 189, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(8, 102, 189, 0); } 100% { box-shadow: 0 0 0 0 rgba(8, 102, 189, 0); } }
+        #chat-window { display: none; flex-direction: column; position: fixed; bottom: 165px; right: 25px; width: 350px; max-width: 90vw; height: 500px; max-height: 70vh; background: white; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); z-index: 101; overflow: hidden; border: 1px solid #e5e7eb; }
+        .chat-header { background: var(--azul-brand); color: white; padding: 15px; font-family: 'Oswald', sans-serif; display: flex; justify-content: space-between; align-items: center; }
+        .chat-messages { flex-grow: 1; padding: 15px; overflow-y: auto; background-color: #f9fafb; display: flex; flex-direction: column; gap: 10px; }
+        .chat-bubble { padding: 10px 14px; border-radius: 15px; font-size: 0.9rem; max-width: 85%; line-height: 1.4; }
+        .chat-bot { background: #e2e8f0; color: #333; align-self: flex-start; border-bottom-left-radius: 2px; }
+        .chat-user { background: var(--azul-brand); color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
+        .chat-input-area { padding: 10px; background: white; border-top: 1px solid #e5e7eb; display: flex; gap: 8px; }
     </style>
 </head>
 <body class="mb-0">
-
-   <header class="top-nav text-white py-4 md:py-6 shadow-md relative z-50">
+   <!-- ENCABEZADO CON LOGO ESCUDO .ICO -->
+   <header class="top-nav text-white py-4 md:py-6 shadow-md relative z-50 border-b border-[#065099]">
     <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
-        
-        <div class="hidden md:block w-20"></div>
-
-        <div class="flex items-center gap-3 md:gap-5">
-            <img src="logo.png" alt="Logo El Jefe" class="h-16 md:h-20 w-auto bg-white rounded-full p-1 border-2 border-gray-300 shadow-md">
-            <div class="text-left">
-                <h1 class="oswald text-2xl md:text-4xl font-bold uppercase tracking-widest leading-none">El Jefe</h1>
-                <p class="text-xs md:text-sm text-gray-300 tracking-[0.2em] uppercase mt-1">Moto Partes | Tonalá</p>
+        <div class="flex items-center gap-4 md:gap-6">
+            <!-- Tu logo original en forma de escudo (.ico) -->
+            <img src="logo.ico" onerror="this.src='https://via.placeholder.com/100?text=EL+JEFE'" alt="Logo El Jefe" class="h-20 md:h-28 w-auto object-contain drop-shadow-xl hover:scale-105 transition-transform duration-300">
+            
+            <div class="text-left flex flex-col justify-center">
+                <h1 class="oswald text-3xl md:text-5xl font-bold uppercase tracking-widest leading-none text-white drop-shadow-md">EL JEFE</h1>
+                <p class="text-xs md:text-sm text-gray-200 tracking-[0.2em] uppercase mt-1">Moto Partes | Tonalá</p>
             </div>
         </div>
-
         <div class="flex items-center justify-end">
             <button onclick="toggleCart()" class="relative bg-yellow-500 text-[#0866bd] p-3 md:p-4 rounded-full shadow-lg hover:bg-yellow-400 hover:scale-105 transition-all duration-300 border-2 border-white flex items-center justify-center group cursor-pointer">
                 <i class="fas fa-shopping-cart text-xl md:text-2xl group-hover:scale-110 transition-transform"></i>
@@ -112,14 +92,14 @@
                 <span id="cart-count" class="absolute -top-2 -right-2 bg-red-600 text-white text-xs md:text-sm font-bold w-6 h-6 md:w-7 md:h-7 rounded-full flex items-center justify-center border-2 border-white shadow-sm">0</span>
             </button>
         </div>
-
     </div>
-</header>
+   </header>
     
+    <!-- BARRA DE CATEGORÍAS -->
     <nav class="category-nav">
         <div class="max-w-7xl mx-auto px-4 flex justify-start md:justify-center overflow-x-auto no-scrollbar py-1">
-            <button onclick="switchTab('afinacion')" id="btn-afinacion" class="nav-btn active whitespace-nowrap flex-shrink-0"><i class="fas fa-oil-can mr-2"></i> Kits de Afinación</button>
-            <button onclick="switchTab('sprocket')" id="btn-sprocket" class="nav-btn whitespace-nowrap flex-shrink-0"><i class="fas fa-cogs mr-2"></i> Kits de sprocket</button>        
+            <button onclick="switchTab('afinacion')" id="btn-afinacion" class="nav-btn active whitespace-nowrap flex-shrink-0"><i class="fas fa-oil-can mr-2"></i> Afinación</button>
+            <button onclick="switchTab('suspension')" id="btn-suspension" class="nav-btn whitespace-nowrap flex-shrink-0"><i class="fas fa-cogs mr-2"></i> Suspensión</button>        
             <button onclick="switchTab('llantas')" id="btn-llantas" class="nav-btn whitespace-nowrap flex-shrink-0"><i class="fas fa-bullseye mr-2"></i> Llantas</button>
             <button onclick="switchTab('refacciones')" id="btn-refacciones" class="nav-btn whitespace-nowrap flex-shrink-0"><i class="fas fa-wrench mr-2"></i> Refacciones</button>
             <button onclick="switchTab('accesorios')" id="btn-accesorios" class="nav-btn whitespace-nowrap flex-shrink-0"><i class="fas fa-helmet-safety mr-2"></i> Accesorios</button>
@@ -135,501 +115,51 @@
         </button>
     </div>
     <p id="ia-search-status" class="text-center text-sm text-gray-500 mt-2 hidden"><i class="fas fa-spinner fa-spin mr-1"></i> La IA está buscando la mejor pieza...</p>
-</div>
+   </div>
 
-<div id="hero-carousel" class="relative min-h-[450px] flex items-center justify-center text-center overflow-hidden shadow-lg group">
-    
-    <div id="carousel-bg" class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-1000 transform scale-105" 
-         style="background-image: url('https://image2url.com/r2/default/images/1771180121587-a9f05c2f-aec1-406e-ada3-903967edc3af.webp');">
-    </div>
-    
+   <div id="hero-carousel" class="relative min-h-[450px] flex items-center justify-center text-center overflow-hidden shadow-lg group">
+    <div id="carousel-bg" class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-1000 transform scale-105" style="background-image: url('https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
     <div class="absolute inset-0 bg-gradient-to-t from-[#0866bd]/90 via-[#1d3e68]/50 to-transparent"></div>
-
     <div class="relative z-10 px-4 max-w-4xl">
-        <h2 id="carousel-title" class="oswald text-4xl md:text-6xl font-bold text-white uppercase mb-4 drop-shadow-lg tracking-wide transition-opacity duration-500">
-            ESPECIALISTAS EN MOTOS
-        </h2>
-        <p id="carousel-text" class="text-gray-200 text-lg md:text-xl mb-8 font-light tracking-wider transition-opacity duration-500 delay-100">
-            Refacciones para Italika, Bajaj, Vento y más
-        </p>
-        
-        <a href="https://wa.me/523332406334" target="_blank" class="inline-block bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 md:px-12 rounded-full transition shadow-xl transform hover:scale-105 uppercase tracking-wider text-sm md:text-lg border-2 border-transparent hover:border-white">
-            <i class="fab fa-whatsapp mr-2"></i> Cotizar Ahora
-        </a>
+        <h2 id="carousel-title" class="oswald text-4xl md:text-6xl font-bold text-white uppercase mb-4 drop-shadow-lg tracking-wide transition-opacity duration-500">ESPECIALISTAS EN MOTOS</h2>
+        <p id="carousel-text" class="text-gray-200 text-lg md:text-xl mb-8 font-light tracking-wider transition-opacity duration-500 delay-100">Refacciones para Italika, Bajaj, Vento y más</p>
+        <a href="https://wa.me/523332406334" target="_blank" class="inline-block bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 md:px-12 rounded-full transition shadow-xl transform hover:scale-105 uppercase tracking-wider text-sm md:text-lg border-2 border-transparent hover:border-white"><i class="fab fa-whatsapp mr-2"></i> Cotizar Ahora</a>
     </div>
-</div>
+   </div>
 
-<script>
-   // LÓGICA DEL CARRUSEL (Actualizada con el Casco Nuevo)
-    const slides = [
-        {
-            // Slide 1: Moto Deportiva (Inicio)
-            img: 'https://image2url.com/r2/default/images/1771180121587-a9f05c2f-aec1-406e-ada3-903967edc3af.webp', 
-            title: 'ESPECIALISTAS EN MOTOS',
-            text: 'Refacciones para Italika, Bajaj, Vento y más'
-        },
-        {
-            img: 'https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80', // Foto Accesorios/Casco
-            title: 'SEGURIDAD Y ESTILO',
-            text: 'Cascos certificados y accesorios para ti'
-        },
-        {
-            // Slide 3: Moto en carretera (Camino)
-            img: 'https://image2url.com/r2/default/images/1771180198846-a452a5b8-c3bc-424c-ab7d-0801aca926c8.jpg', 
-            title: 'TU PASIÓN EN MOVIMIENTO',
-            text: 'Refacciones de calidad para el camino'
-        }
-    ];
-
-    let currentSlide = 0;
-    const bgElement = document.getElementById('carousel-bg');
-    const titleElement = document.getElementById('carousel-title');
-    const textElement = document.getElementById('carousel-text');
-
-    function updateSlide() {
-        // Efecto de desvanecimiento
-        bgElement.classList.add('opacity-50');
-        titleElement.classList.add('opacity-0');
-        textElement.classList.add('opacity-0');
-        
-        setTimeout(() => {
-            // Avanzar slide
-            currentSlide = (currentSlide + 1) % slides.length;
-
-            // Cambiar contenido
-            bgElement.style.backgroundImage = `url('${slides[currentSlide].img}')`;
-            titleElement.innerText = slides[currentSlide].title;
-            textElement.innerText = slides[currentSlide].text;
-            
-            // Reaparecer
-            bgElement.classList.remove('opacity-50');
-            titleElement.classList.remove('opacity-0');
-            textElement.classList.remove('opacity-0');
-        }, 500); 
-    }
-
-    // Iniciar el carrusel (cada 5 segundos)
-    setInterval(updateSlide, 5000);
-</script>
-    <section class="py-8 bg-white border-b border-gray-200 hidden md:block">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <h3 class="oswald text-xl text-gray-400 uppercase mb-6 tracking-widest">Manejamos las mejores marcas:</h3>
-            <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-                <div class="text-2xl font-bold text-gray-500">ITALIKA</div>
-                <div class="text-2xl font-bold text-gray-500">MOTUL</div>
-                <div class="text-2xl font-bold text-gray-500">NGK</div>
-                <div class="text-2xl font-bold text-gray-500">VENTO</div>
-            </div>
-        </div>
-    </section>
-    
+    <!-- SECCIONES DE PRODUCTOS DINÁMICAS -->
     <main class="max-w-7xl mx-auto px-4 min-h-[600px] py-10 md:py-16">
-
-<section id="afinacion" class="product-section">
+        
+        <section id="afinacion" class="product-section">
             <div class="flex items-center mb-8 border-b pb-3 border-gray-300">
                 <div class="h-6 md:h-8 w-1 bg-red-600 mr-3"></div>
-                <h2 class="text-2xl md:text-3xl font-bold text-[#0866bd] oswald uppercase">Kits de Afinación</h2>
+                <h2 class="text-2xl md:text-3xl font-bold text-[#0866bd] oswald uppercase">Afinación</h2>
             </div>
-            
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
-                
-                <div class="product-card" onclick="openModal('250Z', '710', ['250z.png'], '<ul><li>2 Aceites Motul 5100 20W-50</li><li>1 Filtro Gasolina Universal</li><li>1 Filtro Aire Original</li><li>1 Bujía NGK DR8EA</li></ul>', '<tr><td>250 Z</td><td>2019 - 2026</td></tr><tr><td>250 Z 2.0</td><td>2023 - 2026</td></tr>')">
-                    <div class="relative mb-3 group cursor-pointer">
-                        <span class="absolute top-0 right-0 bg-red-600 text-white text-[10px] md:text-xs font-bold px-2 py-1 rounded shadow">-10%</span>
-                        <div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400 overflow-hidden group-hover:bg-gray-200 transition">
-                            <img src="250z.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'" class="w-full h-full object-contain absolute top-0 left-0">
-                            <i class="fas fa-camera text-3xl md:text-5xl"></i>
-                        </div>
-                    </div>
-                    <div class="card-content-grow">
-                        <div><h3 class="font-bold text-[#0866bd] line-clamp-1">250Z</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Con Motul 5100 Semisintético</p></div>
-                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$710</span><span class="text-xs md:text-sm line-through text-gray-400 font-medium">$790</span></div>
-                    </div>
-                    <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
-                </div>
-
-                <div class="product-card" onclick="openModal('150Z / 200Z', '625', ['150z.png'], '<ul><li>2 Aceites Motul 5000 20W-50</li><li>1 Filtro Gasolina Universal</li><li>1 Filtro Aire Original</li><li>1 Bujía NGK DR8EA</li></ul>', '<tr><td>150 Z</td><td>2014 - 2026</td></tr><tr><td>200 Z</td><td>2019 - 2026</td></tr><tr><td>150 SZ</td><td>2016 - 2018</td></tr><tr><td>170 Z</td><td>2016 - 2018</td></tr>')">
-    <div class="relative mb-3 group cursor-pointer">
-        <div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400 overflow-hidden group-hover:bg-gray-200 transition">
-            <img src="150z.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'" class="w-full h-full object-contain absolute top-0 left-0">
-            <i class="fas fa-camera text-3xl md:text-5xl"></i>
-        </div>
-    </div>
-    <div class="card-content-grow">
-        <div>
-            <h3 class="font-bold text-[#0866bd] line-clamp-1">150Z / 200Z</h3>
-            <p class="text-xs md:text-sm text-gray-500 line-clamp-2">Con Motul 5000 Semisintético</p>
-        </div>
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mt-auto">
-            <span class="text-xl md:text-2xl font-bold text-red-600">$625</span>
-        </div>
-    </div>
-    <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
-</div>
-
-<div class="product-card border-yellow-400 border-2 relative bg-yellow-50/50" onclick="openModal('Pulsar NS 200', '1,100', ['pulsar200.png'], '<ul><li>2 Aceites Motul 7100 20W-50</li><li>1 Filtro de Aceite</li><li>1 Filtro de Aire</li><li>1 Bujía LKAR8A-9</li><li>2 Bujías RG6HCC</li></ul>', '<tr><td>Pulsar NS 200</td><td>Todos</td></tr><tr><td>Pulsar AS 200</td><td>Todos</td></tr>')">
-    <div class="relative mb-3 group cursor-pointer">
-        <span class="absolute top-0 right-0 bg-yellow-500 text-white text-[10px] md:text-xs font-bold px-2 py-1 rounded-bl-lg shadow z-10">PREMIUM</span>
-        <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center text-gray-400 overflow-hidden group-hover:bg-gray-100 transition border border-gray-200">
-            <img src="pulsar200.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'" class="w-full h-full object-contain absolute top-0 left-0">
-            <i class="fas fa-camera text-3xl md:text-5xl"></i>
-        </div>
-    </div>
-    <div class="card-content-grow">
-        <div>
-            <h3 class="font-bold text-[#0866bd] line-clamp-1">Pulsar NS 200</h3>
-            <p class="text-xs md:text-sm text-gray-500 line-clamp-2">Motul 7100 Sintético</p>
-        </div>
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mt-auto">
-            <span class="text-xl md:text-2xl font-bold text-red-600">$1,100</span>
-        </div>
-    </div>
-    <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
-</div>
-
-<div class="product-card" onclick="openModal('Motos de Trabajo', '300', ['mototrabajo.png'], '<ul><li>1 Aceite Mobil Premium</li><li>1 Filtro Gasolina Universal</li><li>1 Filtro Aire Original</li><li>1 Bujía NGK DR8EA</li></ul>', '<tr><td>DT150 Delivery</td><td>2017-2026</td></tr><tr><td>FT125 Roja</td><td>2013-2020</td></tr><tr><td>FT150 Grafito</td><td>2018-2024</td></tr><tr><td>DT125 Delivery</td><td>2017-2023</td></tr><tr><td>FT125</td><td>2022-2026</td></tr><tr><td>FT150 TS</td><td>2016-2026</td></tr><tr><td>DT150 Clásica</td><td>2017-2024</td></tr><tr><td>125 Z</td><td>2016-2026</td></tr><tr><td>FT 150</td><td>2024-2026</td></tr><tr><td>DT125 Sport</td><td>2017-2022</td></tr>')">
-    <div class="relative mb-3 group cursor-pointer">
-        <div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400 overflow-hidden group-hover:bg-gray-200 transition">
-            <img src="mototrabajo.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'" class="w-full h-full object-contain absolute top-0 left-0">
-            <i class="fas fa-camera text-3xl md:text-5xl"></i>
-        </div>
-    </div>
-    <div class="card-content-grow">
-        <div>
-            <h3 class="font-bold text-[#0866bd] line-clamp-1">Motos de Trabajo</h3>
-            <p class="text-xs md:text-sm text-gray-500 line-clamp-2">Mobil Mineral Premium</p>
-        </div>
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mt-auto">
-            <span class="text-xl md:text-2xl font-bold text-red-600">$300</span>
-        </div>
-    </div>
-    <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
-</div>
-
-<div class="product-card" onclick="openModal('Linea DM', '640', ['dm.png'], '<ul><li>2 Aceites Motul 5000 20W-50</li><li>1 Filtro Gasolina Universal</li><li>1 Filtro Aire Original</li><li>1 Bujía NGK DR8EA</li></ul>', '<tr><td>DM 150</td><td>2022-2026</td></tr><tr><td>DM 200</td><td>2014-2026</td></tr><tr><td>DM 250</td><td>2016-2026</td></tr>')">
-    <div class="relative mb-3 group cursor-pointer">
-        <div class="h-32 md:h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400 overflow-hidden group-hover:bg-gray-200 transition">
-            <img src="dm.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'" class="w-full h-full object-contain absolute top-0 left-0">
-            <i class="fas fa-camera text-3xl md:text-5xl"></i>
-        </div>
-    </div>
-    <div class="card-content-grow">
-        <div>
-            <h3 class="font-bold text-[#0866bd] line-clamp-1">DM 150 / DM 200 / DM 250</h3>
-            <p class="text-xs md:text-sm text-gray-500 line-clamp-2">Motul 5000 Semisintético</p>
-        </div>
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mt-auto">
-            <span class="text-xl md:text-2xl font-bold text-red-600">$640</span>
-        </div>
-    </div>
-    <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs">Ver Detalles</button>
-</div>
+            <div id="grid-afinacion" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
+                <!-- Se llenará desde Excel -->
+            </div>
         </section>
 
-       <section id="sprocket" class="product-section hidden-section">
-    <div class="flex items-center mb-8 border-b pb-3 border-gray-300">
-        <div class="h-6 md:h-8 w-1 bg-yellow-500 mr-3"></div>
-        <h2 class="text-2xl md:text-3xl font-bold text-[#0866bd] oswald uppercase">Kits de Sprocket</h2>
-    </div>
-    
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
-        
-        <div class="product-card group" onclick="openModal('Kit de Sprocket Línea Z', '450', ['kit_sprocket_linea_z.png'], '<ul><li>1 Engrane de tracción final</li><li>1 Rueda dentada</li><li>1 Cadena 428-126 Reforzada</li><li>1 Lubricante de cadena</li></ul>', '<tr><td>150Z</td><td>2014 - 2026</td></tr><tr><td>200Z</td><td>2019 - 2025</td></tr>')">
-            <div class="relative mb-3">
-                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                    <img src="kit_sprocket_linea_z.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-                </div>
+        <!-- SECCIÓN SUSPENSIÓN -->
+        <section id="suspension" class="product-section hidden-section">
+            <div class="flex items-center mb-8 border-b pb-3 border-gray-300">
+                <div class="h-6 md:h-8 w-1 bg-yellow-500 mr-3"></div>
+                <h2 class="text-2xl md:text-3xl font-bold text-[#0866bd] oswald uppercase">Suspensión</h2>
             </div>
-            <div class="card-content-grow">
-                <div>
-                    <h3 class="font-bold text-[#0866bd] line-clamp-1">Kit Sprocket Línea Z</h3>
-                    <p class="text-xs md:text-sm text-gray-500 line-clamp-2">150Z / 200Z + Lubricante</p>
-                </div>
-                <div class="flex justify-between items-center mt-auto">
-                    <span class="text-xl md:text-2xl font-bold text-red-600">$450</span>
-                </div>
+            <div id="grid-suspension" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
+                 <!-- Se llenará desde Excel -->
             </div>
-            <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-        </div>
+        </section>
 
-        <div class="product-card group" onclick="openModal('Kit de Sprocket DM 200/250', '460', ['kit_sprocket_dm.png'], '<ul><li>1 Engrane tracción final</li><li>1 Rueda dentada</li><li>1 Cadena 428-136 Reforzada</li><li>1 Lubricante de cadena</li></ul>', '<tr><td>DM 200</td><td>2014 - 2026</td></tr><tr><td>DM 250</td><td>2020 - 2026</td></tr>')">
-            <div class="relative mb-3">
-                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                    <img src="kit_sprocket_dm.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-                </div>
+        <section id="llantas" class="product-section hidden-section">
+            <div class="flex items-center mb-8 border-b pb-3 border-gray-300">
+                <div class="h-6 md:h-8 w-1 bg-black mr-3"></div>
+                <h2 class="text-2xl md:text-3xl font-bold text-[#0866bd] oswald uppercase">Llantas</h2>
             </div>
-            <div class="card-content-grow">
-                <div>
-                    <h3 class="font-bold text-[#0866bd] line-clamp-1">Kit Sprocket Serie DM</h3>
-                    <p class="text-xs md:text-sm text-gray-500 line-clamp-2">DM 200 / 250 + Lubricante</p>
-                </div>
-                <div class="flex justify-between items-center mt-auto">
-                    <span class="text-xl md:text-2xl font-bold text-red-600">$460</span>
-                </div>
+            <div id="grid-llantas" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
+                 <!-- Se llenará desde Excel -->
             </div>
-            <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-        </div>
-
-    </div>
-</section>
-
-       <section id="llantas" class="product-section hidden-section">
-    <div class="flex items-center mb-8 border-b pb-3 border-gray-300">
-        <div class="h-6 md:h-8 w-1 bg-black mr-3"></div>
-        <h2 class="text-2xl md:text-3xl font-bold text-[#0866bd] oswald uppercase">Llantas y Cámaras</h2>
-    </div>
-    
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
-
-        <div class="product-card group" onclick="openModal('Llanta 130/70-17', '1,350', ['llanta_130_70_17.png'], '<ul><li>Medida: 130/70-17</li><li>Uso: Trasera</li><li>Alta Adherencia</li></ul>', '<tr><td>Pulsar NS200</td><td>Trasera</td></tr>')">
-            <div class="relative mb-3">
-                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                    <img src="llanta_130_70_17.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-                </div>
-            </div>
-            <div class="card-content-grow">
-                <div><h3 class="font-bold text-[#0866bd] line-clamp-1">Llanta 130/70-17</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Deportiva</p></div>
-                <div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$1,350</span></div>
-            </div>
-            <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-        </div>
-
-        <div class="product-card group" onclick="openModal('Llanta 130/90-10', '850', ['llanta_130_90_10.png'], '<ul><li>Medida: 130/90-10</li><li>Tipo: Scooter</li><li>Reforzada</li></ul>', '<tr><td>Motonetas W150</td><td>Trasera</td></tr>')">
-            <div class="relative mb-3">
-                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                    <img src="llanta_130_90_10.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-                </div>
-            </div>
-            <div class="card-content-grow">
-                <div><h3 class="font-bold text-[#0866bd] line-clamp-1">Llanta 130/90-10</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Scooter WS</p></div>
-                <div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$850</span></div>
-            </div>
-            <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-        </div>
-
-        <div class="product-card group" onclick="openModal('Llanta 90/90-17', '825', ['llanta_90_90_17.png'], '<ul><li>Medida: 90/90-17</li><li>Uso: Ciudad</li><li>Reforzada</li></ul>', '<tr><td>FT150 / 125Z</td><td>Trasera</td></tr>')">
-            <div class="relative mb-3">
-                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                    <img src="llanta_90_90_17.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-                </div>
-            </div>
-            <div class="card-content-grow">
-                <div><h3 class="font-bold text-[#0866bd] line-clamp-1">Llanta 90/90-17</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Trabajo Urbana</p></div>
-                <div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$825</span></div>
-            </div>
-            <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-        </div>
-
-        <div class="product-card group" onclick="openModal('Llanta Chao 2.50-17 Gajos', '330', ['llanta_chao_250_17_gajos.png'], '<ul><li>Marca: Chao</li><li>Dibujo: Gajos</li><li>Económica</li></ul>', '<tr><td>FT125</td><td>Delantera</td></tr>')">
-            <div class="relative mb-3">
-                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                    <img src="llanta_chao_250_17_gajos.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-                </div>
-            </div>
-            <div class="card-content-grow">
-                <div><h3 class="font-bold text-[#0866bd] line-clamp-1">Chao 2.50-17 Gajos</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Rural / Terracería</p></div>
-                <div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$330</span></div>
-            </div>
-            <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-        </div>
-
-        <div class="product-card group" onclick="openModal('Llanta Chao 2.50-17 TT', '300', ['llanta_chao_250_17_tt.png'], '<ul><li>Marca: Chao</li><li>Tipo: TT (Usa Cámara)</li><li>Pavimento</li></ul>', '<tr><td>FT125</td><td>Delantera</td></tr>')">
-            <div class="relative mb-3">
-                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                    <img src="llanta_chao_250_17_tt.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-                </div>
-            </div>
-            <div class="card-content-grow">
-                <div><h3 class="font-bold text-[#0866bd] line-clamp-1">Chao 2.50-17 TT</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Urbana Económica</p></div>
-                <div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$300</span></div>
-            </div>
-            <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-        </div>
-
-        <div class="product-card group" onclick="openModal('Llanta Chaoga 3.00-17 Gajos', '480', ['llanta_chaoga_300_17.png'], '<ul><li>Marca: Chaoga</li><li>Dibujo: Gajos Profundos</li><li>Resistente</li></ul>', '<tr><td>FT125</td><td>Trasera</td></tr>')">
-            <div class="relative mb-3">
-                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                    <img src="llanta_chaoga_300_17.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-                </div>
-            </div>
-            <div class="card-content-grow">
-                <div><h3 class="font-bold text-[#0866bd] line-clamp-1">Chaoga 3.00-17 Gajos</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Rural Reforzada</p></div>
-                <div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$480</span></div>
-            </div>
-            <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-        </div>
-
-        <div class="product-card group" onclick="openModal('Llanta Chaoga 3.00-18 Gajos', '560', ['llanta_chaoga_300_18.png'], '<ul><li>Marca: Chaoga</li><li>Dibujo: Gajos</li><li>Carga y Rural</li></ul>', '<tr><td>FT150</td><td>Trasera</td></tr>')">
-            <div class="relative mb-3">
-                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                    <img src="llanta_chaoga_300_18.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-                </div>
-            </div>
-            <div class="card-content-grow">
-                <div><h3 class="font-bold text-[#0866bd] line-clamp-1">Chaoga 3.00-18 Gajos</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Doble Propósito</p></div>
-                <div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$560</span></div>
-            </div>
-            <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-        </div>
-
-        <div class="product-card group" onclick="openModal('Llanta City Road 130/60-13', '800', ['llanta_city_130_60_13.png'], '<ul><li>Marca: City Road</li><li>Medida: 130/60-13</li><li>Pista Scooter</li></ul>', '<tr><td>Biwis</td><td>Trasera</td></tr>')">
-            <div class="relative mb-3">
-                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                    <img src="llanta_city_130_60_13.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-                </div>
-            </div>
-            <div class="card-content-grow">
-                <div><h3 class="font-bold text-[#0866bd] line-clamp-1">City Road 130/60-13</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Scooter Deportivo</p></div>
-                <div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$800</span></div>
-            </div>
-            <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-        </div>
-
-        <div class="product-card group" onclick="openModal('Llanta City Road 2.50-17', '420', ['llanta_city_250_17.png'], '<ul><li>Marca: City Road</li><li>Diseño Urbano</li><li>Buen Agarre</li></ul>', '<tr><td>FT125</td><td>Delantera</td></tr>')">
-            <div class="relative mb-3">
-                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                    <img src="llanta_city_250_17.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-                </div>
-            </div>
-            <div class="card-content-grow">
-                <div><h3 class="font-bold text-[#0866bd] line-clamp-1">City Road 2.50-17</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Calle</p></div>
-                <div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$420</span></div>
-            </div>
-            <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-        </div>
-
-        <div class="product-card group" onclick="openModal('Llanta City Road 2.50-18', '430', ['llanta_city_250_18.png'], '<ul><li>Marca: City Road</li><li>Diseño Urbano</li><li>Durabilidad</li></ul>', '<tr><td>FT150</td><td>Delantera</td></tr>')">
-            <div class="relative mb-3">
-                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                    <img src="llanta_city_250_18.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-                </div>
-            </div>
-            <div class="card-content-grow">
-                <div><h3 class="font-bold text-[#0866bd] line-clamp-1">City Road 2.50-18</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Calle</p></div>
-                <div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$430</span></div>
-            </div>
-            <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-        </div>
-
-        <div class="product-card group" onclick="openModal('Llanta City Road 2.75-17', '430', ['llanta_city_275_17.png'], '<ul><li>Marca: City Road</li><li>Reforzada</li><li>Pavimento</li></ul>', '<tr><td>FT125</td><td>Trasera</td></tr>')">
-            <div class="relative mb-3">
-                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                    <img src="llanta_city_275_17.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-                </div>
-            </div>
-            <div class="card-content-grow">
-                <div><h3 class="font-bold text-[#0866bd] line-clamp-1">City Road 2.75-17</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Urbana</p></div>
-                <div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$430</span></div>
-            </div>
-            <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-        </div>
-
-        <div class="product-card group" onclick="openModal('Llanta City Road 2.75-18', '450', ['llanta_city_275_18.png'], '<ul><li>Marca: City Road</li><li>Reforzada</li><li>Pavimento</li></ul>', '<tr><td>FT150 / DT150</td><td>Delantera</td></tr>')">
-            <div class="relative mb-3">
-                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                    <img src="llanta_city_275_18.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-                </div>
-            </div>
-            <div class="card-content-grow">
-                <div><h3 class="font-bold text-[#0866bd] line-clamp-1">City Road 2.75-18</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Urbana</p></div>
-                <div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$450</span></div>
-            </div>
-            <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-        </div>
-
-        <div class="product-card group" onclick="openModal('Llanta City Road 3.00-17', '530', ['llanta_city_300_17.png'], '<ul><li>Marca: City Road</li><li>Medida Ancha</li><li>Estabilidad</li></ul>', '<tr><td>FT125</td><td>Trasera</td></tr>')">
-            <div class="relative mb-3">
-                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                    <img src="llanta_city_300_17.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-                </div>
-            </div>
-            <div class="card-content-grow">
-                <div><h3 class="font-bold text-[#0866bd] line-clamp-1">City Road 3.00-17</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Urbana</p></div>
-                <div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$530</span></div>
-            </div>
-            <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-        </div>
-
-        <div class="product-card group" onclick="openModal('Llanta City Road 3.00-18 TT', '470', ['llanta_city_300_18.png'], '<ul><li>Marca: City Road</li><li>Usa Cámara</li><li>Trabajo</li></ul>', '<tr><td>FT150</td><td>Trasera</td></tr>')">
-            <div class="relative mb-3">
-                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                    <img src="llanta_city_300_18.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-                </div>
-            </div>
-            <div class="card-content-grow">
-                <div><h3 class="font-bold text-[#0866bd] line-clamp-1">City Road 3.00-18 TT</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Urbana</p></div>
-                <div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$470</span></div>
-            </div>
-            <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-        </div>
-
-        <div class="product-card group" onclick="openModal('Llanta City Road 3.50-10', '470', ['llanta_city_350_10.png'], '<ul><li>Marca: City Road</li><li>Medida: 3.50-10</li><li>Scooter Clásica</li></ul>', '<tr><td>Motonetas 110</td><td>Ambas</td></tr>')">
-            <div class="relative mb-3">
-                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                    <img src="llanta_city_350_10.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-                </div>
-            </div>
-            <div class="card-content-grow">
-                <div><h3 class="font-bold text-[#0866bd] line-clamp-1">City Road 3.50-10</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Scooter</p></div>
-                <div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$470</span></div>
-            </div>
-            <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-        </div>
-
-        <div class="product-card group" onclick="openModal('Italika 3.00-18', '720', ['llanta_italika_300_18.png'], '<ul><li>Marca: Italika Original</li><li>Medida: 3.00-18</li><li>Calidad Original</li></ul>', '<tr><td>FT150</td><td>Trasera</td></tr>')">
-            <div class="relative mb-3">
-                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                    <img src="llanta_italika_300_18.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-                </div>
-            </div>
-            <div class="card-content-grow">
-                <div><h3 class="font-bold text-[#0866bd] line-clamp-1">Italika 3.00-18</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Original</p></div>
-                <div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$720</span></div>
-            </div>
-            <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-        </div>
-
-        <div class="product-card group" onclick="openModal('Llanta Italika 80/100-21', '850', ['llanta_italika_80_100_21.png'], '<ul><li>Marca: Italika Original</li><li>Medida: 80/100-21</li><li>Cross / Enduro</li></ul>', '<tr><td>DM 150 / 200</td><td>Delantera</td></tr>')">
-            <div class="relative mb-3">
-                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                    <img src="llanta_italika_80_100_21.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-                </div>
-            </div>
-            <div class="card-content-grow">
-                <div><h3 class="font-bold text-[#0866bd] line-clamp-1">Italika 80/100-21</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Cross Original</p></div>
-                <div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$850</span></div>
-            </div>
-            <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-        </div>
-
-        <div class="product-card group" onclick="openModal('Llanta Matsuma 4.00-8', '490', ['llanta_matsuma_400_8.png'], '<ul><li>Marca: Matsuma</li><li>Medida: 4.00-8</li><li>Uso Rudo</li></ul>', '<tr><td>Motocarro</td><td>Carga</td></tr>')">
-            <div class="relative mb-3">
-                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                    <img src="llanta_matsuma_400_8.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-                </div>
-            </div>
-            <div class="card-content-grow">
-                <div><h3 class="font-bold text-[#0866bd] line-clamp-1">Matsuma 4.00-8</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Motocarro</p></div>
-                <div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$490</span></div>
-            </div>
-            <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-        </div>
-
-        <div class="product-card group" onclick="openModal('Llanta Matsuma 4.5-12 Motocarro', '950', ['llanta_matsuma_450_12.png'], '<ul><li>Marca: Matsuma</li><li>Medida: 4.50-12</li><li>Carga Pesada</li></ul>', '<tr><td>Motocarro</td><td>Trasera</td></tr>')">
-            <div class="relative mb-3">
-                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                    <img src="llanta_matsuma_450_12.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-                </div>
-            </div>
-            <div class="card-content-grow">
-                <div><h3 class="font-bold text-[#0866bd] line-clamp-1">Matsuma 4.5-12</h3><p class="text-xs md:text-sm text-gray-500 line-clamp-2">Motocarro Grande</p></div>
-                <div class="flex justify-between items-center mt-auto"><span class="text-xl md:text-2xl font-bold text-red-600">$950</span></div>
-            </div>
-            <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-        </div>
-
-    </div>
-</section>
+        </section>
 
         <section id="refacciones" class="product-section hidden-section">
             <div class="border-b border-gray-300 pb-4 mb-6">
@@ -637,18 +167,16 @@
                     <div class="h-6 md:h-8 w-1 bg-blue-500 mr-3"></div>
                     <h2 class="text-2xl md:text-3xl font-bold text-[#0866bd] oswald uppercase">Refacciones Generales</h2>
                 </div>
-                
                 <button onclick="showRefaccionesHome()" id="btn-back-ref" class="hidden text-sm font-bold text-gray-500 hover:text-[#0866bd] mb-4">
                     <i class="fas fa-arrow-left mr-2"></i> Ver todas las categorías
                 </button>
-
                 <div class="flex gap-2 overflow-x-auto pb-2">
                     <button onclick="filterRefacciones('sub-freno')" id="btn-sub-freno" class="sub-nav-btn px-4 py-2 bg-gray-200 text-gray-600 rounded-full font-bold text-sm uppercase transition hover:bg-gray-300"><i class="fas fa-hand-paper mr-2"></i> Frenos</button>
                     <button onclick="filterRefacciones('sub-electrico')" id="btn-sub-electrico" class="sub-nav-btn px-4 py-2 bg-gray-200 text-gray-600 rounded-full font-bold text-sm uppercase transition hover:bg-gray-300"><i class="fas fa-bolt mr-2"></i> Eléctrico</button>
                     <button onclick="filterRefacciones('sub-chicote')" id="btn-sub-chicote" class="sub-nav-btn px-4 py-2 bg-gray-200 text-gray-600 rounded-full font-bold text-sm uppercase transition hover:bg-gray-300"><i class="fas fa-route mr-2"></i> Chicotes</button>
                 </div>
             </div>
-
+            
             <div id="refacciones-home" class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div onclick="filterRefacciones('sub-freno')" class="cursor-pointer bg-white border border-gray-200 rounded-lg p-6 hover:shadow-xl hover:border-blue-800 transition flex items-center gap-4 group">
                     <div class="bg-red-100 p-4 rounded-full text-red-600 group-hover:bg-red-600 group-hover:text-white transition"><i class="fas fa-hand-paper text-3xl"></i></div>
@@ -663,1246 +191,272 @@
                     <div><h3 class="font-bold text-xl text-[#0866bd]">Chicotes y Cables</h3><p class="text-sm text-gray-500">Clutch, Acelerador, Freno</p></div><i class="fas fa-chevron-right ml-auto text-gray-300"></i>
                 </div>
             </div>
-                <div id="sub-freno" class="sub-category-grid hidden grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8 w-full mt-8">
 
-    <div class="product-card group" onclick="openModal('Zapatas Traseras FT150', '65', ['F15020030.png'], '<ul><li>Tipo: Tambor (Zapata)</li><li>Para: FT150, DM150, TC200</li><li>Posición: Trasera</li></ul>', '<tr><td>FT150 / DM150</td><td>Trasera</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="F15020030.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Zapatas Traseras FT150</h3>
-                <p class="text-xs text-gray-500 font-mono">F15020030</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$65</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-
-    <div class="product-card group" onclick="openModal('Zapatas Traseras AT110 (F15020021)', '55', ['F15020021.png'], '<ul><li>Tipo: Tambor (Zapata)</li><li>Para: AT110, FT115, DT110</li><li>Posición: Trasera</li></ul>', '<tr><td>AT110 / FT115</td><td>Trasera</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="F15020021.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Zapatas Traseras AT110</h3>
-                <p class="text-xs text-gray-500 font-mono">F15020021</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$55</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-
-    <div class="product-card group" onclick="openModal('Balatas Delanteras Forza', '30', ['F14020020.png'], '<ul><li>Tipo: Disco</li><li>Para: Forza 150, DS150</li><li>Posición: Delantera</li></ul>', '<tr><td>Forza / DS150</td><td>Delantera</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="F14020020.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Balatas Delanteras Forza</h3>
-                <p class="text-xs text-gray-500 font-mono">F14020020</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$30</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-
-    <div class="product-card group" onclick="openModal('Balatas Traseras ATV', '30', ['F15020047.png'], '<ul><li>Para Cuatrimoto</li><li>ATV150, ATV180, ATV200</li><li>Posición: Trasera</li></ul>', '<tr><td>ATV 150/180</td><td>Trasera</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="F15020047.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Balatas Traseras ATV</h3>
-                <p class="text-xs text-gray-500 font-mono">F15020047</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$30</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-
-    <div class="product-card group" onclick="openModal('Balatas Traseras Línea Z', '90', ['F15020306.png'], '<ul><li>Para: 170Z, 200Z, 250Z</li><li>Negra / Blackbird</li><li>Juego Completo</li></ul>', '<tr><td>170Z / 200Z / 250Z</td><td>Trasera</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="F15020306.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Balatas Traseras Línea Z</h3>
-                <p class="text-xs text-gray-500 font-mono">F15020306</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$90</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-
-    <div class="product-card group" onclick="openModal('Balatas Delanteras DM250', '35', ['F15020050.png'], '<ul><li>Para: DM250, 150Z, 200Z</li><li>Sistema Disco</li><li>Económica</li></ul>', '<tr><td>DM250 / 200Z</td><td>Delantera</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="F15020050.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Balatas Delanteras DM250</h3>
-                <p class="text-xs text-gray-500 font-mono">F15020050</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$35</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-
-    <div class="product-card group" onclick="openModal('Balatas Delanteras AT110 RT', '85', ['F14020280.png'], '<ul><li>Para: AT110 RT con LED</li><li>ATRT LED / ATRT110</li><li>Larga Duración</li></ul>', '<tr><td>AT110 RT</td><td>Delantera</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="F14020280.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Balatas Delanteras AT110 RT</h3>
-                <p class="text-xs text-gray-500 font-mono">F14020280</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$85</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-
-    <div class="product-card group" onclick="openModal('Balatas Delanteras FT250', '85', ['F14020278.png'], '<ul><li>Para: FT250 TS, DM250, FT180</li><li>Con Rev DT200 Sport</li><li>Doble Propósito</li></ul>', '<tr><td>FT250 / DM250</td><td>Delantera</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="F14020278.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Balatas Delanteras FT250</h3>
-                <p class="text-xs text-gray-500 font-mono">F14020278</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$85</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-
-    <div class="product-card group" onclick="openModal('Balatas Delanteras RT200', '30', ['F14020033.png'], '<ul><li>Para: RT200, EX200</li><li>Económica</li><li>Uso General</li></ul>', '<tr><td>RT200 / EX200</td><td>Delantera</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="F14020033.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Balatas Delanteras RT200</h3>
-                <p class="text-xs text-gray-500 font-mono">F14020033</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$30</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-
-    <div class="product-card group" onclick="openModal('Balatas Delanteras TC250', '85', ['F14020100.png'], '<ul><li>Para: TC250, RC200, TC200</li><li>Alto Rendimiento</li><li>Larga Duración</li></ul>', '<tr><td>TC250 / RC200</td><td>Delantera</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="F14020100.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Balatas Delanteras TC250</h3>
-                <p class="text-xs text-gray-500 font-mono">F14020100</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$85</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-
-    <div class="product-card group" onclick="openModal('Balatas Delanteras 125Z', '30', ['F14020023.png'], '<ul><li>Para: 125Z, AT110, DM150</li><li>Freno de Disco</li><li>Económica</li></ul>', '<tr><td>125Z / DM150</td><td>Delantera</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="F14020023.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Balatas Delanteras 125Z</h3>
-                <p class="text-xs text-gray-500 font-mono">F14020023</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$30</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-
-    <div class="product-card group" onclick="openModal('Balatas Traseras ATV250', '200', ['F15020140.png'], '<ul><li>Para: ATV250 (Con Reversa)</li><li>Sistema Caliper</li><li>Uso Rudo</li></ul>', '<tr><td>ATV 250</td><td>Trasera</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="F15020140.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Balatas Traseras ATV250</h3>
-                <p class="text-xs text-gray-500 font-mono">F15020140</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$200</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-
-    <div class="product-card group" onclick="openModal('Zapatas Traseras DM125', '70', ['F15020072.png'], '<ul><li>Tipo: Tambor Grande (072)</li><li>Para: DM125, DS150, DT125</li><li>Posición: Trasera</li></ul>', '<tr><td>DM125 / DS150</td><td>Trasera</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="F15020072.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Zapatas Traseras DM125</h3>
-                <p class="text-xs text-gray-500 font-mono">F15020072</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$70</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-
-    <div class="product-card group" onclick="openModal('Zapatas Traseras AT110 (F15020007)', '55', ['F15020007.png'], '<ul><li>Tipo: Tambor Pequeño</li><li>Para: AT110, AR110</li><li>Posición: Trasera</li></ul>', '<tr><td>AT110 / AR110</td><td>Trasera</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="F15020007.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Zapatas Traseras AT110</h3>
-                <p class="text-xs text-gray-500 font-mono">F15020007</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$55</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-
-    <div class="product-card group" onclick="openModal('Zapatas Traseras 125Z', '115', ['F14020591.png'], '<ul><li>Para: 125Z, FT150 HD</li><li>Tipo: Tambor Reforzado</li><li>Posición: Trasera</li></ul>', '<tr><td>125Z / FT150 HD</td><td>Trasera</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="F14020591.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Zapatas Traseras 125Z</h3>
-                <p class="text-xs text-gray-500 font-mono">F14020591</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$115</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-
-    <div class="product-card group" onclick="openModal('Zapatas Traseras FT180', '125', ['F15020181.png'], '<ul><li>Para: FT180 TS, TC250</li><li>Tipo: Tambor Grande</li><li>Posición: Trasera</li></ul>', '<tr><td>FT180 / TC250</td><td>Trasera</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="F15020181.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Zapatas Traseras FT180</h3>
-                <p class="text-xs text-gray-500 font-mono">F15020181</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$125</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-<div class="product-card group" onclick="openModal('Gomas de Freno DT110', '25', ['F02030368.png'], '<ul><li>Tipo: Gomas de Freno</li><li>Para: Italika DT110</li><li>Repuesto</li></ul>', '<tr><td>Italika DT110</td><td>Freno</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="F02030368.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Gomas de Freno DT110</h3>
-                <p class="text-xs text-gray-500 font-mono">F02030368</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$25</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-
-    <div class="product-card group" onclick="openModal('Gomas de Freno 250Z', '85', ['F02030432.png'], '<ul><li>Tipo: Gomas de Freno</li><li>Para: Italika 250Z</li><li>Repuesto</li></ul>', '<tr><td>Italika 250Z</td><td>Freno</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="F02030432.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Gomas de Freno 250Z</h3>
-                <p class="text-xs text-gray-500 font-mono">F02030432</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$85</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-
-    <div class="product-card group" onclick="openModal('Gomas de Freno 125/150/200 Z', '35', ['F02030436.png'], '<ul><li>Tipo: Gomas de Freno</li><li>Para: Línea Z (125, 150, 200)</li><li>Repuesto</li></ul>', '<tr><td>Línea Z</td><td>Freno</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="F02030436.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Gomas de Freno Línea Z</h3>
-                <p class="text-xs text-gray-500 font-mono">F02030436</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$35</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-
-    <div class="product-card group" onclick="openModal('Gomas de Freno AT110', '30', ['F02030434.png'], '<ul><li>Tipo: Gomas de Freno</li><li>Para: Italika AT110</li><li>Repuesto</li></ul>', '<tr><td>Italika AT110</td><td>Freno</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="F02030434.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Gomas de Freno AT110</h3>
-                <p class="text-xs text-gray-500 font-mono">F02030434</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$30</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-</div>
-
-                <div id="sub-electrico" class="sub-category-grid hidden grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8 w-full mt-8">
-
-    <div class="product-card bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col w-full" onclick="openModal('Batería ICB6L-B', '490', ['bateria_icb6lb.png'], '<ul><li>Tecnología Gel</li><li>Libre Mantenimiento</li><li>12 Volts</li></ul>', '<tr><td>FT125 / FT150 / FT200 (Todas las versiones)</td><td>2012 - 2026</td></tr><tr><td>DT125 / DT150 (Todas las versiones)</td><td>2017 - 2025</td></tr><tr><td>RC150 / RC200 / RC250</td><td>2016 - 2026</td></tr><tr><td>Sptfire / Sptfire 250</td><td>2019 - 2026</td></tr><tr><td>DM125 / DM250 / DM300</td><td>2017 - 2026</td></tr><tr><td>125Z / 125FL (Todas las versiones)</td><td>2016 - 2026</td></tr><tr><td>Forza 125 / XFT125 / AT110 Sport / Fiera 150</td><td>2005 - 2019</td></tr>')">
-        <div class="relative w-full aspect-square p-2 group">
-            <div class="w-full h-full bg-gray-100 rounded flex items-center justify-center text-gray-400 relative overflow-hidden">
-                <img src="bateria_icb6lb.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'" class="w-full h-full object-contain p-2 absolute top-0 left-0 z-10 transition-transform duration-500 group-hover:scale-110">
-                <i class="fas fa-car-battery text-4xl md:text-6xl absolute z-0 opacity-50"></i>
-            </div>
-        </div>
-        <div class="p-3 flex-grow flex flex-col justify-between">
-            <div class="mb-2">
-                <h3 class="font-bold text-[#1D3E68] text-sm md:text-base line-clamp-2">Batería ICB6L-B Gel</h3>
-                <p class="text-xs text-gray-500 font-mono">F06010049</p> 
-            </div>
-            <div class="flex justify-between items-center mb-3">
-                <span class="text-lg md:text-xl font-bold text-red-600">$490</span>
-            </div>
-            <button class="w-full bg-[#1D3E68] text-white py-2 rounded font-bold uppercase text-[10px] md:text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-        </div>
-    </div>
-
-   <div class="product-card bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col w-full" onclick="openModal('Batería YTX7L-BS', '530', ['bateria_ytx7lbs.png'], '<ul><li>Tecnología Gel</li><li>Libre Mantenimiento</li><li>12 Volts</li></ul>', '<tr><td>DM150 (Roja, Normal)</td><td>2018 - 2026</td></tr><tr><td>DM250</td><td>2016 - 2018</td></tr><tr><td>DM200 / TX 200</td><td>2007 - 2008</td></tr>')">
-        <div class="relative w-full aspect-square p-2 group">
-            <div class="w-full h-full bg-gray-100 rounded flex items-center justify-center text-gray-400 relative overflow-hidden">
-                <img src="bateria_ytx7lbs.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'" class="w-full h-full object-contain p-2 absolute top-0 left-0 z-10 transition-transform duration-500 group-hover:scale-110">
-                <i class="fas fa-car-battery text-4xl md:text-6xl absolute z-0 opacity-50"></i>
-            </div>
-        </div>
-        <div class="p-3 flex-grow flex flex-col justify-between">
-            <div class="mb-2">
-                <h3 class="font-bold text-[#1D3E68] text-sm md:text-base line-clamp-2">Batería YTX7L-BS</h3>
-                <p class="text-xs text-gray-500 font-mono">F06010053</p>
-            </div>
-            <div class="flex justify-between items-center mb-3">
-                <span class="text-lg md:text-xl font-bold text-red-600">$530</span>
-            </div>
-            <button class="w-full bg-[#1D3E68] text-white py-2 rounded font-bold uppercase text-[10px] md:text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-        </div>
-    </div>
-
-   <div class="product-card bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col w-full" onclick="openModal('Batería 12N7-3A', '550', ['bateria_12v7a3a.png'], '<ul><li>Tecnología Gel</li><li>Libre Mantenimiento</li><li>Ideal para 200cc - 250cc</li></ul>', '<tr><td>DM200 (Normal, Sport, GPS)</td><td>2014 - 2026</td></tr><tr><td>DM150 Sport</td><td>2019 - 2021</td></tr><tr><td>FT250 (Normal, TS, GTS, GPS)</td><td>2015 - 2026</td></tr><tr><td>FT180 / FT200 (Normal, Amarilla)</td><td>2013 - 2020</td></tr><tr><td>DT200 Sport / DT250 Sport</td><td>2017 - 2021</td></tr><tr><td>RT180 / RT200 / EX 200</td><td>2005 - 2015</td></tr><tr><td>Fiera 200 / Fiera 250</td><td>2018 - 2019</td></tr>')">
-        <div class="relative w-full aspect-square p-2 group">
-            <div class="w-full h-full bg-gray-100 rounded flex items-center justify-center text-gray-400 relative overflow-hidden">
-                <img src="bateria_12v7a3a.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'" class="w-full h-full object-contain p-2 absolute top-0 left-0 z-10 transition-transform duration-500 group-hover:scale-110">
-                <i class="fas fa-car-battery text-4xl md:text-6xl absolute z-0 opacity-50"></i>
-            </div>
-        </div>
-        <div class="p-3 flex-grow flex flex-col justify-between">
-            <div class="mb-2">
-                <h3 class="font-bold text-[#1D3E68] text-sm md:text-base line-clamp-2">Batería 12N7-3A</h3>
-                <p class="text-xs text-gray-500 font-mono">F06010050</p>
-            </div>
-            <div class="flex justify-between items-center mb-3">
-                <span class="text-lg md:text-xl font-bold text-red-600">$550</span>
-            </div>
-            <button class="w-full bg-[#1D3E68] text-white py-2 rounded font-bold uppercase text-[10px] md:text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-        </div>
-    </div>
-
-    <div class="product-card bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col w-full" onclick="openModal('Batería IYTX9-BS', '730', ['bateria_iytx9bs.png'], '<ul><li>Tecnología Gel</li><li>Libre Mantenimiento</li></ul>', '<tr><td>Pulsar NS200</td><td>Dominar</td></tr>')">
-        <div class="relative w-full aspect-square p-2 group">
-            <div class="w-full h-full bg-gray-100 rounded flex items-center justify-center text-gray-400 relative overflow-hidden">
-                <img src="bateria_iytx9bs.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'" class="w-full h-full object-contain p-2 absolute top-0 left-0 z-10 transition-transform duration-500 group-hover:scale-110">
-                <i class="fas fa-car-battery text-4xl md:text-6xl absolute z-0 opacity-50"></i>
-            </div>
-        </div>
-        <div class="p-3 flex-grow flex flex-col justify-between">
-            <div class="mb-2">
-                <h3 class="font-bold text-[#1D3E68] text-sm md:text-base line-clamp-2">Batería IYTX9-BS</h3>
-                <p class="text-xs text-gray-500 font-mono">F06010052</p>
-            </div>
-            <div class="flex justify-between items-center mb-3">
-                <span class="text-lg md:text-xl font-bold text-red-600">$730</span>
-            </div>
-            <button class="w-full bg-[#1D3E68] text-white py-2 rounded font-bold uppercase text-[10px] md:text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-        </div>
-    </div>
-
-    <div class="product-card bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col w-full" onclick="openModal('Batería 12N7-B3', '560', ['bateria_12n7b3.png'], '<ul><li>Tecnología Gel</li><li>Libre Mantenimiento</li><li>Ideal Moto/ATV</li></ul>', '<tr><td>FT150 (Todas las versiones) / Forza 150</td><td>2006 - 2026</td></tr><tr><td>ATV 150/180/190/200 (Cuatrimotos)</td><td>2011 - 2026</td></tr><tr><td>DT150 Sport / Sport II</td><td>2017 - 2024</td></tr><tr><td>FT180 TS / FT200</td><td>2019 - 2026</td></tr><tr><td>RC125 / RC150 (Normal, GT)</td><td>2009 - 2017, 2020 - 2023</td></tr><tr><td>150Z / 170Z</td><td>2016 - 2018, 2024</td></tr><tr><td>TC200 Negra</td><td>2018 - 2020</td></tr>')">
-        <div class="relative w-full aspect-square p-2 group">
-            <div class="w-full h-full bg-gray-100 rounded flex items-center justify-center text-gray-400 relative overflow-hidden">
-                <img src="bateria_12n7b3.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'" class="w-full h-full object-contain p-2 absolute top-0 left-0 z-10 transition-transform duration-500 group-hover:scale-110">
-                <i class="fas fa-car-battery text-4xl md:text-6xl absolute z-0 opacity-50"></i>
-            </div>
-        </div>
-        <div class="p-3 flex-grow flex flex-col justify-between">
-            <div class="mb-2">
-                <h3 class="font-bold text-[#1D3E68] text-sm md:text-base line-clamp-2">Batería 12N7-B3</h3>
-                <p class="text-xs text-gray-500 font-mono">F06010048</p>
-            </div>
-            <div class="flex justify-between items-center mb-3">
-                <span class="text-lg md:text-xl font-bold text-red-600">$560</span>
-            </div>
-            <button class="w-full bg-[#1D3E68] text-white py-2 rounded font-bold uppercase text-[10px] md:text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-        </div>
-    </div>
-
-</div>
-
-          <div id="sub-chicote" class="sub-category-grid hidden grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8 w-full mt-8">
-
-    <div class="product-card group" onclick="openModal('Chicote Acelerador Universal', '30', ['chicote_acelerador_univ.png'], '<ul><li>Tipo: Acelerador</li><li>Motor: CG 125/150/250cc</li><li>Uso: Universal Trabajo</li></ul>', '<tr><td>FT125 (Clásica, Roja, Plata, Sport, TS, Delivery)</td><td>2012 - 2026</td></tr><tr><td>FT150 (Delivery, Grafito, TS, S, Estandar)</td><td>2015 - 2026</td></tr><tr><td>DT125 (Clásica, Sport, Delivery)</td><td>2017 - 2025</td></tr><tr><td>DT150 (Clásica, Basic, Delivery)</td><td>2017 - 2025</td></tr><tr><td>250Z / 250SZ (Negra y Standard)</td><td>2014 - 2019, 2023 - 2024</td></tr><tr><td>Forza 125</td><td>2005 - 2012</td></tr><tr><td>XFT125</td><td>2012 - 2013</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="chicote_acelerador_univ.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Chicote Acelerador Universal</h3>
-                <p class="text-xs text-gray-500 font-mono">F04030224</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$30</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-
-   <div class="product-card group" onclick="openModal('Chicote Acel. FT150/Forza', '45', ['f04030225.png'], '<ul><li>Tipo: Acelerador</li><li>Modelos: FT150, Forza, ST90</li><li>Calidad Original</li></ul>', '<tr><td>FT150 (G, GT, GTS, GTI, Estandar)</td><td>2011 - 2020, 2023 - 2024</td></tr><tr><td>Forza 150</td><td>2006 - 2013</td></tr><tr><td>FT200</td><td>2024 - 2026</td></tr><tr><td>DT150 Sport</td><td>2017 - 2018</td></tr><tr><td>ST90 / DT90</td><td>2009 - 2018</td></tr><tr><td>Strada 70</td><td>2005 - 2008</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="f04030225.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Chicote Acelerador FT150 / Forza</h3>
-                <p class="text-xs text-gray-500 font-mono">F04030225</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$45</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-
-    <div class="product-card group" onclick="openModal('Chicote Acelerador 150Z', '65', ['chicote_acelerador_150z.jpg'], '<ul><li>Tipo: Acelerador</li><li>Para: Línea Z</li><li>Funda de alta resistencia</li></ul>', '<tr><td>Italika 150Z / 150SZ / 170Z</td><td>2014 - 2024</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="chicote_acelerador_150z.jpg" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Chicote Acelerador 150Z</h3>
-                <p class="text-xs text-gray-500 font-mono">F04030227</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$65</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-
-    <div class="product-card group" onclick="openModal('Chicote Acelerador Motoneta', '65', ['chicote_acelerador_moto.png'], '<ul><li>Tipo: Acelerador</li><li>Motor: GY6 125/150cc</li><li>Cable largo para Scooter</li></ul>', '<tr><td>DS150 (Todas las versiones)</td><td>2006 - 2026</td></tr><tr><td>GS150 / GSC150 / XS150</td><td>2010 - 2018</td></tr><tr><td>X150 (Normal, G, GTS)</td><td>2017 - 2023</td></tr><tr><td>GTS175 / GSC175</td><td>2010 - 2018</td></tr><tr><td>TRN150 / TRN175</td><td>2015 - 2020</td></tr><tr><td>DS125</td><td>2005 - 2009</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="chicote_acelerador_moto.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Chicote Acelerador Motoneta</h3>
-                <p class="text-xs text-gray-500 font-mono">F04030217</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$65</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-
-    <div class="product-card group" onclick="openModal('Chicote Acelerador Serie DM', '35', ['chicote_acelerador_dm.png'], '<ul><li>Tipo: Acelerador</li><li>Estilo: Cross / Enduro</li><li>Largo especial para manubrio alto</li></ul>', '<tr><td>DM125</td><td>2017 - 2021</td></tr><tr><td>DM150 / DM150 GPS</td><td>2026</td></tr><tr><td>DM200 / DM200 GPS</td><td>2014 - 2026</td></tr><tr><td>DM200 Sport</td><td>2019 - 2021</td></tr><tr><td>DM250</td><td>2020 - 2024</td></tr><tr><td>DM250X</td><td>2022 - 2025</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="chicote_acelerador_dm.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Chicote Acelerador DM</h3>
-                <p class="text-xs text-gray-500 font-mono">F04030229</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$35</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-
-   <div class="product-card group" onclick="openModal('Chicote Acelerador WS150 / Scooter', '60', ['chicote_acelerador_ws.png'], '<ul><li>Tipo: Acelerador</li><li>Para: Motonetas Scooter</li><li>Doble cable (si aplica al modelo)</li></ul>', '<tr><td>WS150 / WS150 NF</td><td>2008 - 2019</td></tr><tr><td>WS175</td><td>2012 - 2018</td></tr><tr><td>W150</td><td>2017 - 2026</td></tr><tr><td>XW150</td><td>2018 - 2022</td></tr><tr><td>BIT 150 / Nueva Gen</td><td>2022 - 2026</td></tr><tr><td>D150</td><td>2019 - 2026</td></tr><tr><td>D125 LT</td><td>2021 - 2024</td></tr><tr><td>Vitalia 125</td><td>2019 - 2020</td></tr><tr><td>Modena 125</td><td>2022 - 2023</td></tr><tr><td>X150D</td><td>2019 - 2020</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="chicote_acelerador_ws.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Chicote Acelerador WS150</h3>
-                <p class="text-xs text-gray-500 font-mono">F04030230</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$60</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-
-    <div class="product-card group" onclick="openModal('Chicote Clutch Universal 125/150', '40', ['chicote_clutch_univ.png'], '<ul><li>Tipo: Clutch (Embrague)</li><li>Motor: CG 125/150</li><li>Uso: Trabajo / Ciudad</li></ul>', '<tr><td>FT125 (Clásica, Sport, TS, Delivery, Roja, Plata)</td><td>2012 - 2026</td></tr><tr><td>FT150 (TS, Grafito, Estandar)</td><td>2018 - 2026</td></tr><tr><td>DT125 (Clásica, Sport, Delivery)</td><td>2017 - 2025</td></tr><tr><td>DT150 (Clásica, Basic, Delivery, Estandar)</td><td>2018 - 2025</td></tr><tr><td>Forza 125</td><td>2005 - 2012</td></tr><tr><td>XFT125 / 125Z</td><td>2012 - 2019</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="chicote_clutch_univ.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Chicote Clutch Universal</h3>
-                <p class="text-xs text-gray-500 font-mono">F04030325</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$40</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-
-    <div class="product-card group" onclick="openModal('Chicote Clutch Línea Z', '80', ['chicote_clutch_150z.png'], '<ul><li>Tipo: Clutch (Embrague)</li><li>Para: Línea Z Estandar</li><li>Cable interno de alta tensión</li></ul>', '<tr><td>150Z</td><td>2014 - 2016, 2019 - 2026</td></tr><tr><td>150SZ</td><td>2016 - 2018</td></tr><tr><td>150ZMS / 150Z GPS</td><td>2025 - 2026</td></tr><tr><td>125Z GPS</td><td>2026</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="chicote_clutch_150z.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Chicote Clutch 150 Z</h3>
-                <p class="text-xs text-gray-500 font-mono">F04030330</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$80</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-
-   <div class="product-card group" onclick="openModal('Chicote Clutch 250 Z', '130', ['chicote_clutch_250z.png'], '<ul><li>Tipo: Clutch (Embrague)</li><li>Para: Línea Z Mayor</li><li>Alta Resistencia</li></ul>', '<tr><td>250Z</td><td>2019 - 2020, 2022 - 2026</td></tr><tr><td>250Z GPS</td><td>2026</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="chicote_clutch_250z.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Chicote Clutch 250 Z</h3>
-                <p class="text-xs text-gray-500 font-mono">F04030419</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$130</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-
-    <div class="product-card group" onclick="openModal('Chicote Clutch Serie DM', '130', ['chicote_clutch_dm200.png'], '<ul><li>Tipo: Clutch (Embrague)</li><li>Doble Propósito</li><li>Funda protectora larga</li></ul>', '<tr><td>DM200 / DM200 GPS</td><td>2014 - 2026</td></tr><tr><td>DM200 Sport</td><td>2019 - 2021</td></tr><tr><td>DM250 / DM250 GPS</td><td>2020 - 2026</td></tr><tr><td>DM250X</td><td>2022 - 2025</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="chicote_clutch_dm200.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Chicote Clutch DM200</h3>
-                <p class="text-xs text-gray-500 font-mono">F04030140</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$130</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-
-   <div class="product-card group" onclick="openModal('Chicote Embrague Delivery', '70', ['chicote_clutch_delivery.png'], '<ul><li>Tipo: Clutch (Embrague)</li><li>Especial para Manubrio Alto</li><li>Trabajo Pesado</li></ul>', '<tr><td>FT150 (Delivery, S, TS)</td><td>2015 - 2018</td></tr><tr><td>DT150 (Clásica, Delivery)</td><td>2017 - 2018</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="chicote_clutch_delivery.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Chicote Embrague Delivery</h3>
-                <p class="text-xs text-gray-500 font-mono">F04030170</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$70</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-
-    <div class="product-card group" onclick="openModal('Chicote Freno Delantero Universal', '50', ['chicote_freno_del.png'], '<ul><li>Tipo: Freno de Tambor</li><li>Posición: Delantera</li><li>Para masas de tambor estándar</li></ul>', '<tr><td>FT125 (Clásica, Sport, TS, Roja)</td><td>2012 - 2026</td></tr><tr><td>FT150 (TS, S)</td><td>2015 - 2026</td></tr><tr><td>DT125 (Clásica, Sport)</td><td>2017 - 2022</td></tr><tr><td>DT150 Clásica</td><td>2017 - 2024</td></tr><tr><td>Forza 125</td><td>2008 - 2012</td></tr><tr><td>XFT125</td><td>2012 - 2013</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="chicote_freno_del.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Chicote Freno Del</h3>
-                <p class="text-xs text-gray-500 font-mono">F04030053</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$50</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-
-   <div class="product-card group" onclick="openModal('Chicote Freno Trasero Motoneta', '95', ['chicote_freno_tras_moto.png'], '<ul><li>Tipo: Freno de Tambor</li><li>Posición: Trasera</li><li>Cable largo para Scooter</li></ul>', '<tr><td>DS150 (Normal, Negro, Verde, G)</td><td>2006 - 2026</td></tr><tr><td>GS150 / GSC150 / XS150</td><td>2010 - 2018</td></tr><tr><td>X150 (Normal, G, GTS)</td><td>2017 - 2023</td></tr><tr><td>GTS175 / GSC175 (Todas)</td><td>2010 - 2018</td></tr><tr><td>WS150 Sport / WS175 Sport</td><td>2017 - 2026</td></tr><tr><td>Modena 150 / Modena 175</td><td>2018 - 2025</td></tr><tr><td>TRN150 / TRN175</td><td>2015 - 2020</td></tr><tr><td>DS125</td><td>2005 - 2009</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="chicote_freno_tras_moto.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Chicote Freno Tras Moto</h3>
-                <p class="text-xs text-gray-500 font-mono">F04030006</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$95</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-
-    <div class="product-card group" onclick="openModal('Chicote Freno Delantero FT/DT', '55', ['chicote_freno_del_2.png'], '<ul><li>Tipo: Freno de Tambor</li><li>Posición: Delantera</li><li>Motos de Trabajo</li></ul>', '<tr><td>FT125 (Normal, Delivery, Plata, Roja Nueva)</td><td>2014 - 2026</td></tr><tr><td>FT150 (Normal, Delivery, Grafito)</td><td>2015 - 2026</td></tr><tr><td>DT125 Delivery</td><td>2017 - 2025</td></tr><tr><td>DT150 (Normal, Delivery, Basic)</td><td>2017 - 2025</td></tr><tr><td>Forza 125</td><td>2005 - 2007</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="chicote_freno_del_2.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Chicote Freno Delantero</h3>
-                <p class="text-xs text-gray-500 font-mono">F04030064</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$55</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-
-    <div class="product-card group" onclick="openModal('Chicote Velocímetro Universal', '55', ['chicote_velocimetro.png'], '<ul><li>Tipo: Velocímetro</li><li>Conexión: Horquilla a Tablero</li><li>Uso: Universal</li></ul>', '<tr><td>FT125 (Clásica, Sport, TS, Roja)</td><td>2012 - 2022</td></tr><tr><td>FT150 (TS, S)</td><td>2015 - 2018</td></tr><tr><td>DT125 (Clásica, Sport)</td><td>2017 - 2022</td></tr><tr><td>DT150 Clásica</td><td>2017 - 2024</td></tr><tr><td>Forza 125</td><td>2008 - 2012</td></tr><tr><td>XFT125</td><td>2012 - 2013</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="chicote_velocimetro.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Chicote Velocímetro</h3>
-                <p class="text-xs text-gray-500 font-mono">F04030327</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$55</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-
-   <div class="product-card group" onclick="openModal('Chicote Velocímetro FT/DT 125/150', '75', ['chicote_velocimetro_ft150.png'], '<ul><li>Tipo: Velocímetro</li><li>Ajuste Específico</li><li>Lectura Precisa</li></ul>', '<tr><td>FT125 (Normal, Roja Nueva)</td><td>2018 - 2026</td></tr><tr><td>FT150 (Normal, Grafito)</td><td>2018 - 2020, 2023 - 2026</td></tr><tr><td>DT150 (Normal, Basic)</td><td>2018 - 2020</td></tr>')">
-        <div class="relative mb-3">
-            <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                <img src="chicote_velocimetro_ft150.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-            </div>
-        </div>
-        <div class="card-content-grow">
-            <div>
-                <h3 class="font-bold text-[#0866bd] line-clamp-1">Chicote Velocímetro FT/DT</h3>
-                <p class="text-xs text-gray-500 font-mono">F04030380</p>
-            </div>
-            <div class="flex justify-between items-center mt-auto">
-                <span class="text-xl font-bold text-red-600">$75</span>
-            </div>
-        </div>
-        <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-    </div>
-</div>
+            <!-- Contenedores Subcategorías -->
+            <div id="sub-freno" class="sub-category-grid hidden grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8 w-full mt-8"></div>
+            <div id="sub-electrico" class="sub-category-grid hidden grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8 w-full mt-8"></div>
+            <div id="sub-chicote" class="sub-category-grid hidden grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8 w-full mt-8"></div>
+            <div id="grid-refacciones" class="sub-category-grid hidden grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8 w-full mt-8"></div>
         </section>
 
-       <section id="accesorios" class="product-section hidden-section">
-    <div class="flex items-center mb-8 border-b pb-3 border-gray-300">
-        <div class="h-6 md:h-8 w-1 bg-gray-700 mr-3"></div>
-        <h2 class="text-2xl md:text-3xl font-bold text-[#0866bd] oswald uppercase">Accesorios</h2>
-    </div>
+        <section id="accesorios" class="product-section hidden-section">
+            <div class="flex items-center mb-8 border-b pb-3 border-gray-300">
+                <div class="h-6 md:h-8 w-1 bg-gray-700 mr-3"></div>
+                <h2 class="text-2xl md:text-3xl font-bold text-[#0866bd] oswald uppercase">Accesorios</h2>
+            </div>
+            <div id="grid-accesorios" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
+                 <!-- Se llenará desde Excel -->
+            </div>
+        </section>
 
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
-
-        <div class="product-card group" onclick="openModal('Casco M para Mujer', '2,300', ['CTRN18495.png'], '<ul><li>Modelo: CTRN18495</li><li>Diseño para Mujer</li><li>Talla: M</li></ul>', '<tr><td>Talla</td><td>M</td></tr>')">
-            <div class="relative mb-3">
-                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                    <img src="CTRN18495.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-                </div>
-            </div>
-            <div class="card-content-grow">
-                <div>
-                    <h3 class="font-bold text-[#0866bd] line-clamp-1">Casco M para Mujer</h3>
-                    <p class="text-xs text-gray-500 font-mono">CTRN18495</p>
-                </div>
-                <div class="flex justify-between items-center mt-auto">
-                    <span class="text-xl font-bold text-red-600">$2,300</span>
-                </div>
-            </div>
-            <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-        </div>
-
-        <div class="product-card group" onclick="openModal('Casco XL Negro', '1,900', ['FZBB12270.png'], '<ul><li>Modelo: FZBB12270</li><li>Color: Negro</li><li>Talla: XL</li></ul>', '<tr><td>Talla</td><td>XL</td></tr>')">
-            <div class="relative mb-3">
-                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                    <img src="FZBB12270.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-                </div>
-            </div>
-            <div class="card-content-grow">
-                <div>
-                    <h3 class="font-bold text-[#0866bd] line-clamp-1">Casco XL Negro</h3>
-                    <p class="text-xs text-gray-500 font-mono">FZBB12270</p>
-                </div>
-                <div class="flex justify-between items-center mt-auto">
-                    <span class="text-xl font-bold text-red-600">$1,900</span>
-                </div>
-            </div>
-            <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-        </div>
-
-        <div class="product-card group" onclick="openModal('Casco Half Flux', '2,100', ['CRO8705.png'], '<ul><li>Modelo: CRO8705</li><li>Estilo: Half Flux</li><li>Certificado</li></ul>', '<tr><td>Talla</td><td>Universal</td></tr>')">
-            <div class="relative mb-3">
-                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                    <img src="CRO8705.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-                </div>
-            </div>
-            <div class="card-content-grow">
-                <div>
-                    <h3 class="font-bold text-[#0866bd] line-clamp-1">Casco Half Flux</h3>
-                    <p class="text-xs text-gray-500 font-mono">CRO8705</p>
-                </div>
-                <div class="flex justify-between items-center mt-auto">
-                    <span class="text-xl font-bold text-red-600">$2,100</span>
-                </div>
-            </div>
-            <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-        </div>
-
-        <div class="product-card group" onclick="openModal('Casco Cross Rojo XX', '1,500', ['ENCAS2482.png'], '<ul><li>Modelo: ENCAS2482</li><li>Estilo: Cross / Enduro</li><li>Color: Rojo</li></ul>', '<tr><td>Talla</td><td>XX</td></tr>')">
-            <div class="relative mb-3">
-                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                    <img src="ENCAS2482.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-                </div>
-            </div>
-            <div class="card-content-grow">
-                <div>
-                    <h3 class="font-bold text-[#0866bd] line-clamp-1">Casco Cross Rojo XX</h3>
-                    <p class="text-xs text-gray-500 font-mono">ENCAS2482</p>
-                </div>
-                <div class="flex justify-between items-center mt-auto">
-                    <span class="text-xl font-bold text-red-600">$1,500</span>
-                </div>
-            </div>
-            <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-        </div>
-
-        <div class="product-card group" onclick="openModal('Casco Iron Racing', '1,500', ['CAS6917D.png'], '<ul><li>Modelo: CAS6917D</li><li>Marca: Iron Racing</li><li>Alta Resistencia</li></ul>', '<tr><td>Talla</td><td>Universal</td></tr>')">
-            <div class="relative mb-3">
-                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                    <img src="CAS6917D.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-                </div>
-            </div>
-            <div class="card-content-grow">
-                <div>
-                    <h3 class="font-bold text-[#0866bd] line-clamp-1">Casco Iron Racing</h3>
-                    <p class="text-xs text-gray-500 font-mono">CAS6917D</p>
-                </div>
-                <div class="flex justify-between items-center mt-auto">
-                    <span class="text-xl font-bold text-red-600">$1,500</span>
-                </div>
-            </div>
-            <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-        </div>
-
-        <div class="product-card group" onclick="openModal('Casco Iron Racing Económico', '900', ['CAS6368D.png'], '<ul><li>Modelo: CAS6368D</li><li>Marca: Iron Racing</li><li>Uso Urbano</li></ul>', '<tr><td>Talla</td><td>Universal</td></tr>')">
-            <div class="relative mb-3">
-                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden">
-                    <img src="CAS6368D.png" onerror="this.style.display='none'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
-                </div>
-            </div>
-            <div class="card-content-grow">
-                <div>
-                    <h3 class="font-bold text-[#0866bd] line-clamp-1">Casco Iron Racing</h3>
-                    <p class="text-xs text-gray-500 font-mono">CAS6368D</p>
-                </div>
-                <div class="flex justify-between items-center mt-auto">
-                    <span class="text-xl font-bold text-red-600">$900</span>
-                </div>
-            </div>
-            <button class="w-full bg-[#0866bd] text-white py-2 rounded font-bold uppercase text-xs hover:bg-blue-800 transition">Ver Detalles</button>
-        </div>
-
-    </div>
-</section>
-
-        <div id="pagination-controls" class="pagination-container">
-            </div>
-
+        <div id="pagination-controls" class="pagination-container"></div>
     </main>
 
+    <!-- FOOTER COMPLETO CON MAPA Y REDES -->
     <footer class="bg-[#0866bd] text-white pt-16 pb-8 border-t-4 border-yellow-500">
-    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left">
-        
-        <div>
-            <h4 class="oswald text-xl md:text-2xl uppercase mb-4 tracking-wider text-yellow-500">Moto Refacciones El Jefe</h4>
-            <p class="text-gray-300 text-xs md:text-sm leading-relaxed text-justify mb-6">
-                En <b>Moto Partes El Jefe</b>, Nos esforzamos por brindarte la calidad y confianza que mereces.
-                Somos una empresa familiar que ayuda a mantener tu pasión en movimiento.
-            </p>
-
-             <div>
-    <h5 class="font-bold text-white uppercase mb-3 text-sm tracking-widest">Síguenos:</h5>
-    <div class="flex gap-4 justify-center md:justify-start">
-        
-        <a href="https://www.facebook.com/profile.php?id=61582551320267" class="w-10 h-10 rounded-full bg-[#1877F2] flex items-center justify-center text-white hover:scale-110 transition shadow-lg border-2 border-white/20 relative z-10" title="Facebook">
-            <i class="fab fa-facebook-f"></i>
-        </a>
-        
-        <a href="https://www.tiktok.com/@moto.partes.el.je" class="w-10 h-10 rounded-full bg-black flex items-center justify-center text-white hover:scale-110 transition shadow-lg border-2 border-white/20 relative z-10" title="TikTok">
-            <i class="fab fa-tiktok"></i>
-        </a>
-
-        <a href="https://www.instagram.com/el_jefe1949/" class="w-10 h-10 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 flex items-center justify-center text-white hover:scale-110 transition shadow-lg border-2 border-white/20 relative z-10" title="Instagram">
-            <i class="fab fa-instagram"></i>
-        </a>
-
-    </div>
-</div>
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left">
+            <div>
+                <h4 class="oswald text-xl md:text-2xl uppercase mb-4 tracking-wider text-yellow-500">Moto Refacciones El Jefe</h4>
+                <p class="text-gray-300 text-xs md:text-sm leading-relaxed text-justify mb-6">En <b>Moto Partes El Jefe</b>, Nos esforzamos por brindarte la calidad y confianza que mereces. Somos una empresa familiar que ayuda a mantener tu pasión en movimiento.</p>
+                <div>
+                    <h5 class="font-bold text-white uppercase mb-3 text-sm tracking-widest">Síguenos:</h5>
+                    <div class="flex gap-4 justify-center md:justify-start">
+                        <a href="https://www.facebook.com/profile.php?id=61582551320267" class="w-10 h-10 rounded-full bg-[#1877F2] flex items-center justify-center text-white hover:scale-110 transition shadow-lg border-2 border-white/20 relative z-10" title="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@moto.partes.el.je" class="w-10 h-10 rounded-full bg-black flex items-center justify-center text-white hover:scale-110 transition shadow-lg border-2 border-white/20 relative z-10" title="TikTok">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                        <a href="https://www.instagram.com/el_jefe1949/" class="w-10 h-10 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 flex items-center justify-center text-white hover:scale-110 transition shadow-lg border-2 border-white/20 relative z-10" title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h4 class="oswald text-lg md:text-xl uppercase mb-6 tracking-wider text-yellow-500">Ubicación</h4>
+                <a href="https://maps.google.com/?q=Calle+Marcos+Lara+60,+Santa+Paula,+Tonalá,+Jalisco" target="_blank" class="block text-gray-300 mb-2 hover:text-white transition cursor-pointer group text-sm">
+                    <i class="fas fa-map-marker-alt mr-3 text-red-500"></i> Marcos Lara 60, Tonalá, Jal.
+                </a>
+                <a href="https://wa.me/523332406334" target="_blank" class="block text-gray-300 mb-4 hover:text-white transition cursor-pointer group text-sm">
+                    <i class="fas fa-phone mr-3 text-green-500"></i> 33 3240 6334
+                </a>
+                <div class="w-full h-40 rounded-lg overflow-hidden border-2 border-gray-400/50 shadow-lg mt-2">
+                    <iframe 
+                        width="100%" 
+                        height="100%" 
+                        frameborder="0" 
+                        style="border:0"
+                        src="https://maps.google.com/maps?q=Calle+Marcos+Lara+60,+Santa+Paula,+Tonalá,+Jalisco&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+            <div>
+                <h4 class="oswald text-lg md:text-xl uppercase mb-6 tracking-wider text-yellow-500">Horario</h4>
+                <p class="text-gray-300 mb-2 text-sm"><i class="far fa-clock mr-2 text-yellow-500"></i> Lunes a Viernes: 11:00 AM - 7:00 PM</p>
+                <p class="text-gray-300 text-sm"><i class="far fa-clock mr-2 text-yellow-500"></i> Sábados: 11:00 AM - 4:00 PM</p>
+            </div>
         </div>
+    </footer>
 
-        <div>
-            <h4 class="oswald text-lg md:text-xl uppercase mb-6 tracking-wider text-yellow-500">Ubicación</h4>
-            
-            <a href="https://goo.gl/maps/tu-enlace-aqui" target="_blank" class="block text-gray-300 mb-2 hover:text-white transition cursor-pointer group text-sm">
-                <i class="fas fa-map-marker-alt mr-3 text-red-500"></i> Marcos Lara 60, Tonalá, Jal.
-            </a>
-            <a href="https://wa.me/523332406334" target="_blank" class="block text-gray-300 mb-4 hover:text-white transition cursor-pointer group text-sm">
-                <i class="fas fa-phone mr-3 text-green-500"></i> 33 3240 6334
-            </a>
-
-           <div class="w-full h-40 rounded-lg overflow-hidden border-2 border-gray-400/50 shadow-lg mt-2">
-    <iframe 
-        width="100%" 
-        height="100%" 
-        frameborder="0" 
-        style="border:0"
-        src="https://maps.google.com/maps?q=Calle+Marcos+Lara+60,+Santa+Paula,+Tonalá,+Jalisco&t=&z=15&ie=UTF8&iwloc=&output=embed"
-        allowfullscreen>
-    </iframe>
-</div>
-        </div>
-
-        <div>
-            <h4 class="oswald text-lg md:text-xl uppercase mb-6 tracking-wider text-yellow-500">Horario</h4>
-            <p class="text-gray-300 mb-2 text-sm"><i class="far fa-clock mr-2 text-yellow-500"></i> Lunes a Viernes: 11:00 AM - 7:00 PM</p>
-            <p class="text-gray-300 text-sm"><i class="far fa-clock mr-2 text-yellow-500"></i> Sábados: 11:00 AM - 4:00 PM</p>
-        </div>
-    </div>
-</footer>
-
-  <!-- BOTONES FLOTANTES (WHATSAPP Y CHATBOT) -->
+    <!-- Flotantes -->
     <a href="https://wa.me/523332406334" class="float-wa hover:rotate-12" target="_blank"><i class="fab fa-whatsapp"></i></a>
-    
-    <!-- CHATBOT INTERFAZ -->
     <button onclick="toggleChat()" class="float-chat hover:rotate-12"><i class="fas fa-robot"></i></button>
-
+    
+    <!-- CHATBOT -->
     <div id="chat-window">
         <div class="chat-header">
             <span><i class="fas fa-robot mr-2"></i> El Jefecito</span>
             <button onclick="toggleChat()" class="text-white hover:text-red-300 transition transform hover:rotate-90"><i class="fas fa-times text-xl"></i></button>
         </div>
         <div id="chat-messages" class="chat-messages">
-            <div class="chat-bubble chat-bot">¡Qué tal! Soy el asistente virtual de El Jefe. 🏍️ ¿Qué pieza estás buscando o qué duda tienes con tu moto?</div>
+            <div class="chat-bubble chat-bot">¡Qué tal! Soy el asistente virtual de El Jefe.  🏍️  ¿Qué pieza estás buscando o qué duda tienes con tu moto?</div>
         </div>
         <div class="chat-input-area">
             <input type="text" id="chat-input" placeholder="Escribe aquí..." class="flex-grow p-2 border border-gray-300 rounded focus:outline-none focus:border-[#0866bd]" onkeyup="if(event.key === 'Enter') sendChatMessage()">
             <button onclick="sendChatMessage()" class="bg-[#0866bd] text-white px-4 py-2 rounded hover:bg-blue-800 transition"><i class="fas fa-paper-plane"></i></button>
-            <button id="voice-btn" class="text-gray-500 hover:text-[#0866bd] px-2">
-    <i class="fas fa-microphone" id="mic-icon"></i>
-</button>
+            <button id="voice-btn" class="text-gray-500 hover:text-[#0866bd] px-2"><i class="fas fa-microphone" id="mic-icon"></i></button>
         </div>
     </div>
-    
-    <!-- FIN CHATBOT INTERFAZ -->
 
-<div id="modal-overlay" onclick="closeModal(event)">
-    <div class="bg-white rounded-lg max-w-5xl w-full relative shadow-2xl overflow-hidden mx-auto flex flex-col md:flex-row max-h-[90vh] border-t-4 border-[#0866bd]">
-        <button onclick="closeModal(event)" class="absolute top-3 right-3 bg-gray-100 rounded-full w-10 h-10 flex items-center justify-center text-gray-500 hover:text-red-600 hover:bg-gray-200 transition z-20"><i class="fas fa-times text-xl"></i></button>
-        <div class="w-full md:w-1/2 bg-gray-50 flex items-center justify-center p-6 md:p-10 border-b md:border-b-0 md:border-r border-gray-200 relative">
-            <div id="modal-images" class="w-full h-64 md:h-full flex items-center justify-center text-gray-300"><i class="fas fa-camera text-7xl md:text-8xl"></i></div>
-        </div>
-        <div class="w-full md:w-1/2 p-6 md:p-8 overflow-y-auto relative flex flex-col">
-            <div class="mb-6">
-                <h2 id="modal-title" class="oswald text-3xl md:text-4xl font-bold text-[#0866bd] uppercase leading-tight mb-2">Titulo Producto</h2>
-                <p id="modal-price" class="text-3xl md:text-4xl font-bold text-red-600">$0.00</p>
+    <!-- MODAL PRODUCTO -->
+    <div id="modal-overlay" onclick="closeModal(event)">
+        <div class="bg-white rounded-lg max-w-5xl w-full relative shadow-2xl overflow-hidden mx-auto flex flex-col md:flex-row max-h-[90vh] border-t-4 border-[#0866bd]">
+            <button onclick="closeModal(event)" class="absolute top-3 right-3 bg-gray-100 rounded-full w-10 h-10 flex items-center justify-center text-gray-500 hover:text-red-600 hover:bg-gray-200 transition z-20"><i class="fas fa-times text-xl"></i></button>
+            <div class="w-full md:w-1/2 bg-gray-50 flex items-center justify-center p-6 md:p-10 border-b md:border-b-0 md:border-r border-gray-200 relative">
+                <div id="modal-images" class="w-full h-64 md:h-full flex items-center justify-center text-gray-300"><i class="fas fa-camera text-7xl md:text-8xl"></i></div>
             </div>
-            <div class="mb-6">
-                <h3 class="font-bold text-sm text-gray-700 uppercase mb-3 flex items-center tracking-wider"><i class="fas fa-box-open mr-2 text-[#0866bd]"></i> ESPECIFICACIONES DEL PRODUCTO:</h3>
-                <div id="modal-desc" class="modal-list ml-1"></div>
-            </div>
-            <div id="modal-compat-container" class="compat-table-container hidden mb-6">
-                <div class="compat-table-header"><i class="fas fa-motorcycle mr-2"></i> TABLA DE COMPATIBILIDAD</div>
-                <div class="compat-table-body">
-                    <table class="table-auto">
-                        <thead><tr><th>MODELO</th><th>AÑO(S)</th></tr></thead>
-                        <tbody id="modal-compat-table-body"></tbody>
-                    </table>
+            <div class="w-full md:w-1/2 p-6 md:p-8 overflow-y-auto relative flex flex-col">
+                <div class="mb-6">
+                    <h2 id="modal-title" class="oswald text-3xl md:text-4xl font-bold text-[#0866bd] uppercase leading-tight mb-2">Cargando...</h2>
+                    <p id="modal-price" class="text-3xl md:text-4xl font-bold text-red-600">$0.00</p>
+                </div>
+                <div class="mb-6">
+                    <h3 class="font-bold text-sm text-gray-700 uppercase mb-3 flex items-center tracking-wider"><i class="fas fa-box-open mr-2 text-[#0866bd]"></i> ESPECIFICACIONES DEL PRODUCTO:</h3>
+                    <div id="modal-desc" class="modal-list ml-1"></div>
+                </div>
+                <div id="modal-compat-container" class="compat-table-container hidden mb-6">
+                    <div class="compat-table-header"><i class="fas fa-motorcycle mr-2"></i> TABLA DE COMPATIBILIDAD</div>
+                    <div class="compat-table-body">
+                        <table class="table-auto">
+                            <thead><tr><th>MODELO / DESCRIPCIÓN</th></tr></thead>
+                            <tbody id="modal-compat-table-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="mt-auto pt-4">
+                    <button id="modal-btn-add" class="flex items-center justify-center w-full bg-yellow-500 text-[#0866bd] font-bold py-4 rounded-lg shadow-md hover:bg-yellow-400 transition uppercase tracking-widest text-lg border-2 border-transparent hover:border-[#0866bd]">
+                        <i class="fas fa-cart-plus mr-3 text-2xl"></i> Agregar al Carrito
+                    </button>
                 </div>
             </div>
-            <div class="mt-auto pt-4">
-                <button id="modal-btn-add" class="flex items-center justify-center w-full bg-yellow-500 text-[#0866bd] font-bold py-4 rounded-lg shadow-md hover:bg-yellow-400 transition uppercase tracking-widest text-lg border-2 border-transparent hover:border-[#0866bd]">
-                    <i class="fas fa-cart-plus mr-3 text-2xl"></i> Agregar al Carrito
-                </button>
+        </div>
+    </div>
+
+    <!-- CARRITO SIDEBAR -->
+    <div id="cart-overlay" onclick="toggleCart()" class="fixed inset-0 bg-black bg-opacity-50 z-[110] hidden transition-opacity duration-300"></div>
+    <div id="cart-sidebar" class="fixed top-0 right-0 w-80 md:w-96 h-full bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-[120] flex flex-col border-l-4 border-[#0866bd]">
+        <div class="p-4 bg-[#0866bd] text-white flex justify-between items-center shadow-md">
+            <h2 class="font-bold text-xl oswald tracking-wide"><i class="fas fa-shopping-cart mr-2"></i> Mi Pedido</h2>
+            <button onclick="toggleCart()" class="text-white hover:text-red-300 transition transform hover:rotate-90"><i class="fas fa-times text-2xl"></i></button>
+        </div>
+        <div id="cart-items" class="flex-1 overflow-y-auto p-4 space-y-3 bg-[#F3F0E9]">
+            <p class="text-gray-500 text-center mt-10"><i class="fas fa-box-open text-3xl mb-3 opacity-50"></i><br>Tu carrito está vacío.</p>
+        </div>
+        <div class="p-4 bg-white border-t-2 border-gray-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
+            <div class="flex justify-between font-bold text-2xl mb-4 text-[#0866bd]">
+                <span>Total:</span>
+                <span id="cart-total">$0.00</span>
             </div>
+            <button onclick="checkoutWhatsApp()" class="w-full bg-green-600 text-white font-bold py-3 rounded-lg hover:bg-green-700 transition flex justify-center items-center uppercase tracking-widest">
+                <i class="fab fa-whatsapp mr-2 text-xl"></i> Enviar Pedido
+            </button>
         </div>
     </div>
-</div>
-
-<div id="cart-overlay" onclick="toggleCart()" class="fixed inset-0 bg-black bg-opacity-50 z-[110] hidden transition-opacity duration-300"></div>
-
-<div id="cart-sidebar" class="fixed top-0 right-0 w-80 md:w-96 h-full bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-[120] flex flex-col border-l-4 border-[#0866bd]">
-    <div class="p-4 bg-[#0866bd] text-white flex justify-between items-center shadow-md">
-        <h2 class="font-bold text-xl oswald tracking-wide"><i class="fas fa-shopping-cart mr-2"></i> Mi Pedido</h2>
-        <button onclick="toggleCart()" class="text-white hover:text-red-300 transition transform hover:rotate-90">
-            <i class="fas fa-times text-2xl"></i>
-        </button>
-    </div>
-    <div id="cart-items" class="flex-1 overflow-y-auto p-4 space-y-3 bg-[#F3F0E9]">
-        <p class="text-gray-500 text-center mt-10"><i class="fas fa-box-open text-3xl mb-3 opacity-50"></i><br>Tu carrito está vacío.</p>
-    </div>
-    <div class="p-4 bg-white border-t-2 border-gray-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
-        <div class="flex justify-between font-bold text-2xl mb-4 text-[#0866bd]">
-            <span>Total:</span>
-            <span id="cart-total">$0.00</span>
-        </div>
-        <button onclick="checkoutWhatsApp()" class="w-full bg-green-600 text-white font-bold py-3 rounded-lg hover:bg-green-700 transition flex justify-center items-center uppercase tracking-widest">
-            <i class="fab fa-whatsapp mr-2 text-xl"></i> Enviar Pedido
-        </button>
-    </div>
-</div>
 
 <script>
-      // CONFIGURACIÓN DE PAGINACIÓN Y LÓGICA PRINCIPAL
+// --- CONEXIÓN CON GOOGLE SHEETS (NUEVO PANEL) ---
+const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbyzGH6uSeSPO4f_kizIgazynxy5klZt4HepLK47hA2fZR6s0R3RT1iL9sfGHyWL5ntu/exec";
+let productosData = []; 
+let inventario = {}; 
 const ITEMS_PER_PAGE = 16;
+let currentPage = 1;
+let carrito = [];
 
-// --- NUEVA GESTIÓN DE INVENTARIO DESDE GOOGLE SHEETS ---
-let inventario = {};
-const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbxHDWal9rtaDio--CM9GGcyidH0XkrzgzHg9VdsIDtdtD9Vm9HP3t4XR2yhGUfdrpbV/exec";
-
-async function cargarInventarioDesdeExcel() {
+async function cargarCatálogoDesdeExcel() {
+    const spinner = `<div class="col-span-full text-center text-gray-500 py-10"><i class="fas fa-spinner fa-spin text-3xl mb-2 text-[#0866bd]"></i><br>Conectando con el inventario...</div>`;
+    document.getElementById('grid-afinacion').innerHTML = spinner;
+    document.getElementById('grid-suspension').innerHTML = spinner;
+    document.getElementById('grid-llantas').innerHTML = spinner;
+    
     try {
         const respuesta = await fetch(GOOGLE_SHEETS_URL);
-        const datosExcel = await respuesta.json();
-        inventario = datosExcel;
-        renderizarStock();
-        console.log("¡Inventario sincronizado con éxito!", inventario);
+        const datosExcel = await respuesta.json(); 
+        productosData = datosExcel;
+        
+        productosData.forEach(p => { inventario[p.Nombre] = parseInt(p.Stock) || 0; });
+        
+        renderizarProductosDOM();
+        renderPagination();
     } catch (error) {
-        console.error("Error al conectar con Excel:", error);
+        console.error("Error al cargar el catálogo:", error);
+        document.getElementById('grid-afinacion').innerHTML = `<p class="col-span-full text-red-500 text-center py-10">Error de conexión con el catálogo. Recarga la página.</p>`;
     }
 }
 
-// FUNCIÓN PARA GENERAR LA ETIQUETA DE STOCK
-function obtenerBadgeStock(nombreProducto) {
-    let cantidad = inventario[nombreProducto] !== undefined ? inventario[nombreProducto] : 10;
-    let colorClass = "";
-    let texto = "";
-    let icono = "";
+function renderizarProductosDOM() {
+    // Limpiar todas las cuadrículas
+    document.getElementById('grid-afinacion').innerHTML = '';
+    document.getElementById('grid-suspension').innerHTML = '';
+    document.getElementById('grid-llantas').innerHTML = '';
+    document.getElementById('grid-accesorios').innerHTML = '';
+    document.getElementById('sub-freno').innerHTML = '';
+    document.getElementById('sub-electrico').innerHTML = '';
+    document.getElementById('sub-chicote').innerHTML = '';
+    document.getElementById('grid-refacciones').innerHTML = '';
 
-    if (cantidad === 0) {
-        colorClass = "bg-red-600";
-        texto = "AGOTADO";
-        icono = "fa-times-circle";
-    } else if (cantidad < 3) {
-        colorClass = "bg-yellow-500";
-        texto = `¡ÚLTIMAS ${cantidad}!`;
-        icono = "fa-exclamation-triangle";
-    } else {
-        colorClass = "bg-green-600";
-        texto = "DISPONIBLE";
-        icono = "fa-check-circle";
-    }
+    productosData.forEach((prod, index) => {
+        // Encontrar a qué categoría pertenece de forma segura
+        const catOriginal = prod.Categoria ? prod.Categoria.toLowerCase().trim() : 'accesorios';
+        const catLimpia = catOriginal.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); 
+        
+        let gridId = `grid-${catLimpia}`;
+        let grid = document.getElementById(gridId);
+        
+        // Si es subcategoría (ej. sub-freno)
+        if (!grid && catLimpia.startsWith('sub-')) grid = document.getElementById(catLimpia);
+        // Fallback si la categoría no existe en el HTML
+        if (!grid) grid = document.getElementById('grid-accesorios');
 
-    return `<div class="absolute top-2 left-2 ${colorClass} text-white text-[10px] md:text-xs font-bold px-2 py-1 rounded shadow-md z-10 flex items-center gap-1">
-                <i class="fas ${icono}"></i> ${texto}
-            </div>`;
-}
+        const stock = parseInt(prod.Stock) || 0;
+        let stockHTML = '';
+        if (stock === 0) stockHTML = `<div class="absolute top-2 left-2 bg-red-600 text-white text-[10px] md:text-xs font-bold px-2 py-1 rounded shadow-md z-10 flex items-center gap-1"><i class="fas fa-times-circle"></i> AGOTADO</div>`;
+        else if (stock < 3) stockHTML = `<div class="absolute top-2 left-2 bg-yellow-500 text-white text-[10px] md:text-xs font-bold px-2 py-1 rounded shadow-md z-10 flex items-center gap-1"><i class="fas fa-exclamation-triangle"></i> ÚLTIMAS ${stock}</div>`;
+        else stockHTML = `<div class="absolute top-2 left-2 bg-green-600 text-white text-[10px] md:text-xs font-bold px-2 py-1 rounded shadow-md z-10 flex items-center gap-1"><i class="fas fa-check-circle"></i> DISPONIBLE</div>`;
 
-// FUNCIÓN PARA PINTAR EL STOCK EN LAS TARJETAS AL CARGAR
-function renderizarStock() {
-    const tarjetas = document.querySelectorAll('.product-card');
+        const isAgotado = stock === 0 ? 'opacity-75 grayscale' : '';
+        const btnText = stock === 0 ? 'Agotado' : 'Ver Detalles';
+        const btnColor = stock === 0 ? 'bg-gray-500' : 'bg-[#0866bd] hover:bg-blue-800';
+        const imgUrl = prod.ImagenURL || 'logo.ico'; // Respaldo actualizado a .ico
 
-    tarjetas.forEach(card => {
-        const nombre = card.querySelector('h3').innerText.trim();
-        const badgeHTML = obtenerBadgeStock(nombre);
-        const imgContainer = card.querySelector('.relative');
-
-        if (!imgContainer.innerHTML.includes('fa-check-circle') &&
-            !imgContainer.innerHTML.includes('fa-exclamation-triangle') &&
-            !imgContainer.innerHTML.includes('fa-times-circle')) {
-            imgContainer.insertAdjacentHTML('beforeend', badgeHTML);
-        }
-
-        if (inventario[nombre] === 0) {
-            card.classList.add('opacity-75', 'grayscale');
-            const btn = card.querySelector('button');
-            if(btn) {
-                btn.innerText = "Agotado";
-                btn.classList.replace('bg-[#0866bd]', 'bg-gray-500');
-            }
-        }
+        const cardHTML = `
+        <div class="product-card group ${isAgotado}" onclick="abrirModalDinamico(${index})">
+            <div class="relative mb-3">
+                ${stockHTML}
+                <div class="h-32 md:h-48 bg-white rounded flex items-center justify-center relative overflow-hidden border border-gray-100">
+                    <img src="${imgUrl}" onerror="this.src='logo.ico'" class="w-full h-full object-contain p-2 absolute top-0 left-0 transition-transform duration-500 group-hover:scale-110">
+                </div>
+            </div>
+            <div class="card-content-grow">
+                <div>
+                    <h3 class="font-bold text-[#0866bd] line-clamp-1">${prod.Nombre}</h3>
+                    <p class="text-[10px] text-gray-400 font-mono uppercase mt-1">${prod.Categoria}</p>
+                </div>
+                <div class="flex justify-between items-center mt-auto pt-2">
+                    <span class="text-xl font-bold text-red-600">$${prod.Precio}</span>
+                </div>
+            </div>
+            <button class="w-full ${btnColor} text-white py-2 rounded font-bold uppercase text-xs transition">${btnText}</button>
+        </div>`;
+        
+        grid.insertAdjacentHTML('beforeend', cardHTML);
     });
 }
 
-// 1. FUNCIÓN DE PAGINACIÓN
-let currentPage = 1;
-
-function renderPagination() {
-    const controls = document.getElementById('pagination-controls');
-    if (!controls) return;
-    controls.innerHTML = '';
+function abrirModalDinamico(index) {
+    const prod = productosData[index];
+    const title = prod.Nombre;
+    const price = prod.Precio;
+    const stockQty = parseInt(prod.Stock) || 0;
     
-    let activeContainer = null;
-    const sections = document.querySelectorAll('.product-section');
-
-    sections.forEach(sec => {
-        if (window.getComputedStyle(sec).display !== 'none' && !sec.classList.contains('hidden-section')) {
-            if (sec.id === 'refacciones') {
-                const subGrids = sec.querySelectorAll('.sub-category-grid');
-                subGrids.forEach(grid => {
-                    if (!grid.classList.contains('hidden')) activeContainer = grid;
-                });
-                if (!document.getElementById('refacciones-home').classList.contains('hidden')) {
-                    activeContainer = null;
-                }
-            } else {
-                activeContainer = sec.querySelector('.grid') || sec;
-            }
-        }
-    });
-
-    if (!activeContainer) return;
-
-    const cards = Array.from(activeContainer.getElementsByClassName('product-card'));
-    const totalPages = Math.ceil(cards.length / ITEMS_PER_PAGE);
-
-    if (totalPages <= 1) {
-        cards.forEach(card => card.style.display = 'flex');
-        return;
-    }
-
-    const start = (currentPage - 1) * ITEMS_PER_PAGE;
-    const end = start + ITEMS_PER_PAGE;
-
-    cards.forEach((card, index) => {
-        if (index >= start && index < end) {
-            card.style.display = 'flex';
-        } else {
-            card.style.display = 'none';
-        }
-    });
-
-    for (let i = 1; i <= totalPages; i++) {
-        const btn = document.createElement('button');
-        btn.innerText = i;
-        btn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
-        btn.onclick = () => {
-            currentPage = i;
-            renderPagination();
-            window.scrollTo({ top: 450, behavior: 'smooth' });
-        };
-        controls.appendChild(btn);
-    }
-}
-
-// 2. CAMBIO DE PESTAÑAS
-function switchTab(tabId) {
-    document.querySelectorAll('.product-section').forEach(s => {
-        s.style.display = 'none';
-        s.classList.add('hidden-section');
-    });
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-
-    const activeSec = document.getElementById(tabId);
-    if(activeSec) {
-        activeSec.style.display = 'block';
-        activeSec.classList.remove('hidden-section');
-    }
-
-    const btnTab = document.getElementById('btn-' + tabId);
-    if(btnTab) btnTab.classList.add('active');
-
-    currentPage = 1;
-    renderPagination();
-
-    const heroBanner = document.querySelector('.hero-banner');
-    if(heroBanner) {
-        window.scrollTo({ top: heroBanner.offsetHeight - 50, behavior: 'smooth' });
-    }
-}
-
-// 3. LOGICA REFACCIONES
-function showRefaccionesHome() {
-    document.getElementById('refacciones-home').classList.remove('hidden');
-    document.querySelectorAll('.sub-category-grid').forEach(el => el.classList.add('hidden'));
-    document.getElementById('btn-back-ref').classList.add('hidden');
-
-    document.querySelectorAll('.sub-nav-btn').forEach(btn => {
-        btn.classList.remove('bg-[#0866bd]', 'text-white');
-        btn.classList.add('bg-gray-200', 'text-gray-600');
-    });
-    document.getElementById('pagination-controls').innerHTML = '';
-}
-
-function filterRefacciones(subId) {
-    document.getElementById('refacciones-home').classList.add('hidden');
-    document.getElementById('btn-back-ref').classList.remove('hidden');
-    document.querySelectorAll('.sub-category-grid').forEach(el => el.classList.add('hidden'));
-    document.getElementById(subId).classList.remove('hidden');
-
-    document.querySelectorAll('.sub-nav-btn').forEach(btn => {
-        btn.classList.remove('bg-[#0866bd]', 'text-white');
-        btn.classList.add('bg-gray-200', 'text-gray-600');
-    });
-    
-    const subBtn = document.getElementById('btn-' + subId);
-    if(subBtn) {
-        subBtn.classList.remove('bg-gray-200', 'text-gray-600');
-        subBtn.classList.add('bg-[#0866bd]', 'text-white');
-    }
-
-    currentPage = 1;
-    renderPagination();
-}
-
-// 4. MODAL
-function openModal(title, price, images, descHtml, compatRowsHtml) {
     document.getElementById('modal-title').innerText = title;
-
-    let stockQty = inventario[title] !== undefined ? inventario[title] : 10;
-    let stockMsg = "";
-    if(stockQty === 0) {
-        stockMsg = '<span class="text-red-600 font-bold text-sm ml-4"><i class="fas fa-times-circle"></i> Agotado</span>';
-    } else if(stockQty < 3) {
-        stockMsg = `<span class="text-yellow-600 font-bold text-sm ml-4"><i class="fas fa-exclamation-triangle"></i> ¡Solo quedan ${stockQty}!</span>`;
-    } else {
-        stockMsg = '<span class="text-green-600 font-bold text-sm ml-4"><i class="fas fa-check-circle"></i> En Stock</span>';
-    }
     
+    let stockMsg = stockQty === 0 ? '<span class="text-red-600 font-bold text-sm ml-4"><i class="fas fa-times-circle"></i> Agotado</span>' : 
+                   stockQty < 3 ? `<span class="text-yellow-600 font-bold text-sm ml-4"><i class="fas fa-exclamation-triangle"></i> ¡Solo quedan ${stockQty}!</span>` : 
+                   '<span class="text-green-600 font-bold text-sm ml-4"><i class="fas fa-check-circle"></i> En Stock</span>';
+                   
     document.getElementById('modal-price').innerHTML = "$" + price + stockMsg;
-
+    
     const imgContainer = document.getElementById('modal-images');
-    imgContainer.innerHTML = (images && images.length > 0) ? `<img src="${images[0]}" class="w-full h-full object-contain">` : `<img src="logo.png" class="opacity-20 h-32 w-auto">`;
-    document.getElementById('modal-desc').innerHTML = descHtml;
-
+    imgContainer.innerHTML = prod.ImagenURL ? `<img src="${prod.ImagenURL}" onerror="this.src='logo.ico'" class="w-full h-full object-contain">` : `<img src="logo.ico" class="opacity-20 h-32 w-auto">`;
+    
+    document.getElementById('modal-desc').innerHTML = prod.Especificaciones ? prod.Especificaciones : "Sin especificaciones.";
+    
     const compatContainer = document.getElementById('modal-compat-container');
     const compatBody = document.getElementById('modal-compat-table-body');
-    if (compatRowsHtml) {
-        compatBody.innerHTML = compatRowsHtml;
+    
+    if (prod.Compatibilidad && prod.Compatibilidad.trim() !== "") {
+        if(prod.Compatibilidad.includes('<tr')) {
+            compatBody.innerHTML = prod.Compatibilidad;
+        } else {
+            compatBody.innerHTML = `<tr><td class="whitespace-pre-wrap">${prod.Compatibilidad}</td></tr>`;
+        }
         compatContainer.classList.remove('hidden');
     } else {
         compatContainer.classList.add('hidden');
     }
-
+    
     document.getElementById('modal-btn-add').onclick = () => addToCart(title, price);
     document.getElementById('modal-overlay').classList.add('modal-active');
     document.body.style.overflow = 'hidden';
@@ -1915,96 +469,121 @@ function closeModal(e) {
     }
 }
 
-// 5. BÚSQUEDA NORMAL
-function searchProducts() {
-    let input = document.getElementById('globalSearch').value.toUpperCase();
-    let cards = document.querySelectorAll('.product-card');
-    let controls = document.getElementById('pagination-controls');
-
-    if (input !== "") {
-        if (controls) controls.style.display = 'none';
-        document.querySelectorAll('.product-section').forEach(sec => {
-            sec.style.display = 'block';
-            sec.classList.remove('hidden-section');
-        });
-        document.getElementById('refacciones-home').classList.add('hidden');
-        document.querySelectorAll('.sub-category-grid').forEach(grid => grid.classList.remove('hidden'));
-        
-        cards.forEach(card => {
-            let text = card.innerText.toUpperCase();
-            card.style.display = text.indexOf(input) > -1 ? "flex" : "none";
-        });
-    } else {
-        if (controls) controls.style.display = 'flex';
-        let activeBtn = document.querySelector('.nav-btn.active');
-        if (activeBtn) {
-            let tabId = activeBtn.id.replace('btn-', '');
-            switchTab(tabId);
+// --- Paginación y Categorías ---
+function renderPagination() {
+    const controls = document.getElementById('pagination-controls');
+    if (!controls) return;
+    controls.innerHTML = '';
+    
+    let activeContainer = null;
+    const sections = document.querySelectorAll('.product-section');
+    sections.forEach(sec => {
+        if (window.getComputedStyle(sec).display !== 'none' && !sec.classList.contains('hidden-section')) {
+            if (sec.id === 'refacciones') {
+                const subGrids = sec.querySelectorAll('.sub-category-grid');
+                subGrids.forEach(grid => { if (!grid.classList.contains('hidden')) activeContainer = grid; });
+                if (!document.getElementById('refacciones-home').classList.contains('hidden')) activeContainer = null;
+            } else {
+                activeContainer = sec.querySelector('.grid') || sec;
+            }
         }
+    });
+    if (!activeContainer) return;
+    
+    const cards = Array.from(activeContainer.getElementsByClassName('product-card'));
+    const totalPages = Math.ceil(cards.length / ITEMS_PER_PAGE);
+    
+    if (totalPages <= 1) {
+        cards.forEach(card => card.style.display = 'flex');
+        return;
+    }
+    
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    const end = start + ITEMS_PER_PAGE;
+    cards.forEach((card, index) => {
+        card.style.display = (index >= start && index < end) ? 'flex' : 'none';
+    });
+    
+    for (let i = 1; i <= totalPages; i++) {
+        const btn = document.createElement('button');
+        btn.innerText = i;
+        btn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
+        btn.onclick = () => { currentPage = i; renderPagination(); window.scrollTo({ top: 450, behavior: 'smooth' }); };
+        controls.appendChild(btn);
     }
 }
 
-// --- LÓGICA DEL CARRITO DE COMPRAS ---
-let carrito = [];
+function switchTab(tabId) {
+    document.querySelectorAll('.product-section').forEach(s => { s.style.display = 'none'; s.classList.add('hidden-section'); });
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    const activeSec = document.getElementById(tabId);
+    if(activeSec) { activeSec.style.display = 'block'; activeSec.classList.remove('hidden-section'); }
+    const btnTab = document.getElementById('btn-' + tabId);
+    if(btnTab) btnTab.classList.add('active');
+    currentPage = 1;
+    renderPagination();
+}
 
+function showRefaccionesHome() {
+    document.getElementById('refacciones-home').classList.remove('hidden');
+    document.querySelectorAll('.sub-category-grid').forEach(el => el.classList.add('hidden'));
+    document.getElementById('btn-back-ref').classList.add('hidden');
+    document.querySelectorAll('.sub-nav-btn').forEach(btn => { btn.classList.replace('bg-[#0866bd]', 'bg-gray-200'); btn.classList.replace('text-white', 'text-gray-600'); });
+    document.getElementById('pagination-controls').innerHTML = '';
+}
+
+function filterRefacciones(subId) {
+    document.getElementById('refacciones-home').classList.add('hidden');
+    document.getElementById('btn-back-ref').classList.remove('hidden');
+    document.querySelectorAll('.sub-category-grid').forEach(el => el.classList.add('hidden'));
+    
+    const targetGrid = document.getElementById(subId);
+    if(targetGrid) targetGrid.classList.remove('hidden');
+    
+    document.querySelectorAll('.sub-nav-btn').forEach(btn => { btn.classList.replace('bg-[#0866bd]', 'bg-gray-200'); btn.classList.replace('text-white', 'text-gray-600'); });
+    const subBtn = document.getElementById('btn-' + subId);
+    if(subBtn) { subBtn.classList.replace('bg-gray-200', 'bg-[#0866bd]'); subBtn.classList.replace('text-gray-600', 'text-white'); }
+    
+    currentPage = 1;
+    renderPagination();
+}
+
+// --- CARRITO ---
 function toggleCart() {
     const sidebar = document.getElementById('cart-sidebar');
     const overlay = document.getElementById('cart-overlay');
-
-    if (sidebar && overlay) {
-        sidebar.classList.toggle('translate-x-full');
-        overlay.classList.toggle('hidden');
-    } else {
-        console.error("No se encontró la estructura del carrito en el HTML.");
-    }
+    sidebar.classList.toggle('translate-x-full');
+    overlay.classList.toggle('hidden');
 }
 
 function addToCart(title, price) {
     let maxStock = inventario[title] !== undefined ? inventario[title] : 10;
-    
-    if (maxStock === 0) {
-        alert("¡Lo sentimos! Este producto está agotado por el momento.");
-        return;
-    }
+    if (maxStock === 0) { alert("¡Lo sentimos! Este producto está agotado por el momento."); return; }
     
     let precioLimpio = parseFloat(price.toString().replace(/,/g, ''));
     let itemExistente = carrito.find(item => item.title === title);
     
     if (itemExistente) {
-        if (itemExistente.qty + 1 > maxStock) {
-            alert(`¡Ups! Solo tenemos ${maxStock} unidades disponibles de este producto.`);
-            return; 
-        }
+        if (itemExistente.qty + 1 > maxStock) { alert(`¡Ups! Solo tenemos ${maxStock} unidades disponibles.`); return; }
         itemExistente.qty += 1;
     } else {
         carrito.push({ title: title, price: precioLimpio, qty: 1 });
     }
-
+    
     updateCartUI();
     closeModal({target: {id: 'modal-overlay'}});
-
     const cartBtn = document.querySelector('button[onclick="toggleCart()"]');
-    if(cartBtn) {
-        cartBtn.classList.add('scale-125');
-        setTimeout(() => cartBtn.classList.remove('scale-125'), 200);
-    }
+    cartBtn.classList.add('scale-125');
+    setTimeout(() => cartBtn.classList.remove('scale-125'), 200);
 }
 
-function removeFromCart(index) {
-    carrito.splice(index, 1);
-    updateCartUI();
-}
-
+function removeFromCart(index) { carrito.splice(index, 1); updateCartUI(); }
 function changeQty(index, delta) {
     let item = carrito[index];
     let maxStock = inventario[item.title] !== undefined ? inventario[item.title] : 10;
     let nuevaCantidad = item.qty + delta;
-    
     if (nuevaCantidad > 0) {
-        if (nuevaCantidad > maxStock) {
-            alert(`Solo tenemos ${maxStock} unidades disponibles de este producto.`);
-            return; 
-        }
+        if (nuevaCantidad > maxStock) { alert(`Solo tenemos ${maxStock} unidades disponibles.`); return; }
         item.qty = nuevaCantidad;
         updateCartUI();
     }
@@ -2016,8 +595,7 @@ function updateCartUI() {
     const countEl = document.getElementById('cart-count');
     
     contenedorItems.innerHTML = '';
-    let total = 0;
-    let cantidadProductos = 0;
+    let total = 0; let cantidadProductos = 0;
     
     if (carrito.length === 0) {
         contenedorItems.innerHTML = '<p class="text-gray-500 text-center mt-10"><i class="fas fa-box-open text-3xl mb-3 opacity-50"></i><br>Tu carrito está vacío.</p>';
@@ -2025,8 +603,7 @@ function updateCartUI() {
     
     carrito.forEach((item, index) => {
         let subtotal = item.price * item.qty;
-        total += subtotal;
-        cantidadProductos += item.qty;
+        total += subtotal; cantidadProductos += item.qty;
         contenedorItems.innerHTML += `
             <div class="bg-white p-3 rounded-lg shadow-sm border border-gray-200 flex flex-col gap-2">
                 <div class="flex justify-between items-start">
@@ -2035,14 +612,13 @@ function updateCartUI() {
                 </div>
                 <div class="flex justify-between items-center mt-1">
                     <div class="flex items-center border border-gray-300 rounded">
-                        <button onclick="changeQty(${index}, -1)" class="px-2 py-1 bg-gray-100 hover:bg-gray-200 text-gray-600">-</button>
+                        <button onclick="changeQty(${index}, -1)" class="px-2 py-1 bg-gray-100 hover:bg-gray-200">-</button>
                         <span class="px-3 py-1 font-bold text-sm">${item.qty}</span>
-                        <button onclick="changeQty(${index}, 1)" class="px-2 py-1 bg-gray-100 hover:bg-gray-200 text-gray-600">+</button>
+                        <button onclick="changeQty(${index}, 1)" class="px-2 py-1 bg-gray-100 hover:bg-gray-200">+</button>
                     </div>
                     <span class="font-bold text-gray-800">$${subtotal.toFixed(2)}</span>
                 </div>
-            </div>
-        `;
+            </div>`;
     });
     
     totalEl.innerText = total.toLocaleString('es-MX', { style: 'currency', currency: 'MXN' });
@@ -2050,133 +626,94 @@ function updateCartUI() {
 }
 
 function checkoutWhatsApp() {
-    if (carrito.length === 0) {
-        alert("Agrega productos a tu pedido primero.");
-        return;
-    }
-    
-    let mensaje = "🏍️ *NUEVO PEDIDO - EL JEFE* 🏍️\n\nHola, me gustaría confirmar el siguiente pedido:\n\n";
+    if (carrito.length === 0) { alert("Agrega productos a tu pedido primero."); return; }
+    let mensaje = " 🏍️  *NUEVO PEDIDO - EL JEFE* 🏍️ \n\nHola, me gustaría confirmar el siguiente pedido:\n\n";
     let total = 0;
-    
     carrito.forEach(item => {
-        let subtotal = item.price * item.qty;
-        total += subtotal;
-        mensaje += `🔸 ${item.qty}x ${item.title}\n   Subtotal: $${subtotal}\n`;
+        let subtotal = item.price * item.qty; total += subtotal;
+        mensaje += ` 🔸  ${item.qty}x ${item.title}\n   Subtotal: $${subtotal}\n`;
     });
-    
-    mensaje += `\n🛒 *TOTAL DEL PEDIDO: $${total}*\n\n¿Tienen las piezas disponibles para pasar por ellas?`;
-    let numeroWhatsApp = "3332406334";
-    let url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
-    window.open(url, '_blank');
+    mensaje += `\n 🛒  *TOTAL DEL PEDIDO: $${total}*\n\n¿Tienen las piezas disponibles para pasar por ellas?`;
+    window.open(`https://wa.me/523332406334?text=${encodeURIComponent(mensaje)}`, '_blank');
 }
 
-// --- LÓGICA DEL CHATBOT Y BUSCADOR IA ---
-// FUNCIÓN PARA ABRIR PRODUCTO DESDE EL CHAT
-function abrirProductoDesdeChat(nombreExacto) {
-    const tarjetas = document.querySelectorAll('.product-card');
-    for (let card of tarjetas) {
-        let titulo = card.querySelector('h3').innerText.trim();
-        if (titulo === nombreExacto) {
-            // Encuentra el botón de esa tarjeta y simula un clic
-            let botonModal = card.querySelector('button');
-            if (botonModal) {
-                botonModal.click(); 
-                
-                // Opcional: Cierra el chat en móviles para que puedan ver bien el producto
-                if (window.innerWidth < 768) {
-                    toggleChat();
-                }
-                return;
-            }
-        }
+// --- BUSCADOR IA Y CHATBOT ---
+function searchProducts() {
+    let input = document.getElementById('globalSearch').value.toUpperCase();
+    let cards = document.querySelectorAll('.product-card');
+    let controls = document.getElementById('pagination-controls');
+    
+    if (input !== "") {
+        if (controls) controls.style.display = 'none';
+        document.querySelectorAll('.product-section').forEach(sec => { sec.style.display = 'block'; sec.classList.remove('hidden-section'); });
+        document.getElementById('refacciones-home').classList.add('hidden');
+        document.querySelectorAll('.sub-category-grid').forEach(grid => grid.classList.remove('hidden'));
+        
+        cards.forEach(card => {
+            let text = card.innerText.toUpperCase();
+            card.style.display = text.indexOf(input) > -1 ? "flex" : "none";
+        });
+    } else {
+        if (controls) controls.style.display = 'flex';
+        let activeBtn = document.querySelector('.nav-btn.active');
+        if (activeBtn) switchTab(activeBtn.id.replace('btn-', ''));
     }
-    console.log("No se encontró la tarjeta para:", nombreExacto);
 }
+
 async function triggerSmartSearch() {
     const query = document.getElementById('globalSearch').value.trim();
     if (!query) { searchProducts(); return; }
     
-    const btnIA = document.getElementById('btn-ia-search'); 
-    const statusText = document.getElementById('ia-search-status');
-    
-    if (btnIA) btnIA.classList.add('ia-searching'); 
-    if (statusText) statusText.classList.remove('hidden');
+    document.getElementById('btn-ia-search').classList.add('ia-searching'); 
+    document.getElementById('ia-search-status').classList.remove('hidden');
 
-    // --- NUEVA EXTRACCIÓN DETALLADA PARA EL BUSCADOR ---
-    const catalogoBusqueda = Array.from(document.querySelectorAll('.product-card')).map(card => {
-        const nombre = card.querySelector('h3').innerText.trim();
-        const btn = card.querySelector('button');
-        // Extraemos la tabla de compatibilidad que está oculta en el atributo onclick
-        const compatibilidad = btn ? btn.getAttribute('onclick') : ""; 
-        return { nombre: nombre, detalles: compatibilidad };
-    });
-
+    const catalogoBusqueda = productosData.map(p => ({ nombre: p.Nombre, detalles: (p.Especificaciones + " " + p.Compatibilidad) }));
     const systemPrompt = "Eres un buscador experto. Mapea la consulta del usuario a los productos basándote en su nombre y tablas de compatibilidad: " + JSON.stringify(catalogoBusqueda) + ". Devuelve ÚNICAMENTE un JSON array con los nombres exactos que coincidan. Si no hay nada, devuelve [].";
     
     try {
-        // Conexión a tu servidor en Render
         const url = "https://backend-el-jefe.onrender.com/api/chat";
         const response = await fetch(url, {
-            method: 'POST', 
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-                contents: [{ parts: [{ text: query }] }], 
-                systemInstruction: { parts: [{ text: systemPrompt }] },
-                generationConfig: { responseMimeType: "application/json" }
-            })
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ contents: [{ parts: [{ text: query }] }], systemInstruction: { parts: [{ text: systemPrompt }] }, generationConfig: { responseMimeType: "application/json" } })
         });
-        
         if (!response.ok) throw new Error("API Error");
         const data = await response.json();
         
-        // Filtrar las tarjetas visualmente con la respuesta de la IA
-        filterCardsByExactNames(JSON.parse(data.candidates[0].content.parts[0].text));
+        let nombresExactos = JSON.parse(data.candidates[0].content.parts[0].text);
+        
+        document.getElementById('pagination-controls').style.display = 'none';
+        document.querySelectorAll('.product-section').forEach(sec => { sec.style.display = 'block'; sec.classList.remove('hidden-section'); });
+        document.getElementById('refacciones-home').classList.add('hidden');
+        document.querySelectorAll('.sub-category-grid').forEach(grid => grid.classList.remove('hidden'));
+        
+        document.querySelectorAll('.product-card').forEach(card => {
+            let h3 = card.querySelector('h3').innerText.trim();
+            card.style.display = nombresExactos.includes(h3) ? "flex" : "none";
+        });
+        
     } catch (error) { 
-        console.error("Error en búsqueda IA:", error);
-        searchProducts(); // Fallback a búsqueda normal si falla la IA
+        console.error("Error en búsqueda IA:", error); searchProducts(); 
     } finally { 
-        if (btnIA) btnIA.classList.remove('ia-searching'); 
-        if (statusText) statusText.classList.add('hidden'); 
+        document.getElementById('btn-ia-search').classList.remove('ia-searching'); 
+        document.getElementById('ia-search-status').classList.add('hidden'); 
     }
 }
 
-function filterCardsByExactNames(namesArray) {
-    let controls = document.getElementById('pagination-controls'); 
-    if(controls) controls.style.display = 'none';
-    
-    document.querySelectorAll('.product-section').forEach(sec => { 
-        sec.style.display = 'block'; 
-        sec.classList.remove('hidden-section'); 
-    });
-    document.getElementById('refacciones-home').classList.add('hidden');
-    document.querySelectorAll('.sub-category-grid').forEach(grid => grid.classList.remove('hidden'));
-    
-    document.querySelectorAll('.product-card').forEach(card => {
-        card.style.display = namesArray.includes(card.querySelector('h3').innerText.trim()) ? "flex" : "none";
-    });
-}
-
-// --- Chatbot Asistente ---
+// Chatbot
+let chatHistory = [];
 function toggleChat() {
     const chat = document.getElementById('chat-window');
-    if(chat) { chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex'; }
+    chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
 }
-
-let chatHistory = [];
 
 function abrirProductoDesdeChat(nombreExacto) {
-    const tarjetas = document.querySelectorAll('.product-card');
-    for (let card of tarjetas) {
-        let titulo = card.querySelector('h3').innerText.trim();
-        if (titulo === nombreExacto) {
-            let botonModal = card.querySelector('button');
-            if (botonModal) {
-                botonModal.click(); // Esto abre el modal automáticamente
-                return;
-            }
-        }
+    const index = productosData.findIndex(p => p.Nombre === nombreExacto);
+    if (index !== -1) {
+        abrirModalDinamico(index);
+        if (window.innerWidth < 768) toggleChat();
     }
 }
+
 async function sendChatMessage() {
     const inputEl = document.getElementById('chat-input'); 
     const text = inputEl.value.trim(); 
@@ -2185,61 +722,40 @@ async function sendChatMessage() {
     addChatBubble(text, 'user'); 
     inputEl.value = ''; 
     chatHistory.push({ role: "user", parts: [{ text: text }] });
-
+    
     const messagesContainer = document.getElementById('chat-messages'); 
     const loadingId = 'loading-' + Date.now();
     messagesContainer.insertAdjacentHTML('beforeend', `<div id="${loadingId}" class="chat-bubble chat-bot text-gray-400"><i class="fas fa-spinner fa-spin"></i> Pensando...</div>`);
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
     
-// --- ESCANEO DETALLADO DEL CATÁLOGO ---
-    const catalogoCompleto = Array.from(document.querySelectorAll('.product-card')).map(card => {
-        const nombre = card.querySelector('h3').innerText.trim();
-        const botonDetalles = card.querySelector('button');
-        // Aquí extraemos TODO el texto que pusiste en el modal (incluyendo la tabla)
-        const infoCompatibilidad = botonDetalles ? botonDetalles.getAttribute('onclick') : ""; 
-        
-        return { 
-            producto: nombre, 
-            detalles_tecnicos: infoCompatibilidad 
-        };
-    });
-
-    const systemPrompt = "Eres 'El Jefe', experto mecánico en Jalisco. Aquí tienes tu catálogo con tablas de compatibilidad: " + JSON.stringify(catalogoCompleto) + ". REGLA DE ORO: Si el usuario pregunta por un modelo de moto (como FT150 TS), busca en 'detalles_tecnicos'. Si encuentras coincidencia, confirma que le queda y usa SIEMPRE este formato al final: [PRODUCTO: Nombre exacto del producto]. Responde amigable y corto 🏍️.";
-
+    const catalogoCompleto = productosData.map(p => ({ producto: p.Nombre, detalles_tecnicos: (p.Especificaciones + " " + p.Compatibilidad) }));
+    const systemPrompt = "Eres 'El Jefe', experto mecánico. Catálogo: " + JSON.stringify(catalogoCompleto) + ". REGLA: Si el usuario pregunta por un modelo (ej. FT150), busca en 'detalles_tecnicos'. Si encuentras coincidencia, confirma y usa al final el formato [PRODUCTO: Nombre exacto del producto]. Breve y con emojis  🏍️ .";
+    
     try {
         const url = "https://backend-el-jefe.onrender.com/api/chat";
         const response = await fetch(url, {
-            method: 'POST', 
-            headers: { 'Content-Type': 'application/json' },
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ contents: chatHistory, systemInstruction: { parts: [{ text: systemPrompt }] } })
         });
         
         if (!response.ok) throw new Error("API Error");
-        
         const data = await response.json(); 
         
-        // 2. DETECTAR EL PRODUCTO PARA CREAR EL BOTÓN INTERACTIVO
         let botResponse = data.candidates[0].content.parts[0].text;
-        const regexProducto = /\[PRODUCTO:\s*(.*?)\]/i;
-        const coincidencia = botResponse.match(regexProducto);
+        const coincidencia = botResponse.match(/\[PRODUCTO:\s*(.*?)\]/i);
         let botonHtml = "";
-
+        
         if (coincidencia) {
             const nombreExacto = coincidencia[1].trim();
-            // Limpiamos el texto de la IA para que no se vea el código [PRODUCTO:...]
             botResponse = botResponse.replace(coincidencia[0], '').trim();
-            // Generamos el botón que abre el modal
             botonHtml = `<div class="mt-3"><button onclick="abrirProductoDesdeChat('${nombreExacto}')" class="bg-[#0866bd] text-white px-3 py-2 rounded shadow-md text-xs font-bold hover:bg-blue-700 transition w-full text-center"><i class="fas fa-hand-pointer animate-pulse"></i> Ver ${nombreExacto}</button></div>`;
         }
         
         document.getElementById(loadingId).remove(); 
-        
-        // 3. MOSTRAR RESPUESTA FINAL
         addChatBubble(botResponse + botonHtml, 'model'); 
         chatHistory.push({ role: "model", parts: [{ text: botResponse }] }); 
         
     } catch (error) { 
-        console.error("Error:", error);
         if(document.getElementById(loadingId)) document.getElementById(loadingId).remove(); 
         addChatBubble("Error de conexión. Intenta de nuevo.", 'model'); 
     }
@@ -2250,48 +766,78 @@ function addChatBubble(text, sender) {
     container.insertAdjacentHTML('beforeend', `<div class="chat-bubble ${sender === 'user' ? 'chat-user' : 'chat-bot'}">${text}</div>`);
     container.scrollTop = container.scrollHeight;
 }
-const voiceBtn = document.getElementById('voice-btn');
-const chatInput = document.getElementById('chat-input');
-const micIcon = document.getElementById('mic-icon');
 
-// Verificamos si el navegador soporta voz
+// Reconocimiento de voz
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
 if (SpeechRecognition) {
     const recognition = new SpeechRecognition();
-    recognition.lang = 'es-MX'; // Español de México para Tonalá
+    recognition.lang = 'es-MX';
     recognition.continuous = false;
-
-    voiceBtn.onclick = () => {
+    document.getElementById('voice-btn').onclick = () => {
         recognition.start();
-        micIcon.classList.replace('fa-microphone', 'fa-circle-notch');
-        micIcon.classList.add('fa-spin', 'text-red-500');
+        document.getElementById('mic-icon').className = 'fas fa-circle-notch fa-spin text-red-500';
     };
-
     recognition.onresult = (event) => {
-        const transcript = event.results[0][0].transcript;
-        chatInput.value = transcript;
-        micIcon.classList.replace('fa-circle-notch', 'fa-microphone');
-        micIcon.classList.remove('fa-spin', 'text-red-500');
-        
-        // Opcional: Enviar automáticamente al dejar de hablar
+        document.getElementById('chat-input').value = event.results[0][0].transcript;
+        document.getElementById('mic-icon').className = 'fas fa-microphone';
         sendChatMessage();
     };
-
     recognition.onerror = () => {
-        micIcon.classList.replace('fa-circle-notch', 'fa-microphone');
-        micIcon.classList.remove('fa-spin', 'text-red-500');
-        alert("No pude escucharte bien, ¿puedes intentar de nuevo?");
+        document.getElementById('mic-icon').className = 'fas fa-microphone';
+        alert("No pude escucharte bien, intenta de nuevo.");
     };
 } else {
-    voiceBtn.style.display = 'none'; // Si el navegador es muy viejo, ocultamos el botón
+    document.getElementById('voice-btn').style.display = 'none';
 }
-// INICIALIZACIÓN (Unificada)
+
+// Lógica de Carrusel de Imágenes
+const slides = [
+    {
+        img: 'https://image2url.com/r2/default/images/1771180121587-a9f05c2f-aec1-406e-ada3-903967edc3af.webp', 
+        title: 'ESPECIALISTAS EN MOTOS',
+        text: 'Refacciones para Italika, Bajaj, Vento y más'
+    },
+    {
+        img: 'https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+        title: 'SEGURIDAD Y ESTILO',
+        text: 'Cascos certificados y accesorios para ti'
+    },
+    {
+        img: 'https://image2url.com/r2/default/images/1771180198846-a452a5b8-c3bc-424c-ab7d-0801aca926c8.jpg', 
+        title: 'TU PASIÓN EN MOVIMIENTO',
+        text: 'Refacciones de calidad para el camino'
+    }
+];
+let currentSlide = 0;
+
+function updateSlide() {
+    const bgElement = document.getElementById('carousel-bg');
+    const titleElement = document.getElementById('carousel-title');
+    const textElement = document.getElementById('carousel-text');
+    
+    if(!bgElement) return;
+
+    bgElement.classList.add('opacity-50');
+    titleElement.classList.add('opacity-0');
+    textElement.classList.add('opacity-0');
+    
+    setTimeout(() => {
+        currentSlide = (currentSlide + 1) % slides.length;
+        bgElement.style.backgroundImage = `url('${slides[currentSlide].img}')`;
+        titleElement.innerText = slides[currentSlide].title;
+        textElement.innerText = slides[currentSlide].text;
+        
+        bgElement.classList.remove('opacity-50');
+        titleElement.classList.remove('opacity-0');
+        textElement.classList.remove('opacity-0');
+    }, 500); 
+}
+
+// INICIALIZACIÓN
 document.addEventListener('DOMContentLoaded', () => { 
-    renderPagination(); 
-    cargarInventarioDesdeExcel(); 
+    cargarCatálogoDesdeExcel(); 
+    setInterval(updateSlide, 5000);
 });
 </script>
-
 </body>
 </html>
