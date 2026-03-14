@@ -80,7 +80,7 @@
         /* Ventana de Chatbot */
         #chat-window { display: none; flex-direction: column; position: fixed; bottom: 165px; right: 25px; width: 360px; max-width: 90vw; height: 520px; max-height: 75vh; background: white; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.25); z-index: 101; overflow: hidden; border: 1px solid #e5e7eb; }
         .chat-header { background: linear-gradient(135deg, var(--azul-brand), #1e3a8a); color: white; padding: 18px; font-family: 'Oswald', sans-serif; display: flex; justify-content: space-between; align-items: center; font-size: 1.1rem; letter-spacing: 0.5px; }
-        .chat-messages { flex-grow: 1; padding: 16px; overflow-y: auto; background-color: #f8fafc; display: flex; flex-direction: column; gap: 12px; }
+        .chat-messages { flex-grow: 1; padding: 16px; overflow-y: auto; background-color: #f8fafc; display: flex; flex-direction: column; gap: 12px; scroll-behavior: smooth; }
         .chat-bubble { padding: 12px 16px; border-radius: 18px; font-size: 0.95rem; max-width: 85%; line-height: 1.5; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .chat-bot { background: white; color: #333; align-self: flex-start; border-bottom-left-radius: 4px; border: 1px solid #e5e7eb; }
         .chat-user { background: var(--azul-brand); color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
@@ -137,7 +137,7 @@
 
     <!-- Banner Hero -->
     <div id="hero-carousel" class="relative min-h-[400px] md:min-h-[500px] flex items-center justify-center text-center overflow-hidden shadow-2xl group">
-        <div id="carousel-bg" class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-1000 transform scale-105" style="background-image: url('https://image2url.com/r2/default/images/1771180121587-a9f05c2f-aec1-406e-ada3-903967edc3af.webp');"></div>
+        <div id="carousel-bg" class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-1000 transform scale-105" style="background-image: url('https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
         <div class="absolute inset-0 bg-gradient-to-t from-[#111827] via-[#0866bd]/40 to-transparent"></div>
         <div class="relative z-10 px-4 max-w-4xl mt-10">
             <h2 id="carousel-title" class="oswald text-5xl md:text-7xl font-bold text-white uppercase mb-4 drop-shadow-[0_5px_5px_rgba(0,0,0,0.8)] tracking-wide transition-opacity duration-500">ESPECIALISTAS EN MOTOS</h2>
@@ -241,7 +241,7 @@
     <button onclick="window.toggleChat()" class="float-chat"><i class="fas fa-robot"></i></button>
     
     <div id="chat-window">
-        <div class="chat-header"><span><i class="fas fa-robot mr-2"></i> Asistente Virtual</span><button onclick="window.toggleChat()" class="text-white hover:text-gray-300 transition"><i class="fas fa-times text-xl"></i></button></div>
+        <div class="chat-header"><span><i class="fas fa-robot mr-2"></i> El Jefecito</span><button onclick="window.toggleChat()" class="text-white hover:text-gray-300 transition"><i class="fas fa-times text-xl"></i></button></div>
         <div id="chat-messages" class="chat-messages"><div class="chat-bubble chat-bot">¡Qué tal! Soy el asistente de El Jefe. 🏍️ ¿Buscabas alguna pieza en especial?</div></div>
         <div class="chat-input-area">
             <input type="text" id="chat-input" placeholder="Pregúntame algo..." class="flex-grow p-3 bg-gray-100 rounded-full focus:outline-none focus:ring-2 focus:ring-[#0866bd] text-sm" onkeyup="if(event.key === 'Enter') window.sendChatMessage()">
@@ -350,6 +350,8 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        
+        // LA CLAVE API SE HA ELIMINADO POR SEGURIDAD. AHORA USAMOS EL BACKEND.
 
         window.productosData = [];
         window.inventario = {};
@@ -396,7 +398,6 @@
                 const isAgotado = stock === 0 ? 'opacity-60 grayscale hover:grayscale-0 transition-all' : '';
                 const btnText = stock === 0 ? 'Sin Piezas' : 'Detalles';
                 
-                // 🔵 AQUI CAMBIAMOS EL COLOR DEL BOTÓN "DETALLES" DE LAS TARJETAS A AZUL DE LA MARCA
                 const btnColor = stock === 0 ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#0866bd] hover:bg-blue-800';
                 
                 const imgUrl = prod.ImagenURL || 'logo.ico';
@@ -420,7 +421,7 @@
                         <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">${prod.Categoria}</p>
                         <h3 class="font-bold text-gray-800 text-sm md:text-base line-clamp-2 leading-snug group-hover:text-[#0866bd] transition-colors">${prod.Nombre}</h3>
                         
-                        ${compatPreview} <!-- Preview de compatibilidad inyectada aquí -->
+                        ${compatPreview}
                         
                         <div class="mt-auto flex items-end justify-between border-t border-gray-100 pt-3 mt-3">
                             <span class="text-xl md:text-2xl font-bold text-red-600 tracking-tight">$${prod.Precio}</span>
@@ -681,31 +682,6 @@
             }
         }
 
-        window.triggerSmartSearch = async function() {
-            const query = document.getElementById('globalSearch').value.trim();
-            if (!query) { window.searchProducts(); return; }
-            document.getElementById('btn-ia-search').classList.add('ia-searching'); 
-            document.getElementById('ia-search-status').classList.remove('hidden');
-            const catalogoBusqueda = window.productosData.map(p => ({ nombre: p.Nombre, detalles: (p.Especificaciones + " " + p.Compatibilidad) }));
-            const systemPrompt = "Eres un buscador experto. Mapea la consulta del usuario a los productos basándote en su nombre y tablas de compatibilidad: " + JSON.stringify(catalogoBusqueda) + ". Devuelve ÚNICAMENTE un JSON array con los nombres exactos que coincidan. Si no hay nada, devuelve [].";
-            try {
-                const url = "https://backend-el-jefe.onrender.com/api/chat";
-                const response = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: [{ parts: [{ text: query }] }], systemInstruction: { parts: [{ text: systemPrompt }] }, generationConfig: { responseMimeType: "application/json" } }) });
-                if (!response.ok) throw new Error("API Error");
-                const data = await response.json();
-                let nombresExactos = JSON.parse(data.candidates[0].content.parts[0].text);
-                document.getElementById('pagination-controls').style.display = 'none';
-                document.querySelectorAll('.product-section').forEach(sec => { sec.style.display = 'block'; sec.classList.remove('hidden-section'); });
-                document.getElementById('refacciones-home').classList.add('hidden');
-                document.querySelectorAll('.sub-category-grid').forEach(grid => grid.classList.remove('hidden'));
-                document.querySelectorAll('.product-card').forEach(card => {
-                    let h3 = card.querySelector('h3').innerText.trim();
-                    card.style.display = nombresExactos.includes(h3) ? "flex" : "none";
-                });
-            } catch (error) { window.searchProducts(); } 
-            finally { document.getElementById('btn-ia-search').classList.remove('ia-searching'); document.getElementById('ia-search-status').classList.add('hidden'); }
-        }
-
         // --- SISTEMA DEL CHATBOT INTELIGENTE ---
         window.chatHistory = []; // Guarda la memoria de la conversación
 
@@ -721,40 +697,38 @@
 
             const chatMessages = document.getElementById('chat-messages');
             
-            // 1. Mostrar mensaje del cliente en la pantalla
+            // 1. Mostrar mensaje del cliente
             chatMessages.innerHTML += `<div class="chat-bubble chat-user">${message}</div>`;
             input.value = '';
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
-            // 2. Mostrar animación de "Escribiendo..."
+            // 2. Animación de "Pensando"
             const loadingId = 'loading-' + Date.now();
-            chatMessages.innerHTML += `<div id="${loadingId}" class="chat-bubble chat-bot animate-pulse">Pensando... 🤔</div>`;
+            chatMessages.innerHTML += `<div id="${loadingId}" class="chat-bubble chat-bot animate-pulse">Revisando bodega... 🔍</div>`;
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
-            // 3. Preparar el inventario oculto para que la IA sepa qué vender Y COMPATIBILIDAD
+            // 3. Preparar el inventario para la IA (Solo lo esencial para no saturar)
             const inventarioParaIA = window.productosData.map((p, index) => {
-                // Limpiamos el HTML de las tablas para que la IA lea solo el texto plano de los modelos
                 let compat = p.Compatibilidad ? p.Compatibilidad.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ').trim() : 'Universal';
                 return `[ID: ${index}] Nombre: ${p.Nombre} | Precio: $${p.Precio} | Stock: ${p.Stock} | Compatible con: ${compat}`;
             }).join('\n');
 
-            // 4. Instrucciones estrictas para el bot de ventas
-            const systemPrompt = `Eres el asistente virtual de la refaccionaria "Moto Partes El Jefe" en Tonalá. Eres un vendedor amable y experto en motocicletas.
-            Este es tu catálogo de productos ACTUAL Y REAL (cada producto tiene un ID):
-            ${inventarioParaIA}
-            
-            REGLAS ESTRICTAS:
-            1. Si el cliente pregunta por una refacción o para un modelo de moto específico, busca en la lista de arriba tanto en el "Nombre" como en "Compatible con".
-            2. Si encuentras productos compatibles, menciónalos y EXIGE que el formato incluya el ID exacto del producto como [PRODUCTO: ID]. 
-               EJEMPLO CORRECTO: "Claro, tengo la [PRODUCTO: 5] que le queda a tu Italika."
-               Nunca uses este formato si el ID no existe en la lista.
-            3. Si el cliente pide algo que NO está en la lista o no es compatible, dile amablemente que por el momento está agotado, pero que puede confirmar disponibilidad mandando un WhatsApp al 33 3240 6334. NO INVENTES PRODUCTOS NI PRECIOS.
-            4. Sé breve, directo y usa emojis.`;
+            // 4. Instrucciones CRÍTICAS para evitar que mienta con el stock
+            const systemPrompt = `Eres el asistente de "Moto Partes El Jefe". Eres un experto en motos.
+Catálogo DISPONIBLE:
+${inventarioParaIA}
+
+INSTRUCCIONES CRÍTICAS:
+1. RELACIONA BIEN: Si el usuario pide piezas para "DM 150", busca detenidamente en "Nombre" o "Compatible con". Si un producto como "Linea DM" dice "DM 150", significa que SÍ HAY en existencia. NO digas que está agotado si el producto abarca el modelo.
+2. STOCK: Si el 'Stock' es mayor a 0, ofrécelo con entusiasmo. Solo si el 'Stock' es exactamente 0, di que está agotado.
+3. FORMATO OBLIGATORIO: Cuando recomiendes un producto, DEBES incluir la etiqueta [PRODUCTO: ID]. Ejemplo: "Tengo disponible el [PRODUCTO: 2] para tu moto."
+4. Si de verdad no hay nada compatible, pide que manden WhatsApp al 33 3240 6334.
+5. Sé conciso y amable.`;
 
             window.chatHistory.push({ role: "user", parts: [{ text: message }] });
 
             try {
-                // 5. Conectar con el cerebro de IA (Tu backend actual)
+                // 5. Conexión SEGURA al Backend (Protege la API Key)
                 const url = "https://backend-el-jefe.onrender.com/api/chat";
                 const response = await fetch(url, { 
                     method: 'POST', 
@@ -770,16 +744,13 @@
                 const data = await response.json();
                 let botReply = data.candidates[0].content.parts[0].text;
                 
-                // Guardar respuesta en la memoria
                 window.chatHistory.push({ role: "model", parts: [{ text: botReply }] });
                 
-                // 6. Quitar el "Pensando...", formatear texto y crear Tarjetas Visuales
-                // Convertir negritas a HTML
+                // Formatear texto
                 botReply = botReply.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
-                // Convertir saltos de línea a HTML
                 botReply = botReply.replace(/\n/g, '<br>');
                 
-                // Reemplazar [PRODUCTO: ID] por mini-tarjetas HTML interactivas
+                // Reemplazar [PRODUCTO: ID] por tarjetas interactivas
                 botReply = botReply.replace(/\[PRODUCTO:\s*(\d+)\]/gi, (match, id) => {
                     const prod = window.productosData[parseInt(id)];
                     if (prod) {
@@ -798,7 +769,7 @@
                             </div>
                         </div>`;
                     }
-                    return ""; // Elimina la etiqueta si el ID no existe
+                    return ""; 
                 });
 
                 document.getElementById(loadingId).outerHTML = `<div class="chat-bubble chat-bot">${botReply}</div>`;
@@ -809,6 +780,33 @@
                 document.getElementById(loadingId).outerHTML = `<div class="chat-bubble chat-bot text-red-600">Uy, mi conexión falló un poco. 😅 Intenta preguntarme de nuevo o mándanos un WhatsApp.</div>`;
                 window.chatHistory.pop(); // Borramos el error de la memoria
             }
+        }
+
+        window.triggerSmartSearch = async function() {
+            const query = document.getElementById('globalSearch').value.trim();
+            if (!query) { window.searchProducts(); return; }
+            document.getElementById('btn-ia-search').classList.add('ia-searching'); 
+            document.getElementById('ia-search-status').classList.remove('hidden');
+            const catalogoBusqueda = window.productosData.map(p => ({ nombre: p.Nombre, detalles: (p.Especificaciones + " " + p.Compatibilidad) }));
+            const systemPrompt = "Eres un buscador experto. Mapea la consulta del usuario a los productos basándote en su nombre y tablas de compatibilidad: " + JSON.stringify(catalogoBusqueda) + ". Devuelve ÚNICAMENTE un JSON array con los nombres exactos que coincidan. Si no hay nada, devuelve [].";
+            try {
+                // Conexión SEGURA al Backend para el buscador
+                const url = "https://backend-el-jefe.onrender.com/api/chat";
+                const response = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: [{ parts: [{ text: query }] }], systemInstruction: { parts: [{ text: systemPrompt }] }, generationConfig: { responseMimeType: "application/json" } }) });
+                
+                if (!response.ok) throw new Error("API Error");
+                const data = await response.json();
+                let nombresExactos = JSON.parse(data.candidates[0].content.parts[0].text);
+                document.getElementById('pagination-controls').style.display = 'none';
+                document.querySelectorAll('.product-section').forEach(sec => { sec.style.display = 'block'; sec.classList.remove('hidden-section'); });
+                document.getElementById('refacciones-home').classList.add('hidden');
+                document.querySelectorAll('.sub-category-grid').forEach(grid => grid.classList.remove('hidden'));
+                document.querySelectorAll('.product-card').forEach(card => {
+                    let h3 = card.querySelector('h3').innerText.trim();
+                    card.style.display = nombresExactos.includes(h3) ? "flex" : "none";
+                });
+            } catch (error) { window.searchProducts(); } 
+            finally { document.getElementById('btn-ia-search').classList.remove('ia-searching'); document.getElementById('ia-search-status').classList.add('hidden'); }
         }
 
         // LÓGICA CARRUSEL
