@@ -5,11 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moto Partes El Jefe | Catálogo Digital</title>
     <link rel="icon" href="logo.ico">
-    <!-- Tailwind para el diseño rápido -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Fuentes de Google -->
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <!-- Iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
@@ -22,37 +19,28 @@
         body { font-family: 'Roboto', sans-serif; background-color: var(--bg-crema); color: #333; overflow-x: hidden; }
         .oswald { font-family: 'Oswald', sans-serif; }
         
-        /* Encabezado */
         .header-main { background-color: var(--azul-brand); box-shadow: 0 4px 15px rgba(0,0,0,0.15); position: relative; z-index: 50; }
         
-        /* Navegación */
         .category-nav { background-color: white; border-bottom: 1px solid #e5e7eb; position: sticky; top: 0; z-index: 40; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
         .nav-btn { position: relative; color: #6b7280; font-weight: 700; text-transform: uppercase; padding: 16px 24px; transition: all 0.3s ease; cursor: pointer; font-family: 'Oswald', sans-serif; letter-spacing: 1px; font-size: 1.1rem; }
         .nav-btn:hover { color: var(--azul-brand); background-color: #f9fafb; }
         .nav-btn.active { color: var(--azul-brand); }
         .nav-btn.active::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; background-color: var(--rojo-accent); border-radius: 4px 4px 0 0; }
         
-        /* Banner Principal */
         .hero-banner { background: linear-gradient(rgba(8, 102, 189, 0.7), rgba(17, 24, 39, 0.8)), url('https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); background-size: cover; background-position: center; min-height: 450px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         
-        /* Tarjetas de Producto Profesionales */
         .product-card { background: white; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; border: 1px solid #f3f4f6; }
         .product-card:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); border-color: #bfdbfe; }
         .line-clamp-2 { overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
         .hidden-section { display: none; animation: fadeIn 0.6s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         
-        /* Efecto Skeleton (Cargando) */
         .skeleton { background: #e5e7eb; background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%); border-radius: 5px; background-size: 200% 100%; animation: 1.5s shine linear infinite; }
         @keyframes shine { to { background-position-x: -200%; } }
         
-        /* Botones Flotantes */
-        .float-wa { position: fixed; bottom: 25px; right: 25px; width: 60px; height: 60px; background-color: #25d366; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.5); z-index: 100; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .float-wa:hover { transform: scale(1.15) rotate(-5deg); }
-        .float-chat { position: fixed; bottom: 95px; right: 25px; width: 60px; height: 60px; background-color: var(--azul-brand); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 10px 25px rgba(8, 102, 189, 0.5); z-index: 100; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 2px solid white; cursor: pointer; }
+        .float-chat { position: fixed; bottom: 25px; right: 25px; width: 60px; height: 60px; background-color: var(--azul-brand); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 10px 25px rgba(8, 102, 189, 0.5); z-index: 100; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 2px solid white; cursor: pointer; }
         .float-chat:hover { transform: scale(1.15) rotate(5deg); }
         
-        /* Modal y Tablas */
         #modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(17, 24, 39, 0.9); z-index: 999; justify-content: center; align-items: center; backdrop-filter: blur(8px); padding: 15px; }
         .modal-active { display: flex !important; animation: modalFadeIn 0.3s ease-out; }
         @keyframes modalFadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
@@ -65,24 +53,24 @@
         .compat-table-body tr:last-child td { border-bottom: none; }
         .compat-table-body tr:nth-child(even) { background-color: #f8fafc; }
         
-        /* Paginación */
         .pagination-container { display: flex; justify-content: center; gap: 12px; margin-top: 40px; padding-bottom: 30px; }
         .page-btn { background-color: white; border: 2px solid #e5e7eb; color: #6b7280; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; border-radius: 10px; transition: all 0.3s; font-family: 'Oswald', sans-serif; font-size: 1.1rem; }
         .page-btn:hover { border-color: var(--azul-brand); color: var(--azul-brand); transform: translateY(-2px); }
         .page-btn.active { background-color: var(--azul-brand); border-color: var(--azul-brand); color: white; box-shadow: 0 4px 10px rgba(8, 102, 189, 0.3); }
         
-        /* Buscador IA */
         .ia-searching { animation: pulseIA 1.5s infinite; }
         @keyframes pulseIA { 0% { box-shadow: 0 0 0 0 rgba(8, 102, 189, 0.4); } 70% { box-shadow: 0 0 0 15px rgba(8, 102, 189, 0); } 100% { box-shadow: 0 0 0 0 rgba(8, 102, 189, 0); } }
         
-        /* Ventana de Chatbot */
-        #chat-window { display: none; flex-direction: column; position: fixed; bottom: 165px; right: 25px; width: 360px; max-width: 90vw; height: 520px; max-height: 75vh; background: white; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.25); z-index: 101; overflow: hidden; border: 1px solid #e5e7eb; }
+        #chat-window { display: none; flex-direction: column; position: fixed; bottom: 95px; right: 25px; width: 360px; max-width: 90vw; height: 520px; max-height: 75vh; background: white; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.25); z-index: 101; overflow: hidden; border: 1px solid #e5e7eb; }
         .chat-header { background: linear-gradient(135deg, var(--azul-brand), #1e3a8a); color: white; padding: 18px; font-family: 'Oswald', sans-serif; display: flex; justify-content: space-between; align-items: center; font-size: 1.1rem; letter-spacing: 0.5px; }
         .chat-messages { flex-grow: 1; padding: 16px; overflow-y: auto; background-color: #f8fafc; display: flex; flex-direction: column; gap: 12px; scroll-behavior: smooth; }
         .chat-bubble { padding: 12px 16px; border-radius: 18px; font-size: 0.95rem; max-width: 85%; line-height: 1.5; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .chat-bot { background: white; color: #333; align-self: flex-start; border-bottom-left-radius: 4px; border: 1px solid #e5e7eb; }
         .chat-user { background: var(--azul-brand); color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
         .chat-input-area { padding: 12px; background: white; border-top: 1px solid #e5e7eb; display: flex; gap: 10px; align-items: center; }
+
+        /* Modal de Éxito de Compra */
+        #success-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(17, 24, 39, 0.9); z-index: 200; justify-content: center; align-items: center; backdrop-filter: blur(8px); padding: 15px; }
     </style>
 </head>
 <body>
@@ -137,7 +125,6 @@
         <div class="relative z-10 px-4 max-w-4xl mt-10">
             <h2 id="carousel-title" class="oswald text-5xl md:text-7xl font-bold text-white uppercase mb-4 drop-shadow-[0_5px_5px_rgba(0,0,0,0.8)] tracking-wide transition-opacity duration-500">ESPECIALISTAS EN MOTOS</h2>
             <p id="carousel-text" class="text-gray-200 text-lg md:text-2xl mb-10 font-light tracking-widest transition-opacity duration-500 delay-100 drop-shadow-md">Refacciones para Italika, Bajaj, Vento y más</p>
-            <a href="https://wa.me/523332406334" target="_blank" class="inline-block bg-[#dc2626] hover:bg-red-700 text-white font-bold py-4 px-10 md:px-14 rounded-full transition-all shadow-[0_10px_20px_rgba(220,38,38,0.4)] transform hover:-translate-y-1 uppercase tracking-widest text-sm md:text-lg border border-red-500 hover:border-white"><i class="fab fa-whatsapp mr-2 text-xl"></i> Cotizar Ahora</a>
         </div>
     </div>
     
@@ -147,7 +134,6 @@
         <section id="afinacion" class="product-section">
             <div class="flex items-center mb-10 border-b-2 pb-4 border-gray-200"><div class="h-8 md:h-10 w-2 bg-red-600 mr-4 rounded-full"></div><h2 class="text-3xl md:text-4xl font-bold text-[#0866bd] oswald uppercase tracking-wide">Kits de Afinación</h2></div>
             <div id="grid-afinacion" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
-                <!-- Skeletons de Carga -->
                 <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100"><div class="w-full aspect-square skeleton rounded-xl mb-4"></div><div class="h-6 skeleton rounded w-3/4 mb-2"></div><div class="h-4 skeleton rounded w-full mb-4"></div><div class="h-10 skeleton rounded w-full"></div></div>
                 <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100"><div class="w-full aspect-square skeleton rounded-xl mb-4"></div><div class="h-6 skeleton rounded w-3/4 mb-2"></div><div class="h-4 skeleton rounded w-full mb-4"></div><div class="h-10 skeleton rounded w-full"></div></div>
                 <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hidden md:block"><div class="w-full aspect-square skeleton rounded-xl mb-4"></div><div class="h-6 skeleton rounded w-3/4 mb-2"></div><div class="h-4 skeleton rounded w-full mb-4"></div><div class="h-10 skeleton rounded w-full"></div></div>
@@ -165,7 +151,6 @@
             <div id="grid-llantas" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8"></div>
         </section>
 
-        <!-- Refacciones tiene submenú -->
         <section id="refacciones" class="product-section hidden-section">
             <div class="border-b-2 border-gray-200 pb-6 mb-8">
                 <div class="flex items-center mb-6"><div class="h-8 md:h-10 w-2 bg-blue-500 mr-4 rounded-full"></div><h2 class="text-3xl md:text-4xl font-bold text-[#0866bd] oswald uppercase tracking-wide">Refacciones Generales</h2></div>
@@ -211,9 +196,8 @@
             <div>
                 <h4 class="oswald text-lg md:text-xl uppercase mb-6 tracking-wider text-[#eab308] border-b border-blue-400 pb-2 inline-block">Ubicación y Contacto</h4>
                 <a href="https://maps.google.com/?q=Calle+Marcos+Lara+60,+Santa+Paula,+Tonalá,+Jalisco" target="_blank" class="block text-blue-100 mb-3 hover:text-white transition group text-sm"><i class="fas fa-map-marker-alt mr-3 text-red-400 group-hover:text-red-300"></i> Marcos Lara 60, Santa Paula, Tonalá</a>
-                <a href="https://wa.me/523332406334" target="_blank" class="block text-blue-100 mb-4 hover:text-white transition group text-sm"><i class="fas fa-phone mr-3 text-green-400 group-hover:text-green-300"></i> +52 33 3240 6334</a>
                 
-                <div class="w-full h-40 rounded-xl overflow-hidden border-2 border-white/20 shadow-lg mt-2 opacity-90 hover:opacity-100 transition-opacity">
+                <div class="w-full h-40 rounded-xl overflow-hidden border-2 border-white/20 shadow-lg mt-4 opacity-90 hover:opacity-100 transition-opacity">
                     <iframe width="100%" height="100%" frameborder="0" style="border:0" src="https://maps.google.com/maps?q=Calle+Marcos+Lara+60,+Santa+Paula,+Tonalá,+Jalisco&t=&z=15&ie=UTF8&iwloc=&output=embed" allowfullscreen></iframe>
                 </div>
             </div>
@@ -232,7 +216,6 @@
     </footer>
 
     <!-- Flotantes y Modales -->
-    <a href="https://wa.me/523332406334" class="float-wa" target="_blank"><i class="fab fa-whatsapp"></i></a>
     <button onclick="window.toggleChat()" class="float-chat"><i class="fas fa-robot"></i></button>
     
     <div id="chat-window">
@@ -314,23 +297,53 @@
         </div>
         
         <div class="p-6 bg-white border-t border-gray-200 shadow-[0_-10px_20px_rgba(0,0,0,0.03)] z-10">
+            
+            <!-- DATOS DEL CLIENTE PARA EL PANEL MAESTRO -->
+            <div class="mb-4 space-y-3">
+                <input type="text" id="cliente-nombre" placeholder="Tu Nombre Completo" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0866bd] transition-all">
+                <input type="tel" id="cliente-telefono" placeholder="Tu Teléfono o Celular (10 dígitos)" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#0866bd] transition-all">
+            </div>
+
             <div class="flex justify-between items-center mb-6">
                 <span class="text-gray-500 font-bold uppercase tracking-wider text-sm">Total Estimado</span>
                 <span id="cart-total" class="font-bold text-3xl text-[#0866bd]">$0.00</span>
             </div>
-            <!-- Botón WhatsApp -->
-            <button onclick="window.checkoutWhatsApp()" class="w-full bg-[#25d366] text-white font-bold py-4 rounded-xl hover:bg-[#1ea952] transition-colors flex justify-center items-center uppercase tracking-widest shadow-lg shadow-green-500/30 hover:-translate-y-1 transform">
-                <i class="fab fa-whatsapp mr-3 text-2xl"></i> Enviar a El Jefe
+            
+            <!-- Botón de Envío Directo al Panel -->
+            <button onclick="window.enviarPedidoAlPanel()" id="btn-comprar" class="w-full bg-[#111827] text-[#eab308] font-bold py-4 rounded-xl hover:bg-gray-800 transition-colors flex justify-center items-center uppercase tracking-widest shadow-lg shadow-gray-500/30 hover:-translate-y-1 transform">
+                <i class="fas fa-paper-plane mr-3 text-xl"></i> Confirmar Pedido
             </button>
+        </div>
+    </div>
+
+    <!-- Modal de Éxito de Compra -->
+    <div id="success-modal" onclick="document.getElementById('success-modal').style.display='none'">
+        <div class="bg-white p-8 md:p-10 rounded-3xl shadow-2xl max-w-md w-full text-center relative transform transition-all border-t-8 border-green-500" onclick="event.stopPropagation()">
+            <button onclick="document.getElementById('success-modal').style.display='none'" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-times text-xl"></i></button>
+            <div class="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center text-green-500 mx-auto mb-6">
+                <i class="fas fa-check-circle text-5xl"></i>
+            </div>
+            <h2 class="oswald text-3xl font-bold text-gray-800 mb-2 uppercase">¡Pedido Recibido!</h2>
+            <p class="text-gray-600 mb-6">Tu orden ha sido enviada a nuestro mostrador de forma exitosa. Prepararemos tus refacciones de inmediato.</p>
+            
+            <div class="bg-gray-50 rounded-xl p-4 mb-6 border border-gray-200">
+                <p class="text-xs text-gray-500 font-bold uppercase tracking-wider mb-1">Tu número de Orden es:</p>
+                <p class="text-2xl font-black text-[#0866bd] font-mono tracking-widest" id="orden-id">#0000</p>
+            </div>
+
+            <p class="text-sm font-bold text-gray-500 mb-4">¿Tienes dudas sobre tu pedido?</p>
+            <a href="https://wa.me/523332406334" target="_blank" class="inline-block w-full bg-[#25d366] text-white font-bold py-3 rounded-xl hover:bg-[#1ea952] transition shadow-md flex items-center justify-center">
+                <i class="fab fa-whatsapp mr-2 text-xl"></i> Escríbenos por WhatsApp
+            </a>
         </div>
     </div>
 
     <!-- MÓDULO FIREBASE Y LÓGICA -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        import { getFirestore, collection, onSnapshot, addDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
-        // 🚨 CONFIGURACIÓN FIREBASE ACTUALIZADA 🚨
+        // 🚨 CONFIGURACIÓN FIREBASE 🚨
         const firebaseConfig = {
             apiKey: "AIzaSyCUq8O81sV7L9OqOzx9YBNogcHKiyi4RO0",
             authDomain: "moto-partes-el-jefe.firebaseapp.com",
@@ -343,7 +356,6 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Despertar el servidor de Render en segundo plano
         fetch("https://backend-el-jefe.onrender.com/").catch(() => console.log("Servidor despertando..."));
 
         window.productosData = [];
@@ -393,10 +405,8 @@
                 const btnColor = stock === 0 ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#0866bd] hover:bg-blue-800';
                 const imgUrl = prod.ImagenURL || 'logo.ico';
 
-                // Mostrar el código en la tarjeta si existe
                 const codHTML = prod.Codigo ? `<p class="text-[10px] font-mono font-bold text-[#0866bd] bg-blue-50 inline-block px-2 py-0.5 rounded mt-1 shadow-sm border border-blue-100">CÓD: ${prod.Codigo}</p>` : '';
 
-                // Extrayendo un pedacito de la compatibilidad
                 let compatPreview = '';
                 if (prod.Compatibilidad && prod.Compatibilidad.trim() !== "") {
                     let rawText = prod.Compatibilidad.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ').trim();
@@ -405,7 +415,6 @@
                     }
                 }
 
-                // Generar Tarjeta (Le agregamos data-codigo oculto para buscar más fácil)
                 const cardHTML = `
                 <div class="product-card group ${isAgotado} flex flex-col w-full h-full p-4 md:p-5 rounded-2xl relative overflow-hidden shadow-sm border border-gray-100" data-codigo="${prod.Codigo || ''}" onclick="window.abrirModalDinamico(${index})">
                     <div class="relative w-full aspect-square mb-4 bg-white rounded-xl p-2 mix-blend-multiply">
@@ -566,7 +575,9 @@
             window.renderPagination();
         }
 
-        // CARRITO
+        // ==========================================
+        // SISTEMA DE CARRITO Y COMPRA
+        // ==========================================
         window.toggleCart = function() {
             const sidebar = document.getElementById('cart-sidebar');
             const overlay = document.getElementById('cart-overlay');
@@ -645,19 +656,70 @@
             setTimeout(() => countEl.classList.remove('scale-150'), 200);
         }
 
-        window.checkoutWhatsApp = function() {
+        // ==========================================
+        // CONEXIÓN MAESTRA A FIREBASE (PEDIDOS) - AUTOMÁTICO
+        // ==========================================
+        window.enviarPedidoAlPanel = async function() {
             if (window.carrito.length === 0) { alert("Tu carrito está vacío."); return; }
-            let mensaje = " 🏍️ *NUEVO PEDIDO WEB - EL JEFE* 🏍️\n\nHola, me gustaría confirmar el siguiente pedido:\n\n";
+            
+            const nombreCliente = document.getElementById('cliente-nombre').value.trim();
+            const telCliente = document.getElementById('cliente-telefono').value.trim();
+
+            if (!nombreCliente || !telCliente) {
+                alert("⚠️ Por favor, ingresa tu Nombre y Teléfono para registrar tu pedido.");
+                return;
+            }
+
+            const btnComprar = document.getElementById('btn-comprar');
+            const originalHTML = btnComprar.innerHTML;
+            btnComprar.innerHTML = '<i class="fas fa-spinner fa-spin mr-3 text-xl"></i> Procesando...';
+            btnComprar.disabled = true;
+
             let total = 0;
             window.carrito.forEach(item => {
-                let subtotal = item.price * item.qty; total += subtotal;
-                mensaje += ` 🔸 ${item.qty}x ${item.title}  ($${subtotal})\n`;
+                total += (item.price * item.qty);
             });
-            mensaje += `\n 🛒 *TOTAL: $${total}*\n\n¿Tienen todo disponible para pasar a la sucursal?`;
-            window.open(`https://wa.me/523332406334?text=${encodeURIComponent(mensaje)}`, '_blank');
+
+            // Generamos un ID de orden aleatorio corto
+            const ordenID = Math.floor(1000 + Math.random() * 9000);
+
+            // Construir el paquete de datos para tu Panel Maestro
+            const payloadPedido = {
+                cliente: nombreCliente,
+                telefono: telCliente,
+                items: window.carrito,
+                total: total,
+                estado: 'pendiente',
+                fecha: new Date().toISOString()
+            };
+
+            try {
+                // 1. Guardar en Base de Datos (Activa las notificaciones Push en tu celular y panel)
+                await addDoc(collection(db, "pedidos"), payloadPedido);
+
+                // 2. Limpiar UI y Carrito
+                window.carrito = [];
+                window.updateCartUI();
+                document.getElementById('cliente-nombre').value = '';
+                document.getElementById('cliente-telefono').value = '';
+                window.toggleCart();
+                
+                // 3. Mostrar pantalla de éxito al cliente en lugar de abrir WhatsApp
+                document.getElementById('orden-id').innerText = `#${ordenID}`;
+                document.getElementById('success-modal').style.display = 'flex';
+
+            } catch (error) {
+                console.error("Error al procesar el pedido:", error);
+                alert("Hubo un problema al conectar con la tienda. Por favor, intenta de nuevo.");
+            } finally {
+                btnComprar.innerHTML = originalHTML;
+                btnComprar.disabled = false;
+            }
         }
 
+        // ==========================================
         // BUSCADOR Y CHATBOT
+        // ==========================================
         window.searchProducts = function() {
             let input = document.getElementById('globalSearch').value.toUpperCase();
             let cards = document.querySelectorAll('.product-card');
@@ -669,7 +731,6 @@
                 document.querySelectorAll('.sub-category-grid').forEach(grid => grid.classList.remove('hidden'));
                 
                 cards.forEach(card => {
-                    // Busca tanto en el texto visible como en el atributo oculto del código
                     let text = card.innerText.toUpperCase();
                     let code = card.getAttribute('data-codigo') ? card.getAttribute('data-codigo').toUpperCase() : '';
                     card.style.display = (text.indexOf(input) > -1 || code.indexOf(input) > -1) ? "flex" : "none";
@@ -681,7 +742,6 @@
             }
         }
 
-        // --- SISTEMA DEL CHATBOT INTELIGENTE ---
         window.chatHistory = []; 
 
         window.toggleChat = function() {
@@ -704,7 +764,6 @@
             chatMessages.innerHTML += `<div id="${loadingId}" class="chat-bubble chat-bot animate-pulse">Revisando bodega... 🔍</div>`;
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
-            // Inyectar el inventario COMPLETO (Ahora también el código)
             const inventarioParaIA = window.productosData.map((p, index) => {
                 let compat = p.Compatibilidad ? p.Compatibilidad.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ').trim() : 'Universal';
                 let esp = p.Especificaciones ? p.Especificaciones.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ').trim() : 'Sin detalles';
@@ -726,7 +785,6 @@ INSTRUCCIONES CRÍTICAS:
             window.chatHistory.push({ role: "user", parts: [{ text: message }] });
 
             try {
-                // Conexión SEGURA al Backend con manejo de Errores
                 const response = await fetch("https://backend-el-jefe.onrender.com/api/chat", {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -736,7 +794,6 @@ INSTRUCCIONES CRÍTICAS:
                     })
                 });
                 
-                // Sistema Anti-Colapso para el Chat
                 if (response.status === 429) {
                     throw new Error("LIMITE_IA");
                 }
@@ -782,7 +839,7 @@ INSTRUCCIONES CRÍTICAS:
                 } else {
                     document.getElementById(loadingId).outerHTML = `<div class="chat-bubble chat-bot text-red-600">Uy, mi conexión falló un poco. 😅 Intenta preguntarme de nuevo o mándanos un WhatsApp.</div>`;
                 }
-                window.chatHistory.pop(); // Borramos el error de la memoria
+                window.chatHistory.pop(); 
             }
         }
 
@@ -794,7 +851,7 @@ INSTRUCCIONES CRÍTICAS:
             
             const catalogoBusqueda = window.productosData.map(p => ({ 
                 nombre: p.Nombre, 
-                codigo: p.Codigo, // Ahora la IA sabe del código
+                codigo: p.Codigo, 
                 categoria: p.Categoria,
                 detalles: (p.Especificaciones + " " + p.Compatibilidad) 
             }));
@@ -821,7 +878,7 @@ INSTRUCCIONES CRÍTICAS:
                 });
             } catch (error) { 
                 if (error.message === "LIMITE_IA") {
-                    alert("⏳ Estás haciendo muchas búsquedas inteligentes seguidas. El sistema se pausó 1 minuto por seguridad. Por ahora usaré el buscador normal.");
+                    alert("⏳ Estás haciendo muchas búsquedas inteligentes seguidas. El sistema se pausó 1 minuto por seguridad. Por favor, usa el buscador normal por el momento.");
                 }
                 window.searchProducts(); 
             } finally { 
