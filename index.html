@@ -339,7 +339,7 @@
         import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
         // 🚨 REEMPLAZA ESTO CON TUS LLAVES DE FIREBASE 🚨
-        const firebaseConfig = {
+       const firebaseConfig = {
   apiKey: "AIzaSyCUq8O81sV7L9OqOzx9YBNogcHKiyi4RO0",
   authDomain: "moto-partes-el-jefe.firebaseapp.com",
   projectId: "moto-partes-el-jefe",
@@ -706,9 +706,79 @@
             finally { document.getElementById('btn-ia-search').classList.remove('ia-searching'); document.getElementById('ia-search-status').classList.add('hidden'); }
         }
 
+        // --- SISTEMA DEL CHATBOT INTELIGENTE ---
+        window.chatHistory = []; // Guarda la memoria de la conversación
+
         window.toggleChat = function() {
             const chat = document.getElementById('chat-window');
             chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        window.sendChatMessage = async function() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            if (!message) return;
+
+            const chatMessages = document.getElementById('chat-messages');
+            
+            // 1. Mostrar mensaje del cliente en la pantalla
+            chatMessages.innerHTML += `<div class="chat-bubble chat-user">${message}</div>`;
+            input.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // 2. Mostrar animación de "Escribiendo..."
+            const loadingId = 'loading-' + Date.now();
+            chatMessages.innerHTML += `<div id="${loadingId}" class="chat-bubble chat-bot animate-pulse">Pensando... 🤔</div>`;
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // 3. Preparar el inventario oculto para que la IA sepa qué vender
+            const inventarioParaIA = window.productosData.map(p => 
+                `- ${p.Nombre} (Precio: $${p.Precio}, Stock: ${p.Stock})`
+            ).join('\n');
+
+            // 4. Instrucciones estrictas para el bot de ventas
+            const systemPrompt = `Eres el asistente virtual de la refaccionaria "Moto Partes El Jefe" en Tonalá. Eres un vendedor amable y experto en motocicletas.
+            Este es tu catálogo de productos ACTUAL Y REAL:
+            ${inventarioParaIA}
+            
+            REGLAS ESTRICTAS:
+            1. Si el cliente pregunta por una refacción, busca en la lista de arriba. Si la tenemos, dile el nombre exacto y el precio. Anímalo a agregarla a su pedido.
+            2. Si el cliente pide algo que NO está en la lista, dile amablemente que por el momento está agotado, pero que puede confirmar disponibilidad directa mandando un WhatsApp al 33 3240 6334. NO INVENTES PRODUCTOS.
+            3. Sé breve, directo y usa emojis de motos y herramientas. No des respuestas muy largas.`;
+
+            window.chatHistory.push({ role: "user", parts: [{ text: message }] });
+
+            try {
+                // 5. Conectar con el cerebro de IA (Tu backend actual)
+                const url = "https://backend-el-jefe.onrender.com/api/chat";
+                const response = await fetch(url, { 
+                    method: 'POST', 
+                    headers: { 'Content-Type': 'application/json' }, 
+                    body: JSON.stringify({ 
+                        contents: window.chatHistory, 
+                        systemInstruction: { parts: [{ text: systemPrompt }] } 
+                    }) 
+                });
+                
+                if (!response.ok) throw new Error("Falla de conexión API");
+                
+                const data = await response.json();
+                let botReply = data.candidates[0].content.parts[0].text;
+                
+                // Guardar respuesta en la memoria
+                window.chatHistory.push({ role: "model", parts: [{ text: botReply }] });
+                
+                // 6. Quitar el "Pensando..." y poner la respuesta real
+                // Limpiamos los asteriscos de negritas de markdown para que se vea limpio en html
+                botReply = botReply.replace(/\*\*/g, '').replace(/\n/g, '<br>');
+                document.getElementById(loadingId).outerHTML = `<div class="chat-bubble chat-bot">${botReply}</div>`;
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+            } catch (error) {
+                console.error(error);
+                document.getElementById(loadingId).outerHTML = `<div class="chat-bubble chat-bot text-red-600">Uy, mi conexión falló un poco. 😅 Intenta preguntarme de nuevo o mándanos un WhatsApp.</div>`;
+                window.chatHistory.pop(); // Borramos el error de la memoria
+            }
         }
 
         // LÓGICA CARRUSEL
