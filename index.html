@@ -41,7 +41,7 @@
         .float-chat { position: fixed; bottom: 25px; right: 25px; width: 60px; height: 60px; background-color: var(--azul-brand); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 10px 25px rgba(8, 102, 189, 0.5); z-index: 100; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 2px solid white; cursor: pointer; }
         .float-chat:hover { transform: scale(1.15) rotate(5deg); }
         
-        #modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(17, 24, 39, 0.9); z-index: 999; justify-content: center; align-items: center; backdrop-filter: blur(8px); padding: 15px; }
+        #modal-overlay, #success-modal, #rastreo-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(17, 24, 39, 0.9); z-index: 999; justify-content: center; align-items: center; backdrop-filter: blur(8px); padding: 15px; }
         .modal-active { display: flex !important; animation: modalFadeIn 0.3s ease-out; }
         @keyframes modalFadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
         
@@ -69,27 +69,40 @@
         .chat-user { background: var(--azul-brand); color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
         .chat-input-area { padding: 12px; background: white; border-top: 1px solid #e5e7eb; display: flex; gap: 10px; align-items: center; }
 
-        /* Modal de Éxito de Compra */
-        #success-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(17, 24, 39, 0.9); z-index: 200; justify-content: center; align-items: center; backdrop-filter: blur(8px); padding: 15px; }
+        /* Estilos Notificaciones Toast */
+        #toast { transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .toast-show { bottom: 30px !important; opacity: 1 !important; transform: scale(1) !important; }
     </style>
 </head>
 <body>
     <!-- Encabezado Azul Clásico -->
     <header class="header-main text-white py-4 md:py-5">
-        <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
-            <div class="flex items-center gap-4">
-                <img src="logo.ico" onerror="this.src='https://via.placeholder.com/100?text=LOGO'" alt="Logo El Jefe" class="h-16 md:h-24 w-auto object-contain drop-shadow-2xl">
-                <div class="text-left mt-1">
-                    <h1 class="oswald text-3xl md:text-5xl font-bold uppercase tracking-widest leading-none drop-shadow-md">El Jefe</h1>
-                    <p class="text-xs md:text-sm text-blue-200 tracking-[0.25em] uppercase mt-1 font-medium">Moto Partes | Tonalá</p>
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            
+            <div class="flex items-center gap-4 w-full md:w-auto justify-between md:justify-start">
+                <div class="flex items-center gap-4">
+                    <img src="logo.ico" onerror="this.src='https://via.placeholder.com/100?text=LOGO'" alt="Logo El Jefe" class="h-14 md:h-20 w-auto object-contain drop-shadow-2xl bg-white p-1 rounded-lg">
+                    <div class="text-left mt-1">
+                        <h1 class="oswald text-2xl md:text-4xl font-bold uppercase tracking-widest leading-none drop-shadow-md">El Jefe</h1>
+                        <p class="text-[10px] md:text-xs text-blue-200 tracking-[0.2em] uppercase mt-1 font-medium">Moto Partes</p>
+                    </div>
                 </div>
+                <!-- Botón Rastreo Móvil -->
+                <button onclick="document.getElementById('rastreo-modal').classList.add('modal-active')" class="md:hidden bg-blue-800 text-blue-100 p-2.5 rounded-full shadow border border-blue-700 hover:bg-blue-700 transition-colors">
+                    <i class="fas fa-search-location"></i>
+                </button>
             </div>
             
-            <div class="flex items-center">
-                <button onclick="window.toggleCart()" class="relative bg-[#eab308] text-[#0866bd] py-2.5 px-6 md:py-3 md:px-8 rounded-full shadow-lg hover:bg-yellow-400 hover:scale-105 transition-all duration-300 border-2 border-yellow-300 flex items-center justify-center group cursor-pointer overflow-visible">
+            <div class="flex items-center gap-4 w-full md:w-auto justify-end">
+                <!-- Botón Rastreo PC -->
+                <button onclick="document.getElementById('rastreo-modal').classList.add('modal-active')" class="hidden md:flex items-center bg-blue-800 hover:bg-blue-700 text-white py-2.5 px-5 rounded-full shadow border border-blue-700 transition-all font-bold uppercase tracking-wider text-sm">
+                    <i class="fas fa-search-location mr-2"></i> Rastrear Pedido
+                </button>
+
+                <button onclick="window.toggleCart()" class="relative bg-[#eab308] text-[#0866bd] py-2.5 px-6 md:py-3 md:px-8 rounded-full shadow-lg hover:bg-yellow-400 hover:scale-105 transition-all duration-300 border-2 border-yellow-300 flex items-center justify-center group cursor-pointer overflow-visible w-full md:w-auto">
                     <i class="fas fa-shopping-cart text-xl md:text-2xl group-hover:animate-bounce"></i>
-                    <span class="hidden md:inline-block ml-3 font-bold uppercase text-sm oswald tracking-wider">Mi Pedido</span>
-                    <span id="cart-count" class="absolute -top-2 -right-2 bg-red-600 text-white text-[11px] font-bold w-[22px] h-[22px] rounded-full border-2 border-white shadow-md flex items-center justify-center leading-none">0</span>
+                    <span class="ml-3 font-bold uppercase text-sm oswald tracking-wider">Mi Pedido</span>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-red-600 text-white text-[11px] font-bold w-[24px] h-[24px] rounded-full border-2 border-white shadow-md flex items-center justify-center leading-none">0</span>
                 </button>
             </div>
         </div>
@@ -119,12 +132,12 @@
     </div>
 
     <!-- Banner Hero -->
-    <div id="hero-carousel" class="relative min-h-[400px] md:min-h-[500px] flex items-center justify-center text-center overflow-hidden shadow-2xl group">
+    <div id="hero-carousel" class="relative min-h-[300px] md:min-h-[450px] flex items-center justify-center text-center overflow-hidden shadow-2xl group">
         <div id="carousel-bg" class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-1000 transform scale-105" style="background-image: url('https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
         <div class="absolute inset-0 bg-gradient-to-t from-[#111827] via-[#0866bd]/40 to-transparent"></div>
         <div class="relative z-10 px-4 max-w-4xl mt-10">
-            <h2 id="carousel-title" class="oswald text-5xl md:text-7xl font-bold text-white uppercase mb-4 drop-shadow-[0_5px_5px_rgba(0,0,0,0.8)] tracking-wide transition-opacity duration-500">ESPECIALISTAS EN MOTOS</h2>
-            <p id="carousel-text" class="text-gray-200 text-lg md:text-2xl mb-10 font-light tracking-widest transition-opacity duration-500 delay-100 drop-shadow-md">Refacciones para Italika, Bajaj, Vento y más</p>
+            <h2 id="carousel-title" class="oswald text-4xl md:text-7xl font-bold text-white uppercase mb-4 drop-shadow-[0_5px_5px_rgba(0,0,0,0.8)] tracking-wide transition-opacity duration-500">ESPECIALISTAS EN MOTOS</h2>
+            <p id="carousel-text" class="text-gray-200 text-sm md:text-2xl mb-10 font-light tracking-widest transition-opacity duration-500 delay-100 drop-shadow-md">Refacciones para Italika, Bajaj, Vento y más</p>
         </div>
     </div>
     
@@ -132,33 +145,31 @@
     <main class="max-w-7xl mx-auto px-4 min-h-[600px] py-12 md:py-20 relative">
         
         <section id="afinacion" class="product-section">
-            <div class="flex items-center mb-10 border-b-2 pb-4 border-gray-200"><div class="h-8 md:h-10 w-2 bg-red-600 mr-4 rounded-full"></div><h2 class="text-3xl md:text-4xl font-bold text-[#0866bd] oswald uppercase tracking-wide">Kits de Afinación</h2></div>
+            <div class="flex items-center mb-10 border-b-2 pb-4 border-gray-200"><div class="h-8 md:h-10 w-2 bg-red-600 mr-4 rounded-full"></div><h2 class="text-2xl md:text-4xl font-bold text-[#0866bd] oswald uppercase tracking-wide">Kits de Afinación</h2></div>
             <div id="grid-afinacion" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
                 <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100"><div class="w-full aspect-square skeleton rounded-xl mb-4"></div><div class="h-6 skeleton rounded w-3/4 mb-2"></div><div class="h-4 skeleton rounded w-full mb-4"></div><div class="h-10 skeleton rounded w-full"></div></div>
                 <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100"><div class="w-full aspect-square skeleton rounded-xl mb-4"></div><div class="h-6 skeleton rounded w-3/4 mb-2"></div><div class="h-4 skeleton rounded w-full mb-4"></div><div class="h-10 skeleton rounded w-full"></div></div>
-                <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hidden md:block"><div class="w-full aspect-square skeleton rounded-xl mb-4"></div><div class="h-6 skeleton rounded w-3/4 mb-2"></div><div class="h-4 skeleton rounded w-full mb-4"></div><div class="h-10 skeleton rounded w-full"></div></div>
-                <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hidden lg:block"><div class="w-full aspect-square skeleton rounded-xl mb-4"></div><div class="h-6 skeleton rounded w-3/4 mb-2"></div><div class="h-4 skeleton rounded w-full mb-4"></div><div class="h-10 skeleton rounded w-full"></div></div>
             </div>
         </section>
 
         <section id="suspension" class="product-section hidden-section">
-            <div class="flex items-center mb-10 border-b-2 pb-4 border-gray-200"><div class="h-8 md:h-10 w-2 bg-yellow-500 mr-4 rounded-full"></div><h2 class="text-3xl md:text-4xl font-bold text-[#0866bd] oswald uppercase tracking-wide">Suspensión y Sprocket</h2></div>
+            <div class="flex items-center mb-10 border-b-2 pb-4 border-gray-200"><div class="h-8 md:h-10 w-2 bg-yellow-500 mr-4 rounded-full"></div><h2 class="text-2xl md:text-4xl font-bold text-[#0866bd] oswald uppercase tracking-wide">Suspensión y Sprocket</h2></div>
             <div id="grid-suspension" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8"></div>
         </section>
 
         <section id="llantas" class="product-section hidden-section">
-            <div class="flex items-center mb-10 border-b-2 pb-4 border-gray-200"><div class="h-8 md:h-10 w-2 bg-black mr-4 rounded-full"></div><h2 class="text-3xl md:text-4xl font-bold text-[#0866bd] oswald uppercase tracking-wide">Llantas y Cámaras</h2></div>
+            <div class="flex items-center mb-10 border-b-2 pb-4 border-gray-200"><div class="h-8 md:h-10 w-2 bg-black mr-4 rounded-full"></div><h2 class="text-2xl md:text-4xl font-bold text-[#0866bd] oswald uppercase tracking-wide">Llantas y Cámaras</h2></div>
             <div id="grid-llantas" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8"></div>
         </section>
 
         <section id="refacciones" class="product-section hidden-section">
             <div class="border-b-2 border-gray-200 pb-6 mb-8">
-                <div class="flex items-center mb-6"><div class="h-8 md:h-10 w-2 bg-blue-500 mr-4 rounded-full"></div><h2 class="text-3xl md:text-4xl font-bold text-[#0866bd] oswald uppercase tracking-wide">Refacciones Generales</h2></div>
+                <div class="flex items-center mb-6"><div class="h-8 md:h-10 w-2 bg-blue-500 mr-4 rounded-full"></div><h2 class="text-2xl md:text-4xl font-bold text-[#0866bd] oswald uppercase tracking-wide">Refacciones Generales</h2></div>
                 <button onclick="window.showRefaccionesHome()" id="btn-back-ref" class="hidden text-sm font-bold text-gray-500 hover:text-[#0866bd] mb-6 bg-white px-4 py-2 rounded-lg shadow-sm border border-gray-200 transition"><i class="fas fa-arrow-left mr-2"></i> Volver a categorías</button>
                 <div class="flex gap-3 overflow-x-auto pb-2 no-scrollbar">
-                    <button onclick="window.filterRefacciones('sub-freno')" id="btn-sub-freno" class="sub-nav-btn px-6 py-3 bg-white border border-gray-200 text-gray-600 rounded-xl font-bold text-sm uppercase transition hover:bg-gray-50 shadow-sm"><i class="fas fa-hand-paper mr-2 text-red-500"></i> Frenos</button>
-                    <button onclick="window.filterRefacciones('sub-electrico')" id="btn-sub-electrico" class="sub-nav-btn px-6 py-3 bg-white border border-gray-200 text-gray-600 rounded-xl font-bold text-sm uppercase transition hover:bg-gray-50 shadow-sm"><i class="fas fa-bolt mr-2 text-yellow-500"></i> Eléctrico</button>
-                    <button onclick="window.filterRefacciones('sub-chicote')" id="btn-sub-chicote" class="sub-nav-btn px-6 py-3 bg-white border border-gray-200 text-gray-600 rounded-xl font-bold text-sm uppercase transition hover:bg-gray-50 shadow-sm"><i class="fas fa-route mr-2 text-gray-500"></i> Chicotes</button>
+                    <button onclick="window.filterRefacciones('sub-freno')" id="btn-sub-freno" class="sub-nav-btn px-5 py-2.5 bg-white border border-gray-200 text-gray-600 rounded-xl font-bold text-xs md:text-sm uppercase transition hover:bg-gray-50 shadow-sm whitespace-nowrap"><i class="fas fa-hand-paper mr-2 text-red-500"></i> Frenos</button>
+                    <button onclick="window.filterRefacciones('sub-electrico')" id="btn-sub-electrico" class="sub-nav-btn px-5 py-2.5 bg-white border border-gray-200 text-gray-600 rounded-xl font-bold text-xs md:text-sm uppercase transition hover:bg-gray-50 shadow-sm whitespace-nowrap"><i class="fas fa-bolt mr-2 text-yellow-500"></i> Eléctrico</button>
+                    <button onclick="window.filterRefacciones('sub-chicote')" id="btn-sub-chicote" class="sub-nav-btn px-5 py-2.5 bg-white border border-gray-200 text-gray-600 rounded-xl font-bold text-xs md:text-sm uppercase transition hover:bg-gray-50 shadow-sm whitespace-nowrap"><i class="fas fa-route mr-2 text-gray-500"></i> Chicotes</button>
                 </div>
             </div>
             
@@ -173,7 +184,7 @@
         </section>
 
         <section id="accesorios" class="product-section hidden-section">
-            <div class="flex items-center mb-10 border-b-2 pb-4 border-gray-200"><div class="h-8 md:h-10 w-2 bg-purple-600 mr-4 rounded-full"></div><h2 class="text-3xl md:text-4xl font-bold text-[#0866bd] oswald uppercase tracking-wide">Accesorios</h2></div>
+            <div class="flex items-center mb-10 border-b-2 pb-4 border-gray-200"><div class="h-8 md:h-10 w-2 bg-purple-600 mr-4 rounded-full"></div><h2 class="text-2xl md:text-4xl font-bold text-[#0866bd] oswald uppercase tracking-wide">Accesorios</h2></div>
             <div id="grid-accesorios" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8"></div>
         </section>
 
@@ -196,6 +207,7 @@
             <div>
                 <h4 class="oswald text-lg md:text-xl uppercase mb-6 tracking-wider text-[#eab308] border-b border-blue-400 pb-2 inline-block">Ubicación y Contacto</h4>
                 <a href="https://maps.google.com/?q=Calle+Marcos+Lara+60,+Santa+Paula,+Tonalá,+Jalisco" target="_blank" class="block text-blue-100 mb-3 hover:text-white transition group text-sm"><i class="fas fa-map-marker-alt mr-3 text-red-400 group-hover:text-red-300"></i> Marcos Lara 60, Santa Paula, Tonalá</a>
+                <a href="https://wa.me/523332406334" target="_blank" class="block text-blue-100 mb-4 hover:text-white transition group text-sm"><i class="fas fa-phone mr-3 text-green-400 group-hover:text-green-300"></i> +52 33 3240 6334 (Solo aclaraciones y soporte)</a>
                 
                 <div class="w-full h-40 rounded-xl overflow-hidden border-2 border-white/20 shadow-lg mt-4 opacity-90 hover:opacity-100 transition-opacity">
                     <iframe width="100%" height="100%" frameborder="0" style="border:0" src="https://maps.google.com/maps?q=Calle+Marcos+Lara+60,+Santa+Paula,+Tonalá,+Jalisco&t=&z=15&ie=UTF8&iwloc=&output=embed" allowfullscreen></iframe>
@@ -281,13 +293,11 @@
     <!-- Sidebar Carrito Rediseñado -->
     <div id="cart-overlay" onclick="window.toggleCart()" class="fixed inset-0 bg-gray-900 bg-opacity-60 backdrop-blur-sm z-[110] hidden transition-opacity duration-300"></div>
     <div id="cart-sidebar" class="fixed top-0 right-0 w-[90%] md:w-[400px] h-full bg-white shadow-2xl transform translate-x-full transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) z-[120] flex flex-col">
-        <!-- Encabezado -->
         <div class="p-5 bg-[#0866bd] text-white flex justify-between items-center shadow-md z-20">
             <h2 class="font-bold text-xl oswald tracking-wider flex items-center"><i class="fas fa-shopping-cart text-[#eab308] mr-3 text-2xl"></i> Mi Pedido</h2>
             <button onclick="window.toggleCart()" class="text-blue-200 hover:text-white transition bg-blue-800 hover:bg-blue-900 w-8 h-8 rounded-full flex items-center justify-center"><i class="fas fa-times"></i></button>
         </div>
         
-        <!-- Fondo claro del carrito -->
         <div id="cart-items" class="flex-1 overflow-y-auto p-5 space-y-4 bg-[#f8fafc]">
             <div class="text-center mt-20 text-gray-400">
                 <i class="fas fa-motorcycle text-6xl mb-4 opacity-30"></i>
@@ -316,10 +326,10 @@
         </div>
     </div>
 
-    <!-- Modal de Éxito de Compra -->
-    <div id="success-modal" onclick="document.getElementById('success-modal').style.display='none'">
+    <!-- Modal de Éxito de Compra (NUEVO) -->
+    <div id="success-modal" onclick="document.getElementById('success-modal').classList.remove('modal-active')" class="hidden">
         <div class="bg-white p-8 md:p-10 rounded-3xl shadow-2xl max-w-md w-full text-center relative transform transition-all border-t-8 border-green-500" onclick="event.stopPropagation()">
-            <button onclick="document.getElementById('success-modal').style.display='none'" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-times text-xl"></i></button>
+            <button onclick="document.getElementById('success-modal').classList.remove('modal-active')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-times text-xl"></i></button>
             <div class="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center text-green-500 mx-auto mb-6">
                 <i class="fas fa-check-circle text-5xl"></i>
             </div>
@@ -328,7 +338,8 @@
             
             <div class="bg-gray-50 rounded-xl p-4 mb-6 border border-gray-200">
                 <p class="text-xs text-gray-500 font-bold uppercase tracking-wider mb-1">Tu número de Orden es:</p>
-                <p class="text-2xl font-black text-[#0866bd] font-mono tracking-widest" id="orden-id">#0000</p>
+                <p class="text-3xl font-black text-[#0866bd] font-mono tracking-widest" id="orden-id">#0000</p>
+                <p class="text-[10px] text-gray-400 mt-2">Guarda este código para rastrear tu pedido.</p>
             </div>
 
             <p class="text-sm font-bold text-gray-500 mb-4">¿Tienes dudas sobre tu pedido?</p>
@@ -338,10 +349,30 @@
         </div>
     </div>
 
+    <!-- Modal Rastreo de Pedido (NUEVO) -->
+    <div id="rastreo-modal" onclick="document.getElementById('rastreo-modal').classList.remove('modal-active')" class="hidden">
+        <div class="bg-white p-8 rounded-3xl shadow-2xl max-w-sm w-full text-center relative" onclick="event.stopPropagation()">
+            <button onclick="document.getElementById('rastreo-modal').classList.remove('modal-active')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-times text-xl"></i></button>
+            <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center text-[#0866bd] mx-auto mb-4">
+                <i class="fas fa-search-location text-3xl"></i>
+            </div>
+            <h2 class="oswald text-2xl font-bold text-gray-800 mb-2 uppercase">Rastrear Orden</h2>
+            <p class="text-gray-500 mb-6 text-sm">Ingresa el ID de 5 letras que te dimos al finalizar tu compra.</p>
+            
+            <input type="text" id="input-rastreo" placeholder="Ej. A8F2X" class="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-center text-2xl font-mono font-black tracking-widest focus:outline-none focus:ring-2 focus:ring-[#0866bd] uppercase mb-4">
+            
+            <button onclick="window.rastrearPedido()" id="btn-buscar-rastreo" class="w-full bg-[#0866bd] text-white font-bold py-3.5 rounded-xl hover:bg-blue-800 transition shadow-md text-sm uppercase tracking-wide mb-4">
+                Buscar Estado
+            </button>
+            
+            <div id="resultado-rastreo" class="hidden p-4 rounded-xl font-bold text-sm border"></div>
+        </div>
+    </div>
+
     <!-- MÓDULO FIREBASE Y LÓGICA -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getFirestore, collection, onSnapshot, addDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        import { getFirestore, collection, onSnapshot, addDoc, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
         // 🚨 CONFIGURACIÓN FIREBASE 🚨
         const firebaseConfig = {
@@ -644,7 +675,7 @@
                                     <span class="w-8 text-center font-bold text-sm text-[#0866bd]">${item.qty}</span>
                                     <button onclick="window.changeQty(${index}, 1)" class="w-8 h-8 rounded text-gray-500 hover:bg-gray-100 font-bold transition">+</button>
                                 </div>
-                                <span class="font-bold text-lg text-[#111827]">$${subtotal.toFixed(2)}</span>
+                                <span class="font-bold text-lg text-[#111827]">$${subtotal.toLocaleString('es-MX')}</span>
                             </div>
                         </div>`;
                 });
@@ -657,7 +688,7 @@
         }
 
         // ==========================================
-        // CONEXIÓN MAESTRA A FIREBASE (PEDIDOS) - AUTOMÁTICO
+        // CONEXIÓN MAESTRA A FIREBASE (PEDIDOS)
         // ==========================================
         window.enviarPedidoAlPanel = async function() {
             if (window.carrito.length === 0) { alert("Tu carrito está vacío."); return; }
@@ -680,11 +711,12 @@
                 total += (item.price * item.qty);
             });
 
-            // Generamos un ID de orden aleatorio corto
-            const ordenID = Math.floor(1000 + Math.random() * 9000);
+            // Generamos un ID de orden aleatorio corto de 5 letras/números
+            const idCorto = Math.random().toString(36).substring(2, 7).toUpperCase();
 
-            // Construir el paquete de datos para tu Panel Maestro
+            // Construir el paquete de datos para Firebase
             const payloadPedido = {
+                idCorto: idCorto,
                 cliente: nombreCliente,
                 telefono: telCliente,
                 items: window.carrito,
@@ -694,7 +726,7 @@
             };
 
             try {
-                // 1. Guardar en Base de Datos (Activa las notificaciones Push en tu celular y panel)
+                // 1. Guardar en Base de Datos (Manda el pedido al panel)
                 await addDoc(collection(db, "pedidos"), payloadPedido);
 
                 // 2. Limpiar UI y Carrito
@@ -704,9 +736,9 @@
                 document.getElementById('cliente-telefono').value = '';
                 window.toggleCart();
                 
-                // 3. Mostrar pantalla de éxito al cliente en lugar de abrir WhatsApp
-                document.getElementById('orden-id').innerText = `#${ordenID}`;
-                document.getElementById('success-modal').style.display = 'flex';
+                // 3. Mostrar pantalla de éxito al cliente
+                document.getElementById('orden-id').innerText = `#${idCorto}`;
+                document.getElementById('success-modal').classList.add('modal-active');
 
             } catch (error) {
                 console.error("Error al procesar el pedido:", error);
@@ -714,6 +746,54 @@
             } finally {
                 btnComprar.innerHTML = originalHTML;
                 btnComprar.disabled = false;
+            }
+        }
+
+        // ==========================================
+        // RASTREO DE ORDEN
+        // ==========================================
+        window.rastrearPedido = async function() {
+            const input = document.getElementById('input-rastreo').value.trim().toUpperCase().replace('#', '');
+            const resDiv = document.getElementById('resultado-rastreo');
+            const btnRastrear = document.getElementById('btn-buscar-rastreo');
+            
+            if(!input) return;
+
+            const originalText = btnRastrear.innerHTML;
+            btnRastrear.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Buscando...';
+            btnRastrear.disabled = true;
+            
+            resDiv.classList.remove('hidden', 'bg-yellow-50', 'text-yellow-700', 'bg-green-50', 'text-green-700', 'bg-red-50', 'text-red-700', 'bg-gray-50', 'text-gray-700');
+            
+            try {
+                // Buscar directamente en Firebase
+                const q = query(collection(db, "pedidos"), where("idCorto", "==", input));
+                const querySnapshot = await getDocs(q);
+
+                if (!querySnapshot.empty) {
+                    const pedido = querySnapshot.docs[0].data();
+                    
+                    if(pedido.estado === 'pendiente') {
+                        resDiv.classList.add('bg-yellow-50', 'text-yellow-700', 'border-yellow-200');
+                        resDiv.innerHTML = `<i class="fas fa-clock mr-2"></i> Tu orden <b>#${input}</b> está en preparación. ¡Pronto estará lista!`;
+                    } else if(pedido.estado === 'completado') {
+                        resDiv.classList.add('bg-green-50', 'text-green-700', 'border-green-200');
+                        resDiv.innerHTML = `<i class="fas fa-check-circle mr-2"></i> Tu orden <b>#${input}</b> ya fue entregada/finalizada.`;
+                    } else {
+                        resDiv.classList.add('bg-red-50', 'text-red-700', 'border-red-200');
+                        resDiv.innerHTML = `<i class="fas fa-ban mr-2"></i> Tu orden <b>#${input}</b> fue cancelada. Contáctanos por WhatsApp.`;
+                    }
+                } else {
+                    resDiv.classList.add('bg-gray-50', 'text-gray-700', 'border-gray-200');
+                    resDiv.innerHTML = `<i class="fas fa-search mr-2"></i> No encontramos la orden <b>#${input}</b>. Revisa el código.`;
+                }
+            } catch (error) {
+                resDiv.classList.add('bg-red-50', 'text-red-700', 'border-red-200');
+                resDiv.innerHTML = `<i class="fas fa-exclamation-triangle mr-2"></i> Error de conexión.`;
+            } finally {
+                resDiv.classList.remove('hidden');
+                btnRastrear.innerHTML = originalText;
+                btnRastrear.disabled = false;
             }
         }
 
