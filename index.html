@@ -339,7 +339,7 @@
         import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
         // 🚨 REEMPLAZA ESTO CON TUS LLAVES DE FIREBASE 🚨
-       const firebaseConfig = {
+        const firebaseConfig = {
   apiKey: "AIzaSyCUq8O81sV7L9OqOzx9YBNogcHKiyi4RO0",
   authDomain: "moto-partes-el-jefe.firebaseapp.com",
   projectId: "moto-partes-el-jefe",
@@ -731,20 +731,25 @@
             chatMessages.innerHTML += `<div id="${loadingId}" class="chat-bubble chat-bot animate-pulse">Pensando... 🤔</div>`;
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
-            // 3. Preparar el inventario oculto para que la IA sepa qué vender
-            const inventarioParaIA = window.productosData.map(p => 
-                `- ${p.Nombre} (Precio: $${p.Precio}, Stock: ${p.Stock})`
-            ).join('\n');
+            // 3. Preparar el inventario oculto para que la IA sepa qué vender Y COMPATIBILIDAD
+            const inventarioParaIA = window.productosData.map((p, index) => {
+                // Limpiamos el HTML de las tablas para que la IA lea solo el texto plano de los modelos
+                let compat = p.Compatibilidad ? p.Compatibilidad.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ').trim() : 'Universal';
+                return `[ID: ${index}] Nombre: ${p.Nombre} | Precio: $${p.Precio} | Stock: ${p.Stock} | Compatible con: ${compat}`;
+            }).join('\n');
 
             // 4. Instrucciones estrictas para el bot de ventas
             const systemPrompt = `Eres el asistente virtual de la refaccionaria "Moto Partes El Jefe" en Tonalá. Eres un vendedor amable y experto en motocicletas.
-            Este es tu catálogo de productos ACTUAL Y REAL:
+            Este es tu catálogo de productos ACTUAL Y REAL (cada producto tiene un ID):
             ${inventarioParaIA}
             
             REGLAS ESTRICTAS:
-            1. Si el cliente pregunta por una refacción, busca en la lista de arriba. Si la tenemos, dile el nombre exacto y el precio. Anímalo a agregarla a su pedido.
-            2. Si el cliente pide algo que NO está en la lista, dile amablemente que por el momento está agotado, pero que puede confirmar disponibilidad directa mandando un WhatsApp al 33 3240 6334. NO INVENTES PRODUCTOS.
-            3. Sé breve, directo y usa emojis de motos y herramientas. No des respuestas muy largas.`;
+            1. Si el cliente pregunta por una refacción o para un modelo de moto específico, busca en la lista de arriba tanto en el "Nombre" como en "Compatible con".
+            2. Si encuentras productos compatibles, menciónalos y EXIGE que el formato incluya el ID exacto del producto como [PRODUCTO: ID]. 
+               EJEMPLO CORRECTO: "Claro, tengo la [PRODUCTO: 5] que le queda a tu Italika."
+               Nunca uses este formato si el ID no existe en la lista.
+            3. Si el cliente pide algo que NO está en la lista o no es compatible, dile amablemente que por el momento está agotado, pero que puede confirmar disponibilidad mandando un WhatsApp al 33 3240 6334. NO INVENTES PRODUCTOS NI PRECIOS.
+            4. Sé breve, directo y usa emojis.`;
 
             window.chatHistory.push({ role: "user", parts: [{ text: message }] });
 
@@ -768,9 +773,34 @@
                 // Guardar respuesta en la memoria
                 window.chatHistory.push({ role: "model", parts: [{ text: botReply }] });
                 
-                // 6. Quitar el "Pensando..." y poner la respuesta real
-                // Limpiamos los asteriscos de negritas de markdown para que se vea limpio en html
-                botReply = botReply.replace(/\*\*/g, '').replace(/\n/g, '<br>');
+                // 6. Quitar el "Pensando...", formatear texto y crear Tarjetas Visuales
+                // Convertir negritas a HTML
+                botReply = botReply.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+                // Convertir saltos de línea a HTML
+                botReply = botReply.replace(/\n/g, '<br>');
+                
+                // Reemplazar [PRODUCTO: ID] por mini-tarjetas HTML interactivas
+                botReply = botReply.replace(/\[PRODUCTO:\s*(\d+)\]/gi, (match, id) => {
+                    const prod = window.productosData[parseInt(id)];
+                    if (prod) {
+                        const imgUrl = prod.ImagenURL || 'logo.ico';
+                        return `
+                        <div class="mt-3 mb-2 bg-white border border-[#0866bd] rounded-xl p-2 flex items-center gap-3 cursor-pointer hover:bg-blue-50 transition shadow-sm w-full" onclick="window.abrirModalDinamico(${id})">
+                            <div class="w-12 h-12 bg-gray-50 rounded-lg p-1 border border-gray-100 flex-shrink-0 flex items-center justify-center">
+                                <img src="${imgUrl}" onerror="this.src='logo.ico'" class="max-w-full max-h-full object-contain">
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-xs font-bold text-gray-800 leading-tight truncate">${prod.Nombre}</p>
+                                <p class="text-sm font-black text-[#dc2626]">$${prod.Precio}</p>
+                            </div>
+                            <div class="bg-[#eab308] text-[#111827] w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 shadow-sm mr-1">
+                                <i class="fas fa-chevron-right text-[10px]"></i>
+                            </div>
+                        </div>`;
+                    }
+                    return ""; // Elimina la etiqueta si el ID no existe
+                });
+
                 document.getElementById(loadingId).outerHTML = `<div class="chat-bubble chat-bot">${botReply}</div>`;
                 chatMessages.scrollTop = chatMessages.scrollHeight;
                 
