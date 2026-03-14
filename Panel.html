@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrativo | Moto Partes El Jefe</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fuentes y Atajos de Iconos -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root { --azul-brand: #0866BD; --amarillo-btn: #eab308; }
+        body { font-family: 'Roboto', sans-serif; background-color: #F4F7F9; }
+        .oswald { font-family: 'Oswald', sans-serif; }
+        
+        /* Animación de carga */
+        .loader { border-top-color: var(--azul-brand); animation: spinner 1s linear infinite; }
+        @keyframes spinner { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        /* Diseño de Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Notificación Toast */
+        #toast { transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+        .toast-show { bottom: 30px !important; opacity: 1 !important; transform: translateY(0) !important; }
+        
+        /* Efecto Login */
+        .backdrop-blur-md { backdrop-filter: blur(8px); }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden text-gray-800">
+
+    <!-- 🔒 PANTALLA DE LOGIN (PREMIUM) -->
+    <div id="login-overlay" class="fixed inset-0 bg-[#111827]/95 backdrop-blur-md z-[100] flex flex-col items-center justify-center transition-opacity duration-500">
+        <div class="bg-white p-10 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] w-11/12 max-w-md text-center transform transition-transform border-t-[6px] border-[#0866bd] relative overflow-hidden">
+            <!-- Patrón de fondo sutil -->
+            <div class="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
+            
+            <div class="relative z-10">
+                <div class="w-24 h-24 bg-blue-50 rounded-full flex items-center justify-center text-[#0866bd] mx-auto mb-6 shadow-inner border border-blue-100">
+                    <i class="fas fa-shield-alt text-4xl"></i>
+                </div>
+                <h2 class="oswald text-3xl font-bold text-gray-900 mb-2 tracking-wide uppercase">Acceso Seguro</h2>
+                <p class="text-sm text-gray-500 mb-8 font-medium">Ingresa el PIN maestro para gestionar el inventario</p>
+                
+                <form id="form-login" class="space-y-6">
+                    <div class="relative">
+                        <i class="fas fa-key absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        <input type="password" id="admin-pin" placeholder="••••" required autocomplete="off" class="w-full pl-12 pr-4 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl focus:ring-0 focus:border-[#0866bd] text-center text-3xl tracking-[0.5em] font-bold outline-none text-gray-800 transition-colors">
+                    </div>
+                    <button type="submit" class="w-full bg-[#0866bd] hover:bg-blue-800 text-white font-bold py-4 rounded-xl shadow-lg shadow-blue-500/30 uppercase tracking-widest transition-all transform hover:-translate-y-1 flex items-center justify-center text-sm">
+                        <i class="fas fa-unlock-alt mr-3 text-lg"></i> Ingresar al Sistema
+                    </button>
+                    <p id="login-error" class="text-red-500 text-sm font-bold hidden bg-red-50 p-3 rounded-lg border border-red-100 animate-pulse flex items-center justify-center">
+                        <i class="fas fa-exclamation-circle mr-2"></i> PIN Incorrecto.
+                    </p>
+                </form>
+                <p class="text-xs text-gray-400 mt-8 font-mono uppercase tracking-widest"><i class="fas fa-lock mr-1"></i> El Jefe Admin V2.0</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 📱 BARRA LATERAL (SIDEBAR) -->
+    <aside class="w-72 bg-[#111827] text-white flex flex-col shadow-[5px_0_15px_rgba(0,0,0,0.1)] hidden lg:flex z-20 relative">
+        <div class="p-6 bg-[#0B0F19] border-b border-gray-800 flex items-center gap-4">
+            <div class="w-14 h-14 bg-white rounded-xl flex items-center justify-center shadow-lg p-1">
+                <img src="logo.ico" onerror="this.src='https://via.placeholder.com/100?text=LOGO'" class="w-full h-full object-contain">
+            </div>
+            <div>
+                <h1 class="oswald tracking-widest font-bold text-2xl uppercase text-[#eab308]">El Jefe</h1>
+                <p class="text-[10px] text-gray-400 uppercase tracking-[0.2em] mt-1">Panel de Control</p>
+            </div>
+        </div>
+        
+        <nav class="flex-1 p-5 space-y-2 overflow-y-auto">
+            <p class="text-xs text-gray-500 uppercase font-bold mb-5 mt-2 ml-2 tracking-wider">Gestión de Catálogo</p>
+            
+            <a href="#" class="flex items-center gap-4 bg-gradient-to-r from-[#0866bd] to-blue-800 text-white px-5 py-4 rounded-xl shadow-md transition border-l-4 border-[#eab308]">
+                <i class="fas fa-plus-square text-lg w-5 text-center"></i>
+                <span class="font-bold tracking-wide">Alta de Producto</span>
+            </a>
+            
+            <a href="#" class="flex items-center gap-4 text-gray-400 hover:bg-gray-800 hover:text-white px-5 py-4 rounded-xl transition cursor-not-allowed opacity-60 mt-2">
+                <i class="fas fa-boxes text-lg w-5 text-center"></i>
+                <span class="font-medium tracking-wide">Ver Inventario</span>
+                <span class="ml-auto bg-gray-700 text-[9px] px-2 py-1 rounded-md font-bold uppercase">En App</span>
+            </a>
+        </nav>
+        
+        <div class="p-5 border-t border-gray-800 bg-[#0B0F19]">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-[#0866bd] flex items-center justify-center text-white font-bold border-2 border-gray-600 shadow-inner">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div>
+                    <p class="text-sm font-bold text-white">Administrador</p>
+                    <p class="text-xs text-green-400 flex items-center mt-1"><span class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span> Conectado</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- 🖥️ ÁREA PRINCIPAL -->
+    <main class="flex-1 flex flex-col h-screen overflow-hidden relative bg-[#F4F7F9]">
+        
+        <!-- ENCABEZADO SUPERIOR -->
+        <header class="bg-white h-[72px] shadow-sm flex items-center justify-between px-6 lg:px-10 z-10 border-b border-gray-200">
+            <div class="flex items-center gap-4">
+                <button class="lg:hidden text-gray-500 hover:text-[#0866bd]"><i class="fas fa-bars text-2xl"></i></button>
+                <h2 class="text-2xl font-bold text-gray-800 oswald uppercase tracking-wide">Registro de Mercancía</h2>
+            </div>
+            <div class="flex items-center gap-6 text-gray-500 bg-gray-50 px-4 py-2 rounded-lg border border-gray-100">
+                <i class="far fa-calendar-alt text-[#0866bd]"></i>
+                <span id="fecha-actual" class="hidden sm:block text-sm font-bold text-gray-600 uppercase tracking-wide"></span>
+            </div>
+        </header>
+
+        <!-- FORMULARIO SCROLL -->
+        <div class="flex-1 overflow-y-auto p-4 md:p-8 lg:p-10">
+            
+            <!-- TARJETAS DE ESTADO -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 max-w-6xl mx-auto">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex items-center justify-between">
+                    <div>
+                        <p class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-1">Formato</p>
+                        <h3 class="text-lg font-bold text-gray-800">Auto-Generado <i class="fas fa-magic text-green-500 text-sm ml-1"></i></h3>
+                    </div>
+                    <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-[#0866bd] text-xl shadow-sm"><i class="fas fa-code"></i></div>
+                </div>
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex items-center justify-between">
+                    <div>
+                        <p class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-1">Conexión</p>
+                        <h3 class="text-lg font-bold text-gray-800">Firebase Activo <i class="fas fa-check-circle text-green-500 text-sm ml-1"></i></h3>
+                    </div>
+                    <div class="w-12 h-12 bg-yellow-50 rounded-xl flex items-center justify-center text-yellow-600 text-xl shadow-sm"><i class="fas fa-database"></i></div>
+                </div>
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex items-center justify-between">
+                    <div>
+                        <p class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-1">Acción</p>
+                        <h3 class="text-lg font-bold text-gray-800">Nuevo Ingreso</h3>
+                    </div>
+                    <div class="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-gray-600 text-xl shadow-sm"><i class="fas fa-edit"></i></div>
+                </div>
+            </div>
+
+            <!-- INICIO DEL FORMULARIO -->
+            <form id="form-producto" class="max-w-6xl mx-auto pb-12">
+                
+                <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+                    
+                    <!-- COLUMNA IZQUIERDA (Textos) -->
+                    <div class="xl:col-span-2 space-y-8">
+                        
+                        <!-- SECCIÓN 1: DATOS PRINCIPALES -->
+                        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+                            <div class="px-8 py-5 border-b border-gray-100 flex items-center bg-gray-50/50">
+                                <div class="w-8 h-8 rounded bg-blue-100 text-[#0866bd] flex items-center justify-center mr-3 font-bold">1</div>
+                                <h3 class="font-bold text-gray-800 uppercase tracking-widest text-sm">Datos Principales</h3>
+                            </div>
+                            <div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="md:col-span-2">
+                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Nombre completo de la Pieza *</label>
+                                    <input type="text" id="nombre" required placeholder="Ej. Batería Gel YTX7L-BS" class="w-full px-5 py-3 bg-gray-50 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#0866bd] focus:bg-white transition-all outline-none font-medium text-gray-800 shadow-inner">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Categoría en Tienda *</label>
+                                    <div class="relative">
+                                        <select id="categoria" required class="w-full px-5 py-3 bg-gray-50 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#0866bd] focus:bg-white transition-all outline-none appearance-none font-bold text-gray-700 shadow-inner cursor-pointer">
+                                            <option value="" disabled selected>Seleccione donde guardarlo...</option>
+                                            <option value="afinacion">🛠️ Afinación</option>
+                                            <option value="suspension">⚙️ Suspensión</option>
+                                            <option value="llantas">🎯 Llantas y Cámaras</option>
+                                            <option value="sub-freno">🛑 Refacciones - Frenos</option>
+                                            <option value="sub-electrico">⚡ Refacciones - Eléctrico</option>
+                                            <option value="sub-chicote">🛤️ Refacciones - Chicotes</option>
+                                            <option value="accesorios">🪖 Accesorios y Cascos</option>
+                                        </select>
+                                        <i class="fas fa-chevron-down absolute right-5 top-4 text-gray-400 pointer-events-none"></i>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Precio ($) *</label>
+                                        <div class="relative">
+                                            <span class="absolute left-4 top-3.5 text-gray-500 font-bold">$</span>
+                                            <input type="number" id="precio" required placeholder="0.00" class="w-full pl-8 pr-4 py-3 bg-gray-50 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all outline-none font-bold text-red-600 text-lg shadow-inner">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Stock Inicial *</label>
+                                        <input type="number" id="stock" required value="10" min="0" class="w-full px-5 py-3 bg-gray-50 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#0866bd] transition-all outline-none font-bold text-gray-800 text-lg text-center shadow-inner">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECCIÓN 2: FICHA TÉCNICA (Auto-Formato) -->
+                        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+                            <div class="px-8 py-5 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 rounded bg-yellow-100 text-yellow-600 flex items-center justify-center mr-3 font-bold">2</div>
+                                    <h3 class="font-bold text-gray-800 uppercase tracking-widest text-sm">Ficha Técnica</h3>
+                                </div>
+                                <span class="text-[10px] text-blue-800 bg-blue-100 px-3 py-1 rounded-full font-bold uppercase tracking-widest border border-blue-200"><i class="fas fa-robot mr-1"></i> Formato Automático</span>
+                            </div>
+                            
+                            <div class="p-8 space-y-6">
+                                <div class="bg-blue-50/50 p-4 rounded-xl border border-blue-100 mb-2">
+                                    <p class="text-sm text-blue-800 font-medium"><i class="fas fa-info-circle mr-2"></i> <b>Tip:</b> Escribe normal (dando "Enter" para bajar de renglón). El sistema creará los puntos y las tablas grises por ti antes de enviarlo.</p>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">Puntos Destacados (Viñetas)</label>
+                                    <textarea id="especificaciones" rows="4" placeholder="Marca Original Italika&#10;Incluye tornillería&#10;Larga durabilidad" class="w-full px-5 py-4 bg-[#f8fafc] border border-gray-300 shadow-inner rounded-xl focus:ring-2 focus:ring-[#0866bd] transition-all outline-none font-mono text-sm text-gray-700 leading-relaxed placeholder-gray-400"></textarea>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2 flex justify-between">
+                                        <span>Compatibilidad de Motos</span>
+                                        <span class="text-gray-400 font-normal lowercase tracking-normal">Formato: Moto - Año</span>
+                                    </label>
+                                    <textarea id="compatibilidad" rows="4" placeholder="DM 200 - 2014 a 2026&#10;DM 250 - 2020 a 2024" class="w-full px-5 py-4 bg-[#f8fafc] border border-gray-300 shadow-inner rounded-xl focus:ring-2 focus:ring-[#0866bd] transition-all outline-none font-mono text-sm text-gray-700 leading-relaxed placeholder-gray-400"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- COLUMNA DERECHA (Foto y Acción) -->
+                    <div class="space-y-8">
+                        
+                        <!-- SECCIÓN 3: IMAGEN -->
+                        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden h-fit">
+                            <div class="px-8 py-5 border-b border-gray-100 flex items-center bg-gray-50/50">
+                                <div class="w-8 h-8 rounded bg-purple-100 text-purple-600 flex items-center justify-center mr-3 font-bold">3</div>
+                                <h3 class="font-bold text-gray-800 uppercase tracking-widest text-sm">Fotografía</h3>
+                            </div>
+                            <div class="p-6">
+                                <!-- Área interactiva de Drag & Drop -->
+                                <div id="drop-zone" class="border-2 border-dashed border-gray-300 bg-gray-50 rounded-2xl p-8 text-center hover:bg-blue-50 hover:border-[#0866bd] transition-all duration-300 cursor-pointer relative group flex flex-col items-center justify-center min-h-[220px]">
+                                    <input type="file" id="foto" accept="image/*" required class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+                                    
+                                    <!-- Vista previa (Oculta al inicio) -->
+                                    <div id="preview-container" class="hidden flex-col items-center justify-center w-full h-full">
+                                        <div class="w-32 h-32 bg-white rounded-xl shadow-sm border border-gray-100 p-2 mb-3 relative">
+                                            <img id="image-preview" class="w-full h-full object-contain rounded-lg">
+                                            <div class="absolute -top-2 -right-2 bg-green-500 text-white rounded-full w-6 h-6 flex items-center justify-center shadow-md border-2 border-white">
+                                                <i class="fas fa-check text-xs"></i>
+                                            </div>
+                                        </div>
+                                        <span class="text-green-600 text-sm font-bold tracking-wide">Imagen capturada</span>
+                                        <p class="text-[11px] text-gray-400 mt-2 hover:text-[#0866bd] underline relative z-20">Haz clic para cambiar foto</p>
+                                    </div>
+                                    
+                                    <!-- Texto inicial de subida -->
+                                    <div id="upload-text" class="group-hover:scale-110 transition-transform duration-300 pointer-events-none">
+                                        <div class="w-20 h-20 bg-white rounded-full shadow-sm flex items-center justify-center mx-auto mb-4 text-[#0866bd]">
+                                            <i class="fas fa-cloud-upload-alt text-3xl"></i>
+                                        </div>
+                                        <p class="text-sm font-bold text-gray-700">Arrastra o selecciona la foto</p>
+                                        <p class="text-xs text-gray-400 mt-2 px-4">Archivos JPG o PNG. El sistema la optimizará automáticamente.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECCIÓN 4: GUARDAR -->
+                        <div class="bg-white rounded-2xl shadow-lg border-2 border-[#0866bd] p-6 text-center relative overflow-hidden">
+                            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 via-yellow-400 to-red-400"></div>
+                            
+                            <h4 class="text-sm font-bold text-gray-500 uppercase tracking-widest mb-4">Paso Final</h4>
+                            
+                            <button type="submit" id="btn-submit" class="w-full bg-gradient-to-r from-[#0866bd] to-[#1e3a8a] hover:from-blue-700 hover:to-blue-900 text-white font-bold py-5 rounded-xl shadow-[0_10px_20px_rgba(8,102,189,0.3)] uppercase tracking-[0.2em] transition-all transform hover:-translate-y-1 active:scale-95 flex items-center justify-center text-sm relative overflow-hidden group">
+                                <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-white rounded-full group-hover:w-56 group-hover:h-56 opacity-10"></span>
+                                <i class="fas fa-database mr-3 text-xl relative z-10"></i> <span class="relative z-10">Guardar Producto</span>
+                            </button>
+                            
+                            <!-- Animación de Carga -->
+                            <div id="loading-state" class="hidden flex-col items-center justify-center py-4">
+                                <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-100 h-12 w-12 mb-4 mx-auto"></div>
+                                <p class="text-[#0866bd] font-bold text-sm tracking-wide uppercase">Sincronizando...</p>
+                                <p class="text-xs text-gray-500 mt-2 font-mono">Enviando datos a Google Firebase</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- BURBUJA DE ÉXITO -->
+    <div id="toast" class="fixed -bottom-24 right-8 bg-[#111827] text-white px-6 py-5 rounded-2xl shadow-2xl flex items-center gap-5 z-50 opacity-0 transform translate-y-10 border-l-[6px] border-green-500 pointer-events-none">
+        <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white shadow-lg">
+            <i class="fas fa-check text-xl"></i>
+        </div>
+        <div>
+            <h4 class="font-bold text-base uppercase tracking-wider text-green-400">¡Producto Guardado!</h4>
+            <p class="text-sm text-gray-300 mt-1">El catálogo web se ha actualizado.</p>
+        </div>
+    </div>
+
+    <!-- SCRIPT DE FUNCIONAMIENTO (Todo tu código original + Mejoras de UI) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        // 🚨 NO OLVIDES PEGAR TUS LLAVES AQUÍ ANTES DE USARLO 🚨
+       const firebaseConfig = {
+  apiKey: "AIzaSyCUq8O81sV7L9OqOzx9YBNogcHKiyi4RO0",
+  authDomain: "moto-partes-el-jefe.firebaseapp.com",
+  projectId: "moto-partes-el-jefe",
+  storageBucket: "moto-partes-el-jefe.firebasestorage.app",
+  messagingSenderId: "660825298848",
+  appId: "1:660825298848:web:c8bc799ab7d77985be76c5"
+};
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // --- LÓGICA DEL LOGIN (PIN: 1234) ---
+        document.getElementById('form-login').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const pinVal = document.getElementById('admin-pin').value;
+            
+            if(pinVal === "2609") {
+                const overlay = document.getElementById('login-overlay');
+                overlay.classList.add('opacity-0'); 
+                setTimeout(() => { overlay.style.display = 'none'; }, 500);
+            } else {
+                document.getElementById('login-error').classList.remove('hidden');
+                document.getElementById('admin-pin').value = ''; 
+                setTimeout(() => { document.getElementById('login-error').classList.add('hidden'); }, 3000);
+            }
+        });
+
+        // Fecha actual en encabezado
+        const opcionesFecha = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('fecha-actual').innerText = new Date().toLocaleDateString('es-MX', opcionesFecha);
+
+        // --- FORMATEADORES MÁGICOS ---
+        function formatearEspecificaciones(textoPlano) {
+            if (!textoPlano.trim()) return "";
+            const lineas = textoPlano.split('\n').map(l => l.trim()).filter(l => l !== "");
+            if (lineas.length === 0) return "";
+            let html = "<ul>";
+            lineas.forEach(linea => { html += `<li>${linea}</li>`; });
+            html += "</ul>";
+            return html;
+        }
+
+        function formatearCompatibilidad(textoPlano) {
+            if (!textoPlano.trim()) return "";
+            const lineas = textoPlano.split('\n').map(l => l.trim()).filter(l => l !== "");
+            if (lineas.length === 0) return "";
+            let html = "";
+            lineas.forEach(linea => {
+                let partes = linea.split('-');
+                if(partes.length >= 2) {
+                    const moto = partes[0].trim();
+                    const anio = partes.slice(1).join('-').trim(); 
+                    html += `<tr><td>${moto}</td><td>${anio}</td></tr>`;
+                } else {
+                    html += `<tr><td colspan="2">${linea}</td></tr>`;
+                }
+            });
+            return html;
+        }
+
+        // --- LÓGICA DE FOTO (DRAG & DROP Y BASE64) ---
+        let imagenBase64Lista = "";
+        const fileInput = document.getElementById('foto');
+        const dropZone = document.getElementById('drop-zone');
+        const uploadText = document.getElementById('upload-text');
+        const previewContainer = document.getElementById('preview-container');
+        const imagePreview = document.getElementById('image-preview');
+
+        // Efectos visuales al arrastrar
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('border-[#0866bd]', 'bg-blue-50', 'scale-[1.02]');
+        });
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('border-[#0866bd]', 'bg-blue-50', 'scale-[1.02]');
+        });
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('border-[#0866bd]', 'bg-blue-50', 'scale-[1.02]');
+            if (e.dataTransfer.files.length) {
+                fileInput.files = e.dataTransfer.files;
+                procesarImagen(fileInput.files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', function(event) {
+            if (event.target.files[0]) procesarImagen(event.target.files[0]);
+        });
+
+        function procesarImagen(file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const MAX_WIDTH = 800;
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > MAX_WIDTH) {
+                        height *= MAX_WIDTH / width;
+                        width = MAX_WIDTH;
+                    }
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    const dataUrl = canvas.toDataURL('image/jpeg', 0.6);
+                    const base64Puro = dataUrl.split(',')[1]; 
+                    imagenBase64Lista = "base64," + base64Puro;
+
+                    // Mostrar preview
+                    imagePreview.src = dataUrl;
+                    uploadText.classList.add('hidden');
+                    previewContainer.classList.remove('hidden');
+                    previewContainer.classList.add('flex');
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // --- ENVIAR A FIREBASE ---
+        document.getElementById('form-producto').addEventListener('submit', async function(e) {
+            e.preventDefault(); 
+
+            if (!imagenBase64Lista) {
+                alert("⚠️ ¡Alto ahí! Te faltó seleccionar la foto del producto.");
+                return;
+            }
+
+            const btnSubmit = document.getElementById('btn-submit');
+            const loadingState = document.getElementById('loading-state');
+            btnSubmit.classList.add('hidden');
+            loadingState.classList.remove('hidden');
+            loadingState.classList.add('flex');
+
+            const specsPuras = document.getElementById('especificaciones').value;
+            const compatPuras = document.getElementById('compatibilidad').value;
+
+            const payload = {
+                Categoria: document.getElementById('categoria').value,
+                Nombre: document.getElementById('nombre').value,
+                Precio: document.getElementById('precio').value,
+                ImagenURL: imagenBase64Lista,
+                Especificaciones: formatearEspecificaciones(specsPuras),
+                Compatibilidad: formatearCompatibilidad(compatPuras),
+                Stock: document.getElementById('stock').value,
+                FechaRegistro: new Date().toISOString()
+            };
+
+            try {
+                // Guardado directo en Firestore
+                const docRef = await addDoc(collection(db, "productos"), payload);
+                console.log("Éxito. ID: ", docRef.id);
+                mostrarExitoYResetear();
+            } catch (error) {
+                console.error("Error Firebase: ", error);
+                alert("❌ Ocurrió un error al guardar. Revisa tu conexión o las llaves de Firebase.");
+            } finally {
+                btnSubmit.classList.remove('hidden');
+                loadingState.classList.add('hidden');
+                loadingState.classList.remove('flex');
+            }
+        });
+
+        function mostrarExitoYResetear() {
+            // Mostrar Burbuja Verde (Toast)
+            const toast = document.getElementById('toast');
+            toast.classList.add('toast-show');
+            setTimeout(() => { toast.classList.remove('toast-show'); }, 4000);
+
+            // Reiniciar Formulario
+            document.getElementById('form-producto').reset();
+            imagenBase64Lista = "";
+            
+            // Regresar el cuadro de imagen a su estado original
+            uploadText.classList.remove('hidden');
+            previewContainer.classList.add('hidden');
+            previewContainer.classList.remove('flex');
+            imagePreview.src = "";
+            
+            // Hacer scroll suave hacia arriba
+            document.querySelector('.overflow-y-auto').scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
