@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moto Partes El Jefe | Catálogo Digital Premium</title>
+    <title>Moto Partes El Jefe | Catálogo Digital</title>
     <link rel="icon" href="logo.ico">
     
     <!-- Tailwind CSS -->
@@ -41,21 +41,21 @@
            BARRAS DE DESPLAZAMIENTO (SCROLLBARS)
            ========================================= */
         ::-webkit-scrollbar { width: 10px; height: 10px; }
-        ::-webkit-scrollbar-track { background: var(--bg-crema); }
-        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 10px; border: 2px solid var(--bg-crema); }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--azul-brand); }
         
         /* =========================================
            ANIMACIONES GLOBALES
            ========================================= */
-        .fade-in { animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+        .fade-in { animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
         @keyframes fadeIn { 
             from { opacity: 0; transform: translateY(20px); } 
             to { opacity: 1; transform: translateY(0); } 
         }
 
         /* Animación de Revelado en Scroll (Staggered) */
-        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .reveal.active { opacity: 1; transform: translateY(0); }
         
         /* Animación Latido Suave */
@@ -98,12 +98,12 @@
             color: #64748b; 
             font-weight: 700; 
             text-transform: uppercase; 
-            padding: 16px 24px; 
+            padding: 16px 20px; 
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
             cursor: pointer; 
             font-family: 'Oswald', sans-serif; 
             letter-spacing: 1px; 
-            font-size: 1.1rem; 
+            font-size: 1rem; 
         }
         .nav-btn:hover { color: var(--azul-brand); background-color: rgba(8, 102, 189, 0.05); transform: translateY(-2px); }
         .nav-btn.active { color: var(--azul-brand); }
@@ -273,7 +273,7 @@
             overflow: hidden;
             border: none;
             z-index: 1;
-            border-radius: 0; /* Rectangular Perfecto */
+            border-radius: 0; 
         }
         .btn-agregar:hover {
             background-position: right center;
@@ -344,7 +344,7 @@
             position: fixed; bottom: 110px; right: 30px; 
             width: 380px; max-width: 90vw; height: 550px; max-height: 75vh; 
             background: white; border-radius: 1.5rem; 
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.3); 
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); 
             z-index: 101; overflow: hidden; border: 1px solid #e2e8f0; 
             animation: modalFadeIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
@@ -382,9 +382,7 @@
 </head>
 <body class="relative">
 
-    <!-- ========================================================================= -->
-    <!-- NOTIFICACIONES GLOBALES (TOAST)                                           -->
-    <!-- ========================================================================= -->
+    <!-- TOAST DE NOTIFICACIONES GLOBALES -->
     <div id="toast" class="fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-slate-900/95 backdrop-blur-md text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-4 z-[9999] transition-all duration-500 opacity-0 translate-y-10 pointer-events-none border border-slate-700 min-w-[300px]">
         <div id="toast-icon" class="text-green-400 text-2xl"><i class="fas fa-check-circle"></i></div>
         <div class="flex-1">
@@ -431,6 +429,7 @@
                     <i class="fas fa-search-location text-xl"></i>
                 </button>
             </div>
+            
             <!-- Botones Derechos (PC) -->
             <div class="flex items-center gap-4 w-full md:w-auto justify-end">
                 <button onclick="window.abrirModal('rastreo-modal')" class="hidden md:flex items-center bg-blue-900/40 hover:bg-blue-800 text-white py-3.5 px-6 rounded-full shadow-inner border border-blue-400/30 transition-all font-bold uppercase tracking-widest text-xs backdrop-blur-sm hover:shadow-lg active:scale-95">
@@ -452,17 +451,20 @@
     </header>
     
     <!-- ========================================================================= -->
-    <!-- CONTENEDOR STICKY UNIFICADO (Navegación + Buscador)                       -->
+    <!-- CONTENEDOR STICKY UNIFICADO (Las 8 Categorías + Buscador)                 -->
     <!-- ========================================================================= -->
     <div class="sticky top-0 z-50 flex flex-col shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)] transition-all duration-300 w-full">
         
         <!-- BARRA NAVEGACIÓN BLANCA (GLASS) -->
         <nav class="category-nav w-full">
             <div class="max-w-7xl mx-auto px-4 flex justify-start md:justify-center overflow-x-auto no-scrollbar py-1">
-                <button onclick="window.switchTab('afinacion')" id="btn-afinacion" class="nav-btn active whitespace-nowrap flex-shrink-0"><i class="fas fa-oil-can mr-2 text-gray-400 group-hover:text-[var(--azul-brand)] transition-colors"></i> Afinación</button>
-                <button onclick="window.switchTab('suspension')" id="btn-suspension" class="nav-btn whitespace-nowrap flex-shrink-0"><i class="fas fa-cogs mr-2 text-gray-400 group-hover:text-[var(--azul-brand)] transition-colors"></i> Suspensión</button>        
+                <button onclick="window.switchTab('mantenimiento')" id="btn-mantenimiento" class="nav-btn active whitespace-nowrap flex-shrink-0"><i class="fas fa-wrench mr-2 text-gray-400 group-hover:text-[var(--azul-brand)] transition-colors"></i> Mantenimiento</button>
+                <button onclick="window.switchTab('kits')" id="btn-kits" class="nav-btn whitespace-nowrap flex-shrink-0"><i class="fas fa-toolbox mr-2 text-gray-400 group-hover:text-[var(--azul-brand)] transition-colors"></i> Kits</button>
+                <button onclick="window.switchTab('motor')" id="btn-motor" class="nav-btn whitespace-nowrap flex-shrink-0"><i class="fas fa-cogs mr-2 text-gray-400 group-hover:text-[var(--azul-brand)] transition-colors"></i> Motor</button>        
+                <button onclick="window.switchTab('transmision')" id="btn-transmision" class="nav-btn whitespace-nowrap flex-shrink-0"><i class="fas fa-link mr-2 text-gray-400 group-hover:text-[var(--azul-brand)] transition-colors"></i> Transmisión</button>
+                <button onclick="window.switchTab('suspension')" id="btn-suspension" class="nav-btn whitespace-nowrap flex-shrink-0"><i class="fas fa-motorcycle mr-2 text-gray-400 group-hover:text-[var(--azul-brand)] transition-colors"></i> Suspensión</button>
+                <button onclick="window.switchTab('electrico')" id="btn-electrico" class="nav-btn whitespace-nowrap flex-shrink-0"><i class="fas fa-bolt mr-2 text-gray-400 group-hover:text-[var(--azul-brand)] transition-colors"></i> Eléctrico</button>
                 <button onclick="window.switchTab('llantas')" id="btn-llantas" class="nav-btn whitespace-nowrap flex-shrink-0"><i class="fas fa-bullseye mr-2 text-gray-400 group-hover:text-[var(--azul-brand)] transition-colors"></i> Llantas</button>
-                <button onclick="window.switchTab('refacciones')" id="btn-refacciones" class="nav-btn whitespace-nowrap flex-shrink-0"><i class="fas fa-wrench mr-2 text-gray-400 group-hover:text-[var(--azul-brand)] transition-colors"></i> Refacciones</button>
                 <button onclick="window.switchTab('accesorios')" id="btn-accesorios" class="nav-btn whitespace-nowrap flex-shrink-0"><i class="fas fa-helmet-safety mr-2 text-gray-400 group-hover:text-[var(--azul-brand)] transition-colors"></i> Accesorios</button>
             </div>
         </nav>
@@ -470,7 +472,7 @@
         <!-- BUSCADOR INTELIGENTE MINIMALISTA Y DINÁMICO -->
         <div class="bg-[var(--azul-brand)] py-2.5 px-4 w-full border-b-[4px] border-[var(--amarillo-btn)] relative z-20 shadow-md">
             <div class="max-w-lg mx-auto relative flex items-center bg-white rounded-full shadow-inner focus-within:ring-4 focus-within:ring-[#facc15]/40 transition-all p-1 hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]">
-                <input type="text" id="globalSearch" onkeyup="if(event.key === 'Enter') window.triggerSmartSearch(); else window.searchProducts();" placeholder="Busca aquí..." class="w-full py-2.5 px-5 bg-transparent border-none focus:outline-none text-gray-700 placeholder-gray-400 font-medium text-sm md:text-base">
+                <input type="text" id="globalSearch" onkeyup="if(event.key === 'Enter') window.triggerSmartSearch(); else window.searchProducts();" placeholder="Busca aquí por nombre, modelo o marca..." class="w-full py-2.5 px-5 bg-transparent border-none focus:outline-none text-gray-700 placeholder-gray-400 font-medium text-sm md:text-base">
                 <button id="btn-ia-search" onclick="window.triggerSmartSearch()" class="bg-[var(--azul-brand)] text-white w-10 h-10 md:w-11 md:h-11 rounded-full flex items-center justify-center hover:bg-blue-800 transition-all hover:scale-105 active:scale-95 shadow-md shrink-0 border border-blue-400/30" title="Búsqueda Inteligente">
                     <i class="fas fa-search text-sm md:text-base"></i>
                 </button>
@@ -492,66 +494,52 @@
     </div>
     
     <!-- ========================================================================= -->
-    <!-- CATÁLOGO DE PRODUCTOS (GRID DINÁMICO)                                     -->
+    <!-- CATÁLOGO DE PRODUCTOS (LAS 8 NUEVAS CATEGORÍAS)                           -->
     <!-- ========================================================================= -->
     <main class="max-w-7xl mx-auto px-4 min-h-[600px] py-16 md:py-24 relative">
         
-        <section id="afinacion" class="product-section">
-            <div class="flex items-center mb-12 border-b-2 border-gray-200 pb-4 reveal"><div class="h-10 w-2 bg-[var(--rojo-accent)] mr-4 rounded-full shadow-[0_0_10px_rgba(220,38,38,0.5)]"></div><h2 class="text-3xl md:text-4xl font-bold text-[var(--azul-brand)] oswald uppercase tracking-tight">Kits de Afinación</h2></div>
-            <div id="grid-afinacion" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
+        <section id="mantenimiento" class="product-section">
+            <div class="flex items-center mb-12 border-b-2 border-gray-200 pb-4 reveal"><div class="h-10 w-2 bg-[var(--rojo-accent)] mr-4 rounded-full shadow-[0_0_10px_rgba(220,38,38,0.5)]"></div><h2 class="text-3xl md:text-4xl font-bold text-[var(--azul-brand)] oswald uppercase tracking-tight">Mantenimiento y Consumibles</h2></div>
+            <div id="grid-mantenimiento" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
                 <!-- Skeletons Loader iniciales -->
                 <div class="bg-white rounded-3xl p-5 shadow-sm border border-gray-100"><div class="w-full aspect-square skeleton rounded-2xl mb-4"></div><div class="h-4 skeleton rounded w-3/4 mb-2"></div><div class="h-8 skeleton rounded w-full mt-4"></div></div>
                 <div class="bg-white rounded-3xl p-5 shadow-sm border border-gray-100"><div class="w-full aspect-square skeleton rounded-2xl mb-4"></div><div class="h-4 skeleton rounded w-3/4 mb-2"></div><div class="h-8 skeleton rounded w-full mt-4"></div></div>
             </div>
         </section>
 
-        <section id="suspension" class="product-section hidden-section">
-            <div class="flex items-center mb-12 border-b-2 border-gray-200 pb-4 reveal"><div class="h-10 w-2 bg-[var(--amarillo-btn)] mr-4 rounded-full shadow-[0_0_10px_rgba(234,179,8,0.5)]"></div><h2 class="text-3xl md:text-4xl font-bold text-[var(--azul-brand)] oswald uppercase tracking-tight">Suspensión y Sprocket</h2></div>
+        <!-- Nueva categoría Kits Especiales -->
+        <section id="kits" class="product-section hidden-section fade-in">
+            <div class="flex items-center mb-12 border-b-2 border-gray-200 pb-4 reveal"><div class="h-10 w-2 bg-orange-500 mr-4 rounded-full shadow-[0_0_10px_rgba(249,115,22,0.5)]"></div><h2 class="text-3xl md:text-4xl font-bold text-[var(--azul-brand)] oswald uppercase tracking-tight">Kits Especiales</h2></div>
+            <div id="grid-kits" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8"></div>
+        </section>
+
+        <section id="motor" class="product-section hidden-section fade-in">
+            <div class="flex items-center mb-12 border-b-2 border-gray-200 pb-4 reveal"><div class="h-10 w-2 bg-gray-800 mr-4 rounded-full shadow-[0_0_10px_rgba(0,0,0,0.5)]"></div><h2 class="text-3xl md:text-4xl font-bold text-[var(--azul-brand)] oswald uppercase tracking-tight">Motor y Enfriamiento</h2></div>
+            <div id="grid-motor" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8"></div>
+        </section>
+
+        <section id="transmision" class="product-section hidden-section fade-in">
+            <div class="flex items-center mb-12 border-b-2 border-gray-200 pb-4 reveal"><div class="h-10 w-2 bg-purple-600 mr-4 rounded-full shadow-[0_0_10px_rgba(147,51,234,0.5)]"></div><h2 class="text-3xl md:text-4xl font-bold text-[var(--azul-brand)] oswald uppercase tracking-tight">Transmisión</h2></div>
+            <div id="grid-transmision" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8"></div>
+        </section>
+
+        <section id="suspension" class="product-section hidden-section fade-in">
+            <div class="flex items-center mb-12 border-b-2 border-gray-200 pb-4 reveal"><div class="h-10 w-2 bg-[var(--amarillo-btn)] mr-4 rounded-full shadow-[0_0_10px_rgba(234,179,8,0.5)]"></div><h2 class="text-3xl md:text-4xl font-bold text-[var(--azul-brand)] oswald uppercase tracking-tight">Suspensión y Dirección</h2></div>
             <div id="grid-suspension" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8"></div>
         </section>
 
-        <section id="llantas" class="product-section hidden-section">
+        <section id="electrico" class="product-section hidden-section fade-in">
+            <div class="flex items-center mb-12 border-b-2 border-gray-200 pb-4 reveal"><div class="h-10 w-2 bg-blue-400 mr-4 rounded-full shadow-[0_0_10px_rgba(96,165,250,0.5)]"></div><h2 class="text-3xl md:text-4xl font-bold text-[var(--azul-brand)] oswald uppercase tracking-tight">Sistema Eléctrico y Embalaje</h2></div>
+            <div id="grid-electrico" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8"></div>
+        </section>
+
+        <section id="llantas" class="product-section hidden-section fade-in">
             <div class="flex items-center mb-12 border-b-2 border-gray-200 pb-4 reveal"><div class="h-10 w-2 bg-slate-800 mr-4 rounded-full shadow-[0_0_10px_rgba(30,41,59,0.5)]"></div><h2 class="text-3xl md:text-4xl font-bold text-[var(--azul-brand)] oswald uppercase tracking-tight">Llantas y Cámaras</h2></div>
             <div id="grid-llantas" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8"></div>
         </section>
 
-        <!-- Refacciones (Subcategorías) -->
-        <section id="refacciones" class="product-section hidden-section">
-            <div class="border-b-2 border-gray-200 pb-6 mb-10 reveal">
-                <div class="flex items-center mb-6"><div class="h-10 w-2 bg-[var(--azul-brand)] mr-4 rounded-full shadow-[0_0_10px_rgba(8,102,189,0.5)]"></div><h2 class="text-3xl md:text-4xl font-bold text-[var(--azul-brand)] oswald uppercase tracking-tight">Refacciones Generales</h2></div>
-                <button onclick="window.showRefaccionesHome()" id="btn-back-ref" class="hidden text-sm font-bold text-gray-500 hover:text-[var(--azul-brand)] mb-6 bg-white px-5 py-3 rounded-xl shadow-sm border border-gray-200 transition-all hover:shadow-md active:scale-95"><i class="fas fa-arrow-left mr-2"></i> Volver a categorías</button>
-                <div class="flex gap-4 overflow-x-auto pb-4 no-scrollbar">
-                    <button onclick="window.filterRefacciones('sub-freno')" id="btn-sub-freno" class="sub-nav-btn px-6 py-3.5 bg-white border border-gray-200 text-gray-700 rounded-xl font-bold text-sm uppercase transition-all shadow-sm hover:shadow-md hover:border-red-200 hover:bg-red-50 whitespace-nowrap active:scale-95"><i class="fas fa-circle mr-2 text-[var(--rojo-accent)] text-[10px] mb-0.5 shadow-sm"></i> Frenos</button>
-                    <button onclick="window.filterRefacciones('sub-electrico')" id="btn-sub-electrico" class="sub-nav-btn px-6 py-3.5 bg-white border border-gray-200 text-gray-700 rounded-xl font-bold text-sm uppercase transition-all shadow-sm hover:shadow-md hover:border-yellow-200 hover:bg-yellow-50 whitespace-nowrap active:scale-95"><i class="fas fa-circle mr-2 text-[var(--amarillo-btn)] text-[10px] mb-0.5 shadow-sm"></i> Eléctrico</button>
-                    <button onclick="window.filterRefacciones('sub-chicote')" id="btn-sub-chicote" class="sub-nav-btn px-6 py-3.5 bg-white border border-gray-200 text-gray-700 rounded-xl font-bold text-sm uppercase transition-all shadow-sm hover:shadow-md hover:border-gray-300 hover:bg-gray-100 whitespace-nowrap active:scale-95"><i class="fas fa-circle mr-2 text-gray-400 text-[10px] mb-0.5 shadow-sm"></i> Chicotes</button>
-                </div>
-            </div>
-            
-            <div id="refacciones-home" class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div onclick="window.filterRefacciones('sub-freno')" class="cursor-pointer bg-white border border-gray-100 rounded-[2rem] p-8 shadow-sm hover:shadow-2xl transition-all flex items-center gap-6 group transform hover:-translate-y-2 reveal">
-                    <div class="bg-red-50 p-5 rounded-2xl text-[var(--rojo-accent)] group-hover:bg-[var(--rojo-accent)] group-hover:text-white transition-colors border border-red-100 shadow-inner"><i class="fas fa-hand-paper text-4xl"></i></div>
-                    <div><h3 class="font-black text-2xl text-gray-800 mb-1">Frenos</h3><p class="text-sm text-gray-500 font-medium">Balatas, Discos, Zapatas</p></div>
-                    <i class="fas fa-chevron-right ml-auto text-gray-300 group-hover:text-[var(--rojo-accent)] text-xl transition-colors"></i>
-                </div>
-                <div onclick="window.filterRefacciones('sub-electrico')" class="cursor-pointer bg-white border border-gray-100 rounded-[2rem] p-8 shadow-sm hover:shadow-2xl transition-all flex items-center gap-6 group transform hover:-translate-y-2 reveal" style="transition-delay: 100ms;">
-                    <div class="bg-yellow-50 p-5 rounded-2xl text-yellow-600 group-hover:bg-yellow-500 group-hover:text-white transition-colors border border-yellow-100 shadow-inner"><i class="fas fa-bolt text-4xl"></i></div>
-                    <div><h3 class="font-black text-2xl text-gray-800 mb-1">Eléctrico</h3><p class="text-sm text-gray-500 font-medium">Baterías, Focos, CDI</p></div>
-                    <i class="fas fa-chevron-right ml-auto text-gray-300 group-hover:text-yellow-500 text-xl transition-colors"></i>
-                </div>
-                <div onclick="window.filterRefacciones('sub-chicote')" class="cursor-pointer bg-white border border-gray-100 rounded-[2rem] p-8 shadow-sm hover:shadow-2xl transition-all flex items-center gap-6 group transform hover:-translate-y-2 reveal" style="transition-delay: 200ms;">
-                    <div class="bg-gray-100 p-5 rounded-2xl text-gray-600 group-hover:bg-gray-700 group-hover:text-white transition-colors border border-gray-200 shadow-inner"><i class="fas fa-route text-4xl"></i></div>
-                    <div><h3 class="font-black text-2xl text-gray-800 mb-1">Chicotes</h3><p class="text-sm text-gray-500 font-medium">Clutch, Acelerador, Freno</p></div>
-                    <i class="fas fa-chevron-right ml-auto text-gray-300 group-hover:text-gray-700 text-xl transition-colors"></i>
-                </div>
-            </div>
-            
-            <div id="sub-freno" class="sub-category-grid hidden grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8 w-full mt-6"></div>
-            <div id="sub-electrico" class="sub-category-grid hidden grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8 w-full mt-6"></div>
-            <div id="sub-chicote" class="sub-category-grid hidden grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8 w-full mt-6"></div>
-        </section>
-
         <section id="accesorios" class="product-section hidden-section fade-in">
-            <div class="flex items-center mb-10 border-b-2 border-gray-200 pb-4 reveal"><div class="h-10 w-2 bg-purple-600 mr-4 rounded-full shadow-[0_0_10px_rgba(147,51,234,0.5)]"></div><h2 class="text-3xl md:text-4xl font-bold text-gray-800 oswald uppercase tracking-tight">Accesorios</h2></div>
+            <div class="flex items-center mb-12 border-b-2 border-gray-200 pb-4 reveal"><div class="h-10 w-2 bg-green-500 mr-4 rounded-full shadow-[0_0_10px_rgba(34,197,94,0.5)]"></div><h2 class="text-3xl md:text-4xl font-bold text-gray-800 oswald uppercase tracking-tight">Accesorios y Equipo</h2></div>
             <div id="grid-accesorios" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8"></div>
         </section>
 
@@ -560,7 +548,7 @@
     </main>
 
     <!-- ========================================================================= -->
-    <!-- FOOTER AZUL BRAND (CON MAPA DINÁMICO)                                     -->
+    <!-- FOOTER AZUL BRAND CON MAPA DINÁMICO                                       -->
     <!-- ========================================================================= -->
     <footer class="bg-[var(--azul-brand)] text-white pt-16 pb-8 border-t-4 border-[var(--amarillo-btn)] relative mt-10">
         <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
@@ -616,7 +604,7 @@
     
     <div id="chat-window">
         <div class="chat-header">
-            <span class="font-bold tracking-wide flex items-center"><i class="fas fa-robot mr-3 text-blue-200 text-xl"></i> ElJefecito</span>
+            <span class="font-bold tracking-wide flex items-center"><i class="fas fa-robot mr-3 text-blue-200 text-xl"></i> Asistente Virtual</span>
             <button onclick="window.toggleChat()" class="text-white hover:text-blue-200 transition transform hover:scale-110"><i class="fas fa-times text-xl"></i></button>
         </div>
         <div id="chat-messages" class="chat-messages">
@@ -633,9 +621,9 @@
     <!-- ========================================================================= -->
 
     <!-- Modal: Detalles del Producto -->
-    <div id="modal-overlay" onclick="window.cerrarModalDinamico(event)" class="modal-bg">
-        <div class="bg-white rounded-3xl max-w-4xl w-full relative shadow-2xl overflow-hidden flex flex-col md:flex-row h-auto max-h-[90vh] m-4 transform transition-all scale-95" id="modal-box">
-            <button onclick="window.cerrarModalDinamico()" class="absolute top-4 right-4 bg-white/80 backdrop-blur rounded-full w-10 h-10 flex items-center justify-center text-gray-500 hover:bg-red-100 hover:text-[var(--rojo-accent)] transition-all z-20 border border-gray-200 shadow-sm hover:scale-110"><i class="fas fa-times"></i></button>
+    <div id="modal-overlay" onclick="window.cerrarModalDinamico(event, 'modal-overlay', 'modal-box')" class="modal-bg">
+        <div class="bg-white rounded-3xl max-w-4xl w-full relative shadow-2xl overflow-hidden flex flex-col md:flex-row h-auto max-h-[90vh] m-4 transform transition-all scale-95" id="modal-box" onclick="event.stopPropagation()">
+            <button onclick="window.cerrarModal('modal-overlay', 'modal-box')" class="absolute top-4 right-4 bg-white/80 backdrop-blur rounded-full w-10 h-10 flex items-center justify-center text-gray-500 hover:bg-red-100 hover:text-[var(--rojo-accent)] transition-all z-20 border border-gray-200 shadow-sm hover:scale-110"><i class="fas fa-times"></i></button>
             
             <div class="w-full md:w-5/12 bg-gray-50 flex items-center justify-center p-8 border-b md:border-b-0 md:border-r border-gray-200 relative min-h-[250px] overflow-hidden">
                 <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#0866bd 1px, transparent 1px); background-size: 20px 20px;"></div>
@@ -675,7 +663,7 @@
                 </div>
                 
                 <div class="mt-auto pt-4 border-t border-gray-100">
-                    <!-- BOTÓN RECTANGULAR Y DINÁMICO (Modificado según petición) -->
+                    <!-- BOTÓN RECTANGULAR Y DINÁMICO -->
                     <button id="modal-btn-add" class="flex items-center justify-center w-full btn-agregar font-black py-4.5 uppercase tracking-widest active:scale-95 text-sm md:text-base">
                         <i class="fas fa-cart-plus mr-3 text-xl"></i> Agregar al Pedido
                     </button>
@@ -729,9 +717,9 @@
     </div>
 
     <!-- Modal de Éxito de Compra (Directo a Firebase) -->
-    <div id="success-modal" onclick="if(event.target.id === 'success-modal') window.cerrarModal('success-modal')" class="modal-bg">
+    <div id="success-modal" onclick="window.cerrarModalDinamico(event, 'success-modal', 'success-box')" class="modal-bg">
         <div class="bg-white p-8 md:p-12 rounded-[2rem] shadow-2xl max-w-md w-full text-center relative transform transition-all border-t-8 border-[#10b981] scale-95" id="success-box" onclick="event.stopPropagation()">
-            <button onclick="window.cerrarModal('success-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 bg-gray-100 rounded-full w-10 h-10 flex justify-center items-center transition hover:scale-110"><i class="fas fa-times text-lg"></i></button>
+            <button onclick="window.cerrarModal('success-modal', 'success-box')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 bg-gray-100 rounded-full w-10 h-10 flex justify-center items-center transition hover:scale-110"><i class="fas fa-times text-lg"></i></button>
             
             <div class="w-24 h-24 bg-green-50 border border-green-100 rounded-full flex items-center justify-center text-[#10b981] mx-auto mb-6 shadow-inner relative">
                 <div class="absolute inset-0 rounded-full border-4 border-green-400 animate-ping opacity-20"></div>
@@ -755,9 +743,9 @@
     </div>
 
     <!-- Modal Rastreo de Pedido -->
-    <div id="rastreo-modal" onclick="if(event.target.id === 'rastreo-modal') window.cerrarModal('rastreo-modal')" class="modal-bg">
+    <div id="rastreo-modal" onclick="window.cerrarModalDinamico(event, 'rastreo-modal', 'rastreo-box')" class="modal-bg">
         <div class="bg-white p-8 md:p-10 rounded-[2rem] shadow-2xl border border-gray-200 max-w-sm w-full text-center relative border-t-8 border-[#0866bd] scale-95" id="rastreo-box" onclick="event.stopPropagation()">
-            <button onclick="window.cerrarModal('rastreo-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 bg-gray-100 rounded-full w-10 h-10 flex justify-center items-center transition hover:scale-110"><i class="fas fa-times text-lg"></i></button>
+            <button onclick="window.cerrarModal('rastreo-modal', 'rastreo-box')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 bg-gray-100 rounded-full w-10 h-10 flex justify-center items-center transition hover:scale-110"><i class="fas fa-times text-lg"></i></button>
             
             <div class="w-20 h-20 bg-blue-50 border border-blue-100 rounded-full flex items-center justify-center text-[#0866bd] mx-auto mb-5 shadow-inner">
                 <i class="fas fa-search-location text-4xl"></i>
@@ -812,8 +800,6 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
-                    // Opcional: Descomentar si solo quieres que se anime la primera vez
-                    // observer.unobserve(entry.target); 
                 }
             });
         }, observerOptions);
@@ -829,7 +815,59 @@
         });
 
         // ========================================================
-        // 1. UTILIDADES UI (TOAST Y MODALES)
+        // 1. FUNCIONES INTELIGENTES PARA LAS NUEVAS 8 CATEGORÍAS (KITS)
+        // ========================================================
+        
+        // Función mágica que auto-detecta la categoría de cualquier pieza
+        window.obtenerCategoriaCorrecta = function(prod) {
+            let n = prod.Nombre.toLowerCase();
+            let c = (prod.Categoria || '').toLowerCase();
+            
+            // Si es un kit, lo interceptamos primero
+            if(n.includes('kit') || c.includes('kit') || c.includes('afinacion')) return 'kits';
+            
+            // 1. Mantenimiento y Consumibles
+            if (n.includes('aceite') || n.includes('lubricante') || n.includes('filtro') || n.includes('bujia') || n.includes('balata') || n.includes('liquido') || n.includes('bateria') || n.includes('zapata') || n.includes('goma de freno') || c.includes('mantenimiento') || c.includes('sub-freno')) return 'mantenimiento';
+            
+            // 2. Motor y Enfriamiento
+            if (n.includes('cilindro') || n.includes('piston') || n.includes('anillo') || n.includes('junta') || n.includes('empaque') || n.includes('carburador') || n.includes('inyeccion') || n.includes('valvula') || n.includes('arbol') || n.includes('radiador') || n.includes('anticongelante') || c.includes('motor')) return 'motor';
+            
+            // 3. Transmision
+            if (n.includes('arrastre') || n.includes('cadena') || n.includes('sprocket') || n.includes('estrella') || n.includes('clutch') || n.includes('embrague') || n.includes('pasta') || n.includes('disco') || n.includes('chicote') || n.includes('engrane') || n.includes('caja de veloc') || c.includes('transmision') || c.includes('sub-chicote')) return 'transmision';
+            
+            // 4. Suspension y Direccion
+            if (n.includes('amortiguador') || n.includes('barra') || n.includes('reten') || n.includes('taza') || n.includes('direccion') || n.includes('balero') || c.includes('suspension')) return 'suspension';
+            
+            // 5. Electrico
+            if (n.includes('faro') || n.includes('calavera') || n.includes('direccional') || n.includes('foco') || n.includes('estator') || n.includes('regulador') || n.includes('cdi') || n.includes('bobina') || n.includes('marcha') || n.includes('rele') || n.includes('arnes') || n.includes('cable') || c.includes('electrico') || c.includes('sub-electrico')) return 'electrico';
+            
+            // 6. Llantas y Camaras
+            if (n.includes('llanta') || n.includes('camara') || n.includes('valvula de llanta') || c.includes('llantas')) return 'llantas';
+            
+            // 7. Accesorios y Equipo
+            if (n.includes('casco') || n.includes('guante') || n.includes('impermeable') || n.includes('chamarra') || n.includes('proteccion') || n.includes('caja') || n.includes('maletero') || n.includes('defensa') || n.includes('slider') || n.includes('espejo') || n.includes('funda') || n.includes('base') || n.includes('celular') || c.includes('accesorios')) return 'accesorios';
+            
+            // Fallback si la categoría escrita ya es una de las correctas
+            if (['mantenimiento', 'kits', 'motor', 'transmision', 'suspension', 'electrico', 'llantas', 'accesorios'].includes(c)) return c;
+            return 'mantenimiento'; 
+        };
+
+        window.obtenerNombreCategoria = function(catId) {
+            const map = { 
+                'mantenimiento': 'Mantenimiento y Consumibles', 
+                'kits': 'Kits Especiales',
+                'motor': 'Motor y Enfriamiento', 
+                'transmision': 'Transmisión', 
+                'suspension': 'Suspensión y Dirección', 
+                'electrico': 'Sistema Eléctrico y Embalaje', 
+                'llantas': 'Llantas y Cámaras', 
+                'accesorios': 'Accesorios y Equipo' 
+            };
+            return map[catId] || 'Mantenimiento y Consumibles';
+        };
+
+        // ========================================================
+        // 2. UTILIDADES UI (TOAST Y MODALES)
         // ========================================================
         window.mostrarToast = function(titulo, msj, tipo = "success") {
             const toast = document.getElementById('toast'); 
@@ -868,15 +906,14 @@
             }, 3500);
         };
         
-        window.abrirModal = function(id) { 
-            const modal = document.getElementById(id); 
-            const box = modal.querySelector('.transform');
+        window.abrirModal = function(id, boxId) { 
+            const m = document.getElementById(id); 
+            const box = document.getElementById(boxId);
             
-            modal.style.display = 'flex'; 
+            m.style.display = 'flex'; 
             
-            // Timeout para dar tiempo al navegador de procesar el display:flex antes de animar opacidad/escala
             setTimeout(() => {
-                modal.classList.add('modal-active');
+                m.classList.add('modal-active');
                 if(box) { 
                     box.classList.remove('scale-95'); 
                     box.classList.add('scale-100'); 
@@ -887,30 +924,31 @@
             if(id === 'rastreo-modal') document.getElementById('input-rastreo').focus(); 
         };
 
-        // 🌟 Cierre general y robusto de modales 🌟
-        window.cerrarModalDinamico = function(event) {
-            // Aseguramos que el clic sea en el fondo negro o en la X
-            if (!event || event.target.id === 'modal-overlay' || event.target.closest('button')) {
-                const m = document.getElementById('modal-overlay');
-                const b = document.getElementById('modal-box');
-                m.classList.remove('modal-active');
-                if(b) { b.classList.remove('scale-100'); b.classList.add('scale-95'); }
-                setTimeout(() => m.style.display = 'none', 300);
-                document.body.style.overflow = 'auto';
+        window.cerrarModalDinamico = function(e, overlayId, boxId) {
+            if (!e || e.target.id === overlayId || e.target.closest('button')) {
+                window.cerrarModal(overlayId, boxId);
             }
         };
 
-        window.cerrarModal = function(id) { 
+        window.cerrarModal = function(id, boxId) { 
             const m = document.getElementById(id); 
-            const b = m.querySelector('.transform');
+            const box = document.getElementById(boxId);
+            
             m.classList.remove('modal-active'); 
-            if(b) { b.classList.remove('scale-100'); b.classList.add('scale-95'); }
-            setTimeout(() => m.style.display = 'none', 300); 
+            if(box) { 
+                box.classList.remove('scale-100'); 
+                box.classList.add('scale-95'); 
+            }
+            
+            setTimeout(() => {
+                m.style.display = 'none';
+            }, 300); 
+            
             document.body.style.overflow = 'auto'; 
         };
 
         // ========================================================
-        // 2. FIREBASE: Cargar Catálogo (Read Realtime)
+        // 3. FIREBASE: Cargar Catálogo (Read Realtime)
         // ========================================================
         onSnapshot(collection(db, "productos"), (snapshot) => {
             window.productosData = []; 
@@ -935,27 +973,23 @@
         });
 
         // ========================================================
-        // 3. RENDERIZAR PRODUCTOS EN EL DOM (Inyección de HTML)
+        // 4. RENDERIZAR PRODUCTOS EN EL DOM (Inyección de HTML)
         // ========================================================
         function renderizarProductosDOM() {
-            const grids = ['afinacion', 'suspension', 'llantas', 'accesorios', 'sub-freno', 'sub-electrico', 'sub-chicote'];
+            const grids = ['mantenimiento', 'kits', 'motor', 'transmision', 'suspension', 'electrico', 'llantas', 'accesorios'];
             
-            // Limpiamos los grids primero
+            // Limpiamos los grids
             grids.forEach(id => { 
-                const g = document.getElementById(`grid-${id}`) || document.getElementById(id); 
+                const g = document.getElementById(`grid-${id}`); 
                 if(g && window.productosData.length > 0) g.innerHTML = ''; 
             });
             
             if (window.productosData.length === 0) return;
 
             window.productosData.forEach((prod, index) => {
-                // Definir categoría para insertarlo en el lugar correcto
-                let catOriginal = prod.Categoria ? prod.Categoria.toLowerCase().trim() : 'accesorios';
-                if(catOriginal === 'sprocket') catOriginal = 'suspension'; 
                 
-                // Corrección para las subcategorías
-                let gridId = catOriginal.startsWith('sub-') ? catOriginal : `grid-${catOriginal}`;
-                let grid = document.getElementById(gridId) || document.getElementById('grid-accesorios');
+                let catId = window.obtenerCategoriaCorrecta(prod);
+                let grid = document.getElementById(`grid-${catId}`);
 
                 const stock = parseInt(prod.Stock) || 0;
                 
@@ -969,16 +1003,20 @@
                 const isAgotado = stock === 0 ? 'opacity-50 grayscale hover:grayscale-0 transition-all' : '';
                 const btnColor = stock === 0 ? 'bg-gray-200 text-gray-500 cursor-not-allowed border border-gray-300' : 'bg-[#0866bd] text-white hover:bg-blue-800 shadow-md transform active:scale-95';
                 const imgUrl = prod.ImagenURL || 'logo.ico';
-                const codHTML = prod.Codigo ? `<p class="text-[9px] font-mono font-bold text-[#0866bd] bg-blue-50 inline-block px-2 py-0.5 rounded border border-blue-100 mt-1.5 shadow-sm"><i class="fas fa-barcode"></i> ${prod.Codigo}</p>` : '';
+                
+                const enPromo = prod.PrecioBase != null && prod.PrecioBase !== undefined;
+                const precioDisplay = enPromo ? `<span class="text-xs text-gray-400 line-through mr-2 font-medium">$${parseFloat(prod.PrecioBase).toLocaleString('es-MX')}</span>$${parseFloat(prod.Precio).toLocaleString('es-MX')}` : `$${parseFloat(prod.Precio).toLocaleString('es-MX')}`;
+                
+                const promoBadge = enPromo ? `<span class="bg-red-500 text-white text-[8px] font-bold px-1.5 py-0.5 rounded uppercase tracking-widest ml-2 animate-pulse"><i class="fas fa-tag"></i> Oferta</span>` : '';
 
-                // Vista previa de compatibilidad (Solo la primera línea)
                 let compHtml = '';
                 if (prod.Compatibilidad && prod.Compatibilidad.trim() !== "") {
                     let rawText = prod.Compatibilidad.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ').trim();
                     if(rawText.length > 0) compHtml = `<p class="text-[10px] text-gray-500 mt-2.5 line-clamp-1 font-medium"><i class="fas fa-motorcycle text-[#0866bd] mr-1"></i> ${rawText}</p>`;
                 }
+                
+                const catStr = window.obtenerNombreCategoria(catId);
 
-                // Estructura de la tarjeta
                 const cardHTML = `
                 <div class="product-card group ${isAgotado} flex flex-col w-full h-full p-5 relative overflow-hidden reveal" data-codigo="${prod.Codigo || ''}">
                     
@@ -993,13 +1031,13 @@
                     </div>
                     
                     <div class="flex flex-col flex-grow" onclick="window.abrirModalDinamico(${index})">
-                        <p class="text-[9px] text-[#0866bd] font-bold uppercase tracking-widest mb-1.5">${prod.Categoria}</p>
-                        <h3 class="font-bold text-gray-800 text-sm md:text-base line-clamp-2 leading-snug group-hover:text-[#0866bd] transition-colors">${prod.Nombre}</h3>
-                        ${codHTML}
+                        <p class="text-[9px] text-[#0866bd] font-bold uppercase tracking-widest mb-1.5">${catStr}</p>
+                        <h3 class="font-bold text-gray-800 text-sm md:text-base line-clamp-2 leading-snug group-hover:text-[#0866bd] transition-colors">${prod.Nombre} ${promoBadge}</h3>
+                        ${prod.Codigo ? `<p class="text-[9px] font-mono font-bold text-[#0866bd] bg-blue-50 inline-block px-2 py-0.5 rounded border border-blue-100 mt-1.5 shadow-sm w-fit"><i class="fas fa-barcode"></i> ${prod.Codigo}</p>` : ''}
                         ${compHtml}
                         
                         <div class="mt-auto flex items-end justify-between border-t border-gray-100 pt-4 mt-4">
-                            <span class="text-xl md:text-2xl font-black text-gray-800 tracking-tight drop-shadow-sm">$${parseFloat(prod.Precio).toLocaleString('es-MX')}</span>
+                            <span class="text-xl md:text-2xl font-black text-gray-800 tracking-tight drop-shadow-sm">${precioDisplay}</span>
                             <button class="${btnColor} px-4 py-2.5 rounded-xl font-bold uppercase text-[10px] md:text-xs transition-all"><i class="fas fa-search hidden md:inline-block mr-1"></i> ${stock === 0 ? 'Sin Piezas' : 'Detalles'}</button>
                         </div>
                     </div>
@@ -1008,21 +1046,22 @@
                 if(grid) grid.insertAdjacentHTML('beforeend', cardHTML);
             });
 
-            // Re-aplicar el observer a los nuevos elementos revelables
             document.querySelectorAll('.reveal').forEach((el, i) => {
-                // Pequeño truco para efecto de cascada en columnas
                 el.style.transitionDelay = `${(i % 4) * 50}ms`;
                 observer.observe(el);
             });
         }
 
         // ========================================================
-        // 4. MODAL DETALLES DEL PRODUCTO
+        // 5. MODAL DETALLES DEL PRODUCTO
         // ========================================================
         window.abrirModalDinamico = function(index) {
             const prod = window.productosData[index];
+            const catId = window.obtenerCategoriaCorrecta(prod);
+            const catStr = window.obtenerNombreCategoria(catId);
+            
             document.getElementById('modal-title').innerText = prod.Nombre;
-            document.getElementById('modal-category-badge').innerText = prod.Categoria + (prod.Codigo ? ` • ${prod.Codigo}` : '');
+            document.getElementById('modal-category-badge').innerText = catStr + (prod.Codigo ? ` • ${prod.Codigo}` : '');
             
             const sQty = parseInt(prod.Stock) || 0;
             
@@ -1033,7 +1072,13 @@
                     ? `<span class="bg-yellow-50 text-yellow-600 border border-yellow-200 px-3 py-1.5 rounded-full font-bold text-[10px] uppercase tracking-wider flex items-center shadow-sm"><i class="fas fa-fire mr-1.5 text-sm text-red-500 animate-pulse"></i> Quedan ${sQty}</span>` 
                     : '<span class="bg-green-50 text-green-600 border border-green-200 px-3 py-1.5 rounded-full font-bold text-[10px] uppercase tracking-wider flex items-center shadow-sm"><i class="fas fa-check-circle mr-1.5 text-sm"></i> Disponible</span>');
             
-            document.getElementById('modal-price').innerText = "$" + parseFloat(prod.Precio).toLocaleString('es-MX');
+            const enPromo = prod.PrecioBase != null && prod.PrecioBase !== undefined;
+            if(enPromo) {
+                document.getElementById('modal-price').innerHTML = `<span class="text-xl text-gray-400 line-through mr-2 font-bold">$${parseFloat(prod.PrecioBase).toLocaleString('es-MX')}</span>$${parseFloat(prod.Precio).toLocaleString('es-MX')}`;
+            } else {
+                document.getElementById('modal-price').innerText = "$" + parseFloat(prod.Precio).toLocaleString('es-MX');
+            }
+            
             document.getElementById('modal-images').innerHTML = prod.ImagenURL ? `<img src="${prod.ImagenURL}" onerror="this.src='logo.ico'" class="w-full h-full object-contain p-4 drop-shadow-xl transition-transform duration-500 hover:scale-105">` : `<img src="logo.ico" class="opacity-20 h-32 w-auto">`;
             document.getElementById('modal-desc').innerHTML = prod.Especificaciones ? prod.Especificaciones : "<li>Sin especificaciones detalladas registradas.</li>";
             
@@ -1048,20 +1093,20 @@
             // 🌟 BOTÓN RECTANGULAR PERFECTO CON ANIMACIONES DINÁMICAS 🌟
             const bAdd = document.getElementById('modal-btn-add');
             if(sQty === 0) { 
-                bAdd.className = "flex items-center justify-center w-full bg-gray-200 text-gray-500 font-bold py-4 uppercase tracking-widest text-sm md:text-base cursor-not-allowed border border-gray-300 transition-all rounded-none"; 
+                bAdd.className = "flex items-center justify-center w-full bg-gray-200 text-gray-500 font-bold py-4.5 uppercase tracking-widest text-sm md:text-base cursor-not-allowed border border-gray-300 transition-all rounded-none"; 
                 bAdd.innerHTML = '<i class="fas fa-ban mr-2 text-lg"></i> AGOTADO TEMPORALMENTE'; 
                 bAdd.onclick = null; 
             } else { 
-                bAdd.className = "flex items-center justify-center w-full btn-agregar font-black py-4 uppercase tracking-widest text-sm md:text-base shadow-xl rounded-none cursor-pointer"; 
+                bAdd.className = "flex items-center justify-center w-full btn-agregar font-black py-4.5 uppercase tracking-widest text-sm md:text-base shadow-xl rounded-none cursor-pointer"; 
                 bAdd.innerHTML = '<i class="fas fa-cart-plus mr-3 text-xl"></i> AGREGAR AL PEDIDO'; 
                 bAdd.onclick = () => window.addToCart(prod.Nombre, prod.Precio); 
             }
             
-            window.abrirModal('modal-overlay');
+            window.abrirModal('modal-overlay', 'modal-box');
         }
 
         // ========================================================
-        // 5. SISTEMA DE CARRITO DE COMPRAS Y UI
+        // 6. SISTEMA DE CARRITO DE COMPRAS Y UI
         // ========================================================
         window.toggleCart = function() { 
             const sb = document.getElementById('cart-sidebar');
@@ -1089,21 +1134,18 @@
             
             window.updateCartUI(); 
             
-            // Si el modal de detalles está abierto, lo cerramos
             const modalOverlay = document.getElementById('modal-overlay');
             if(modalOverlay.classList.contains('modal-active')) {
-                window.cerrarModalDinamico();
+                window.cerrarModal('modal-overlay', 'modal-box');
             }
             
             window.mostrarToast("Caja Actualizada", `Agregaste: ${title}`, "success");
             
-            // Animación saltarina del carrito completo en el Header
             const btnCart = document.querySelector('.btn-cart').parentElement;
             btnCart.classList.remove('jump-anim');
-            void btnCart.offsetWidth; // Forzar reflow
+            void btnCart.offsetWidth;
             btnCart.classList.add('jump-anim');
             
-            // Animación Pop del Badge Rojo
             const badge = document.getElementById('cart-count');
             badge.classList.remove('pop-anim');
             void badge.offsetWidth; 
@@ -1174,7 +1216,7 @@
         }
 
         // ========================================================
-        // 6. ENVIAR PEDIDO A FIREBASE (CERO WHATSAPP DIRECTO)
+        // 7. ENVIAR PEDIDO A FIREBASE 
         // ========================================================
         window.enviarPedido = async function() {
             if (window.carrito.length === 0) { 
@@ -1186,7 +1228,7 @@
             const tel = document.getElementById('cliente-telefono').value.trim();
 
             if (!nom || !tel) { 
-                window.mostrarToast("Datos Requeridos", "Ingresa tu Nombre y WhatsApp para que el mostrador pueda identificar tu paquete.", "error"); 
+                window.mostrarToast("Datos Requeridos", "Ingresa tu Nombre y WhatsApp para identificar tu paquete.", "error"); 
                 document.getElementById('cliente-nombre').focus();
                 return; 
             }
@@ -1199,10 +1241,8 @@
             let tot = 0; 
             window.carrito.forEach(i => tot += (i.price * i.qty));
             
-            // Genera ID de Rastreo Alfanumérico Elegante (Ej: A8X92)
             const idC = Math.random().toString(36).substring(2, 7).toUpperCase();
 
-            // 💥 NOTA: Guardamos en Firebase, NO abrimos WhatsApp 💥
             const pLoad = { 
                 idCorto: idC, 
                 cliente: nom, 
@@ -1214,23 +1254,19 @@
             };
             
             try {
-                // Guarda directo en Firebase (Esto notifica al admin)
                 await addDoc(collection(db, "pedidos"), pLoad);
                 
-                // Reset UI general
                 window.carrito = []; 
                 window.updateCartUI(); 
                 document.getElementById('cliente-nombre').value = ''; 
                 document.getElementById('cliente-telefono').value = ''; 
                 window.toggleCart();
                 
-                // Mostrar Modal Éxito al Cliente
                 document.getElementById('orden-id').innerText = `#${idC}`; 
-                window.abrirModal('success-modal');
+                window.abrirModal('success-modal', 'success-box');
                 
             } catch (err) { 
                 window.mostrarToast("Error de Red", "Tuvimos un problema. Revisa tu conexión a internet e intenta de nuevo.", "error"); 
-                console.error(err);
             } finally { 
                 btn.innerHTML = oHtml; 
                 btn.disabled = false; 
@@ -1238,7 +1274,7 @@
         }
 
         // ========================================================
-        // 7. RASTREO DE ORDEN EN TIEMPO REAL
+        // 8. RASTREO DE ORDEN EN TIEMPO REAL
         // ========================================================
         window.rastrearPedido = async function() {
             const inp = document.getElementById('input-rastreo').value.trim().toUpperCase().replace('#', '');
@@ -1257,7 +1293,6 @@
             rDiv.className = "p-5 rounded-xl font-bold text-sm border mt-4 transition-all fade-in shadow-inner";
             
             try {
-                // Query directa a Firebase por el ID corto
                 const q = query(collection(db, "pedidos"), where("idCorto", "==", inp)); 
                 const snap = await getDocs(q);
                 
@@ -1291,7 +1326,7 @@
         }
 
         // ========================================================
-        // 8. TABS, PAGINACIÓN Y BÚSQUEDA
+        // 9. NAVEGACIÓN, PAGINACIÓN Y BÚSQUEDA 
         // ========================================================
         window.renderPagination = function() {
             const controls = document.getElementById('pagination-controls'); 
@@ -1301,14 +1336,7 @@
             let aC = null; 
             document.querySelectorAll('.product-section').forEach(sec => { 
                 if (window.getComputedStyle(sec).display !== 'none' && !sec.classList.contains('hidden-section')) { 
-                    if (sec.id === 'refacciones') { 
-                        sec.querySelectorAll('.sub-category-grid').forEach(grid => { 
-                            if (!grid.classList.contains('hidden')) aC = grid; 
-                        }); 
-                        if (!document.getElementById('refacciones-home').classList.contains('hidden')) aC = null; 
-                    } else { 
-                        aC = sec.querySelector('.grid') || sec; 
-                    } 
+                    aC = sec.querySelector('.grid') || sec; 
                 } 
             });
             
@@ -1356,58 +1384,13 @@
             const bT = document.getElementById('btn-' + tId); 
             if(bT) bT.classList.add('active'); 
             
-            // Si el usuario regresa a la pestaña de refacciones, mostramos el menú de los 3 botones grandes
-            if(tId === 'refacciones') {
-                window.showRefaccionesHome();
-            }
-
             currentPage = 1; 
             window.renderPagination(); 
             
-            // Re trigger animations for new section
             document.querySelectorAll('.reveal').forEach(el => { 
                 el.classList.remove('active'); 
                 setTimeout(()=>el.classList.add('active'), 50); 
             });
-        }
-        
-        window.showRefaccionesHome = function() { 
-            document.getElementById('refacciones-home').classList.remove('hidden'); 
-            document.querySelectorAll('.sub-category-grid').forEach(el => el.classList.add('hidden')); 
-            document.getElementById('btn-back-ref').classList.add('hidden'); 
-            document.querySelectorAll('.sub-nav-btn').forEach(btn => { 
-                btn.classList.remove('text-[#0866bd]', 'bg-blue-50', 'border-blue-200'); 
-                btn.classList.add('bg-white'); 
-            }); 
-            document.getElementById('pagination-controls').innerHTML = ''; 
-            
-            // Animaciones de sub-inicio
-            document.getElementById('refacciones-home').querySelectorAll('.reveal').forEach(el => {
-                el.classList.remove('active'); setTimeout(()=>el.classList.add('active'), 50);
-            });
-        }
-        
-        window.filterRefacciones = function(sId) { 
-            document.getElementById('refacciones-home').classList.add('hidden'); 
-            document.getElementById('btn-back-ref').classList.remove('hidden'); 
-            document.querySelectorAll('.sub-category-grid').forEach(el => el.classList.add('hidden')); 
-            
-            const tG = document.getElementById(sId); 
-            if(tG) tG.classList.remove('hidden'); 
-            
-            document.querySelectorAll('.sub-nav-btn').forEach(btn => { 
-                btn.classList.remove('text-[#0866bd]', 'bg-blue-50', 'border-blue-200'); 
-                btn.classList.add('bg-white'); 
-            }); 
-            
-            const sB = document.getElementById('btn-' + sId); 
-            if(sB) { 
-                sB.classList.remove('bg-white'); 
-                sB.classList.add('text-[#0866bd]', 'bg-blue-50', 'border-blue-200'); 
-            } 
-            
-            currentPage = 1; 
-            window.renderPagination(); 
         }
         
         window.searchProducts = function() { 
@@ -1417,16 +1400,19 @@
             
             if (inp !== "") { 
                 if (ctl) ctl.style.display = 'none'; 
-                document.querySelectorAll('.product-section').forEach(s => { s.style.display = 'block'; s.classList.remove('hidden-section'); }); 
-                document.getElementById('refacciones-home').classList.add('hidden'); 
-                document.querySelectorAll('.sub-category-grid').forEach(g => g.classList.remove('hidden')); 
+                
+                // Mostrar todas las secciones para que el usuario vea los resultados de todas las categorías
+                document.querySelectorAll('.product-section').forEach(s => { 
+                    s.style.display = 'block'; 
+                    s.classList.remove('hidden-section'); 
+                }); 
                 
                 cards.forEach(c => { 
                     let txt = c.innerText.toUpperCase(); 
                     let cod = c.getAttribute('data-codigo') ? c.getAttribute('data-codigo').toUpperCase() : ''; 
                     if(txt.indexOf(inp) > -1 || cod.indexOf(inp) > -1){
                         c.style.display = "flex";
-                        c.classList.add('active'); // Mantiene la opacidad
+                        c.classList.add('active'); 
                     } else {
                         c.style.display = "none";
                     }
@@ -1439,7 +1425,7 @@
         }
 
         // ========================================================
-        // 9. CHATBOT IA Y SEARCH IA (Con Render)
+        // 10. CHATBOT IA Y SEARCH IA (Conecta a tu Render)
         // ========================================================
         window.chatHistory = []; 
         
@@ -1463,7 +1449,6 @@
             msgs.innerHTML += `<div id="${lId}" class="chat-bubble chat-bot animate-pulse border border-blue-100 shadow-sm fade-in"><i class="fas fa-circle-notch fa-spin mr-2 text-[#0866bd]"></i> Revisando almacén...</div>`; 
             msgs.scrollTop = msgs.scrollHeight;
             
-            // Empaquetado ligero del catálogo para no saturar memoria IA
             const cat = window.productosData.map((p, i) => `[ID: ${i}] Cat: ${p.Categoria} ${p.Codigo?`| Cod: ${p.Codigo}`:''} | Nom: ${p.Nombre} | Prec: $${p.Precio} | Stock: ${p.Stock} | Comp: ${p.Compatibilidad ? p.Compatibilidad.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ').trim() : 'Universal'}`).join('\n');
             
             window.chatHistory.push({ role: "user", parts: [{ text: msg }] });
@@ -1495,7 +1480,6 @@
                 let rply = d.candidates[0].content.parts[0].text; 
                 window.chatHistory.push({ role: "model", parts: [{ text: rply }] });
                 
-                // Conversión de Markdown y Etiquetas a UI
                 rply = rply.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>').replace(/\n/g, '<br>');
                 rply = rply.replace(/\[PRODUCTO:\s*(\d+)\]/gi, (m, id) => { 
                     const p = window.productosData[parseInt(id)]; 
@@ -1531,7 +1515,7 @@
             document.getElementById('ia-search-status').classList.remove('hidden');
             
             const cat = window.productosData.map(p => ({ nombre: p.Nombre, codigo: p.Codigo, compatibilidad: p.Compatibilidad }));
-            const promptBusqueda = "Eres un buscador interno de una refaccionaria. Mapea la consulta del cliente a los productos de este array: " + JSON.stringify(cat) + ". Devuelve ÚNICAMENTE un JSON array puro de Strings con los nombres exactos que coincidan. Si no hay nada que se relacione, devuelve [].";
+            const promptBusqueda = "Eres un buscador interno. Analiza la petición del cliente y mapea la consulta a los productos de este array: " + JSON.stringify(cat) + ". Devuelve ÚNICAMENTE un JSON array puro de Strings con los nombres exactos que coincidan. Si no hay nada que se relacione, devuelve [].";
             
             try {
                 const res = await fetch("https://backend-el-jefe.onrender.com/api/chat", { 
@@ -1552,8 +1536,6 @@
                 
                 document.getElementById('pagination-controls').style.display = 'none'; 
                 document.querySelectorAll('.product-section').forEach(s => { s.style.display = 'block'; s.classList.remove('hidden-section'); }); 
-                document.getElementById('refacciones-home').classList.add('hidden'); 
-                document.querySelectorAll('.sub-category-grid').forEach(g => g.classList.remove('hidden'));
                 
                 document.querySelectorAll('.product-card').forEach(c => { 
                     if(noms.includes(c.querySelector('h3').innerText.trim())) {
@@ -1574,7 +1556,7 @@
         }
 
         // ========================================================
-        // 10. EXTRAS: CARRUSEL
+        // 11. EXTRAS: CARRUSEL
         // ========================================================
         const slides = [
             { img: 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80', title: 'ESPECIALISTAS EN MOTOS', text: 'Refacciones de calidad para tu camino.' },
