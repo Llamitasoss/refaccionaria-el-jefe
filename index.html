@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moto Partes El Jefe | Catálogo Oficial</title>
+    <title>Moto Partes El Jefe | Catálogo Digital Premium</title>
     <link rel="icon" href="logo.ico">
     
     <!-- Tailwind CSS -->
@@ -17,7 +17,7 @@
     
     <style>
         /* =========================================
-           PALETA DE COLORES OFICIAL
+           PALETA DE COLORES OFICIAL Y VARIABLES
            ========================================= */
         :root { 
             --bg-crema: #F3F0E9; 
@@ -37,41 +37,52 @@
         
         .oswald { font-family: 'Oswald', sans-serif; }
         
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        /* =========================================
+           BARRAS DE DESPLAZAMIENTO (SCROLLBARS)
+           ========================================= */
+        ::-webkit-scrollbar { width: 10px; height: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg-crema); }
+        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 10px; border: 2px solid var(--bg-crema); }
         ::-webkit-scrollbar-thumb:hover { background: var(--azul-brand); }
         
-        /* Animaciones Globales */
-        .fade-in { animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+        /* =========================================
+           ANIMACIONES GLOBALES
+           ========================================= */
+        .fade-in { animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
         @keyframes fadeIn { 
             from { opacity: 0; transform: translateY(20px); } 
             to { opacity: 1; transform: translateY(0); } 
         }
-        
-        /* Animación Scroll (Aparición de Tarjetas) */
-        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.6s cubic-bezier(0.5, 0, 0, 1); }
+
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .reveal.active { opacity: 1; transform: translateY(0); }
         
+        .pulse-soft { animation: pulseSoft 2s infinite; }
+        @keyframes pulseSoft {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
         /* =========================================
-           COMPONENTES DE LA INTERFAZ
+           HEADER Y CATEGORÍAS (GLASSMORPHISM)
            ========================================= */
         .header-main { 
             background-color: var(--azul-brand); 
-            box-shadow: 0 4px 20px rgba(8, 102, 189, 0.4); 
+            box-shadow: 0 10px 30px -10px rgba(8, 102, 189, 0.6); 
             position: relative; 
             z-index: 50; 
         }
         
         .category-nav { 
-            background-color: rgba(255, 255, 255, 0.95); 
+            background-color: rgba(255, 255, 255, 0.85); 
             backdrop-filter: blur(12px);
-            border-bottom: 1px solid #e5e7eb; 
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.3); 
             position: sticky; 
             top: 0; 
             z-index: 40; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04); 
         }
         
         .nav-btn { 
@@ -80,181 +91,295 @@
             font-weight: 700; 
             text-transform: uppercase; 
             padding: 16px 24px; 
-            transition: all 0.3s ease; 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
             cursor: pointer; 
             font-family: 'Oswald', sans-serif; 
             letter-spacing: 1px; 
-            font-size: 1.05rem; 
+            font-size: 1.1rem; 
         }
-        .nav-btn:hover { color: var(--azul-brand); background-color: #f8fafc; }
+        .nav-btn:hover { color: var(--azul-brand); background-color: rgba(8, 102, 189, 0.05); transform: translateY(-2px); }
         .nav-btn.active { color: var(--azul-brand); }
         .nav-btn.active::after { 
             content: ''; 
             position: absolute; 
-            bottom: 0; left: 0; 
-            width: 100%; height: 4px; 
+            bottom: 0; left: 10%; 
+            width: 80%; height: 4px; 
             background-color: var(--rojo-accent); 
             border-radius: 4px 4px 0 0; 
-            box-shadow: 0 -2px 8px rgba(220, 38, 38, 0.5);
+            box-shadow: 0 -2px 10px rgba(220, 38, 38, 0.5);
+            animation: slideUp 0.3s ease forwards;
         }
+        @keyframes slideUp { from { height: 0; opacity: 0; } to { height: 4px; opacity: 1; } }
         
+        /* =========================================
+           HERO BANNER Y TARJETAS
+           ========================================= */
         .hero-banner { 
-            background: linear-gradient(rgba(8, 102, 189, 0.8), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); 
+            background: linear-gradient(to bottom, rgba(8, 102, 189, 0.75), rgba(15, 23, 42, 0.95)), url('https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); 
             background-size: cover; 
             background-position: center; 
             background-attachment: fixed;
-            min-height: 450px; 
+            min-height: 480px; 
             display: flex; 
             flex-direction: column; 
             justify-content: center; 
             align-items: center; 
+            position: relative;
+            overflow: hidden;
         }
-        
-        /* Tarjetas de Producto Profesionales */
+
         .product-card { 
             background: white; 
-            border-radius: 1.25rem; 
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            border-radius: 1.25rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
             cursor: pointer; 
-            border: 1px solid #e2e8f0; 
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03); 
+            border: 1px solid rgba(0,0,0,0.03); 
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04); 
             position: relative;
         }
         .product-card:hover { 
-            transform: translateY(-8px); 
-            box-shadow: 0 20px 30px -10px rgba(8, 102, 189, 0.25); 
+            transform: translateY(-12px); 
+            box-shadow: 0 25px 40px -10px rgba(8, 102, 189, 0.2); 
             border-color: #bae6fd; 
             z-index: 10;
         }
         
-        /* Botón Flotante Agregar Rápido */
+        /* Botón Agregar Rápido al pasar el Mouse */
         .btn-quick-add {
             position: absolute;
-            top: 15px;
-            right: 15px;
-            background-color: white;
-            color: var(--azul-brand);
-            width: 45px;
-            height: 45px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.5);
+            background-color: var(--amarillo-btn);
+            color: #111827;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            box-shadow: 0 10px 20px rgba(234, 179, 8, 0.4);
             opacity: 0;
-            transform: scale(0.5);
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             z-index: 20;
             font-size: 1.2rem;
+            border: 2px solid white;
         }
         .product-card:hover .btn-quick-add {
             opacity: 1;
-            transform: scale(1);
+            transform: translate(-50%, -50%) scale(1);
         }
         .btn-quick-add:hover {
-            background-color: var(--amarillo-btn);
-            color: white;
-            transform: scale(1.15) rotate(-5deg);
+            background-color: #facc15;
+            transform: translate(-50%, -50%) scale(1.15) rotate(-10deg);
         }
 
         .line-clamp-2 { overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
         .hidden-section { display: none; }
         
-        /* Modales */
-        .modal-bg { 
-            display: none; 
-            position: fixed; 
-            inset: 0; 
-            background: rgba(15, 23, 42, 0.85); 
-            z-index: 999; 
-            justify-content: center; 
-            align-items: center; 
-            backdrop-filter: blur(8px); 
-            padding: 15px; 
+        /* =========================================
+           BOTÓN DEL CARRITO EN HEADER (DINÁMICO)
+           ========================================= */
+        .cart-wrapper {
+            position: relative;
+            display: inline-block;
         }
-        .modal-active { display: flex !important; animation: modalFadeIn 0.3s ease-out forwards; }
+        /* Aura brillante detrás del carrito */
+        .cart-glow {
+            position: absolute;
+            inset: -4px;
+            background: var(--amarillo-btn);
+            border-radius: 9999px;
+            filter: blur(8px);
+            opacity: 0.4;
+            transition: opacity 0.3s;
+            animation: pulseSoft 2.5s infinite;
+        }
+        .cart-wrapper:hover .cart-glow {
+            opacity: 0.8;
+        }
+
+        .btn-cart {
+            background: linear-gradient(135deg, var(--amarillo-btn) 0%, #fef08a 50%, var(--amarillo-btn) 100%);
+            background-size: 200% auto;
+            color: var(--texto-dark);
+            box-shadow: 0 4px 15px rgba(234, 179, 8, 0.3);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            z-index: 10;
+        }
+        .btn-cart:hover {
+            background-position: right center;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(234, 179, 8, 0.6);
+        }
+        .btn-cart:active { transform: translateY(1px) scale(0.98); }
+        
+        /* Efecto de Luz (Shine) constante */
+        .btn-cart::after {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg); animation: shineBtn 3s infinite; z-index: -1;
+        }
+        @keyframes shineBtn {
+            0% { left: -100%; }
+            20% { left: 200%; }
+            100% { left: 200%; }
+        }
+
+        .btn-cart i { transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .btn-cart:hover i { transform: scale(1.3) rotate(-15deg) translateX(-4px); }
+
+        /* Pop Animation para cuando se añade un producto */
+        .pop-anim { animation: popBadge 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        @keyframes popBadge { 
+            0% { transform: scale(1); } 
+            50% { transform: scale(1.6) rotate(15deg); } 
+            100% { transform: scale(1) rotate(0); } 
+        }
+
+        .jump-anim { animation: jumpBtn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes jumpBtn {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0); }
+        }
+
+        /* =========================================
+           BOTÓN AGREGAR (MODAL) - RECTANGULAR
+           ========================================= */
+        .btn-agregar {
+            background: linear-gradient(90deg, var(--amarillo-btn) 0%, #fef08a 50%, var(--amarillo-btn) 100%);
+            background-size: 200% auto;
+            color: var(--texto-dark);
+            box-shadow: 0 4px 15px rgba(234, 179, 8, 0.4);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            z-index: 1;
+            border-radius: 0; /* Rectangular Perfecto */
+        }
+        .btn-agregar:hover {
+            background-position: right center;
+            box-shadow: 0 8px 25px rgba(234, 179, 8, 0.6);
+            transform: translateY(-2px);
+        }
+        .btn-agregar:active { transform: translateY(1px) scale(0.98); }
+        .btn-agregar::after {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg); animation: shineBtn 3s infinite; z-index: -1;
+        }
+        .btn-agregar i { transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .btn-agregar:hover i { transform: scale(1.3) rotate(-15deg) translateX(-4px); }
+
+        /* =========================================
+           MODALES (GLASSMORPHISM)
+           ========================================= */
+        .modal-bg { 
+            display: none; position: fixed; inset: 0; 
+            background: rgba(15, 23, 42, 0.7); 
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            z-index: 999; justify-content: center; align-items: center; padding: 15px; 
+        }
+        .modal-active { display: flex !important; animation: modalFadeIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         @keyframes modalFadeIn { 
-            from { opacity: 0; transform: scale(0.95); } 
-            to { opacity: 1; transform: scale(1); } 
+            from { opacity: 0; transform: scale(0.9) translateY(20px); } 
+            to { opacity: 1; transform: scale(1) translateY(0); } 
         }
         
         .modal-list ul { list-style-type: none; padding-left: 0; }
-        .modal-list li { margin-bottom: 8px; display: flex; align-items: flex-start; color: #475569; font-size: 0.95rem; line-height: 1.4; }
-        .modal-list li::before { content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: #10b981; margin-right: 10px; font-size: 0.85rem; margin-top: 3px; }
-        .compat-table-body td { padding: 12px 16px; border-bottom: 1px solid #e5e7eb; color: #334155; font-size: 0.9rem; font-weight: 500; }
-        .compat-table-body tr:nth-child(even) { background-color: #f8fafc; }
+        .modal-list li { margin-bottom: 10px; display: flex; align-items: flex-start; color: #475569; font-size: 0.95rem; line-height: 1.5; }
+        .modal-list li::before { content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: #10b981; margin-right: 12px; font-size: 0.9rem; margin-top: 3px; }
         
-        /* Chatbot IA */
-        .float-chat { 
+        .compat-table-body td { padding: 14px 16px; border-bottom: 1px solid #f1f5f9; color: #334155; font-size: 0.95rem; font-weight: 500; }
+        .compat-table-body tr:nth-child(even) { background-color: #f8fafc; }
+        .compat-table-body tr:hover { background-color: #f0f9ff; transition: background-color 0.2s; }
+        
+        /* =========================================
+           PAGINACIÓN Y BOTONES FLOTANTES
+           ========================================= */
+        .pagination-container { display: flex; justify-content: center; gap: 12px; margin-top: 50px; padding-bottom: 40px; }
+        .page-btn { background-color: white; border: 2px solid #e2e8f0; color: #64748b; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; border-radius: 12px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); font-family: 'Oswald', sans-serif; font-size: 1.1rem; }
+        .page-btn:hover { border-color: var(--azul-brand); color: var(--azul-brand); transform: translateY(-3px); box-shadow: 0 4px 10px rgba(8, 102, 189, 0.15); }
+        .page-btn.active { background-color: var(--azul-brand); border-color: var(--azul-brand); color: white; box-shadow: 0 6px 15px rgba(8, 102, 189, 0.4); transform: scale(1.05); }
+        
+        .float-chat, .float-top { 
             position: fixed; 
-            bottom: 30px; right: 30px; 
-            width: 65px; height: 65px; 
-            background-color: var(--azul-brand); 
-            color: white; 
-            border-radius: 50%; 
+            width: 60px; height: 60px; 
+            color: white; border-radius: 50%; 
             display: flex; align-items: center; justify-content: center; 
-            font-size: 30px; 
-            box-shadow: 0 10px 25px rgba(8, 102, 189, 0.5); 
-            z-index: 100; 
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            border: 2px solid white; 
+            font-size: 28px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); 
+            z-index: 100; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
             cursor: pointer; 
         }
-        .float-chat:hover { transform: scale(1.15) rotate(-5deg); background-color: #1e3a8a; }
+        .float-chat { bottom: 30px; right: 30px; background-color: var(--azul-brand); border: 2px solid white; }
+        .float-chat:hover { transform: scale(1.15) rotate(-10deg); background-color: #1e3a8a; }
+
+        .float-top { bottom: 110px; right: 30px; background-color: var(--texto-dark); opacity: 0; pointer-events: none; transform: translateY(20px); }
+        .float-top.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+        .float-top:hover { transform: translateY(-5px) scale(1.1); background-color: #0f172a; }
         
+        /* Chatbot IA */
         #chat-window { 
             display: none; flex-direction: column; 
             position: fixed; bottom: 110px; right: 30px; 
             width: 380px; max-width: 90vw; height: 550px; max-height: 75vh; 
             background: white; border-radius: 1.5rem; 
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); 
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.3); 
             z-index: 101; overflow: hidden; border: 1px solid #e2e8f0; 
-            animation: modalFadeIn 0.3s ease forwards;
+            animation: modalFadeIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
-        .chat-header { background: linear-gradient(135deg, var(--azul-brand), #1e3a8a); color: white; padding: 18px; font-family: 'Oswald', sans-serif; display: flex; justify-content: space-between; align-items: center; font-size: 1.1rem; letter-spacing: 0.5px; }
+        .chat-header { background: linear-gradient(135deg, var(--azul-brand), #1e3a8a); color: white; padding: 20px; font-family: 'Oswald', sans-serif; display: flex; justify-content: space-between; align-items: center; font-size: 1.2rem; letter-spacing: 0.5px; }
         .chat-messages { flex-grow: 1; padding: 16px; overflow-y: auto; background-color: #f8fafc; display: flex; flex-direction: column; gap: 12px; scroll-behavior: smooth; }
-        .chat-bubble { padding: 12px 16px; border-radius: 18px; font-size: 0.95rem; max-width: 85%; line-height: 1.5; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .chat-bot { background: white; color: #333; align-self: flex-start; border-bottom-left-radius: 0.25rem; border: 1px solid #e2e8f0; }
+        .chat-bubble { padding: 12px 18px; border-radius: 1.2rem; font-size: 0.95rem; max-width: 85%; line-height: 1.5; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .chat-bot { background: white; color: #334155; align-self: flex-start; border-bottom-left-radius: 0.25rem; border: 1px solid #e2e8f0; }
         .chat-user { background: var(--azul-brand); color: white; align-self: flex-end; border-bottom-right-radius: 0.25rem; }
-        
-        /* Animación IA */
-        .ia-searching { animation: pulseIA 1.5s infinite; }
-        @keyframes pulseIA { 
-            0% { box-shadow: 0 0 0 0 rgba(8, 102, 189, 0.4); } 
-            70% { box-shadow: 0 0 0 15px rgba(8, 102, 189, 0); } 
-            100% { box-shadow: 0 0 0 0 rgba(8, 102, 189, 0); } 
-        }
+        .chat-input-area { padding: 16px; background: white; border-top: 1px solid #e5e7eb; display: flex; gap: 10px; align-items: center; }
 
-        /* Pop Animation para el badge del carrito */
-        .pop-anim { animation: popBadge 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-        @keyframes popBadge { 0% { transform: scale(1); } 50% { transform: scale(1.6); } 100% { transform: scale(1); } }
+        /* =========================================
+           NOTIFICACIÓN TOAST CON BARRA DE PROGRESO
+           ========================================= */
+        #toast { 
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            overflow: hidden;
+        }
+        .toast-progress {
+            position: absolute; bottom: 0; left: 0; height: 4px; background-color: #10b981;
+            width: 100%; transform-origin: left;
+        }
+        @keyframes shrinkProgress { from { transform: scaleX(1); } to { transform: scaleX(0); } }
         
         /* Loaders */
         .skeleton { background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%); background-size: 200% 100%; animation: 1.5s shine linear infinite; }
         @keyframes shine { to { background-position-x: -200%; } }
+        
+        input:focus, textarea:focus { border-color: var(--azul-brand) !important; box-shadow: 0 0 0 3px rgba(8, 102, 189, 0.2) !important; outline: none; }
     </style>
 </head>
 <body class="relative">
 
-    <!-- ========================================================================= -->
-    <!-- NOTIFICACIONES GLOBALES (TOAST)                                           -->
-    <!-- ========================================================================= -->
-    <div id="toast" class="fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-slate-900/95 backdrop-blur-md text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 z-[9999] transition-all duration-300 opacity-0 translate-y-10 pointer-events-none border border-slate-700">
+    <!-- TOAST DE NOTIFICACIONES GLOBALES -->
+    <div id="toast" class="fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-slate-900/95 backdrop-blur-md text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-4 z-[9999] transition-all duration-500 opacity-0 translate-y-10 pointer-events-none border border-slate-700 min-w-[300px]">
         <div id="toast-icon" class="text-green-400 text-2xl"><i class="fas fa-check-circle"></i></div>
-        <div>
-            <h4 id="toast-title" class="font-bold text-sm leading-tight">Éxito</h4>
+        <div class="flex-1">
+            <h4 id="toast-title" class="font-bold text-sm leading-tight text-white">Éxito</h4>
             <p id="toast-msg" class="text-xs text-slate-300 mt-0.5">Acción completada.</p>
         </div>
+        <div id="toast-progress" class="toast-progress"></div>
     </div>
 
     <!-- PRELOADER INICIAL ELEGANTE -->
     <div id="initial-loader" class="fixed inset-0 bg-[var(--bg-crema)] z-[9999] flex flex-col items-center justify-center transition-opacity duration-700">
-        <div class="w-28 h-28 bg-white rounded-full flex items-center justify-center text-[var(--azul-brand)] mb-8 shadow-xl border-4 border-blue-50 animate-bounce">
+        <div class="w-32 h-32 bg-white rounded-full flex items-center justify-center text-[var(--azul-brand)] mb-8 shadow-2xl border-4 border-blue-50 pulse-soft">
             <i class="fas fa-motorcycle text-6xl"></i>
         </div>
-        <h2 class="oswald text-4xl font-black text-slate-800 uppercase tracking-widest mb-2">EL JEFE</h2>
-        <p class="text-[var(--azul-brand)] font-bold text-sm tracking-[0.3em] mb-8 uppercase animate-pulse">Cargando Almacén...</p>
-        <div class="w-64 h-2 bg-gray-300 rounded-full overflow-hidden shadow-inner">
+        <h2 class="oswald text-4xl font-black text-slate-800 uppercase tracking-widest mb-2 drop-shadow-sm">EL JEFE</h2>
+        <p class="text-[var(--azul-brand)] font-bold text-sm tracking-[0.3em] mb-8 uppercase animate-pulse">Conectando al Almacén...</p>
+        <div class="w-64 h-2 bg-gray-200 rounded-full overflow-hidden shadow-inner">
             <div class="h-full bg-[var(--azul-brand)] w-1/2 animate-[shine_1s_infinite] rounded-full"></div>
         </div>
     </div>
@@ -266,13 +391,15 @@
         <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-5">
             <!-- Logo y Título -->
             <div class="flex items-center gap-4 w-full md:w-auto justify-between md:justify-start">
-                <div class="flex items-center gap-4 cursor-pointer hover:opacity-90 transition" onclick="window.scrollTo(0,0)">
-                    <div class="bg-white p-2 rounded-2xl shadow-xl transform rotate-3 hover:rotate-0 transition-transform border-2 border-white/20">
+                <div class="flex items-center gap-4 cursor-pointer hover:opacity-90 transition-all transform hover:scale-105" onclick="window.scrollTo(0,0)">
+                    <div class="bg-white p-2 rounded-2xl shadow-xl transform rotate-3 hover:rotate-0 transition-transform duration-300 border-2 border-white/20">
                         <img src="logo.ico" onerror="this.src='https://via.placeholder.com/100?text=LOGO'" alt="Logo El Jefe" class="h-12 md:h-16 w-auto object-contain">
                     </div>
                     <div class="text-left">
                         <h1 class="oswald text-2xl md:text-4xl font-bold uppercase tracking-widest leading-none drop-shadow-md text-white">El Jefe</h1>
-                        <p class="text-[10px] md:text-xs text-blue-200 tracking-[0.25em] uppercase mt-1 font-bold">Moto Partes</p>
+                        <p class="text-[10px] md:text-xs text-blue-200 tracking-[0.25em] uppercase mt-1.5 font-bold flex items-center gap-2">
+                            Moto Partes <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse shadow-[0_0_8px_#4ade80]"></span>
+                        </p>
                     </div>
                 </div>
                 
@@ -282,17 +409,24 @@
                 </button>
             </div>
             
-            <!-- Botones Derechos (PC) -->
-            <div class="flex items-center gap-4 w-full md:w-auto justify-end">
-                <button onclick="window.abrirModal('rastreo-modal')" class="hidden md:flex items-center bg-blue-900/40 hover:bg-blue-800 text-white py-3.5 px-6 rounded-full shadow-inner border border-blue-400/30 transition-all font-bold uppercase tracking-widest text-xs backdrop-blur-sm active:scale-95">
-                    <i class="fas fa-search-location mr-2 text-lg text-blue-300"></i> Rastrear Pedido
+            <!-- Botones Derechos -->
+            <div class="flex items-center gap-6 w-full md:w-auto justify-end">
+                <button onclick="window.abrirModal('rastreo-modal')" class="hidden md:flex items-center bg-blue-900/40 hover:bg-blue-800 text-white py-3.5 px-6 rounded-full shadow-inner border border-blue-400/30 transition-all font-bold uppercase tracking-widest text-xs backdrop-blur-sm hover:shadow-lg active:scale-95">
+                    <i class="fas fa-search-location mr-2 text-lg text-blue-300"></i> Rastrear Orden
                 </button>
 
-                <button onclick="window.toggleCart()" class="relative bg-[var(--amarillo-btn)] text-slate-900 py-3.5 px-8 rounded-full shadow-[0_4px_15px_rgba(234,179,8,0.4)] hover:bg-[#facc15] hover:-translate-y-1 transition-all duration-300 font-bold flex items-center justify-center group w-full md:w-auto active:scale-95">
-                    <i class="fas fa-shopping-cart text-xl md:text-2xl group-hover:rotate-12 transition-transform mr-3"></i>
-                    <span class="uppercase text-sm oswald tracking-widest">Mi Carrito</span>
-                    <span id="cart-count" class="absolute -top-2 -right-2 bg-[var(--rojo-accent)] text-white text-xs font-black w-7 h-7 rounded-full border-2 border-white shadow-lg flex items-center justify-center leading-none transition-transform">0</span>
-                </button>
+                <!-- BOTÓN CARRITO DINÁMICO (Aura de luz + Pop) -->
+                <div class="cart-wrapper relative w-full md:w-auto">
+                    <!-- Efecto de luz por detrás del botón -->
+                    <div class="cart-glow"></div>
+                    
+                    <button onclick="window.toggleCart()" class="btn-cart relative py-3.5 px-8 rounded-full font-bold flex items-center justify-center w-full md:w-auto">
+                        <i class="fas fa-shopping-cart text-xl md:text-2xl mr-3"></i>
+                        <span class="uppercase text-sm oswald tracking-widest">Mi Carrito</span>
+                    </button>
+                    <!-- Globito Rojo Libre y Flotante -->
+                    <span id="cart-count" class="absolute -top-3 -right-3 bg-[var(--rojo-accent)] text-white text-xs font-black w-7 h-7 rounded-full border-2 border-white shadow-xl flex items-center justify-center z-20">0</span>
+                </div>
             </div>
         </div>
     </header>
@@ -300,7 +434,7 @@
     <!-- BARRA NAVEGACIÓN -->
     <nav class="category-nav">
         <div class="max-w-7xl mx-auto px-4 flex justify-start md:justify-center overflow-x-auto no-scrollbar py-2">
-            <button onclick="window.switchTab('afinacion')" id="btn-afinacion" class="nav-btn active whitespace-nowrap flex-shrink-0"><i class="fas fa-oil-can mr-2 text-gray-400"></i> Afinación</button>
+            <button onclick="window.switchTab('afinacion')" id="btn-afinacion" class="nav-btn active whitespace-nowrap flex-shrink-0"><i class="fas fa-oil-can mr-2 text-gray-400 group-hover:text-[var(--azul-brand)]"></i> Afinación</button>
             <button onclick="window.switchTab('suspension')" id="btn-suspension" class="nav-btn whitespace-nowrap flex-shrink-0"><i class="fas fa-cogs mr-2 text-gray-400"></i> Suspensión</button>        
             <button onclick="window.switchTab('llantas')" id="btn-llantas" class="nav-btn whitespace-nowrap flex-shrink-0"><i class="fas fa-bullseye mr-2 text-gray-400"></i> Llantas</button>
             <button onclick="window.switchTab('refacciones')" id="btn-refacciones" class="nav-btn whitespace-nowrap flex-shrink-0"><i class="fas fa-wrench mr-2 text-gray-400"></i> Refacciones</button>
@@ -309,24 +443,24 @@
     </nav>
 
     <!-- BUSCADOR INTELIGENTE -->
-    <div class="bg-white py-6 px-4 sticky top-[76px] md:top-[80px] z-30 border-b border-gray-200 shadow-sm backdrop-blur-md bg-opacity-90">
-        <div class="max-w-3xl mx-auto relative flex items-center bg-gray-50 rounded-full shadow-inner border border-gray-200 focus-within:border-[var(--azul-brand)] focus-within:ring-2 focus-within:ring-blue-100 transition-all p-1.5">
+    <div class="bg-[var(--bg-crema)] py-6 px-4 sticky top-[76px] md:top-[88px] z-30 border-b border-gray-200/50 backdrop-blur-md bg-opacity-95 shadow-sm">
+        <div class="max-w-3xl mx-auto relative flex items-center bg-white rounded-full shadow-md border border-gray-200 focus-within:border-[var(--azul-brand)] focus-within:ring-4 focus-within:ring-blue-100 transition-all p-1.5 hover:shadow-lg">
             <i class="fas fa-search text-gray-400 text-xl ml-5"></i>
             <input type="text" id="globalSearch" onkeyup="if(event.key === 'Enter') window.triggerSmartSearch(); else window.searchProducts();" placeholder="Busca por nombre, modelo o marca..." class="w-full p-3 pl-4 bg-transparent border-none focus:outline-none text-lg text-gray-800 placeholder-gray-400 font-medium">
-            <button id="btn-ia-search" onclick="window.triggerSmartSearch()" class="bg-gradient-to-r from-[#0866bd] to-[#1e3a8a] text-white px-8 py-3.5 rounded-full font-bold uppercase text-xs md:text-sm tracking-widest flex items-center hover:shadow-[0_0_15px_rgba(8,102,189,0.5)] transition-all m-1 hover:scale-105 active:scale-95 shadow-md">
+            <button id="btn-ia-search" onclick="window.triggerSmartSearch()" class="bg-gradient-to-r from-[#0866bd] to-[#1e3a8a] text-white px-8 py-3.5 rounded-full font-bold uppercase text-xs md:text-sm tracking-widest flex items-center hover:shadow-[0_0_20px_rgba(8,102,189,0.5)] transition-all m-1 hover:scale-105 active:scale-95 shadow-md">
                 <i class="fas fa-magic mr-2 text-blue-200"></i> Búsqueda IA
             </button>
         </div>
-        <p id="ia-search-status" class="text-center text-xs font-bold text-[#0866bd] mt-3 hidden tracking-widest uppercase"><i class="fas fa-spinner fa-spin mr-2"></i> Procesando búsqueda inteligente...</p>
+        <p id="ia-search-status" class="text-center text-xs font-bold text-[#0866bd] mt-3 hidden tracking-widest uppercase fade-in"><i class="fas fa-spinner fa-spin mr-2"></i> Procesando búsqueda inteligente...</p>
     </div>
 
-    <!-- BANNER HERO -->
+    <!-- BANNER HERO PARALLAX -->
     <div id="hero-carousel" class="hero-banner relative group overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-t from-[var(--azul-brand)]/80 via-[#0B132B]/50 to-transparent z-0"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-[var(--bg-crema)] via-transparent to-[#0866bd]/40 z-0"></div>
         <div class="relative z-10 px-4 max-w-4xl text-center reveal active">
-            <span class="inline-block py-1.5 px-4 rounded-full bg-[var(--amarillo-btn)] text-slate-900 font-bold text-xs uppercase tracking-widest mb-6 shadow-lg">Calidad 100% Garantizada</span>
+            <span class="inline-block py-1.5 px-4 rounded-full bg-[var(--amarillo-btn)] text-slate-900 font-black text-xs uppercase tracking-widest mb-6 shadow-lg transform hover:scale-110 transition cursor-default">Calidad 100% Garantizada</span>
             <h2 id="carousel-title" class="oswald text-5xl md:text-7xl font-bold text-white uppercase mb-6 drop-shadow-[0_4px_10px_rgba(0,0,0,0.8)] tracking-wide leading-tight">ESPECIALISTAS EN<br><span class="text-[var(--amarillo-btn)]">MOTOS</span></h2>
-            <p id="carousel-text" class="text-gray-200 text-sm md:text-xl font-medium tracking-widest drop-shadow-md max-w-2xl mx-auto leading-relaxed">Italika, Bajaj, Vento y más. Encuentra la pieza exacta que tu máquina necesita al mejor precio.</p>
+            <p id="carousel-text" class="text-gray-100 text-base md:text-xl font-medium tracking-widest drop-shadow-md max-w-2xl mx-auto leading-relaxed bg-black/30 p-4 rounded-2xl backdrop-blur-sm border border-white/10">Italika, Bajaj, Vento y más. Encuentra la pieza exacta que tu máquina necesita al mejor precio.</p>
         </div>
     </div>
     
@@ -336,21 +470,21 @@
     <main class="max-w-7xl mx-auto px-4 min-h-[600px] py-16 md:py-24 relative">
         
         <section id="afinacion" class="product-section">
-            <div class="flex items-center mb-10 border-b-2 border-gray-200 pb-4 reveal"><div class="h-10 w-2 bg-[var(--rojo-accent)] mr-4 rounded-full shadow-[0_0_10px_rgba(220,38,38,0.5)]"></div><h2 class="text-3xl md:text-4xl font-bold text-[var(--texto-dark)] oswald uppercase tracking-tight">Kits de Afinación</h2></div>
+            <div class="flex items-center mb-12 border-b-2 border-gray-200 pb-4 reveal"><div class="h-10 w-2 bg-[var(--rojo-accent)] mr-4 rounded-full shadow-[0_0_10px_rgba(220,38,38,0.5)]"></div><h2 class="text-3xl md:text-4xl font-bold text-[var(--texto-dark)] oswald uppercase tracking-tight">Kits de Afinación</h2></div>
             <div id="grid-afinacion" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
-                <!-- Skeletons Loader -->
+                <!-- Skeletons Loader iniciales -->
                 <div class="bg-white rounded-3xl p-5 shadow-sm border border-gray-100"><div class="w-full aspect-square skeleton rounded-2xl mb-4"></div><div class="h-4 skeleton rounded w-3/4 mb-2"></div><div class="h-8 skeleton rounded w-full mt-4"></div></div>
                 <div class="bg-white rounded-3xl p-5 shadow-sm border border-gray-100"><div class="w-full aspect-square skeleton rounded-2xl mb-4"></div><div class="h-4 skeleton rounded w-3/4 mb-2"></div><div class="h-8 skeleton rounded w-full mt-4"></div></div>
             </div>
         </section>
 
         <section id="suspension" class="product-section hidden-section">
-            <div class="flex items-center mb-10 border-b-2 border-gray-200 pb-4 reveal"><div class="h-10 w-2 bg-[var(--amarillo-btn)] mr-4 rounded-full shadow-[0_0_10px_rgba(234,179,8,0.5)]"></div><h2 class="text-3xl md:text-4xl font-bold text-[var(--texto-dark)] oswald uppercase tracking-tight">Suspensión y Sprocket</h2></div>
+            <div class="flex items-center mb-12 border-b-2 border-gray-200 pb-4 reveal"><div class="h-10 w-2 bg-[var(--amarillo-btn)] mr-4 rounded-full shadow-[0_0_10px_rgba(234,179,8,0.5)]"></div><h2 class="text-3xl md:text-4xl font-bold text-[var(--texto-dark)] oswald uppercase tracking-tight">Suspensión y Sprocket</h2></div>
             <div id="grid-suspension" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8"></div>
         </section>
 
         <section id="llantas" class="product-section hidden-section">
-            <div class="flex items-center mb-10 border-b-2 border-gray-200 pb-4 reveal"><div class="h-10 w-2 bg-slate-800 mr-4 rounded-full shadow-[0_0_10px_rgba(30,41,59,0.5)]"></div><h2 class="text-3xl md:text-4xl font-bold text-[var(--texto-dark)] oswald uppercase tracking-tight">Llantas y Cámaras</h2></div>
+            <div class="flex items-center mb-12 border-b-2 border-gray-200 pb-4 reveal"><div class="h-10 w-2 bg-slate-800 mr-4 rounded-full shadow-[0_0_10px_rgba(30,41,59,0.5)]"></div><h2 class="text-3xl md:text-4xl font-bold text-[var(--texto-dark)] oswald uppercase tracking-tight">Llantas y Cámaras</h2></div>
             <div id="grid-llantas" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8"></div>
         </section>
 
@@ -358,11 +492,11 @@
         <section id="refacciones" class="product-section hidden-section">
             <div class="border-b-2 border-gray-200 pb-6 mb-10 reveal">
                 <div class="flex items-center mb-6"><div class="h-10 w-2 bg-[var(--azul-brand)] mr-4 rounded-full shadow-[0_0_10px_rgba(8,102,189,0.5)]"></div><h2 class="text-3xl md:text-4xl font-bold text-[var(--texto-dark)] oswald uppercase tracking-tight">Refacciones Generales</h2></div>
-                <button onclick="window.showRefaccionesHome()" id="btn-back-ref" class="hidden text-sm font-bold text-gray-500 hover:text-[var(--azul-brand)] mb-6 bg-white px-5 py-3 rounded-xl shadow-sm border border-gray-200 transition-all hover:shadow-md"><i class="fas fa-arrow-left mr-2"></i> Volver a categorías</button>
+                <button onclick="window.showRefaccionesHome()" id="btn-back-ref" class="hidden text-sm font-bold text-gray-500 hover:text-[var(--azul-brand)] mb-6 bg-white px-5 py-3 rounded-xl shadow-sm border border-gray-200 transition-all hover:shadow-md active:scale-95"><i class="fas fa-arrow-left mr-2"></i> Volver a categorías</button>
                 <div class="flex gap-4 overflow-x-auto pb-4 no-scrollbar">
-                    <button onclick="window.filterRefacciones('sub-freno')" id="btn-sub-freno" class="sub-nav-btn px-6 py-3.5 bg-white border border-gray-200 text-gray-700 rounded-xl font-bold text-sm uppercase transition-all shadow-sm hover:shadow-md hover:border-red-200 hover:bg-red-50 whitespace-nowrap"><i class="fas fa-circle mr-2 text-[var(--rojo-accent)] text-[10px] mb-0.5 shadow-sm"></i> Frenos</button>
-                    <button onclick="window.filterRefacciones('sub-electrico')" id="btn-sub-electrico" class="sub-nav-btn px-6 py-3.5 bg-white border border-gray-200 text-gray-700 rounded-xl font-bold text-sm uppercase transition-all shadow-sm hover:shadow-md hover:border-yellow-200 hover:bg-yellow-50 whitespace-nowrap"><i class="fas fa-circle mr-2 text-[var(--amarillo-btn)] text-[10px] mb-0.5 shadow-sm"></i> Eléctrico</button>
-                    <button onclick="window.filterRefacciones('sub-chicote')" id="btn-sub-chicote" class="sub-nav-btn px-6 py-3.5 bg-white border border-gray-200 text-gray-700 rounded-xl font-bold text-sm uppercase transition-all shadow-sm hover:shadow-md hover:border-gray-300 hover:bg-gray-100 whitespace-nowrap"><i class="fas fa-circle mr-2 text-gray-400 text-[10px] mb-0.5 shadow-sm"></i> Chicotes</button>
+                    <button onclick="window.filterRefacciones('sub-freno')" id="btn-sub-freno" class="sub-nav-btn px-6 py-3.5 bg-white border border-gray-200 text-gray-700 rounded-xl font-bold text-sm uppercase transition-all shadow-sm hover:shadow-md hover:border-red-200 hover:bg-red-50 whitespace-nowrap active:scale-95"><i class="fas fa-circle mr-2 text-[var(--rojo-accent)] text-[10px] mb-0.5 shadow-sm"></i> Frenos</button>
+                    <button onclick="window.filterRefacciones('sub-electrico')" id="btn-sub-electrico" class="sub-nav-btn px-6 py-3.5 bg-white border border-gray-200 text-gray-700 rounded-xl font-bold text-sm uppercase transition-all shadow-sm hover:shadow-md hover:border-yellow-200 hover:bg-yellow-50 whitespace-nowrap active:scale-95"><i class="fas fa-circle mr-2 text-[var(--amarillo-btn)] text-[10px] mb-0.5 shadow-sm"></i> Eléctrico</button>
+                    <button onclick="window.filterRefacciones('sub-chicote')" id="btn-sub-chicote" class="sub-nav-btn px-6 py-3.5 bg-white border border-gray-200 text-gray-700 rounded-xl font-bold text-sm uppercase transition-all shadow-sm hover:shadow-md hover:border-gray-300 hover:bg-gray-100 whitespace-nowrap active:scale-95"><i class="fas fa-circle mr-2 text-gray-400 text-[10px] mb-0.5 shadow-sm"></i> Chicotes</button>
                 </div>
             </div>
             
@@ -379,7 +513,7 @@
                 </div>
                 <div onclick="window.filterRefacciones('sub-chicote')" class="cursor-pointer bg-white border border-gray-100 rounded-[2rem] p-8 shadow-sm hover:shadow-2xl transition-all flex items-center gap-6 group transform hover:-translate-y-2 reveal" style="transition-delay: 200ms;">
                     <div class="bg-gray-100 p-5 rounded-2xl text-gray-600 group-hover:bg-gray-700 group-hover:text-white transition-colors border border-gray-200 shadow-inner"><i class="fas fa-route text-4xl"></i></div>
-                    <div><h3 class="font-black text-2xl text-gray-800 mb-1">Chicotes</h3><p class="text-sm text-gray-500 font-medium">Clutch, Acelerador</p></div>
+                    <div><h3 class="font-black text-2xl text-gray-800 mb-1">Chicotes</h3><p class="text-sm text-gray-500 font-medium">Clutch, Acelerador, Freno</p></div>
                     <i class="fas fa-chevron-right ml-auto text-gray-300 group-hover:text-gray-700 text-xl transition-colors"></i>
                 </div>
             </div>
@@ -388,44 +522,46 @@
             <div id="sub-chicote" class="sub-category-grid hidden grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8 w-full mt-6"></div>
         </section>
 
-        <section id="accesorios" class="product-section hidden-section">
+        <section id="accesorios" class="product-section hidden-section fade-in">
             <div class="flex items-center mb-10 border-b-2 border-gray-200 pb-4 reveal"><div class="h-10 w-2 bg-purple-600 mr-4 rounded-full shadow-[0_0_10px_rgba(147,51,234,0.5)]"></div><h2 class="text-3xl md:text-4xl font-bold text-gray-800 oswald uppercase tracking-tight">Accesorios</h2></div>
             <div id="grid-accesorios" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8"></div>
         </section>
 
+        <!-- Controles de Paginación -->
         <div id="pagination-controls" class="pagination-container"></div>
     </main>
 
     <!-- ========================================================================= -->
-    <!-- FOOTER AZUL BRAND CON MAPA                                                -->
+    <!-- FOOTER AZUL BRAND (CON MAPA DINÁMICO)                                     -->
     <!-- ========================================================================= -->
-    <footer class="bg-[var(--azul-brand)] text-white pt-16 pb-8 border-t-4 border-[var(--amarillo-btn)] relative">
+    <footer class="bg-[var(--azul-brand)] text-white pt-16 pb-8 border-t-4 border-[var(--amarillo-btn)] relative mt-10">
         <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
             <div>
-                <div class="bg-white inline-block p-1.5 rounded-xl mb-5 shadow-lg border border-blue-200">
+                <div class="bg-white inline-block p-1.5 rounded-2xl mb-5 shadow-[0_0_20px_rgba(255,255,255,0.2)] border-2 border-blue-200">
                     <img src="logo.ico" onerror="this.src='https://via.placeholder.com/100?text=LOGO'" alt="Logo Footer" class="h-16">
                 </div>
                 <h4 class="oswald text-2xl uppercase mb-3 tracking-wider text-[var(--amarillo-btn)]">Moto Partes El Jefe</h4>
                 <p class="text-blue-100 text-sm leading-relaxed mb-6 font-medium">Ofrecemos calidad y confianza premium. Somos una empresa comprometida en mantener tu pasión en movimiento.</p>
                 <div class="flex gap-4 justify-center md:justify-start">
-                    <a href="#" class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[var(--azul-brand)] hover:bg-[#1877F2] hover:text-white transition-colors shadow-md"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[var(--azul-brand)] hover:bg-black hover:text-white transition-colors shadow-md"><i class="fab fa-tiktok"></i></a>
-                    <a href="#" class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[var(--azul-brand)] hover:bg-pink-600 hover:text-white transition-colors shadow-md"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="w-12 h-12 rounded-full bg-white flex items-center justify-center text-[var(--azul-brand)] hover:bg-[#1877F2] hover:text-white transition-colors shadow-lg hover:scale-110 transform"><i class="fab fa-facebook-f text-xl"></i></a>
+                    <a href="#" class="w-12 h-12 rounded-full bg-white flex items-center justify-center text-[var(--azul-brand)] hover:bg-black hover:text-white transition-colors shadow-lg hover:scale-110 transform"><i class="fab fa-tiktok text-xl"></i></a>
+                    <a href="#" class="w-12 h-12 rounded-full bg-white flex items-center justify-center text-[var(--azul-brand)] hover:bg-gradient-to-tr hover:from-yellow-400 hover:via-pink-500 hover:to-purple-600 hover:text-white transition-all shadow-lg hover:scale-110 transform"><i class="fab fa-instagram text-xl"></i></a>
                 </div>
             </div>
             
             <div>
                 <h4 class="oswald text-lg uppercase mb-6 tracking-wider text-white border-b border-blue-400 pb-3 inline-block">Centro de Soporte</h4>
-                <a href="https://maps.google.com/?q=Calle+Marcos+Lara+60,+Santa+Paula,+Tonalá,+Jalisco" target="_blank" class="block text-blue-100 mb-4 hover:text-[var(--amarillo-btn)] transition text-sm flex items-center justify-center md:justify-start">
+                <a href="https://maps.google.com/?q=Calle+Marcos+Lara+60,+Santa+Paula,+Tonalá,+Jalisco" target="_blank" class="block text-blue-100 mb-4 hover:text-[var(--amarillo-btn)] transition text-sm flex items-center justify-center md:justify-start hover:translate-x-2 transform">
                     <i class="fas fa-map-marker-alt mr-3 text-[var(--rojo-accent)] text-lg"></i> Marcos Lara 60, Santa Paula, Tonalá
                 </a>
-                <a href="https://wa.me/523332406334" target="_blank" class="block text-blue-100 mb-4 hover:text-white transition text-sm flex items-start justify-center md:justify-start">
-                    <i class="fab fa-whatsapp mr-3 text-green-400 text-xl"></i> 
-                    <span class="text-left font-bold">+52 33 3240 6334 <br><span class="text-[10px] font-normal text-blue-200 uppercase tracking-widest block mt-1">(Dudas o aclaraciones de pedidos)</span></span>
+                <a href="https://wa.me/523332406334" target="_blank" class="block text-blue-100 mb-4 hover:text-white transition text-sm flex items-start justify-center md:justify-start hover:translate-x-2 transform">
+                    <i class="fab fa-whatsapp mr-3 text-green-400 text-2xl bg-white/10 p-2 rounded-full"></i> 
+                    <span class="text-left font-bold text-base mt-1">+52 33 3240 6334 <br><span class="text-[10px] font-normal text-blue-200 uppercase tracking-widest block mt-1">(Dudas o aclaraciones de pedidos)</span></span>
                 </a>
                 
-                <!-- Mapa Interactivo -->
-                <div class="w-full h-48 rounded-2xl overflow-hidden border border-blue-400 shadow-xl mt-6 opacity-95 hover:opacity-100 transition-opacity bg-blue-900">
+                <!-- MAPA DINÁMICO EXACTO -->
+                <div class="w-full h-48 rounded-2xl overflow-hidden border-2 border-blue-400 shadow-2xl mt-6 opacity-95 hover:opacity-100 transition-opacity bg-blue-900 group relative">
+                    <div class="absolute inset-0 bg-blue-900/20 group-hover:opacity-0 transition-opacity pointer-events-none"></div>
                     <iframe width="100%" height="100%" frameborder="0" style="border:0" src="https://maps.google.com/maps?q=Calle+Marcos+Lara+60,+Santa+Paula,+Tonalá,+Jalisco&t=&z=15&ie=UTF8&iwloc=&output=embed" allowfullscreen></iframe>
                 </div>
             </div>
@@ -433,9 +569,9 @@
             <div>
                 <h4 class="oswald text-lg uppercase mb-6 tracking-wider text-white border-b border-blue-400 pb-3 inline-block">Horarios</h4>
                 <ul class="text-blue-100 text-sm space-y-4">
-                    <li class="flex justify-between border-b border-blue-800/50 pb-2"><span>Lunes a Viernes</span> <span class="font-bold text-white">11:00 AM - 7:00 PM</span></li>
-                    <li class="flex justify-between border-b border-blue-800/50 pb-2"><span>Sábados</span> <span class="font-bold text-white">11:00 AM - 4:00 PM</span></li>
-                    <li class="flex justify-between pb-2"><span>Domingos</span> <span class="font-bold text-[var(--rojo-accent)]">Cerrado</span></li>
+                    <li class="flex justify-between border-b border-blue-800/50 pb-3 hover:text-white transition-colors"><span><i class="far fa-clock mr-2 opacity-50"></i> Lunes a Viernes</span> <span class="font-bold text-white bg-blue-900/50 px-3 py-1 rounded-lg">11:00 AM - 7:00 PM</span></li>
+                    <li class="flex justify-between border-b border-blue-800/50 pb-3 hover:text-white transition-colors"><span><i class="far fa-clock mr-2 opacity-50"></i> Sábados</span> <span class="font-bold text-white bg-blue-900/50 px-3 py-1 rounded-lg">11:00 AM - 4:00 PM</span></li>
+                    <li class="flex justify-between pb-3 hover:text-[var(--rojo-accent)] transition-colors"><span><i class="far fa-calendar-times mr-2 opacity-50"></i> Domingos</span> <span class="font-bold text-white bg-[var(--rojo-accent)] px-3 py-1 rounded-lg shadow-sm">Cerrado</span></li>
                 </ul>
             </div>
         </div>
@@ -445,62 +581,64 @@
     </footer>
 
     <!-- ========================================================================= -->
-    <!-- CHATBOT FLOTANTE IA                                                       -->
+    <!-- BOTONES FLOTANTES: CHATBOT Y SCROLL TOP                                   -->
     <!-- ========================================================================= -->
+    <button onclick="window.scrollTo(0,0)" id="btn-scroll-top" class="float-top shadow-lg border border-gray-600"><i class="fas fa-arrow-up"></i></button>
     <button onclick="window.toggleChat()" class="float-chat"><i class="fas fa-robot"></i></button>
     
     <div id="chat-window">
         <div class="chat-header">
             <span class="font-bold tracking-wide flex items-center"><i class="fas fa-robot mr-3 text-blue-200 text-xl"></i> El Jefecito</span>
-            <button onclick="window.toggleChat()" class="text-white hover:text-blue-200 transition"><i class="fas fa-times text-xl"></i></button>
+            <button onclick="window.toggleChat()" class="text-white hover:text-blue-200 transition transform hover:scale-110"><i class="fas fa-times text-xl"></i></button>
         </div>
         <div id="chat-messages" class="chat-messages">
             <div class="chat-bubble chat-bot shadow-sm font-medium text-slate-700">¡Hola! Soy el asistente de El Jefe. 🏍️ ¿Buscas alguna refacción en específico para tu moto?</div>
         </div>
         <div class="chat-input-area">
             <input type="text" id="chat-input" placeholder="Pregunta por tu moto..." class="flex-grow p-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0866bd] text-sm transition-shadow font-medium" onkeyup="if(event.key === 'Enter') window.sendChatMessage()">
-            <button onclick="window.sendChatMessage()" class="bg-[#0866bd] text-white w-12 h-12 rounded-xl hover:bg-blue-800 transition shadow-lg flex items-center justify-center active:scale-95"><i class="fas fa-paper-plane text-lg"></i></button>
+            <button onclick="window.sendChatMessage()" class="bg-[#0866bd] text-white w-12 h-12 rounded-xl hover:bg-blue-800 transition shadow-lg flex items-center justify-center active:scale-95 transform hover:-translate-y-1"><i class="fas fa-paper-plane text-lg"></i></button>
         </div>
     </div>
 
     <!-- ========================================================================= -->
-    <!-- MODALES DE LA TIENDA                                                      -->
+    <!-- MODALES DE LA TIENDA (UI PREMIUM)                                         -->
     <!-- ========================================================================= -->
 
     <!-- Modal: Detalles del Producto -->
     <div id="modal-overlay" onclick="window.closeModal(event)" class="modal-bg">
         <div class="bg-white rounded-3xl max-w-4xl w-full relative shadow-2xl overflow-hidden flex flex-col md:flex-row h-auto max-h-[90vh] m-4 transform transition-all scale-95" id="modal-box">
-            <button onclick="window.closeModal(event)" class="absolute top-4 right-4 bg-gray-100 rounded-full w-10 h-10 flex items-center justify-center text-gray-500 hover:bg-red-100 hover:text-[var(--rojo-accent)] transition-colors z-20 border border-gray-200"><i class="fas fa-times"></i></button>
+            <button onclick="window.closeModal(event)" class="absolute top-4 right-4 bg-white/80 backdrop-blur rounded-full w-10 h-10 flex items-center justify-center text-gray-500 hover:bg-red-100 hover:text-[var(--rojo-accent)] transition-all z-20 border border-gray-200 shadow-sm hover:scale-110"><i class="fas fa-times"></i></button>
             
-            <div class="w-full md:w-5/12 bg-slate-50 flex items-center justify-center p-8 border-b md:border-b-0 md:border-r border-gray-200 relative min-h-[250px]">
-                <div id="modal-images" class="w-full h-full flex items-center justify-center bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                    <img src="logo.ico" class="max-h-64 object-contain transition-transform duration-500 hover:scale-105">
+            <div class="w-full md:w-5/12 bg-gray-50 flex items-center justify-center p-8 border-b md:border-b-0 md:border-r border-gray-200 relative min-h-[250px] overflow-hidden">
+                <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#0866bd 1px, transparent 1px); background-size: 20px 20px;"></div>
+                <div id="modal-images" class="w-full h-full flex items-center justify-center bg-white rounded-3xl p-6 shadow-md border border-gray-100 z-10 relative">
+                    <img src="logo.ico" class="max-h-64 object-contain transition-transform duration-500 hover:scale-110">
                 </div>
             </div>
             
             <div class="w-full md:w-7/12 p-6 md:p-10 overflow-y-auto relative flex flex-col bg-white">
-                <div class="mb-5">
-                    <p id="modal-category-badge" class="text-[10px] font-bold text-[#0866bd] uppercase tracking-widest mb-2 font-mono bg-blue-50 border border-blue-100 w-fit px-3 py-1.5 rounded-lg shadow-sm">Categoría</p>
-                    <h2 id="modal-title" class="text-2xl md:text-3xl font-black text-gray-800 leading-tight mb-4">Cargando...</h2>
+                <div class="mb-6">
+                    <p id="modal-category-badge" class="text-[10px] font-bold text-[#0866bd] uppercase tracking-widest mb-3 font-mono bg-blue-50 border border-blue-100 w-fit px-3 py-1.5 rounded-lg shadow-sm">Categoría</p>
+                    <h2 id="modal-title" class="text-3xl md:text-4xl font-black text-gray-800 leading-tight mb-4">Cargando...</h2>
                     <div class="flex items-center gap-5">
-                        <p id="modal-price" class="text-4xl font-black text-[var(--rojo-accent)] drop-shadow-sm">$0.00</p>
+                        <p id="modal-price" class="text-4xl md:text-5xl font-black text-[var(--rojo-accent)] drop-shadow-sm">$0.00</p>
                         <div id="modal-stock-badge"></div>
                     </div>
                 </div>
                 
-                <div class="mb-6 bg-slate-50 p-6 rounded-2xl border border-gray-100 shadow-inner">
+                <div class="mb-6 bg-gray-50 p-6 rounded-2xl border border-gray-100 shadow-inner">
                     <h3 class="font-bold text-xs text-gray-500 uppercase mb-4 tracking-widest"><i class="fas fa-list-ul mr-2 text-[#0866bd]"></i> Características Principales</h3>
                     <div id="modal-desc" class="modal-list ml-1"></div>
                 </div>
                 
-                <div id="modal-compat-container" class="mb-8 bg-slate-50 p-6 rounded-2xl border border-gray-100 hidden w-full shadow-inner">
+                <div id="modal-compat-container" class="mb-8 bg-gray-50 p-6 rounded-2xl border border-gray-100 hidden w-full shadow-inner">
                     <h3 class="font-bold text-xs text-gray-500 uppercase mb-4 tracking-widest"><i class="fas fa-motorcycle mr-2 text-[#0866bd]"></i> Tabla de Compatibilidad</h3>
                     <div class="overflow-x-auto rounded-xl border border-gray-200 w-full bg-white shadow-sm">
                         <table class="w-full text-left border-collapse text-sm min-w-full">
                             <thead>
                                 <tr class="bg-[var(--azul-brand)] text-white uppercase tracking-wider text-[10px]">
                                     <th class="py-3 px-5 font-bold">Moto / Modelo</th>
-                                    <th class="py-3 px-5 font-bold">Año / Detalles</th>
+                                    <th class="py-3 px-5 font-bold text-right">Año / Detalles</th>
                                 </tr>
                             </thead>
                             <tbody id="modal-compat-table-body" class="compat-table-body"></tbody>
@@ -509,7 +647,8 @@
                 </div>
                 
                 <div class="mt-auto pt-4 border-t border-gray-100">
-                    <button id="modal-btn-add" class="flex items-center justify-center w-full btn-cart font-black py-4.5 rounded-xl uppercase tracking-widest active:scale-95 text-sm">
+                    <!-- BOTÓN RECTANGULAR Y DINÁMICO (Modificado según petición) -->
+                    <button id="modal-btn-add" class="flex items-center justify-center w-full btn-agregar font-black py-4.5 uppercase tracking-widest active:scale-95 text-sm md:text-base">
                         <i class="fas fa-cart-plus mr-3 text-xl"></i> Agregar al Pedido
                     </button>
                 </div>
@@ -519,66 +658,69 @@
 
     <!-- Sidebar Carrito de Compras -->
     <div id="cart-overlay" onclick="window.toggleCart()" class="fixed inset-0 bg-gray-900/60 backdrop-blur-sm z-[110] hidden transition-opacity duration-300"></div>
-    <div id="cart-sidebar" class="fixed top-0 right-0 w-[90%] md:w-[400px] h-full bg-white shadow-[-10px_0_30px_rgba(0,0,0,0.2)] border-l border-gray-200 transform translate-x-full transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) z-[120] flex flex-col">
+    <div id="cart-sidebar" class="fixed top-0 right-0 w-[90%] md:w-[420px] h-full bg-white shadow-[-20px_0_40px_rgba(0,0,0,0.2)] border-l border-gray-200 transform translate-x-full transition-transform duration-500 cubic-bezier(0.175, 0.885, 0.32, 1.05) z-[120] flex flex-col">
         
-        <div class="p-6 bg-[var(--azul-brand)] text-white flex justify-between items-center shadow-lg z-20 border-b-4 border-[var(--amarillo-btn)]">
-            <h2 class="font-bold text-xl oswald tracking-widest uppercase flex items-center"><i class="fas fa-shopping-bag text-[var(--amarillo-btn)] mr-3 text-2xl"></i> Tu Caja</h2>
-            <button onclick="window.toggleCart()" class="text-blue-200 hover:text-white bg-blue-800 border border-blue-600 w-8 h-8 rounded-full flex items-center justify-center transition-colors"><i class="fas fa-times"></i></button>
+        <div class="p-6 bg-[var(--azul-brand)] text-white flex justify-between items-center shadow-lg z-20 border-b-4 border-[var(--amarillo-btn)] relative overflow-hidden">
+            <div class="absolute -right-4 -top-4 text-blue-800 opacity-20"><i class="fas fa-shopping-cart text-9xl"></i></div>
+            <h2 class="font-bold text-2xl oswald tracking-widest uppercase flex items-center relative z-10"><i class="fas fa-shopping-bag text-[var(--amarillo-btn)] mr-3 text-3xl drop-shadow-md"></i> Tu Caja</h2>
+            <button onclick="window.toggleCart()" class="text-blue-200 hover:text-white bg-blue-800 border border-blue-600 w-10 h-10 rounded-full flex items-center justify-center transition-colors relative z-10 hover:rotate-90 transform"><i class="fas fa-times text-lg"></i></button>
         </div>
         
-        <div id="cart-items" class="flex-1 overflow-y-auto p-5 space-y-4 bg-gray-50">
-            <div class="text-center mt-24 text-gray-400 fade-in">
-                <i class="fas fa-box-open text-6xl mb-4 opacity-30"></i>
-                <p class="font-bold text-lg text-gray-500 uppercase tracking-widest">Caja Vacía</p>
-                <p class="text-sm mt-2 font-medium">¡Explora y agrega piezas del catálogo!</p>
+        <div id="cart-items" class="flex-1 overflow-y-auto p-5 space-y-4 bg-gray-50/50">
+            <div class="text-center mt-32 text-gray-400 fade-in">
+                <i class="fas fa-box-open text-7xl mb-5 opacity-20 animate-pulse"></i>
+                <p class="font-black text-xl text-gray-500 uppercase tracking-widest">Caja Vacía</p>
+                <p class="text-sm mt-2 font-medium text-gray-400">¡Explora y agrega piezas del catálogo!</p>
+                <button onclick="window.toggleCart()" class="mt-6 text-[var(--azul-brand)] text-sm font-bold border border-[var(--azul-brand)] px-4 py-2 rounded-full hover:bg-blue-50 transition">Ver Catálogo</button>
             </div>
         </div>
         
-        <div class="p-6 bg-white border-t border-gray-200 z-10 shadow-[0_-10px_20px_rgba(0,0,0,0.03)]">
+        <div class="p-6 bg-white border-t border-gray-200 z-10 shadow-[0_-15px_30px_rgba(0,0,0,0.04)]">
             <!-- DATOS DEL CLIENTE PARA FIREBASE -->
-            <div class="mb-5 space-y-4">
-                <p class="text-[10px] font-bold text-[#0866bd] uppercase tracking-widest mb-1"><i class="fas fa-user mr-1 text-[var(--amarillo-btn)] text-sm"></i> Datos para el mostrador</p>
+            <div class="mb-6 space-y-4">
+                <p class="text-[10px] font-black text-[#0866bd] uppercase tracking-widest mb-2 flex items-center"><i class="fas fa-user mr-2 text-[var(--amarillo-btn)] text-base"></i> Datos para el mostrador</p>
                 <div class="relative">
-                    <i class="fas fa-user-circle absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                    <input type="text" id="cliente-nombre" placeholder="Nombre Completo *" class="w-full pl-10 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:ring-2 focus:ring-[#0866bd] outline-none transition-all">
+                    <i class="fas fa-user-circle absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg"></i>
+                    <input type="text" id="cliente-nombre" placeholder="Nombre Completo *" class="w-full pl-12 pr-4 py-3.5 bg-gray-50 border-2 border-gray-100 rounded-xl text-sm font-medium focus:border-[#0866bd] focus:bg-white text-gray-800 outline-none transition-all shadow-inner">
                 </div>
                 <div class="relative">
-                    <i class="fas fa-phone-alt absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                    <input type="tel" id="cliente-telefono" placeholder="WhatsApp (10 dígitos) *" class="w-full pl-10 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium focus:ring-2 focus:ring-[#0866bd] outline-none transition-all">
+                    <i class="fas fa-phone-alt absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg"></i>
+                    <input type="tel" id="cliente-telefono" placeholder="WhatsApp (10 dígitos) *" class="w-full pl-12 pr-4 py-3.5 bg-gray-50 border-2 border-gray-100 rounded-xl text-sm font-medium focus:border-[#0866bd] focus:bg-white text-gray-800 outline-none transition-all shadow-inner">
                 </div>
             </div>
 
-            <div class="flex justify-between items-end mb-6 pb-4 border-b border-gray-200 border-dashed">
+            <div class="flex justify-between items-end mb-6 pb-5 border-b border-gray-200 border-dashed">
                 <span class="text-gray-500 font-bold uppercase tracking-wider text-xs">Total Estimado</span>
-                <span id="cart-total" class="font-black text-3xl text-[var(--azul-brand)] tracking-tighter">$0.00</span>
+                <span id="cart-total" class="font-black text-4xl text-[var(--azul-brand)] tracking-tighter drop-shadow-sm">$0.00</span>
             </div>
             
-            <button onclick="window.enviarPedido()" id="btn-comprar" class="w-full bg-[#111827] text-white hover:bg-gray-800 font-black py-4.5 rounded-xl transition-all flex justify-center items-center uppercase tracking-widest shadow-xl shadow-gray-900/20 transform active:scale-95 text-sm border border-gray-900">
-                <i class="fas fa-check-double mr-3 text-[var(--amarillo-btn)] text-xl"></i> Confirmar Pedido
+            <button onclick="window.enviarPedido()" id="btn-comprar" class="w-full btn-agregar font-black py-4.5 transition-all flex justify-center items-center uppercase tracking-widest text-sm md:text-base">
+                <i class="fas fa-check-double mr-3 text-lg"></i> Confirmar Pedido
             </button>
         </div>
     </div>
 
-    <!-- Modal de Éxito de Compra -->
+    <!-- Modal de Éxito de Compra (Directo a Firebase) -->
     <div id="success-modal" onclick="window.cerrarModal('success-modal')" class="modal-bg">
-        <div class="bg-white p-8 md:p-10 rounded-[2rem] shadow-2xl max-w-md w-full text-center relative transform transition-all border-t-8 border-[#10b981] scale-95" id="success-box" onclick="event.stopPropagation()">
-            <button onclick="window.cerrarModal('success-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 bg-gray-100 rounded-full w-8 h-8 flex justify-center items-center transition"><i class="fas fa-times"></i></button>
+        <div class="bg-white p-8 md:p-12 rounded-[2rem] shadow-2xl max-w-md w-full text-center relative transform transition-all border-t-8 border-[#10b981] scale-95" id="success-box" onclick="event.stopPropagation()">
+            <button onclick="window.cerrarModal('success-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 bg-gray-100 rounded-full w-10 h-10 flex justify-center items-center transition hover:scale-110"><i class="fas fa-times text-lg"></i></button>
             
-            <div class="w-20 h-20 bg-green-50 border border-green-100 rounded-full flex items-center justify-center text-[#10b981] mx-auto mb-6 shadow-inner">
-                <i class="fas fa-check text-4xl"></i>
+            <div class="w-24 h-24 bg-green-50 border border-green-100 rounded-full flex items-center justify-center text-[#10b981] mx-auto mb-6 shadow-inner relative">
+                <div class="absolute inset-0 rounded-full border-4 border-green-400 animate-ping opacity-20"></div>
+                <i class="fas fa-check text-5xl"></i>
             </div>
             
-            <h2 class="oswald text-3xl font-black text-gray-800 mb-2 uppercase tracking-wide">¡Pedido Recibido!</h2>
-            <p class="text-gray-500 mb-6 text-sm font-medium leading-relaxed">Tu orden ha sido enviada directo a nuestro mostrador. Ya estamos preparando tus refacciones.</p>
+            <h2 class="oswald text-3xl md:text-4xl font-black text-gray-800 mb-3 uppercase tracking-wide">¡Pedido Recibido!</h2>
+            <p class="text-gray-500 mb-8 text-sm font-medium leading-relaxed">Tu orden ha sido enviada directo a nuestro mostrador. Ya estamos preparando tus refacciones.</p>
             
-            <div class="bg-gray-50 rounded-2xl p-5 mb-6 border border-gray-200 border-dashed shadow-inner">
+            <div class="bg-gray-50 rounded-2xl p-6 mb-8 border border-gray-200 border-dashed shadow-inner">
                 <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">Tu ID de Rastreo es:</p>
-                <p class="text-4xl font-black text-[var(--azul-brand)] font-mono tracking-widest drop-shadow-sm" id="orden-id">#0000</p>
-                <p class="text-[11px] text-gray-500 mt-2 font-medium">Guárdalo para recoger o rastrear tu pedido.</p>
+                <p class="text-5xl font-black text-[var(--azul-brand)] font-mono tracking-widest drop-shadow-sm select-all" id="orden-id">#0000</p>
+                <p class="text-[11px] text-gray-500 mt-3 font-medium">Guárdalo o tómale captura para recoger o rastrear tu pedido.</p>
             </div>
 
             <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">¿Dudas o modificaciones?</p>
-            <a href="https://wa.me/523332406334" target="_blank" class="inline-flex w-full bg-[#25d366] text-white font-bold py-3.5 rounded-xl hover:bg-[#1ea952] transition-colors shadow-md items-center justify-center text-sm tracking-wide">
+            <a href="https://wa.me/523332406334" target="_blank" class="inline-flex w-full bg-[#25d366] text-white font-bold py-4 rounded-xl hover:bg-[#1ea952] transition-colors shadow-md items-center justify-center text-sm tracking-wide transform hover:-translate-y-1">
                 <i class="fab fa-whatsapp mr-2 text-xl"></i> Contactar Soporte
             </a>
         </div>
@@ -587,17 +729,17 @@
     <!-- Modal Rastreo de Pedido -->
     <div id="rastreo-modal" onclick="window.cerrarModal('rastreo-modal')" class="modal-bg">
         <div class="bg-white p-8 md:p-10 rounded-[2rem] shadow-2xl border border-gray-200 max-w-sm w-full text-center relative border-t-8 border-[#0866bd] scale-95" id="rastreo-box" onclick="event.stopPropagation()">
-            <button onclick="window.cerrarModal('rastreo-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 bg-gray-100 rounded-full w-8 h-8 flex justify-center items-center transition"><i class="fas fa-times"></i></button>
+            <button onclick="window.cerrarModal('rastreo-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 bg-gray-100 rounded-full w-10 h-10 flex justify-center items-center transition hover:scale-110"><i class="fas fa-times text-lg"></i></button>
             
-            <div class="w-16 h-16 bg-blue-50 border border-blue-100 rounded-full flex items-center justify-center text-[#0866bd] mx-auto mb-5 shadow-inner">
-                <i class="fas fa-search-location text-3xl"></i>
+            <div class="w-20 h-20 bg-blue-50 border border-blue-100 rounded-full flex items-center justify-center text-[#0866bd] mx-auto mb-5 shadow-inner">
+                <i class="fas fa-search-location text-4xl"></i>
             </div>
-            <h2 class="oswald text-2xl font-black text-gray-800 mb-1 uppercase tracking-wide">Rastrear Orden</h2>
-            <p class="text-gray-500 mb-6 text-xs font-medium">Ingresa el código de 5 letras que te dimos al finalizar tu compra.</p>
+            <h2 class="oswald text-3xl font-black text-gray-800 mb-2 uppercase tracking-wide">Rastrear Orden</h2>
+            <p class="text-gray-500 mb-8 text-sm font-medium">Ingresa el código alfanumérico que te dimos al finalizar tu compra.</p>
             
             <input type="text" id="input-rastreo" placeholder="Ej. A8F2X" class="w-full p-4 bg-gray-50 border-2 border-gray-200 text-gray-800 rounded-xl text-center text-3xl font-mono font-black tracking-widest focus:outline-none focus:border-[#0866bd] focus:bg-white uppercase mb-5 transition-all shadow-inner placeholder-gray-300">
             
-            <button onclick="window.rastrearPedido()" id="btn-buscar-rastreo" class="w-full bg-[#0866bd] text-white font-black py-4 rounded-xl hover:bg-blue-800 transition-all shadow-lg shadow-blue-500/30 text-sm uppercase tracking-widest mb-4 active:scale-95">
+            <button onclick="window.rastrearPedido()" id="btn-buscar-rastreo" class="w-full btn-agregar font-black py-4.5 uppercase tracking-widest mb-4 active:scale-95 flex items-center justify-center text-sm md:text-base border-none shadow-md">
                 Buscar Estado Actual
             </button>
             
@@ -605,14 +747,15 @@
         </div>
     </div>
 
+
     <!-- ========================================================================= -->
-    <!-- MÓDULO JAVASCRIPT & FIREBASE CORE                                         -->
+    <!-- MÓDULO JAVASCRIPT & FIREBASE CORE (LÓGICA EXPANDIDA Y ORDENADA)           -->
     <!-- ========================================================================= -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getFirestore, collection, onSnapshot, addDoc, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
-        // 🚨 CONFIGURACIÓN FIREBASE 🚨
+        // 🚨 CONFIGURACIÓN FIREBASE (Mantenidas las tuyas) 🚨
         const firebaseConfig = {
             apiKey: "AIzaSyCUq8O81sV7L9OqOzx9YBNogcHKiyi4RO0",
             authDomain: "moto-partes-el-jefe.firebaseapp.com",
@@ -625,62 +768,105 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Variables Globales
+        // Variables Globales del Sistema
         window.productosData = []; 
         window.inventario = {}; 
         window.carrito = [];
         const ITEMS_PER_PAGE = 16; 
         let currentPage = 1;
 
-        // Despertar Servidor IA en fondo
+        // Despertar Servidor IA de Render en el fondo silenciosamente
         fetch("https://backend-el-jefe.onrender.com/").catch(() => {});
 
-        // Intersección Observer para Animaciones en Scroll
+        // Intersección Observer para Animaciones en Scroll (Fade-up suave)
         const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
-                    observer.unobserve(entry.target);
+                    // Opcional: Descomentar si solo quieres que se anime la primera vez
+                    // observer.unobserve(entry.target); 
                 }
             });
         }, observerOptions);
 
+        // Lógica Scroll to Top Button
+        window.addEventListener('scroll', () => {
+            const btnTop = document.getElementById('btn-scroll-top');
+            if(window.scrollY > 500) {
+                btnTop.classList.add('visible');
+            } else {
+                btnTop.classList.remove('visible');
+            }
+        });
+
         // ========================================================
-        // 1. UI HELPERS & TOAST
+        // 1. UTILIDADES UI (TOAST Y MODALES)
         // ========================================================
         window.mostrarToast = function(titulo, msj, tipo = "success") {
             const toast = document.getElementById('toast'); 
             const icon = document.getElementById('toast-icon');
+            const progress = document.getElementById('toast-progress');
             
             document.getElementById('toast-title').innerText = titulo; 
             document.getElementById('toast-msg').innerText = msj;
             
+            // Asignar colores según tipo
             if(tipo === "success") { 
                 icon.className = "text-green-400 text-2xl"; 
                 icon.innerHTML = '<i class="fas fa-check-circle"></i>'; 
+                progress.style.backgroundColor = "#10b981";
             } else if(tipo === "info") { 
                 icon.className = "text-[#0866bd] text-2xl"; 
                 icon.innerHTML = '<i class="fas fa-info-circle"></i>'; 
+                progress.style.backgroundColor = "#3b82f6";
             } else { 
                 icon.className = "text-[var(--rojo-accent)] text-2xl"; 
                 icon.innerHTML = '<i class="fas fa-exclamation-triangle"></i>'; 
+                progress.style.backgroundColor = "#ef4444";
             }
             
+            // Mostrar Toast
             toast.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
-            setTimeout(() => toast.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none'), 3500);
+            
+            // Reiniciar y arrancar barra de progreso (3.5 segundos)
+            progress.style.animation = 'none';
+            void progress.offsetWidth; // Reflow
+            progress.style.animation = 'shrinkProgress 3.5s linear forwards';
+
+            // Ocultar después del tiempo
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
+            }, 3500);
         };
         
         window.abrirModal = function(id) { 
-            const m = document.getElementById(id); 
-            const b = m.querySelector('.transform');
-            m.style.display = 'flex'; 
+            const modal = document.getElementById(id); 
+            const box = modal.querySelector('.transform');
+            
+            modal.style.display = 'flex'; 
+            
+            // Timeout para dar tiempo al navegador de procesar el display:flex antes de animar opacidad/escala
             setTimeout(() => {
-                m.classList.add('modal-active');
-                if(b) { b.classList.remove('scale-95'); b.classList.add('scale-100'); }
+                modal.classList.add('modal-active');
+                if(box) { 
+                    box.classList.remove('scale-95'); 
+                    box.classList.add('scale-100'); 
+                }
             }, 10); 
-            document.body.style.overflow = 'hidden'; 
+            
+            document.body.style.overflow = 'hidden'; // Bloquear scroll del fondo
             if(id === 'rastreo-modal') document.getElementById('input-rastreo').focus(); 
+        };
+
+        // 🌟 Cierre general y robusto de modales 🌟
+        window.cerrarModalDinamico = function() {
+            const m = document.getElementById('modal-overlay');
+            const b = document.getElementById('modal-box');
+            m.classList.remove('modal-active');
+            if(b) { b.classList.remove('scale-100'); b.classList.add('scale-95'); }
+            setTimeout(() => m.style.display = 'none', 300);
+            document.body.style.overflow = 'auto';
         };
 
         window.cerrarModal = function(id) { 
@@ -693,7 +879,7 @@
         };
 
         // ========================================================
-        // 2. FIREBASE: Cargar Catálogo (Read)
+        // 2. FIREBASE: Cargar Catálogo (Read Realtime)
         // ========================================================
         onSnapshot(collection(db, "productos"), (snapshot) => {
             window.productosData = []; 
@@ -702,13 +888,15 @@
             snapshot.forEach(doc => { 
                 const d = doc.data(); 
                 window.productosData.push(d); 
+                // Guardamos el stock en un diccionario para acceso rápido
                 window.inventario[d.Nombre] = parseInt(d.Stock) || 0; 
             });
             
+            // Ocultar preloader inicial con estilo
             const loader = document.getElementById('initial-loader'); 
             if(loader && !loader.classList.contains('hidden')) { 
                 loader.style.opacity = '0'; 
-                setTimeout(() => loader.classList.add('hidden'), 500); 
+                setTimeout(() => loader.classList.add('hidden'), 700); 
             }
             
             renderizarProductosDOM(); 
@@ -716,10 +904,12 @@
         });
 
         // ========================================================
-        // 3. RENDERIZAR PRODUCTOS EN EL DOM
+        // 3. RENDERIZAR PRODUCTOS EN EL DOM (Inyección de HTML)
         // ========================================================
         function renderizarProductosDOM() {
             const grids = ['afinacion', 'suspension', 'llantas', 'accesorios', 'sub-freno', 'sub-electrico', 'sub-chicote'];
+            
+            // Limpiamos los grids primero
             grids.forEach(id => { 
                 const g = document.getElementById(`grid-${id}`) || document.getElementById(id); 
                 if(g && window.productosData.length > 0) g.innerHTML = ''; 
@@ -728,17 +918,21 @@
             if (window.productosData.length === 0) return;
 
             window.productosData.forEach((prod, index) => {
+                // Definir categoría para insertarlo en el lugar correcto
                 let catOriginal = prod.Categoria ? prod.Categoria.toLowerCase().trim() : 'accesorios';
                 if(catOriginal === 'sprocket') catOriginal = 'suspension'; 
-                let grid = document.getElementById(`grid-${catOriginal}`) || document.getElementById('grid-accesorios');
+                
+                // Corrección para las subcategorías
+                let gridId = catOriginal.startsWith('sub-') ? catOriginal : `grid-${catOriginal}`;
+                let grid = document.getElementById(gridId) || document.getElementById('grid-accesorios');
 
                 const stock = parseInt(prod.Stock) || 0;
                 
-                // Badges de Stock
+                // Badges de Stock Mejorados
                 let stockHTML = stock === 0 
                     ? `<div class="absolute top-3 left-3 bg-[var(--rojo-accent)] text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-md z-10 flex items-center gap-1 tracking-widest uppercase border border-red-500"><i class="fas fa-times-circle"></i> Agotado</div>` 
                     : (stock < 4 
-                        ? `<div class="absolute top-3 left-3 bg-[var(--amarillo-btn)] text-[#111827] text-[10px] font-black px-3 py-1 rounded-full shadow-md z-10 flex items-center gap-1 tracking-widest uppercase"><i class="fas fa-fire animate-pulse text-red-500"></i> ¡Últimas ${stock}!</div>` 
+                        ? `<div class="absolute top-3 left-3 bg-[var(--amarillo-btn)] text-[#111827] text-[10px] font-black px-3 py-1 rounded-full shadow-md z-10 flex items-center gap-1 tracking-widest uppercase"><i class="fas fa-fire animate-pulse text-red-600"></i> ¡Últimas ${stock}!</div>` 
                         : '');
                 
                 const isAgotado = stock === 0 ? 'opacity-50 grayscale hover:grayscale-0 transition-all' : '';
@@ -746,13 +940,14 @@
                 const imgUrl = prod.ImagenURL || 'logo.ico';
                 const codHTML = prod.Codigo ? `<p class="text-[9px] font-mono font-bold text-[#0866bd] bg-blue-50 inline-block px-2 py-0.5 rounded border border-blue-100 mt-1.5 shadow-sm"><i class="fas fa-barcode"></i> ${prod.Codigo}</p>` : '';
 
+                // Vista previa de compatibilidad (Solo la primera línea)
                 let compHtml = '';
                 if (prod.Compatibilidad && prod.Compatibilidad.trim() !== "") {
                     let rawText = prod.Compatibilidad.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ').trim();
                     if(rawText.length > 0) compHtml = `<p class="text-[10px] text-gray-500 mt-2.5 line-clamp-1 font-medium"><i class="fas fa-motorcycle text-[#0866bd] mr-1"></i> ${rawText}</p>`;
                 }
 
-                // Estructura de la tarjeta con botón de Agregar Rápido
+                // Estructura de la tarjeta
                 const cardHTML = `
                 <div class="product-card group ${isAgotado} flex flex-col w-full h-full p-5 relative overflow-hidden reveal" data-codigo="${prod.Codigo || ''}">
                     
@@ -782,8 +977,10 @@
                 if(grid) grid.insertAdjacentHTML('beforeend', cardHTML);
             });
 
-            // Re-aplicar el observer a los nuevos elementos
-            document.querySelectorAll('.reveal').forEach(el => {
+            // Re-aplicar el observer a los nuevos elementos revelables
+            document.querySelectorAll('.reveal').forEach((el, i) => {
+                // Pequeño truco para efecto de cascada en columnas
+                el.style.transitionDelay = `${(i % 4) * 50}ms`;
                 observer.observe(el);
             });
         }
@@ -798,6 +995,7 @@
             
             const sQty = parseInt(prod.Stock) || 0;
             
+            // Configurar Badge de Stock en el modal
             document.getElementById('modal-stock-badge').innerHTML = sQty === 0 
                 ? '<span class="bg-red-50 text-[var(--rojo-accent)] border border-red-200 px-3 py-1.5 rounded-full font-bold text-[10px] uppercase tracking-wider flex items-center"><i class="fas fa-times-circle mr-1.5 text-sm"></i> Agotado</span>' 
                 : (sQty < 4 
@@ -810,28 +1008,46 @@
             
             const cBody = document.getElementById('modal-compat-table-body');
             if (prod.Compatibilidad && prod.Compatibilidad.trim() !== "") {
-                cBody.innerHTML = prod.Compatibilidad.includes('<tr') ? prod.Compatibilidad : `<tr><td colspan="2">${prod.Compatibilidad}</td></tr>`;
+                cBody.innerHTML = prod.Compatibilidad.includes('<tr') ? prod.Compatibilidad : `<tr><td colspan="2" class="text-center text-gray-500">${prod.Compatibilidad}</td></tr>`;
                 document.getElementById('modal-compat-container').classList.remove('hidden');
             } else {
                 document.getElementById('modal-compat-container').classList.add('hidden');
             }
             
+            // 🌟 BOTÓN RECTANGULAR PERFECTO CON ANIMACIONES DINÁMICAS 🌟
             const bAdd = document.getElementById('modal-btn-add');
             if(sQty === 0) { 
-                bAdd.className = "flex items-center justify-center w-full bg-gray-200 text-gray-500 font-bold py-4 rounded-xl uppercase tracking-widest text-sm cursor-not-allowed border border-gray-300"; 
-                bAdd.innerHTML = '<i class="fas fa-ban mr-2 text-lg"></i> Agotado Temporalmente'; 
+                bAdd.className = "flex items-center justify-center w-full bg-gray-200 text-gray-500 font-bold py-4 uppercase tracking-widest text-sm md:text-base cursor-not-allowed border border-gray-300 transition-all rounded-none"; 
+                bAdd.innerHTML = '<i class="fas fa-ban mr-2 text-lg"></i> AGOTADO TEMPORALMENTE'; 
                 bAdd.onclick = null; 
             } else { 
-                bAdd.className = "flex items-center justify-center w-full btn-cart font-black py-4.5 rounded-xl uppercase tracking-widest active:scale-95 text-sm shadow-xl"; 
-                bAdd.innerHTML = '<i class="fas fa-cart-plus mr-3 text-xl"></i> Agregar al Pedido'; 
+                bAdd.className = "flex items-center justify-center w-full btn-agregar font-black py-4 uppercase tracking-widest text-sm md:text-base shadow-xl rounded-none cursor-pointer"; 
+                bAdd.innerHTML = '<i class="fas fa-cart-plus mr-3 text-xl"></i> AGREGAR AL PEDIDO'; 
                 bAdd.onclick = () => window.addToCart(prod.Nombre, prod.Precio); 
             }
             
             window.abrirModal('modal-overlay');
         }
 
+        window.closeModal = function(e) { 
+            // Cierra el modal si dan clic afuera de la caja o en la X
+            if (e.target.id === 'modal-overlay' || e.target.closest('button')) { 
+                const m = document.getElementById('modal-overlay'); 
+                const b = document.getElementById('modal-box'); 
+                
+                m.classList.remove('modal-active'); 
+                if(b) {
+                    b.classList.remove('scale-100'); 
+                    b.classList.add('scale-95'); 
+                }
+                
+                setTimeout(() => m.style.display = 'none', 300); 
+                document.body.style.overflow = 'auto'; 
+            } 
+        }
+
         // ========================================================
-        // 5. CARRITO DE COMPRAS Y UI
+        // 5. SISTEMA DE CARRITO DE COMPRAS Y UI
         // ========================================================
         window.toggleCart = function() { 
             const sb = document.getElementById('cart-sidebar');
@@ -858,10 +1074,16 @@
             }
             
             window.updateCartUI(); 
-            window.cerrarModal('modal-overlay'); 
+            window.cerrarModalDinamico(); 
             window.mostrarToast("Caja Actualizada", `Agregaste: ${title}`, "success");
             
-            // Animación del carrito en Header
+            // Animación saltarina del carrito completo en el Header
+            const btnCart = document.querySelector('.btn-cart').parentElement;
+            btnCart.classList.remove('jump-anim');
+            void btnCart.offsetWidth; // Forzar reflow
+            btnCart.classList.add('jump-anim');
+            
+            // Animación Pop del Badge Rojo
             const badge = document.getElementById('cart-count');
             badge.classList.remove('pop-anim');
             void badge.offsetWidth; 
@@ -897,7 +1119,13 @@
             let tot = 0; let cant = 0;
             
             if (window.carrito.length === 0) { 
-                container.innerHTML = `<div class="text-center mt-24 text-slate-400 fade-in"><i class="fas fa-box-open text-6xl mb-4 opacity-30"></i><p class="font-bold text-lg text-slate-500 uppercase tracking-widest">Caja Vacía</p><p class="text-sm mt-2 font-medium">¡Agrega piezas del catálogo!</p></div>`; 
+                container.innerHTML = `
+                    <div class="text-center mt-24 text-slate-400 fade-in">
+                        <i class="fas fa-box-open text-7xl mb-5 opacity-20 animate-pulse"></i>
+                        <p class="font-black text-xl text-gray-500 uppercase tracking-widest">Caja Vacía</p>
+                        <p class="text-sm mt-2 font-medium text-gray-400">¡Explora y agrega piezas del catálogo!</p>
+                        <button onclick="window.toggleCart()" class="mt-6 text-[#0866bd] text-sm font-bold border border-[#0866bd] px-5 py-2.5 rounded-full hover:bg-blue-50 transition active:scale-95">Ver Catálogo</button>
+                    </div>`; 
             } else { 
                 window.carrito.forEach((i, idx) => { 
                     let st = i.price * i.qty; 
@@ -926,7 +1154,7 @@
         }
 
         // ========================================================
-        // 6. ENVIAR PEDIDO A FIREBASE (Panel Maestro)
+        // 6. ENVIAR PEDIDO A FIREBASE (CERO WHATSAPP DIRECTO)
         // ========================================================
         window.enviarPedido = async function() {
             if (window.carrito.length === 0) { 
@@ -945,15 +1173,16 @@
 
             const btn = document.getElementById('btn-comprar'); 
             const oHtml = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin mr-3 text-xl"></i> Enviando Orden...'; 
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin mr-3 text-xl text-[var(--amarillo-btn)]"></i> Procesando...'; 
             btn.disabled = true;
             
             let tot = 0; 
             window.carrito.forEach(i => tot += (i.price * i.qty));
             
-            // Genera ID de Rastreo Alfanumérico
+            // Genera ID de Rastreo Alfanumérico Elegante (Ej: A8X92)
             const idC = Math.random().toString(36).substring(2, 7).toUpperCase();
 
+            // 💥 NOTA: Guardamos en Firebase, NO abrimos WhatsApp 💥
             const pLoad = { 
                 idCorto: idC, 
                 cliente: nom, 
@@ -965,17 +1194,17 @@
             };
             
             try {
-                // Guarda directo en la colección 'pedidos' de Firebase
+                // Guarda directo en Firebase (Esto notifica al admin)
                 await addDoc(collection(db, "pedidos"), pLoad);
                 
-                // Reset UI
+                // Reset UI general
                 window.carrito = []; 
                 window.updateCartUI(); 
                 document.getElementById('cliente-nombre').value = ''; 
                 document.getElementById('cliente-telefono').value = ''; 
                 window.toggleCart();
                 
-                // Mostrar Modal Éxito
+                // Mostrar Modal Éxito al Cliente
                 document.getElementById('orden-id').innerText = `#${idC}`; 
                 window.abrirModal('success-modal');
                 
@@ -1008,6 +1237,7 @@
             rDiv.className = "p-5 rounded-xl font-bold text-sm border mt-4 transition-all fade-in shadow-inner";
             
             try {
+                // Query directa a Firebase por el ID corto
                 const q = query(collection(db, "pedidos"), where("idCorto", "==", inp)); 
                 const snap = await getDocs(q);
                 
@@ -1032,7 +1262,7 @@
                 }
             } catch (e) { 
                 rDiv.classList.add('bg-red-50', 'text-red-700', 'border-red-200'); 
-                rDiv.innerHTML = `<i class="fas fa-wifi mr-2"></i> Error de red. Intenta más tarde.`; 
+                rDiv.innerHTML = `<i class="fas fa-wifi mr-2 text-red-500 text-xl align-middle"></i> Error de red. Intenta más tarde.`; 
             } finally { 
                 rDiv.classList.remove('hidden'); 
                 btn.innerHTML = oTxt; 
@@ -1041,7 +1271,7 @@
         }
 
         // ========================================================
-        // 8. TABS Y PAGINACIÓN
+        // 8. TABS, PAGINACIÓN Y BÚSQUEDA
         // ========================================================
         window.renderPagination = function() {
             const controls = document.getElementById('pagination-controls'); 
@@ -1077,6 +1307,10 @@
             
             cards.forEach((c, idx) => { 
                 c.style.display = (idx >= start && idx < end) ? 'flex' : 'none'; 
+                if(idx >= start && idx < end) {
+                    c.classList.remove('active');
+                    setTimeout(()=> c.classList.add('active'), 50);
+                }
             });
             
             for (let i = 1; i <= totP; i++) { 
@@ -1102,10 +1336,19 @@
             const bT = document.getElementById('btn-' + tId); 
             if(bT) bT.classList.add('active'); 
             
+            // Si el usuario regresa a la pestaña de refacciones, mostramos el menú de los 3 botones grandes
+            if(tId === 'refacciones') {
+                window.showRefaccionesHome();
+            }
+
             currentPage = 1; 
             window.renderPagination(); 
             
-            document.querySelectorAll('.reveal').forEach(el => { el.classList.remove('active'); setTimeout(()=>el.classList.add('active'), 50); });
+            // Re trigger animations for new section
+            document.querySelectorAll('.reveal').forEach(el => { 
+                el.classList.remove('active'); 
+                setTimeout(()=>el.classList.add('active'), 50); 
+            });
         }
         
         window.showRefaccionesHome = function() { 
@@ -1117,6 +1360,11 @@
                 btn.classList.add('bg-white'); 
             }); 
             document.getElementById('pagination-controls').innerHTML = ''; 
+            
+            // Animaciones de sub-inicio
+            document.getElementById('refacciones-home').querySelectorAll('.reveal').forEach(el => {
+                el.classList.remove('active'); setTimeout(()=>el.classList.add('active'), 50);
+            });
         }
         
         window.filterRefacciones = function(sId) { 
@@ -1156,7 +1404,12 @@
                 cards.forEach(c => { 
                     let txt = c.innerText.toUpperCase(); 
                     let cod = c.getAttribute('data-codigo') ? c.getAttribute('data-codigo').toUpperCase() : ''; 
-                    c.style.display = (txt.indexOf(inp) > -1 || cod.indexOf(inp) > -1) ? "flex" : "none"; 
+                    if(txt.indexOf(inp) > -1 || cod.indexOf(inp) > -1){
+                        c.style.display = "flex";
+                        c.classList.add('active'); // Mantiene la opacidad
+                    } else {
+                        c.style.display = "none";
+                    }
                 }); 
             } else { 
                 if (ctl) ctl.style.display = 'flex'; 
@@ -1166,9 +1419,10 @@
         }
 
         // ========================================================
-        // 9. CHATBOT IA Y SEARCH IA
+        // 9. CHATBOT IA Y SEARCH IA (Con Render)
         // ========================================================
         window.chatHistory = []; 
+        
         window.toggleChat = function() { 
             const c = document.getElementById('chat-window'); 
             c.style.display = c.style.display === 'flex' ? 'none' : 'flex'; 
@@ -1189,6 +1443,7 @@
             msgs.innerHTML += `<div id="${lId}" class="chat-bubble chat-bot animate-pulse border border-blue-100 shadow-sm fade-in"><i class="fas fa-circle-notch fa-spin mr-2 text-[#0866bd]"></i> Revisando almacén...</div>`; 
             msgs.scrollTop = msgs.scrollHeight;
             
+            // Empaquetado ligero del catálogo para no saturar memoria IA
             const cat = window.productosData.map((p, i) => `[ID: ${i}] Cat: ${p.Categoria} ${p.Codigo?`| Cod: ${p.Codigo}`:''} | Nom: ${p.Nombre} | Prec: $${p.Precio} | Stock: ${p.Stock} | Comp: ${p.Compatibilidad ? p.Compatibilidad.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ').trim() : 'Universal'}`).join('\n');
             
             window.chatHistory.push({ role: "user", parts: [{ text: msg }] });
@@ -1220,6 +1475,7 @@
                 let rply = d.candidates[0].content.parts[0].text; 
                 window.chatHistory.push({ role: "model", parts: [{ text: rply }] });
                 
+                // Conversión de Markdown y Etiquetas a UI
                 rply = rply.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>').replace(/\n/g, '<br>');
                 rply = rply.replace(/\[PRODUCTO:\s*(\d+)\]/gi, (m, id) => { 
                     const p = window.productosData[parseInt(id)]; 
@@ -1280,11 +1536,16 @@
                 document.querySelectorAll('.sub-category-grid').forEach(g => g.classList.remove('hidden'));
                 
                 document.querySelectorAll('.product-card').forEach(c => { 
-                    c.style.display = noms.includes(c.querySelector('h3').innerText.trim()) ? "flex" : "none"; 
+                    if(noms.includes(c.querySelector('h3').innerText.trim())) {
+                        c.style.display = "flex";
+                        c.classList.add('active'); // Mostrar y animar
+                    } else {
+                        c.style.display = "none";
+                    }
                 });
                 
             } catch (e) { 
-                if (e.message === "LIMITE") window.mostrarToast("Límite de Búsquedas Inteligentes", "El sistema IA está saturado. Por el momento usaremos la búsqueda estándar.", "info"); 
+                if (e.message === "LIMITE") window.mostrarToast("Límite IA", "Demasiadas búsquedas. Usa la barra estándar por ahora.", "info"); 
                 window.searchProducts(); 
             } finally { 
                 document.getElementById('btn-ia-search').classList.remove('ia-searching'); 
@@ -1293,7 +1554,7 @@
         }
 
         // ========================================================
-        // 10. CARRUSEL HEADER
+        // 10. EXTRAS: CARRUSEL
         // ========================================================
         const slides = [
             { img: 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80', title: 'ESPECIALISTAS EN MOTOS', text: 'Refacciones de calidad para tu camino.' },
