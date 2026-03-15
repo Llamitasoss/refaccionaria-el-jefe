@@ -54,9 +54,11 @@
             to { opacity: 1; transform: translateY(0); } 
         }
 
+        /* Animación de Revelado en Scroll (Staggered) */
         .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .reveal.active { opacity: 1; transform: translateY(0); }
         
+        /* Animación Latido Suave */
         .pulse-soft { animation: pulseSoft 2s infinite; }
         @keyframes pulseSoft {
             0% { transform: scale(1); }
@@ -71,18 +73,24 @@
             background-color: var(--azul-brand); 
             box-shadow: 0 10px 30px -10px rgba(8, 102, 189, 0.6); 
             position: relative; 
-            z-index: 50; 
+            z-index: 60; 
         }
         
+        /* Contenedor Sticky Unificado (Categorías + Buscador) */
+        .sticky-header-container {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
         .category-nav { 
-            background-color: rgba(255, 255, 255, 0.85); 
+            background-color: rgba(255, 255, 255, 0.98); 
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255,255,255,0.3); 
-            position: sticky; 
-            top: 0; 
-            z-index: 40; 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.04); 
+            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
         
         .nav-btn { 
@@ -110,6 +118,11 @@
             animation: slideUp 0.3s ease forwards;
         }
         @keyframes slideUp { from { height: 0; opacity: 0; } to { height: 4px; opacity: 1; } }
+
+        /* Ajuste de scroll para que el Sticky Header no tape los títulos */
+        .product-section {
+            scroll-margin-top: 180px; 
+        }
         
         /* =========================================
            HERO BANNER Y TARJETAS
@@ -300,13 +313,16 @@
         .compat-table-body tr:hover { background-color: #f0f9ff; transition: background-color 0.2s; }
         
         /* =========================================
-           PAGINACIÓN Y BOTONES FLOTANTES
+           PAGINACIÓN
            ========================================= */
         .pagination-container { display: flex; justify-content: center; gap: 12px; margin-top: 50px; padding-bottom: 40px; }
         .page-btn { background-color: white; border: 2px solid #e2e8f0; color: #64748b; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; border-radius: 12px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); font-family: 'Oswald', sans-serif; font-size: 1.1rem; }
         .page-btn:hover { border-color: var(--azul-brand); color: var(--azul-brand); transform: translateY(-3px); box-shadow: 0 4px 10px rgba(8, 102, 189, 0.15); }
         .page-btn.active { background-color: var(--azul-brand); border-color: var(--azul-brand); color: white; box-shadow: 0 6px 15px rgba(8, 102, 189, 0.4); transform: scale(1.05); }
         
+        /* =========================================
+           BOTONES FLOTANTES Y CHATBOT
+           ========================================= */
         .float-chat, .float-top { 
             position: fixed; 
             width: 60px; height: 60px; 
@@ -323,7 +339,6 @@
         .float-top.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
         .float-top:hover { transform: translateY(-5px) scale(1.1); background-color: #0f172a; }
         
-        /* Chatbot IA */
         #chat-window { 
             display: none; flex-direction: column; 
             position: fixed; bottom: 110px; right: 30px; 
@@ -352,23 +367,31 @@
             width: 100%; transform-origin: left;
         }
         @keyframes shrinkProgress { from { transform: scaleX(1); } to { transform: scaleX(0); } }
-        
-        /* Loaders */
-        .skeleton { background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%); background-size: 200% 100%; animation: 1.5s shine linear infinite; }
-        @keyframes shine { to { background-position-x: -200%; } }
-        
+
+        /* Animación IA Loader */
+        .ia-searching { animation: pulseIA 1.5s infinite; }
+        @keyframes pulseIA { 
+            0% { box-shadow: 0 0 0 0 rgba(8, 102, 189, 0.4); } 
+            70% { box-shadow: 0 0 0 15px rgba(8, 102, 189, 0); } 
+            100% { box-shadow: 0 0 0 0 rgba(8, 102, 189, 0); } 
+        }
+
+        /* Focus styles */
         input:focus, textarea:focus { border-color: var(--azul-brand) !important; box-shadow: 0 0 0 3px rgba(8, 102, 189, 0.2) !important; outline: none; }
     </style>
 </head>
 <body class="relative">
 
-    <!-- TOAST DE NOTIFICACIONES GLOBALES -->
+    <!-- ========================================================================= -->
+    <!-- NOTIFICACIONES GLOBALES (TOAST)                                           -->
+    <!-- ========================================================================= -->
     <div id="toast" class="fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-slate-900/95 backdrop-blur-md text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-4 z-[9999] transition-all duration-500 opacity-0 translate-y-10 pointer-events-none border border-slate-700 min-w-[300px]">
         <div id="toast-icon" class="text-green-400 text-2xl"><i class="fas fa-check-circle"></i></div>
         <div class="flex-1">
             <h4 id="toast-title" class="font-bold text-sm leading-tight text-white">Éxito</h4>
             <p id="toast-msg" class="text-xs text-slate-300 mt-0.5">Acción completada.</p>
         </div>
+        <!-- Barra de progreso que se agota -->
         <div id="toast-progress" class="toast-progress"></div>
     </div>
 
@@ -408,19 +431,16 @@
                     <i class="fas fa-search-location text-xl"></i>
                 </button>
             </div>
-            
-            <!-- Botones Derechos -->
-            <div class="flex items-center gap-6 w-full md:w-auto justify-end">
+            <!-- Botones Derechos (PC) -->
+            <div class="flex items-center gap-4 w-full md:w-auto justify-end">
                 <button onclick="window.abrirModal('rastreo-modal')" class="hidden md:flex items-center bg-blue-900/40 hover:bg-blue-800 text-white py-3.5 px-6 rounded-full shadow-inner border border-blue-400/30 transition-all font-bold uppercase tracking-widest text-xs backdrop-blur-sm hover:shadow-lg active:scale-95">
                     <i class="fas fa-search-location mr-2 text-lg text-blue-300"></i> Rastrear Orden
                 </button>
 
-                <!-- BOTÓN CARRITO DINÁMICO (Aura de luz + Pop) -->
+                <!-- BOTÓN CARRITO DINÁMICO -->
                 <div class="cart-wrapper relative w-full md:w-auto">
-                    <!-- Efecto de luz por detrás del botón -->
                     <div class="cart-glow"></div>
-                    
-                    <button onclick="window.toggleCart()" class="btn-cart relative py-3.5 px-8 rounded-full font-bold flex items-center justify-center w-full md:w-auto">
+                    <button onclick="window.toggleCart()" class="btn-cart relative py-3.5 px-8 rounded-full font-bold flex items-center justify-center w-full md:w-auto active:scale-95">
                         <i class="fas fa-shopping-cart text-xl md:text-2xl mr-3"></i>
                         <span class="uppercase text-sm oswald tracking-widest">Mi Carrito</span>
                     </button>
@@ -431,27 +451,34 @@
         </div>
     </header>
     
-    <!-- BARRA NAVEGACIÓN -->
-    <nav class="category-nav">
-        <div class="max-w-7xl mx-auto px-4 flex justify-start md:justify-center overflow-x-auto no-scrollbar py-2">
-            <button onclick="window.switchTab('afinacion')" id="btn-afinacion" class="nav-btn active whitespace-nowrap flex-shrink-0"><i class="fas fa-oil-can mr-2 text-gray-400 group-hover:text-[var(--azul-brand)]"></i> Afinación</button>
-            <button onclick="window.switchTab('suspension')" id="btn-suspension" class="nav-btn whitespace-nowrap flex-shrink-0"><i class="fas fa-cogs mr-2 text-gray-400"></i> Suspensión</button>        
-            <button onclick="window.switchTab('llantas')" id="btn-llantas" class="nav-btn whitespace-nowrap flex-shrink-0"><i class="fas fa-bullseye mr-2 text-gray-400"></i> Llantas</button>
-            <button onclick="window.switchTab('refacciones')" id="btn-refacciones" class="nav-btn whitespace-nowrap flex-shrink-0"><i class="fas fa-wrench mr-2 text-gray-400"></i> Refacciones</button>
-            <button onclick="window.switchTab('accesorios')" id="btn-accesorios" class="nav-btn whitespace-nowrap flex-shrink-0"><i class="fas fa-helmet-safety mr-2 text-gray-400"></i> Accesorios</button>
-        </div>
-    </nav>
+    <!-- ========================================================================= -->
+    <!-- CONTENEDOR STICKY UNIFICADO (Navegación + Buscador)                       -->
+    <!-- ========================================================================= -->
+    <div class="sticky top-0 z-50 flex flex-col shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)] transition-all duration-300 w-full">
+        
+        <!-- BARRA NAVEGACIÓN BLANCA (GLASS) -->
+        <nav class="category-nav w-full">
+            <div class="max-w-7xl mx-auto px-4 flex justify-start md:justify-center overflow-x-auto no-scrollbar py-1">
+                <button onclick="window.switchTab('afinacion')" id="btn-afinacion" class="nav-btn active whitespace-nowrap flex-shrink-0"><i class="fas fa-oil-can mr-2 text-gray-400 group-hover:text-[var(--azul-brand)] transition-colors"></i> Afinación</button>
+                <button onclick="window.switchTab('suspension')" id="btn-suspension" class="nav-btn whitespace-nowrap flex-shrink-0"><i class="fas fa-cogs mr-2 text-gray-400 group-hover:text-[var(--azul-brand)] transition-colors"></i> Suspensión</button>        
+                <button onclick="window.switchTab('llantas')" id="btn-llantas" class="nav-btn whitespace-nowrap flex-shrink-0"><i class="fas fa-bullseye mr-2 text-gray-400 group-hover:text-[var(--azul-brand)] transition-colors"></i> Llantas</button>
+                <button onclick="window.switchTab('refacciones')" id="btn-refacciones" class="nav-btn whitespace-nowrap flex-shrink-0"><i class="fas fa-wrench mr-2 text-gray-400 group-hover:text-[var(--azul-brand)] transition-colors"></i> Refacciones</button>
+                <button onclick="window.switchTab('accesorios')" id="btn-accesorios" class="nav-btn whitespace-nowrap flex-shrink-0"><i class="fas fa-helmet-safety mr-2 text-gray-400 group-hover:text-[var(--azul-brand)] transition-colors"></i> Accesorios</button>
+            </div>
+        </nav>
 
-    <!-- BUSCADOR INTELIGENTE -->
-    <div class="bg-[var(--bg-crema)] py-6 px-4 sticky top-[76px] md:top-[88px] z-30 border-b border-gray-200/50 backdrop-blur-md bg-opacity-95 shadow-sm">
-        <div class="max-w-3xl mx-auto relative flex items-center bg-white rounded-full shadow-md border border-gray-200 focus-within:border-[var(--azul-brand)] focus-within:ring-4 focus-within:ring-blue-100 transition-all p-1.5 hover:shadow-lg">
-            <i class="fas fa-search text-gray-400 text-xl ml-5"></i>
-            <input type="text" id="globalSearch" onkeyup="if(event.key === 'Enter') window.triggerSmartSearch(); else window.searchProducts();" placeholder="Busca por nombre, modelo o marca..." class="w-full p-3 pl-4 bg-transparent border-none focus:outline-none text-lg text-gray-800 placeholder-gray-400 font-medium">
-            <button id="btn-ia-search" onclick="window.triggerSmartSearch()" class="bg-gradient-to-r from-[#0866bd] to-[#1e3a8a] text-white px-8 py-3.5 rounded-full font-bold uppercase text-xs md:text-sm tracking-widest flex items-center hover:shadow-[0_0_20px_rgba(8,102,189,0.5)] transition-all m-1 hover:scale-105 active:scale-95 shadow-md">
-                <i class="fas fa-magic mr-2 text-blue-200"></i> Búsqueda IA
-            </button>
+        <!-- BUSCADOR INTELIGENTE MINIMALISTA Y DINÁMICO -->
+        <div class="bg-[var(--azul-brand)] py-2.5 px-4 w-full border-b-[4px] border-[var(--amarillo-btn)] relative z-20 shadow-md">
+            <div class="max-w-lg mx-auto relative flex items-center bg-white rounded-full shadow-inner focus-within:ring-4 focus-within:ring-[#facc15]/40 transition-all p-1 hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+                <input type="text" id="globalSearch" onkeyup="if(event.key === 'Enter') window.triggerSmartSearch(); else window.searchProducts();" placeholder="Busca aquí..." class="w-full py-2.5 px-5 bg-transparent border-none focus:outline-none text-gray-700 placeholder-gray-400 font-medium text-sm md:text-base">
+                <button id="btn-ia-search" onclick="window.triggerSmartSearch()" class="bg-[var(--azul-brand)] text-white w-10 h-10 md:w-11 md:h-11 rounded-full flex items-center justify-center hover:bg-blue-800 transition-all hover:scale-105 active:scale-95 shadow-md shrink-0 border border-blue-400/30" title="Búsqueda Inteligente">
+                    <i class="fas fa-search text-sm md:text-base"></i>
+                </button>
+            </div>
+            <p id="ia-search-status" class="text-center text-[10px] md:text-xs font-bold text-white mt-1.5 hidden tracking-widest uppercase fade-in">
+                <i class="fas fa-spinner fa-spin mr-1.5 text-[var(--amarillo-btn)]"></i> Procesando búsqueda inteligente...
+            </p>
         </div>
-        <p id="ia-search-status" class="text-center text-xs font-bold text-[#0866bd] mt-3 hidden tracking-widest uppercase fade-in"><i class="fas fa-spinner fa-spin mr-2"></i> Procesando búsqueda inteligente...</p>
     </div>
 
     <!-- BANNER HERO PARALLAX -->
@@ -470,7 +497,7 @@
     <main class="max-w-7xl mx-auto px-4 min-h-[600px] py-16 md:py-24 relative">
         
         <section id="afinacion" class="product-section">
-            <div class="flex items-center mb-12 border-b-2 border-gray-200 pb-4 reveal"><div class="h-10 w-2 bg-[var(--rojo-accent)] mr-4 rounded-full shadow-[0_0_10px_rgba(220,38,38,0.5)]"></div><h2 class="text-3xl md:text-4xl font-bold text-[var(--texto-dark)] oswald uppercase tracking-tight">Kits de Afinación</h2></div>
+            <div class="flex items-center mb-12 border-b-2 border-gray-200 pb-4 reveal"><div class="h-10 w-2 bg-[var(--rojo-accent)] mr-4 rounded-full shadow-[0_0_10px_rgba(220,38,38,0.5)]"></div><h2 class="text-3xl md:text-4xl font-bold text-[var(--azul-brand)] oswald uppercase tracking-tight">Kits de Afinación</h2></div>
             <div id="grid-afinacion" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
                 <!-- Skeletons Loader iniciales -->
                 <div class="bg-white rounded-3xl p-5 shadow-sm border border-gray-100"><div class="w-full aspect-square skeleton rounded-2xl mb-4"></div><div class="h-4 skeleton rounded w-3/4 mb-2"></div><div class="h-8 skeleton rounded w-full mt-4"></div></div>
@@ -479,19 +506,19 @@
         </section>
 
         <section id="suspension" class="product-section hidden-section">
-            <div class="flex items-center mb-12 border-b-2 border-gray-200 pb-4 reveal"><div class="h-10 w-2 bg-[var(--amarillo-btn)] mr-4 rounded-full shadow-[0_0_10px_rgba(234,179,8,0.5)]"></div><h2 class="text-3xl md:text-4xl font-bold text-[var(--texto-dark)] oswald uppercase tracking-tight">Suspensión y Sprocket</h2></div>
+            <div class="flex items-center mb-12 border-b-2 border-gray-200 pb-4 reveal"><div class="h-10 w-2 bg-[var(--amarillo-btn)] mr-4 rounded-full shadow-[0_0_10px_rgba(234,179,8,0.5)]"></div><h2 class="text-3xl md:text-4xl font-bold text-[var(--azul-brand)] oswald uppercase tracking-tight">Suspensión y Sprocket</h2></div>
             <div id="grid-suspension" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8"></div>
         </section>
 
         <section id="llantas" class="product-section hidden-section">
-            <div class="flex items-center mb-12 border-b-2 border-gray-200 pb-4 reveal"><div class="h-10 w-2 bg-slate-800 mr-4 rounded-full shadow-[0_0_10px_rgba(30,41,59,0.5)]"></div><h2 class="text-3xl md:text-4xl font-bold text-[var(--texto-dark)] oswald uppercase tracking-tight">Llantas y Cámaras</h2></div>
+            <div class="flex items-center mb-12 border-b-2 border-gray-200 pb-4 reveal"><div class="h-10 w-2 bg-slate-800 mr-4 rounded-full shadow-[0_0_10px_rgba(30,41,59,0.5)]"></div><h2 class="text-3xl md:text-4xl font-bold text-[var(--azul-brand)] oswald uppercase tracking-tight">Llantas y Cámaras</h2></div>
             <div id="grid-llantas" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8"></div>
         </section>
 
         <!-- Refacciones (Subcategorías) -->
         <section id="refacciones" class="product-section hidden-section">
             <div class="border-b-2 border-gray-200 pb-6 mb-10 reveal">
-                <div class="flex items-center mb-6"><div class="h-10 w-2 bg-[var(--azul-brand)] mr-4 rounded-full shadow-[0_0_10px_rgba(8,102,189,0.5)]"></div><h2 class="text-3xl md:text-4xl font-bold text-[var(--texto-dark)] oswald uppercase tracking-tight">Refacciones Generales</h2></div>
+                <div class="flex items-center mb-6"><div class="h-10 w-2 bg-[var(--azul-brand)] mr-4 rounded-full shadow-[0_0_10px_rgba(8,102,189,0.5)]"></div><h2 class="text-3xl md:text-4xl font-bold text-[var(--azul-brand)] oswald uppercase tracking-tight">Refacciones Generales</h2></div>
                 <button onclick="window.showRefaccionesHome()" id="btn-back-ref" class="hidden text-sm font-bold text-gray-500 hover:text-[var(--azul-brand)] mb-6 bg-white px-5 py-3 rounded-xl shadow-sm border border-gray-200 transition-all hover:shadow-md active:scale-95"><i class="fas fa-arrow-left mr-2"></i> Volver a categorías</button>
                 <div class="flex gap-4 overflow-x-auto pb-4 no-scrollbar">
                     <button onclick="window.filterRefacciones('sub-freno')" id="btn-sub-freno" class="sub-nav-btn px-6 py-3.5 bg-white border border-gray-200 text-gray-700 rounded-xl font-bold text-sm uppercase transition-all shadow-sm hover:shadow-md hover:border-red-200 hover:bg-red-50 whitespace-nowrap active:scale-95"><i class="fas fa-circle mr-2 text-[var(--rojo-accent)] text-[10px] mb-0.5 shadow-sm"></i> Frenos</button>
@@ -517,6 +544,7 @@
                     <i class="fas fa-chevron-right ml-auto text-gray-300 group-hover:text-gray-700 text-xl transition-colors"></i>
                 </div>
             </div>
+            
             <div id="sub-freno" class="sub-category-grid hidden grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8 w-full mt-6"></div>
             <div id="sub-electrico" class="sub-category-grid hidden grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8 w-full mt-6"></div>
             <div id="sub-chicote" class="sub-category-grid hidden grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8 w-full mt-6"></div>
@@ -556,7 +584,7 @@
                 </a>
                 <a href="https://wa.me/523332406334" target="_blank" class="block text-blue-100 mb-4 hover:text-white transition text-sm flex items-start justify-center md:justify-start hover:translate-x-2 transform">
                     <i class="fab fa-whatsapp mr-3 text-green-400 text-2xl bg-white/10 p-2 rounded-full"></i> 
-                    <span class="text-left font-bold text-base mt-1">+52 33 3240 6334 <br><span class="text-[10px] font-normal text-blue-200 uppercase tracking-widest block mt-1">(Dudas o aclaraciones de pedidos)</span></span>
+                    <span class="text-left font-bold text-base mt-1">+52 33 3240 6334 <br><span class="text-[10px] font-normal text-blue-200 uppercase tracking-widest block mt-1">(Solo aclaraciones de pedidos)</span></span>
                 </a>
                 
                 <!-- MAPA DINÁMICO EXACTO -->
@@ -588,7 +616,7 @@
     
     <div id="chat-window">
         <div class="chat-header">
-            <span class="font-bold tracking-wide flex items-center"><i class="fas fa-robot mr-3 text-blue-200 text-xl"></i> El Jefecito</span>
+            <span class="font-bold tracking-wide flex items-center"><i class="fas fa-robot mr-3 text-blue-200 text-xl"></i> ElJefecito</span>
             <button onclick="window.toggleChat()" class="text-white hover:text-blue-200 transition transform hover:scale-110"><i class="fas fa-times text-xl"></i></button>
         </div>
         <div id="chat-messages" class="chat-messages">
@@ -605,9 +633,9 @@
     <!-- ========================================================================= -->
 
     <!-- Modal: Detalles del Producto -->
-    <div id="modal-overlay" onclick="window.closeModal(event)" class="modal-bg">
+    <div id="modal-overlay" onclick="window.cerrarModalDinamico(event)" class="modal-bg">
         <div class="bg-white rounded-3xl max-w-4xl w-full relative shadow-2xl overflow-hidden flex flex-col md:flex-row h-auto max-h-[90vh] m-4 transform transition-all scale-95" id="modal-box">
-            <button onclick="window.closeModal(event)" class="absolute top-4 right-4 bg-white/80 backdrop-blur rounded-full w-10 h-10 flex items-center justify-center text-gray-500 hover:bg-red-100 hover:text-[var(--rojo-accent)] transition-all z-20 border border-gray-200 shadow-sm hover:scale-110"><i class="fas fa-times"></i></button>
+            <button onclick="window.cerrarModalDinamico()" class="absolute top-4 right-4 bg-white/80 backdrop-blur rounded-full w-10 h-10 flex items-center justify-center text-gray-500 hover:bg-red-100 hover:text-[var(--rojo-accent)] transition-all z-20 border border-gray-200 shadow-sm hover:scale-110"><i class="fas fa-times"></i></button>
             
             <div class="w-full md:w-5/12 bg-gray-50 flex items-center justify-center p-8 border-b md:border-b-0 md:border-r border-gray-200 relative min-h-[250px] overflow-hidden">
                 <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#0866bd 1px, transparent 1px); background-size: 20px 20px;"></div>
@@ -701,7 +729,7 @@
     </div>
 
     <!-- Modal de Éxito de Compra (Directo a Firebase) -->
-    <div id="success-modal" onclick="window.cerrarModal('success-modal')" class="modal-bg">
+    <div id="success-modal" onclick="if(event.target.id === 'success-modal') window.cerrarModal('success-modal')" class="modal-bg">
         <div class="bg-white p-8 md:p-12 rounded-[2rem] shadow-2xl max-w-md w-full text-center relative transform transition-all border-t-8 border-[#10b981] scale-95" id="success-box" onclick="event.stopPropagation()">
             <button onclick="window.cerrarModal('success-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 bg-gray-100 rounded-full w-10 h-10 flex justify-center items-center transition hover:scale-110"><i class="fas fa-times text-lg"></i></button>
             
@@ -727,7 +755,7 @@
     </div>
 
     <!-- Modal Rastreo de Pedido -->
-    <div id="rastreo-modal" onclick="window.cerrarModal('rastreo-modal')" class="modal-bg">
+    <div id="rastreo-modal" onclick="if(event.target.id === 'rastreo-modal') window.cerrarModal('rastreo-modal')" class="modal-bg">
         <div class="bg-white p-8 md:p-10 rounded-[2rem] shadow-2xl border border-gray-200 max-w-sm w-full text-center relative border-t-8 border-[#0866bd] scale-95" id="rastreo-box" onclick="event.stopPropagation()">
             <button onclick="window.cerrarModal('rastreo-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 bg-gray-100 rounded-full w-10 h-10 flex justify-center items-center transition hover:scale-110"><i class="fas fa-times text-lg"></i></button>
             
@@ -860,13 +888,16 @@
         };
 
         // 🌟 Cierre general y robusto de modales 🌟
-        window.cerrarModalDinamico = function() {
-            const m = document.getElementById('modal-overlay');
-            const b = document.getElementById('modal-box');
-            m.classList.remove('modal-active');
-            if(b) { b.classList.remove('scale-100'); b.classList.add('scale-95'); }
-            setTimeout(() => m.style.display = 'none', 300);
-            document.body.style.overflow = 'auto';
+        window.cerrarModalDinamico = function(event) {
+            // Aseguramos que el clic sea en el fondo negro o en la X
+            if (!event || event.target.id === 'modal-overlay' || event.target.closest('button')) {
+                const m = document.getElementById('modal-overlay');
+                const b = document.getElementById('modal-box');
+                m.classList.remove('modal-active');
+                if(b) { b.classList.remove('scale-100'); b.classList.add('scale-95'); }
+                setTimeout(() => m.style.display = 'none', 300);
+                document.body.style.overflow = 'auto';
+            }
         };
 
         window.cerrarModal = function(id) { 
@@ -1029,23 +1060,6 @@
             window.abrirModal('modal-overlay');
         }
 
-        window.closeModal = function(e) { 
-            // Cierra el modal si dan clic afuera de la caja o en la X
-            if (e.target.id === 'modal-overlay' || e.target.closest('button')) { 
-                const m = document.getElementById('modal-overlay'); 
-                const b = document.getElementById('modal-box'); 
-                
-                m.classList.remove('modal-active'); 
-                if(b) {
-                    b.classList.remove('scale-100'); 
-                    b.classList.add('scale-95'); 
-                }
-                
-                setTimeout(() => m.style.display = 'none', 300); 
-                document.body.style.overflow = 'auto'; 
-            } 
-        }
-
         // ========================================================
         // 5. SISTEMA DE CARRITO DE COMPRAS Y UI
         // ========================================================
@@ -1074,7 +1088,13 @@
             }
             
             window.updateCartUI(); 
-            window.cerrarModalDinamico(); 
+            
+            // Si el modal de detalles está abierto, lo cerramos
+            const modalOverlay = document.getElementById('modal-overlay');
+            if(modalOverlay.classList.contains('modal-active')) {
+                window.cerrarModalDinamico();
+            }
+            
             window.mostrarToast("Caja Actualizada", `Agregaste: ${title}`, "success");
             
             // Animación saltarina del carrito completo en el Header
@@ -1250,7 +1270,7 @@
                     } 
                     else if(p.estado === 'completado') { 
                         rDiv.classList.add('bg-green-50', 'text-green-700', 'border-green-200'); 
-                        rDiv.innerHTML = `<i class="fas fa-check-circle mr-2 text-green-500 text-xl align-middle"></i> Orden <b>#${inp}</b> completada. <br><span class="text-xs font-normal mt-1 block">Tu orden ya fue despachada y/o entregada. ¡Gracias por comprar!</span>`; 
+                        rDiv.innerHTML = `<i class="fas fa-check-circle mr-2 text-green-500 text-xl align-middle"></i> Orden <b>#${inp}</b> despachada / finalizada. <br><span class="text-xs font-normal mt-1 block">Tu orden ya fue despachada y/o entregada. ¡Gracias por comprar!</span>`; 
                     } 
                     else { 
                         rDiv.classList.add('bg-red-50', 'text-red-700', 'border-red-200'); 
@@ -1262,7 +1282,7 @@
                 }
             } catch (e) { 
                 rDiv.classList.add('bg-red-50', 'text-red-700', 'border-red-200'); 
-                rDiv.innerHTML = `<i class="fas fa-wifi mr-2 text-red-500 text-xl align-middle"></i> Error de red. Intenta más tarde.`; 
+                rDiv.innerHTML = `<i class="fas fa-wifi mr-2"></i> Error de red. Intenta más tarde.`; 
             } finally { 
                 rDiv.classList.remove('hidden'); 
                 btn.innerHTML = oTxt; 
@@ -1511,7 +1531,7 @@
             document.getElementById('ia-search-status').classList.remove('hidden');
             
             const cat = window.productosData.map(p => ({ nombre: p.Nombre, codigo: p.Codigo, compatibilidad: p.Compatibilidad }));
-            const promptBusqueda = "Eres un buscador interno. Analiza la petición del cliente y mapea la consulta a los productos de este array: " + JSON.stringify(cat) + ". Devuelve ÚNICAMENTE un JSON array puro de Strings con los nombres exactos que coincidan. Si no hay nada que se relacione, devuelve [].";
+            const promptBusqueda = "Eres un buscador interno de una refaccionaria. Mapea la consulta del cliente a los productos de este array: " + JSON.stringify(cat) + ". Devuelve ÚNICAMENTE un JSON array puro de Strings con los nombres exactos que coincidan. Si no hay nada que se relacione, devuelve [].";
             
             try {
                 const res = await fetch("https://backend-el-jefe.onrender.com/api/chat", { 
